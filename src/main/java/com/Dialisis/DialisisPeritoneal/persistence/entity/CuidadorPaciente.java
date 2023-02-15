@@ -21,7 +21,7 @@ public class CuidadorPaciente {
     @JoinColumn(name = "cuidador")
     Cuidador cuidador;
 
-    private LocalDateTime fecha_ini;
-    private LocalDateTime fecha_fin;
+    private LocalDate fecha_ini;
+    private LocalDate fecha_fin;
     private boolean activo;
 }
