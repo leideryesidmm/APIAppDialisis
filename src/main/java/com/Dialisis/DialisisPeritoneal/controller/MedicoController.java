@@ -52,40 +52,40 @@ public class MedicoController{
     }
 
     @GetMapping("/clinica/listClinicasByMedico/{cedula}")
-    public List<MedicoClinica> listarClinicasPorMedico(long cedula){
+    public List<MedicoClinica> listarClinicasPorMedico(@PathVariable("cedula")long cedula){
         return this.medicoClinicaService.findAllByMedico(cedula);
     }
 
-    @PostMapping("/clinica/crearClinica/{cedula}, {id_clinica}")
-    public void crearClinica(long cedula, @RequestBody ClinicaInDto clinicaInDto){
+    @PostMapping("/clinica/crearClinica/{cedula}")
+    public void crearClinica(@PathVariable("cedula")long cedula, @RequestBody ClinicaInDto clinicaInDto){
         Clinica clinica= this.clinicaService.crearClinica(clinicaInDto);
         agregarClinicaByMedico(cedula,clinica.getId_clinica());
     }
 
     @PostMapping("/clinica/añadirClinicaByMedico/{cedula},{id_clinica}")
-    public void agregarClinicaByMedico(long cedula, int id_clinica){
+    public void agregarClinicaByMedico(@PathVariable("cedula")long cedula,@PathVariable("id_clinica")int id_clinica){
         MedicoClinicaInDto medicoClinicaInDto=new MedicoClinicaInDto();
         medicoClinicaInDto.setMedico(cedula);
         medicoClinicaInDto.setClinica(id_clinica);
         this.medicoClinicaService.crearMedicoClinica(medicoClinicaInDto);
     }
-    @GetMapping("/clinica/findByMedico")
-    public MedicoClinica findClinicaPorMedico(long cedula,int id_clinica) {
+    @GetMapping("/clinica/findByMedico/{cedula},{id_clinica}")
+    public MedicoClinica findClinicaPorMedico(@PathVariable("cedula")long cedula,@PathVariable("id_clinica")int id_clinica) {
         return this.medicoClinicaService.findClinicaPorMedico(cedula, id_clinica);
     }
 
     @PatchMapping("/clinica/activar/{cedula}{id_clinica}")
-    public void activarClinica(long cedula, int id_clinica) {
+    public void activarClinica(@PathVariable("cedula")long cedula,@PathVariable("id_clinica")int id_clinica) {
         this.medicoClinicaService.activarClinica(cedula,id_clinica);
     }
 
     @PatchMapping("/clinica/Inactivar/{cedula}{id_clinica}")
-    public void inactivarClinica(long cedula, int id_clinica) {
+    public void inactivarClinica(@PathVariable("cedula")long cedula,@PathVariable("id_clinica")int id_clinica) {
         this.medicoClinicaService.inactivarClinica(cedula,id_clinica);
     }
 
     @GetMapping("/clinica/listPasadas/{cedula}")
-    public List<MedicoClinica> findClinicasPasadas(long cedula){
+    public List<MedicoClinica> findClinicasPasadas(@PathVariable("cedula")long cedula){
         return this.medicoClinicaService.findClinicasPasadas(cedula);
     }
 }

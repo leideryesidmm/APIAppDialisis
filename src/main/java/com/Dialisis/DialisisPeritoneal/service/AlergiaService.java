@@ -42,6 +42,10 @@ public class AlergiaService {
     }
 @Transactional
     public void actualizarAlergia(String nombre, int id_alergia){
+    Optional<Alergia> optionalAlergia = this.repository.findById(id_alergia);
+    if (optionalAlergia.isEmpty()) {
+        throw new ToDoExceptions("Alergia no encontrada", HttpStatus.NOT_FOUND);
+    }
         this.repository.actualizarAlergia(nombre,id_alergia);
 }
 }

@@ -13,7 +13,6 @@ import java.util.List;
 
 public interface CuidadorPacienteRepository extends JpaRepository<CuidadorPaciente,Integer> {
 
-    public CuidadorPaciente findById(int id_cuidador_paciente);
     @Modifying
     @Query(value = "Update cuidador_paciente set activo=false, fecha_fin=:fecha_fin where id_cuidador_paciente=:id_cuidador_paciente", nativeQuery = true)
     public void inactivarCuidador(@Param("id_cuidador_paciente") long id_cuidador_paciente,

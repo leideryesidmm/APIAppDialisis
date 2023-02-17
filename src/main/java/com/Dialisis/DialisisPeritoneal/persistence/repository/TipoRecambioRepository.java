@@ -12,7 +12,7 @@ public interface TipoRecambioRepository extends JpaRepository<TipoRecambio, Inte
 
     public List<TipoRecambio> findAll();
 
-    public TipoRecambio findById(int id_tipo);
+
 
     @Modifying
     @Query(value = "update tipo_recambio set descripcion=:descripcion where id_tipo=:id_tipo", nativeQuery = true)

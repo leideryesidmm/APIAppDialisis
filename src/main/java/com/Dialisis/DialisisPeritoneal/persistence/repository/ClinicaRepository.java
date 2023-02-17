@@ -13,7 +13,6 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Integer> {
 
     public List<Clinica> findAll();
 
-    public Clinica findById(int id_clinica);
     @Modifying
     @Query(value = "update clinica set nombre=:nombre, direccion=:direccion where id_clinica=:id_clinica", nativeQuery = true)
     public void actualizarClinica(@Param("id_clinica") int id_clinica,

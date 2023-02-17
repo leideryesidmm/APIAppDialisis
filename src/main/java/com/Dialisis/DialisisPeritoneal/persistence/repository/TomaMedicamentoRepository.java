@@ -13,7 +13,7 @@ public interface TomaMedicamentoRepository extends JpaRepository<TomaMedicamento
 
     public List<TomaMedicamento> findAll();
 
-    public TomaMedicamento findById(int id_toma_medicamento);
+
 
     @Modifying
     @Query(value = "update toma_medicamento set hora=:hora, tomado=:tomado where id_tipo_medicamento=:id_tipo_medicamento", nativeQuery = true)

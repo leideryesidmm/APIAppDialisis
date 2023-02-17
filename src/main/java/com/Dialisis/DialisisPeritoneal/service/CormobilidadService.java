@@ -1,14 +1,18 @@
 package com.Dialisis.DialisisPeritoneal.service;
 
+import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.CormobilidadInDtoToCormobilidad;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Alergia;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Cormobilidad;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.CuidadorPaciente;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.CormobilidadRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.CormobilidadInDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CormobilidadService {
@@ -31,7 +35,11 @@ public class CormobilidadService {
         return this.repository.findAll();
     }
     public Cormobilidad findById(int id_cormobilidad){
-        return this.repository.findById(id_cormobilidad);
+        Optional<Cormobilidad> optionalCormobilidad = this.repository.findById(id_cormobilidad);
+        if (optionalCormobilidad.isEmpty()) {
+            throw new ToDoExceptions("Cormobilidad no encontrada", HttpStatus.NOT_FOUND);
+        }
+        return optionalCormobilidad.get();
     }
 
     @Transactional

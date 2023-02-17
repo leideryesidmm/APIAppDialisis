@@ -19,12 +19,12 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
     @Query(value = "SELECT * FROM cita where paciente=:paciente and fecha >:hoy",nativeQuery = true)
     public List<Cita> findAllCitasFuturasByPaciente(Paciente paciente, LocalDateTime hoy);
 
-    public Cita findById(int id_cita);
+
 
     @Modifying
     @Query(value = "update cita set nombre_medico=:nombre_medico, paciente=:paciente, especialidad_medico=:especialidad_medico, lugar=:lugar, direccion=:direccion, fecha=:fecha where id_cita=:id_cita",nativeQuery = true)
     public void actualizarCita(@Param("id_cita")int cita,
-                               @Param("medico") String nombre_medico,
+                               @Param("nombre_medico") String nombre_medico,
                                @Param("paciente")long paciente,
                                @Param("especialidad_medico") int especialidad_medico,
                                @Param("lugar")String lugar,

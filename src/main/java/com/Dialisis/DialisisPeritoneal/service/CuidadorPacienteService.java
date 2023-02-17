@@ -1,15 +1,19 @@
 package com.Dialisis.DialisisPeritoneal.service;
+import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.CuidadorPacienteInDtoToCuidadorPaciente;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Cormobilidad;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.CuidadorPaciente;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.CuidadorPacienteRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.CuidadorPacienteInDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CuidadorPacienteService {
@@ -30,12 +34,15 @@ public class CuidadorPacienteService {
     }
 
     public List<CuidadorPaciente> findAllByPaciente(long paciente){
-
         return this.repository.findAllByPaciente(new Paciente(paciente));
     }
 
     public CuidadorPaciente findById(int id_cuidadorpaciente){
-        return this.repository.findById(id_cuidadorpaciente);
+        Optional<CuidadorPaciente> optionalCuidadorPaciente = this.repository.findById(id_cuidadorpaciente);
+        if (optionalCuidadorPaciente.isEmpty()) {
+            throw new ToDoExceptions("Cormobilidad no encontrada", HttpStatus.NOT_FOUND);
+        }
+        return optionalCuidadorPaciente.get();
     }
 
     public CuidadorPaciente findCuidadorActivo(long cedula){

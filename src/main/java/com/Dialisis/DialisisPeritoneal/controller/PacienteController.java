@@ -78,8 +78,8 @@ public class PacienteController {
     public ResponseEntity<Void> actualizarDatosPaciente(@PathVariable("cedula")long cedula,
                                                         @PathVariable("eps") String eps,
                                                         @PathVariable("altura") int altura,
-                                                        @PathVariable("peso") int peso,
-                                                        @PathVariable("peso_seco") int peso_seco,
+                                                        @PathVariable("peso") double peso,
+                                                        @PathVariable("peso_seco") double peso_seco,
                                                         @PathVariable("direccion") String direccion,
                                                         @PathVariable("ocupacion") String ocupacion){
         this.pacienteService.actualizarDatosPaciente(cedula,eps,altura,peso,peso_seco,direccion,ocupacion);
@@ -96,15 +96,15 @@ public class PacienteController {
         return  ResponseEntity.noContent().build();
     }
     @GetMapping("/cuidador/listCuidadorPacienteByPaciente/{cedula}")
-    public List<CuidadorPaciente> ListarCuidadoresPorPaciente(long cedula){
+    public List<CuidadorPaciente> ListarCuidadoresPorPaciente(@PathVariable("cedula")long cedula){
         return this.cuidadorPacienteService.findAllByPaciente(cedula);
     }
     @GetMapping("/cuidador/findCuidadorActivo/{cedula}")
-    public CuidadorPaciente findCuidadorActivo(long cedula){
+    public CuidadorPaciente findCuidadorActivo(@PathVariable("cedula")long cedula){
         return this.cuidadorPacienteService.findCuidadorActivo(cedula);
     }
     @PatchMapping("/cuidador/reactivarCuidador/{cedula},{cuidador}")
-    public void ReactivarCuidadorAntiguo(long cedula, long cuidador) {
+    public void ReactivarCuidadorAntiguo(@PathVariable("cedula")long cedula, @PathVariable("cuidador")long cuidador) {
         CuidadorPaciente cuidadorPaciente = findCuidadorActivo(cedula);
         if (cuidadorPaciente != null) {
             this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getId_cuidador_paciente());
@@ -117,7 +117,7 @@ public class PacienteController {
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
     @PostMapping("/cuidador/crear/{cedula}")
-    public void crearCuidador(long cedula, @RequestBody CuidadorInDto cuidadorInDto) {
+    public void crearCuidador(@PathVariable("cedula")long cedula, @RequestBody CuidadorInDto cuidadorInDto) {
         CuidadorPaciente cuidadorPaciente = findCuidadorActivo(cedula);
         if (cuidadorPaciente != null) {
             this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getId_cuidador_paciente());
@@ -149,76 +149,63 @@ public class PacienteController {
     }
 
     @PatchMapping("/alergia/inactivar/{cedula}{id_alergia}")
-    public void inactivarAlergia(long cedula, int id_alergia) {
+    public void inactivarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
         this.pacienteAlergiaService.inactivarAlergia(cedula,id_alergia);
     }
-    public PacienteAlergia findPacienteAlergia(long cedula,int id_alergia){
+    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia){
         return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,id_alergia);
     }
 
     @PatchMapping("/alergia/activar/{cedula}{id_alergia}")
-    public void activarAlergia(long cedula, int id_alergia) {
+    public void activarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
         this.pacienteAlergiaService.activarAlergia(cedula,id_alergia);
     }
 
     @GetMapping("/alergia/ListPasadas/{cedula}")
-    public List<PacienteAlergia> findAlergiasPasadas(long cedula){
+    public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")long cedula){
         return this.pacienteAlergiaService.findAlergiasPasadas(cedula);
     }
     @GetMapping("/enfermedad/findPasadas/{cedula}")
-    public List<Cormobilidad> findEnfermedadesPasadas(long cedula){
+    public List<Cormobilidad> findEnfermedadesPasadas(@PathVariable("cedula")long cedula){
         return this.cormobilidadService.findEnfermedadesPasadas(cedula);
     }
     @PostMapping("/enfermedad/crear/{cedula}")
-    public void crearEnfermedad(long cedula,@RequestBody EnfermedadInDto enfermedadInDto){
+    public void crearEnfermedad(@PathVariable("cedula")long cedula,@RequestBody EnfermedadInDto enfermedadInDto){
         Enfermedad enfermedad=this.enfermedadService.crearEnfermedad(enfermedadInDto);
         agregarEnfermedadByPaciente(cedula, enfermedad.getId_enfermedad());
     }
     @PostMapping("/enfermedad/añadir/{cedula},{id_enfermedad}")
-    public void agregarEnfermedadByPaciente(long cedula,int id_enfermedad){
+    public void agregarEnfermedadByPaciente(@PathVariable("cedula")long cedula,@PathVariable("id_enfermedad")int id_enfermedad){
         CormobilidadInDto cormobilidadInDto=new CormobilidadInDto();
         cormobilidadInDto.setEnfermedad(id_enfermedad);
         cormobilidadInDto.setPaciente(cedula);
         this.cormobilidadService.crearCormobilidad(cormobilidadInDto);
     }
     @PatchMapping("/enfermedad/eliminar/{id_cormobilidad}")
-    public void eliminarEnfermedad(int id_cormobilidad){
+    public void eliminarEnfermedad(@PathVariable("id_cormobilidad")int id_cormobilidad){
         this.cormobilidadService.inactivarCormobilidad(id_cormobilidad);
     }
-    @PatchMapping("/enfermedad/activar/id_cormobilidad")
-    public void activarCormobilidad(int id_cormobilidad){
+    @PatchMapping("/enfermedad/activar/{id_cormobilidad}")
+    public void activarCormobilidad(@PathVariable("id_cormobilidad")int id_cormobilidad){
         this.cormobilidadService.activarCormobilidad(id_cormobilidad);
-    }
-
-    @PostMapping("/alimentacion/crear/{cedula},{jornada},{cantidad},{fecha},{alimentacion}")
-    public void crearAlimentacion(@PathVariable("cedula") long cedula, @PathVariable("jornada")int jornada, @PathVariable("cantidad") int cantidad, @PathVariable("fecha") @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, @PathVariable("alimentacion")String alimentacion) {
-        System.out.println("entro a crear");
-        AlimentacionPacienteInDto alimentacionPacienteInDto= new AlimentacionPacienteInDto();
-        alimentacionPacienteInDto.setPaciente(cedula);
-        alimentacionPacienteInDto.setJornada(jornada);
-        alimentacionPacienteInDto.setFecha_hora(fecha);
-        alimentacionPacienteInDto.setCantidad(cantidad);
-        alimentacionPacienteInDto.setAlimentacion(alimentacion);
-        this.agregarAlimentacionPorPaciente(alimentacionPacienteInDto);
-
     }
     @PostMapping("/alimentacion/agregar")
     public void agregarAlimentacionPorPaciente(@RequestBody AlimentacionPacienteInDto alimentacionPacienteInDto){
         this.alimentacionPacienteService.crearAlimentacionPaciente(alimentacionPacienteInDto);
     }
 
-    @GetMapping("/alimentacion/listarPorDia")
-    public List<AlimentacionPaciente> findAllAlimentacionPacientePorDia(long cedula, Date fecha){
+    @GetMapping("/alimentacion/listarPorDia/{cedula},{fecha}")
+    public List<AlimentacionPaciente> findAllAlimentacionPacientePorDia(@PathVariable("cedula")long cedula,@PathVariable("fecha")Date fecha){
         return ListarAlimentoPorPacienteYFecha(cedula, fecha,fecha);
     }
 
     @GetMapping("/alimentacion/listAllByPaciente/{cedula}")
-    public List<AlimentacionPaciente> ListarAlimentacionPaciente(long cedula){
+    public List<AlimentacionPaciente> ListarAlimentacionPaciente(@PathVariable("cedula")long cedula){
         return this.alimentacionPacienteService.findAllByPaciente(cedula);
     }
 
     @GetMapping("/alimentacion/ListarPorRango/{cedula},{fecha1},{fecha2}")
-    public List<AlimentacionPaciente>ListarAlimentoPorPacienteYFecha(long cedula, Date fecha1, Date fecha2){
+    public List<AlimentacionPaciente>ListarAlimentoPorPacienteYFecha(@PathVariable("cedula")long cedula,@PathVariable("fecha1")Date fecha1,@PathVariable("fecha2")Date fecha2){
         ZoneId defaultZoneId = ZoneId.systemDefault();
         Instant instant = fecha1.toInstant();
         LocalDate fecha_1 = instant.atZone(defaultZoneId).toLocalDate();
@@ -237,38 +224,38 @@ public class PacienteController {
     public void crearCita(@RequestBody CitaInDto citaInDto){
         this.citaService.crearCita(citaInDto);
     }
-    @GetMapping("/cita/listByPaciente")
-    public List<Cita> findAllCitas(long cedula){
+    @GetMapping("/cita/listByPaciente/{cedula}")
+    public List<Cita> findAllCitas(@PathVariable("cedula")long cedula){
         Paciente paciente=new Paciente(cedula);
         return this.citaService.findAllByPaciente(paciente);
     }
-    @PatchMapping("/cita/actualizar")
-    public void actualizarCita(int id_cita,@RequestBody CitaInDto citaInDto){
+    @PatchMapping("/cita/actualizar/{id_cita}")
+    public void actualizarCita(@PathVariable("id_cita")int id_cita,@RequestBody CitaInDto citaInDto){
         this.citaService.actualizarCita(id_cita, citaInDto);
     }
     @DeleteMapping("/cita/eliminar/{id_cita}")
-    public void eliminarCita(int id_cita){
+    public void eliminarCita(@PathVariable("id_cita")int id_cita){
         this.citaService.deleteById(id_cita);
     }
-    @GetMapping("/cita/antiguas")
-    public List<Cita> findAllCitasAntiguasByPaciente(long cedula){
+    @GetMapping("/cita/antiguas/{cedula}")
+    public List<Cita> findAllCitasAntiguasByPaciente(@PathVariable("cedula")long cedula){
         Paciente paciente=new Paciente(cedula);
         return this.citaService.findAllCitasAntiguasByPaciente(paciente);
     }
     @GetMapping("/cita/futuras")
-    public List<Cita> findAllCitasFuturasByPaciente(long cedula){
+    public List<Cita> findAllCitasFuturasByPaciente(@PathVariable("cedula")long cedula){
         Paciente paciente=new Paciente(cedula);
         return this.citaService.findAllCitasFuturasByPaciente(paciente);
     }
-    @GetMapping("/cita/filtroPyF")
-    public List<Cita> findAllCitasPyFByPaciente(long cedula,byte filtro){
+    @GetMapping("/cita/filtroPyF/{cedula},{filtro}")
+    public List<Cita> findAllCitasPyFByPaciente(@PathVariable("cedula")long cedula,@PathVariable("filtro")byte filtro){
         Paciente paciente=new Paciente(cedula);
         if(filtro==1)
         return this.citaService.findAllCitasFuturasByPaciente(paciente);
         else return this.citaService.findAllCitasAntiguasByPaciente(paciente);
     }
     @GetMapping("/cita/formula/{cita}")
-    public List<FormulaMedicamento> findFormulaByCita(int cita){
+    public List<FormulaMedicamento> findFormulaByCita(@PathVariable("cita")int cita){
         return this.formulaMedicamentoService.findAllByCita(cita);
     }
 
@@ -283,6 +270,5 @@ public class PacienteController {
         List<TomaMedicamento> tomaMedicamentoList=this.tomaMedicamentoService.crearTomas(programarMedicamento,this.formulaMedicamentoService.findById(programarMedicamento.getFormulaMedicamento().getId_formula_medicamento()));
         return tomaMedicamentoList;
     }
-
 
 }

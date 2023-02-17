@@ -17,8 +17,4 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Intege
                                       @Param("descripcion") String descripcion,
                                       @Param("id_medicamento")int id_medicamento);
 
-    public Medicamento findById(int id_medicamento);
-
-
-
 }
