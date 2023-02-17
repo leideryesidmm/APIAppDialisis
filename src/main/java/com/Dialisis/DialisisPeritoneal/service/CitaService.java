@@ -63,7 +63,7 @@ public class CitaService {
         LocalDateTime citaf=cita.getFecha();
         Optional<Cita> optionalCita = this.repository.findById(id_cita);
         if (optionalCita.isEmpty()) {
-            throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
+            throw new ToDoExceptions("La cita no se encuentra", HttpStatus.NOT_FOUND);
         }
         if(hoy.isBefore(citaf)){
             this.repository.deleteById(id_cita);
