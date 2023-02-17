@@ -11,14 +11,14 @@ import java.util.List;
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
 
-    public Paciente findById(Paciente cedula);
+    public Paciente findById(long cedula);
     @Modifying
     @Query(value="update paciente set  eps=:eps, altura=:altura, peso=:peso, peso_seco=:peso_seco, direccion=:direccion, ocupacion=:ocupacion where CEDULA=:cedula", nativeQuery = true)
     public void actualizarDatosPaciente(@Param("cedula")long cedula,
                                         @Param("eps")String eps,
                                         @Param("altura")int altura,
-                                        @Param("peso") int peso,
-                                        @Param("peso_seco") int peso_seco,
+                                        @Param("peso") double peso,
+                                        @Param("peso_seco") double peso_seco,
                                         @Param("direccion")String direccion,
                                         @Param("ocupacion")String ocupacion );
 }

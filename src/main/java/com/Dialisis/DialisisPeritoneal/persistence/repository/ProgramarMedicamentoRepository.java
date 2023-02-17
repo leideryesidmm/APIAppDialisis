@@ -14,7 +14,7 @@ public interface ProgramarMedicamentoRepository extends JpaRepository<ProgramarM
 
     public List<ProgramarMedicamento> findAll();
 
-    public ProgramarMedicamento findById(int id_programar_medicamento);
+
 
     @Modifying
     @Query(value = "update programar_medicamento set fecha_ini=:fecha_ini, fecha_fin=:fecha_fin where id_programar_medicamento=:id_programar_medicamento", nativeQuery = true)

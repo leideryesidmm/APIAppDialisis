@@ -14,8 +14,6 @@ public interface FormulaMedicamentoRepository extends JpaRepository<FormulaMedic
 
     public List<FormulaMedicamento> findAll();
 
-    public FormulaMedicamento findById(int id_formula_medicamento);
-
     public List<FormulaMedicamento> findAllByCita(Cita cita);
 
     @Modifying

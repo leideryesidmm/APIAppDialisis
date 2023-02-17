@@ -13,7 +13,7 @@ public interface CormobilidadRepository extends JpaRepository<Cormobilidad,Integ
 
     public List<Cormobilidad> findAll();
 
-    public Cormobilidad findById(int id_cormobilidad);
+
 
     @Modifying
     @Query(value = "update cormobilidad set paciente=:paciente, enfermedad=:enfermedad where id_cormobilidad=:id_cormobilidad", nativeQuery = true)

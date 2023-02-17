@@ -1,13 +1,17 @@
 package com.Dialisis.DialisisPeritoneal.service;
 
+import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.MedicoClinicaInDtoToMedicoClinica;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Medicamento;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.MedicoClinica;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.MedicoClinicaRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.MedicoClinicaInDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedicoClinicaService {
@@ -31,7 +35,11 @@ public class MedicoClinicaService {
     }
 
     public MedicoClinica findById(int id_medico_clinica){
-        return this.repository.findById(id_medico_clinica);
+        Optional<MedicoClinica> optionalMedicoClinica= this.repository.findById(id_medico_clinica);
+        if (optionalMedicoClinica.isEmpty()) {
+            throw new ToDoExceptions("Clínica por médico no encontrada", HttpStatus.NOT_FOUND);
+        }
+        return optionalMedicoClinica.get();
     }
 
     @Transactional

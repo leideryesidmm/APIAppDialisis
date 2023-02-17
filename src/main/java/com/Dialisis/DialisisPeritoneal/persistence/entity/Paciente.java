@@ -10,14 +10,14 @@ import java.util.Date;
 @Table(name = "paciente")
 @PrimaryKeyJoinColumn(referencedColumnName = "cedula")
 public class Paciente extends Usuario{
-
+@Id
     private long cedula;
     private Date fechaNacimiento;
     private int edad;
     private String eps;
     private int altura;
-    private int peso;
-    private int peso_seco;
+    private double peso;
+    private double peso_seco;
     private String direccion;
     private String ocupacion;
     private String tipo_sangre;

@@ -12,9 +12,6 @@ public interface PacienteAlergiaRepository extends JpaRepository<PacienteAlergia
 
     public List<PacienteAlergia> findAll();
 
-    public PacienteAlergia findById(int id_paciente_alergia);
-
-
     @Query(value = "select * from alergia a join paciente_alergia pa on a.id_alergia=pa.alergia join paciente p on pa.paciente=p.cedula where p.cedula=:cedula and pa.activa=true", nativeQuery = true)
     public List<PacienteAlergia> findAllByPaciente(long cedula);
 

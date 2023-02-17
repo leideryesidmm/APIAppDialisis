@@ -1,9 +1,12 @@
 package com.Dialisis.DialisisPeritoneal.service;
 
+import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.AlimentacionPacienteInDtoToAlimentacionPaciente;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Alergia;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.AlimentacionPaciente;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.AlimentacionPacienteRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.AlimentacionPacienteInDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlimentacionPacienteService {
@@ -34,7 +38,11 @@ public class AlimentacionPacienteService {
     }
 
     public AlimentacionPaciente findById(int id_alimentacion_paciente){
-        return this.repository.findById(id_alimentacion_paciente);
+        Optional<AlimentacionPaciente> optionalTAlimentacion = this.repository.findById(id_alimentacion_paciente);
+        if (optionalTAlimentacion.isEmpty()) {
+            throw new ToDoExceptions("Alimentacion de Paciente no encontrada", HttpStatus.NOT_FOUND);
+        }
+        return optionalTAlimentacion.get();
     }
 
     @Transactional
@@ -46,8 +54,11 @@ public class AlimentacionPacienteService {
                 alimentacionPacienteInDto.getPaciente(),
                 alimentacionPacienteInDto.getAlimentacion());
     }
-
     public List<AlimentacionPaciente> findAllByPaciente(long cedula){
+        List<AlimentacionPaciente> listAlimentacion = this.repository.findAllByPaciente(cedula);
+        if (listAlimentacion.isEmpty()) {
+            throw new ToDoExceptions("cédula no encontrada", HttpStatus.NOT_FOUND);
+        }
         return this.repository.findAllByPaciente(cedula);
     }
     public List<AlimentacionPaciente> findAllByPacienteByRango(long cedula, LocalDate fecha1, LocalDate fecha2){
@@ -55,6 +66,9 @@ public class AlimentacionPacienteService {
         LocalTime hora_2=LocalTime.of(23,59,59);
         LocalDateTime fecha_1= LocalDateTime.of(fecha1, hora_1);
         LocalDateTime fecha_2= LocalDateTime.of(fecha2, hora_2);
+        if(fecha_1.isAfter(fecha_2)){
+            throw new ToDoExceptions("Rango de fechas inválido", HttpStatus.NOT_FOUND);
+        }
         return this.repository.findAllByPacienteByRango(cedula,fecha_1,fecha_2);
     }
 }

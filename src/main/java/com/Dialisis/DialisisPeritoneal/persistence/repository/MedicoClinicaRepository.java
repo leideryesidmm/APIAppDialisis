@@ -12,8 +12,6 @@ public interface MedicoClinicaRepository extends JpaRepository<MedicoClinica, In
 
     public List<MedicoClinica> findAll();
 
-    public MedicoClinica findById(int id_medico_clinica);
-
     @Modifying
     @Query(value = "update medico_clinica set medico=:medico, clinica=:clinica, activa=:activa where id_medico_clinica=:id_medico_clinica and activa=true", nativeQuery = true)
     public void actualizarMedicoClinica(@Param("id_medico_clinica")int id_medico_clinica,

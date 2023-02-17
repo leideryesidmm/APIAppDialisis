@@ -1,6 +1,7 @@
 package com.Dialisis.DialisisPeritoneal.mapper;
 
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Especialidad;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Medico;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.service.dto.CitaInDto;
@@ -16,6 +17,7 @@ public class CitaInDtoToCita implements IMapper<CitaInDto, Cita>{
         cita.setLugar(in.getLugar());
         cita.setDireccion(in.getDireccion());
         cita.setFecha(in.getFecha());
+        cita.setEspecialidad_medico(new Especialidad(in.getEspecialidad_medico()));
         return cita;
     }
 }

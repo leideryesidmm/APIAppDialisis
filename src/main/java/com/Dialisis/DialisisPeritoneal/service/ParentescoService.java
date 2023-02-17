@@ -1,13 +1,17 @@
 package com.Dialisis.DialisisPeritoneal.service;
 
+import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.ParentescoInDtoToParentesco;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Medicamento;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Parentesco;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.ParentescoRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.ParentescoInDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ParentescoService {
@@ -30,7 +34,11 @@ public class ParentescoService {
     }
 
     public Parentesco findById(int id_parentesco){
-        return this.repository.findById(id_parentesco);
+        Optional<Parentesco> optionalParentesco= this.repository.findById(id_parentesco);
+        if (optionalParentesco.isEmpty()) {
+            throw new ToDoExceptions("Parentesco no encontrado", HttpStatus.NOT_FOUND);
+        }
+        return optionalParentesco.get();
     }
     @Transactional
     public void actualizarParentesco(int id_parentesco, String descricion){
