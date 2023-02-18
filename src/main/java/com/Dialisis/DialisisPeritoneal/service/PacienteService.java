@@ -7,6 +7,7 @@ import com.Dialisis.DialisisPeritoneal.persistence.repository.PacienteRepository
 import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -24,6 +25,7 @@ public class PacienteService {
         if(pacienteInDto.getPeso()<pacienteInDto.getPeso_seco()){
             throw new ToDoExceptions("Peso seco debe ser menor a peso", HttpStatus.NOT_FOUND);
         }
+
         Paciente paciente = mapper.map(pacienteInDto);
         return this.repository.save(paciente);
     }
