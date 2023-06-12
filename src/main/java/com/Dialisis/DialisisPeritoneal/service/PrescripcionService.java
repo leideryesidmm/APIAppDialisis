@@ -2,8 +2,10 @@ package com.Dialisis.DialisisPeritoneal.service;
 
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.PrescripcionInDtoToPrescripcion;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Medico;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Prescripcion;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.PrescripcionRepository;
+import com.Dialisis.DialisisPeritoneal.service.dto.CitaInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.PrescripcionInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,5 +30,13 @@ public class PrescripcionService {
         return this.repository.save(pres);
     }
 
+    public Prescripcion findAllByCita(int idCita){
+        return this.repository.findAllByCita(idCita);
+    }
+
+    @Transactional
+    public void actualizarPrescripcion(PrescripcionInDto prescripcionInDto, boolean nocheSeca, int idPrescripcion){
+        this.repository.actualizarPrescripcion(prescripcionInDto.getOrificioSalida(), nocheSeca, idPrescripcion);
+    }
 
 }

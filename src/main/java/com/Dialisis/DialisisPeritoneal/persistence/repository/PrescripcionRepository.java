@@ -17,4 +17,5 @@ public interface PrescripcionRepository extends JpaRepository<Prescripcion, Inte
                                       @Param("id_prescripcion")int id_prescripcion);
 
     public Prescripcion findAllByCita(int idCita);
+
 }

@@ -12,5 +12,4 @@ public class PrescripcionInDtoToPrescripcion implements IMapper<PrescripcionInDt
 
         return prescripcion;
     }
-
 }

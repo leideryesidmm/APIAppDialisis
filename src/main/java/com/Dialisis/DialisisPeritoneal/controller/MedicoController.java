@@ -17,8 +17,8 @@ public class MedicoController{
     private final MedicoClinicaService medicoClinicaService;
     private final ClinicaService clinicaService;
     private final PacienteService pacienteService;
-
     private final PrescripcionService prescripcionService;
+
     public MedicoController(PrescripcionService prescripcionService,  MedicoService medicoService, MedicoClinicaService medicoClinicaService, ClinicaService clinicaService, PacienteService pacienteService) {
         this.medicoService = medicoService;
         this.medicoClinicaService = medicoClinicaService;
@@ -92,6 +92,19 @@ public class MedicoController{
     @PostMapping("/prescripcion/crearPrescripcion/{cita}")
     public Prescripcion crearPrescripcion(@PathVariable("cita")int id_cita, @RequestBody PrescripcionInDto prescripcionInDto){
         return this.prescripcionService.createPrescripcion(prescripcionInDto);
+    }
+
+    @GetMapping("/findPrescripcionByCita/{idCita}")
+    public Prescripcion findAllByCita(@PathVariable("idCita")int idCita){
+        return this.prescripcionService.findAllByCita(idCita);
+    }
+
+    @PatchMapping("actualizarPrescripcion/{idCita}")
+    public ResponseEntity<Void> actualizarPrescripcion(@PathVariable("orificioSalida")PrescripcionInDto orificioSalida,
+                                                        @PathVariable("nocheSeca")boolean nocheSeca,
+                                                        @PathVariable("id_prescripcion")int id_prescripcion){
+        this.prescripcionService.actualizarPrescripcion(orificioSalida, nocheSeca, id_prescripcion);
+        return ResponseEntity.noContent().build();
     }
 
     /*@GetMapping("/prescripcion/listprescripciones/{cita}")
