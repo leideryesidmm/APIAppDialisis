@@ -6,11 +6,11 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "paciente_alergia")
+@Table(name = "pacienteAlergia")
 public class PacienteAlergia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_paciente_alergia;
+    private int idPacienteAlergia;
 
     @ManyToOne
     @JoinColumn(name = "paciente")

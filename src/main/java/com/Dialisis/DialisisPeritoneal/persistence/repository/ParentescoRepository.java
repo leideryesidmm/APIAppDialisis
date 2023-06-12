@@ -15,8 +15,8 @@ public interface ParentescoRepository extends JpaRepository<Parentesco, Integer>
 
 
     @Modifying
-    @Query(value = "update parentesco set descripcion=:descripcion where id_parentesco=:id_parentesco", nativeQuery = true)
-    public void actualizarParentesco(@Param("id_parentesco")int id_parentesco, @Param("descripcion")String descripcion);
+    @Query(value = "update parentesco set descripcion=:descripcion where idParentesco=:idParentesco", nativeQuery = true)
+    public void actualizarParentesco(@Param("idParentesco")int idParentesco, @Param("descripcion")String descripcion);
 
 
 }

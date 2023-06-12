@@ -7,6 +7,7 @@ import com.Dialisis.DialisisPeritoneal.persistence.repository.PacienteRepository
 import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -21,9 +22,10 @@ public class PacienteService {
         this.mapper = mapper;
     }
     public Paciente crearPaciente(PacienteInDto pacienteInDto){
-        if(pacienteInDto.getPeso()<pacienteInDto.getPeso_seco()){
+        if(pacienteInDto.getPeso()<pacienteInDto.getPesoSeco()){
             throw new ToDoExceptions("Peso seco debe ser menor a peso", HttpStatus.NOT_FOUND);
         }
+
         Paciente paciente = mapper.map(pacienteInDto);
         return this.repository.save(paciente);
     }
@@ -31,11 +33,11 @@ public class PacienteService {
         return this.repository.findAll();
     }
 
-    public Paciente findByCedula(long cedula){
-        return this.repository.findById( cedula);
+    public Paciente findByCedula(String cedula){
+        return this.repository.findBy(cedula);
     }
     @Transactional
-    public void actualizarDatosPaciente(Long cedula, String eps, int altura, double peso, double peso_seco, String direccion, String ocupacion){
+    public void actualizarDatosPaciente(String cedula, String eps, int altura, double peso, double peso_seco, String direccion, String ocupacion){
        if(peso<peso_seco){
            throw new ToDoExceptions("Peso seco debe ser menor a peso", HttpStatus.BAD_REQUEST);
        }

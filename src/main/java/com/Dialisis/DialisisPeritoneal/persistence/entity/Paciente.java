@@ -11,36 +11,36 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(referencedColumnName = "cedula")
 public class Paciente extends Usuario{
 @Id
-    private long cedula;
+    private String cedula;
     private Date fechaNacimiento;
     private int edad;
     private String eps;
     private int altura;
     private double peso;
-    private double peso_seco;
+    private double pesoSeco;
     private String direccion;
     private String ocupacion;
-    private String tipo_sangre;
+    private String tipoSangre;
     private String rh;
 
     public Paciente(){
-        this.cedula=0;
+        this.cedula=null;
     }
-    public Paciente(long id){
+    public Paciente(String id){
         this.cedula=id;
     }
 
-    public Paciente(long cedula, Date fechaNacimiento, int edad, String eps, int altura, int peso, int peso_seco, String direccion, String ocupacion, String tipo_sangre, String rh) {
+    public Paciente(String cedula, Date fechaNacimiento, int edad, String eps, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, String rh) {
         this.cedula = cedula;
         this.fechaNacimiento = fechaNacimiento;
         this.edad = edad;
         this.eps = eps;
         this.altura = altura;
         this.peso = peso;
-        this.peso_seco = peso_seco;
+        this.pesoSeco = pesoSeco;
         this.direccion = direccion;
         this.ocupacion = ocupacion;
-        this.tipo_sangre = tipo_sangre;
+        this.tipoSangre = tipoSangre;
         this.rh = rh;
     }
 }

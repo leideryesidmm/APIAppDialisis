@@ -25,7 +25,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
     @Query(value = "update cita set nombre_medico=:nombre_medico, paciente=:paciente, especialidad_medico=:especialidad_medico, lugar=:lugar, direccion=:direccion, fecha=:fecha where id_cita=:id_cita",nativeQuery = true)
     public void actualizarCita(@Param("id_cita")int cita,
                                @Param("nombre_medico") String nombre_medico,
-                               @Param("paciente")long paciente,
+                               @Param("paciente")String paciente,
                                @Param("especialidad_medico") int especialidad_medico,
                                @Param("lugar")String lugar,
                                @Param("direccion")String direccion,

@@ -25,7 +25,7 @@ public class CuidadorService {
         return this.cuidadorRepository.findAll();
     }
 
-    public Cuidador findAllBycedula(long cedula){
+    public Cuidador findAllBycedula(String cedula){
 
         return this.cuidadorRepository.findAllByCedula(cedula);
     }

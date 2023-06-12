@@ -12,6 +12,7 @@ public interface AlergiaRepository extends JpaRepository<Alergia, Integer> {
 
     public List<Alergia> findAll();
 
+    public Alergia findById(int id);
 
     @Modifying
     @Query(value = "update alergia set nombre=:nombre where id_alergia=:id_alergia", nativeQuery = true)

@@ -10,14 +10,14 @@ import javax.persistence.*;
 public class Parentesco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_parentesco;
+    private int idParentesco;
     private String descripcion;
 
     public Parentesco(){
-        this.id_parentesco=0;
+        this.idParentesco=0;
     }
 
     public Parentesco(int id_parentesco) {
-        this.id_parentesco = id_parentesco;
+        this.idParentesco = id_parentesco;
     }
 }

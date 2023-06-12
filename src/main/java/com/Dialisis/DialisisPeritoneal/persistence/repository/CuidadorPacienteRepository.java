@@ -26,5 +26,5 @@ public interface CuidadorPacienteRepository extends JpaRepository<CuidadorPacien
                                            @Param("activo")boolean activo);
     public List<CuidadorPaciente> findAllByPaciente(Paciente cedula);
     @Query(value = "SELECT * from cuidador c join cuidador_paciente cp on c.cedula=cp.cuidador join parentesco p on c.parentesco=p.id_parentesco where cp.paciente=:cedula and cp.activo=true", nativeQuery = true)
-    public CuidadorPaciente findCuidadorActivo(long cedula);
+    public CuidadorPaciente findCuidadorActivo(String cedula);
 }

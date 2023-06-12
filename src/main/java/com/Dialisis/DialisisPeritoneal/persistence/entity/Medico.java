@@ -2,24 +2,23 @@ package com.Dialisis.DialisisPeritoneal.persistence.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "medico")
 @PrimaryKeyJoinColumn(referencedColumnName = "cedula")
 public class Medico extends Usuario {
-    private long cedula;
-    private String especialidad;
-    private int anios_de_experiencia;
+    private String cedula;
+    @ManyToOne
+    @JoinColumn(name = "especialidad")
+    private Especialidad especialidad;
+    private int aniosExperiencia;
 
     public Medico(){
-        this.cedula=0;
+        this.cedula=null;
     }
-    public Medico(long cedula) {
+    public Medico(String cedula) {
         this.cedula = cedula;
     }
 }

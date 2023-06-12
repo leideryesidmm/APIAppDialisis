@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class PacienteAlergiaInDto {
-    private long paciente;
+    private String paciente;
     private int alergia;
 }

@@ -41,7 +41,7 @@ public class TomaMedicamentoService {
             TomaMedicamentoInDto tomaMedicamentoInDto=new TomaMedicamentoInDto();
             tomaMedicamentoInDto.setProgramar_medicamento(programarMedicamento.getId_programar_medicamento());
             tomaMedicamentoInDto.setHora(tiempo);
-            tiempo=tiempo.plusHours(formulaMedicamento.getIntervalo_tiempo());
+            tiempo=tiempo.plusHours(formulaMedicamento.getIntervaloTiempo());
             tomaMedicamentoInDto.setTomado(false);
             tomasMedicamento.add(crearTomaMedicamento(tomaMedicamentoInDto));
         }

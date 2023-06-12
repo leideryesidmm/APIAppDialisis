@@ -9,11 +9,11 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "cuidador_paciente")
+@Table(name = "cuidadorPaciente")
 public class CuidadorPaciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_cuidador_paciente;
+    private int idCuidadorPaciente;
     @ManyToOne
     @JoinColumn(name = "paciente")
     Paciente paciente;
@@ -21,7 +21,9 @@ public class CuidadorPaciente {
     @JoinColumn(name = "cuidador")
     Cuidador cuidador;
 
-    private LocalDate fecha_ini;
-    private LocalDate fecha_fin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private boolean activo;
+
+
 }

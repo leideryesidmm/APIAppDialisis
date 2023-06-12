@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+/*package com.Dialisis.DialisisPeritoneal.mapper;
 
 import com.Dialisis.DialisisPeritoneal.persistence.entity.AlimentacionPaciente;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Jornada;
@@ -18,4 +18,4 @@ public class AlimentacionPacienteInDtoToAlimentacionPaciente implements IMapper<
         alimentacionPaciente.setCantidad(in.getCantidad());
         return alimentacionPaciente;
     }
-}
+}*/

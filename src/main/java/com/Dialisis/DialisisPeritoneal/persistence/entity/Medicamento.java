@@ -10,17 +10,18 @@ import javax.persistence.*;
 public class Medicamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_medicamento;
+    private int idMedicamento;
     private String nombre;
     private String descripcion;
-    private int via_Administracion;
+    private int viaAdministracion;
     private int concentracion;
 
     public Medicamento(){
-        this.id_medicamento=0;
+        this.idMedicamento=0;
     }
 
-    public Medicamento(int id_medicamento) {
-        this.id_medicamento = id_medicamento;
+    public Medicamento(int idMedicamento) {
+
+        this.idMedicamento = idMedicamento;
     }
 }

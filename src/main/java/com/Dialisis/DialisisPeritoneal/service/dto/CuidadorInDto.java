@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class CuidadorInDto {
-    long cedula;
+    String cedulaCuidador;
     String nombre;
-    long celular;
+    String telefono;
     String direccion;
     int parentesco;
 }

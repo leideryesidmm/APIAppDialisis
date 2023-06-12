@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "toma_medicamento")
+@Table(name = "tomaMedicamento")
 public class TomaMedicamento {
 
     @Id

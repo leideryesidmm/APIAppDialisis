@@ -6,16 +6,16 @@ import java.util.Date;
 
 @Data
 public class PacienteInDto extends UsuarioInDto {
-    private long cedula;
+    private String cedula;
     private Date fechaNacimiento;
     private int edad;
     private String eps;
     private int altura;
     private double peso;
-    private double peso_seco;
+    private double pesoSeco;
     private String direccion;
     private String ocupacion;
-    private String tipo_sangre;
+    private String tipoSangre;
     private String rh;
 }
 

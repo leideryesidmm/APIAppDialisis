@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 @Data
 public class CuidadorPacienteInDto {
-    private long paciente;
-    private long cuidador;
+    private String paciente;
+    private String cuidador;
     private LocalDate fecha_ini;
     private LocalDate fecha_fin;
     private boolean activo;

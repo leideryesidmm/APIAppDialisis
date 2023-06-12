@@ -10,14 +10,14 @@ import javax.persistence.*;
 public class Clinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_clinica;
+    private int idClinica;
     private String nombre;
     private String direccion;
 
     public Clinica(){
-        this.id_clinica=0;
+        this.idClinica=0;
     }
-    public Clinica(int id_clinica) {
-        this.id_clinica = id_clinica;
+    public Clinica(int idClinica) {
+        this.idClinica = idClinica;
     }
 }
