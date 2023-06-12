@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 
-public interface CuidadorRepository extends JpaRepository<Cuidador, Long> {
-    public Cuidador findAllByCedula(long cedula);
+public interface CuidadorRepository extends JpaRepository<Cuidador, String> {
+    public Cuidador findAllByCedula(String cedula);
 
 
 }

@@ -7,8 +7,8 @@ import java.util.Date;
 
 @Data
 public class ProgramarMedicamentoInDto {
-    private int id_formula_medicamento;
-    private LocalDateTime fecha_ini;
-    private LocalDateTime fecha_fin;
+    private int idFormulaMedicamento;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
 
 }

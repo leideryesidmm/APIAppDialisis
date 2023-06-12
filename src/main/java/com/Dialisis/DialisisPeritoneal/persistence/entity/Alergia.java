@@ -10,15 +10,15 @@ import javax.persistence.*;
 public class Alergia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_alergia;
+    private int idAlergia;
     private String nombre;
 
     public Alergia(){
-        this.id_alergia=0;
+        this.idAlergia=0;
     }
 
     public Alergia(int id_alergia) {
-        this.id_alergia = id_alergia;
+        this.idAlergia = idAlergia;
     }
 
 }

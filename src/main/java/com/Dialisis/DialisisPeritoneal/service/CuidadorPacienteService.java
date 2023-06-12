@@ -33,7 +33,7 @@ public class CuidadorPacienteService {
         return this.repository.findAll();
     }
 
-    public List<CuidadorPaciente> findAllByPaciente(long paciente){
+    public List<CuidadorPaciente> findAllByPaciente(String paciente){
         return this.repository.findAllByPaciente(new Paciente(paciente));
     }
 
@@ -45,7 +45,7 @@ public class CuidadorPacienteService {
         return optionalCuidadorPaciente.get();
     }
 
-    public CuidadorPaciente findCuidadorActivo(long cedula){
+    public CuidadorPaciente findCuidadorActivo(String cedula){
         return this.repository.findCuidadorActivo(cedula);
     }
     public void actualizarCuidadorPaciente(int id_cuidador_paciente, Date fechaini,Date fecha_fin, boolean activo){

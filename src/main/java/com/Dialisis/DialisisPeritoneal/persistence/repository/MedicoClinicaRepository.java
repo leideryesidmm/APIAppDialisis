@@ -15,23 +15,23 @@ public interface MedicoClinicaRepository extends JpaRepository<MedicoClinica, In
     @Modifying
     @Query(value = "update medico_clinica set medico=:medico, clinica=:clinica, activa=:activa where id_medico_clinica=:id_medico_clinica and activa=true", nativeQuery = true)
     public void actualizarMedicoClinica(@Param("id_medico_clinica")int id_medico_clinica,
-                                        @Param("medico")long medico,
+                                        @Param("medico")String medico,
                                         @Param("clinica")int clinica,
                                         @Param("activa")boolean activa);
     @Query(value = "select *  from clinica c join medico_clinica mc on c.id_clinica=mc.clinica join medico m on m.cedula=mc.medico where mc.medico=:cedula and mc.activa=true", nativeQuery = true)
-    public List<MedicoClinica> findAllByMedico(long cedula);
+    public List<MedicoClinica> findAllByMedico(String cedula);
     @Query(value = "select *  from clinica c join medico_clinica mc on c.id_clinica=mc.clinica join medico m on m.cedula=mc.medico where mc.medico=:cedula and mc.clinica=:id_clinica", nativeQuery = true)
-    public MedicoClinica findClinicaPorMedico(@Param("cedula")long cedula,
+    public MedicoClinica findClinicaPorMedico(@Param("cedula")String cedula,
                                               @Param("id_clinica")int id_clinica);
     @Modifying
     @Query(value = "update medico_clinica mc set activa=true where mc.medico=:cedula and mc.clinica=:id_clinica", nativeQuery = true)
-    public void activarClinica(@Param("cedula")long cedula,
+    public void activarClinica(@Param("cedula")String cedula,
                                @Param("id_clinica")int id_clinica);
     @Modifying
     @Query(value = "update medico_clinica mc set activa=false where mc.medico=:cedula and mc.clinica=:id_clinica", nativeQuery = true)
-    public void inactivarClinica (@Param("cedula")long cedula,
+    public void inactivarClinica (@Param("cedula")String cedula,
                                   @Param("id_clinica")int id_clinica);
     @Query(value = "select * from clinica c join medico_clinica mc on mc.clinica=c.id_clinica join medico m on m.cedula=mc.medico where mc.medico=:cedula and activa=false", nativeQuery = true)
-    public List<MedicoClinica> findClinicasPasadas(@Param("cedula")long cedula);
+    public List<MedicoClinica> findClinicasPasadas(@Param("cedula")String cedula);
 
 }

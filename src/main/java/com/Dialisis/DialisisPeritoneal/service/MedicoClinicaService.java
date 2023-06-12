@@ -43,24 +43,24 @@ public class MedicoClinicaService {
     }
 
     @Transactional
-    public void actualizarMedicoClinica(int id_medico_clinica, long medico, int clinica, boolean activa){
+    public void actualizarMedicoClinica(int id_medico_clinica, String medico, int clinica, boolean activa){
         this.repository.actualizarMedicoClinica(id_medico_clinica,medico,clinica, activa);
     }
-    public List<MedicoClinica> findAllByMedico(long cedula){
+    public List<MedicoClinica> findAllByMedico(String cedula){
         return this.repository.findAllByMedico(cedula);
     }
-    public MedicoClinica findClinicaPorMedico(long cedula,int id_clinica){
+    public MedicoClinica findClinicaPorMedico(String cedula,int id_clinica){
         return this.repository.findClinicaPorMedico(cedula,id_clinica);
     }
     @Transactional
-    public void activarClinica(long cedula,int id_clinica){
+    public void activarClinica(String cedula,int id_clinica){
         this.repository.activarClinica(cedula,id_clinica);
     }
     @Transactional
-    public void inactivarClinica(long cedula,int id_clinica){
+    public void inactivarClinica(String cedula,int id_clinica){
         this.repository.inactivarClinica(cedula,id_clinica);
     }
-    public List<MedicoClinica> findClinicasPasadas(long cedula){
+    public List<MedicoClinica> findClinicasPasadas(String cedula){
         return this.repository.findClinicasPasadas(cedula);
     }
 

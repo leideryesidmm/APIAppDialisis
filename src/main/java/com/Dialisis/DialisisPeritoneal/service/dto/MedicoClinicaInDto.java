@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class MedicoClinicaInDto {
 
-    private long medico;
+    private String medico;
     private int clinica;
 }

@@ -9,26 +9,26 @@ import javax.persistence.*;
 @Table(name = "cuidador")
 public class Cuidador {
     @Id
-    long cedula;
+    String cedulaCuidador;
     String nombre;
-    long celular;
+    String telefono;
     String direccion;
     @ManyToOne
     @JoinColumn(name = "parentesco")
     Parentesco parentesco;
 
     public Cuidador(){
-        this.cedula=0;
+        this.cedulaCuidador=null;
     }
 
-    public Cuidador(long cedula) {
-        this.cedula = cedula;
+    public Cuidador(String cedulaCuidador) {
+        this.cedulaCuidador = cedulaCuidador;
     }
 
-    public Cuidador(long cedula, String nombre, long celular, String direccion, Parentesco parentesco) {
-        this.cedula = cedula;
+    public Cuidador(String cedulaCuidador, String nombre, String telefono, String direccion, Parentesco parentesco) {
+        this.cedulaCuidador = cedulaCuidador;
         this.nombre = nombre;
-        this.celular = celular;
+        this.telefono = telefono;
         this.direccion = direccion;
         this.parentesco = parentesco;
     }

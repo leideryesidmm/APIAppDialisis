@@ -8,22 +8,22 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "programar_medicamento")
+@Table(name = "programarMedicamento")
 public class ProgramarMedicamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_programar_medicamento;
+    private int idProgramarMedicamento;
     @ManyToOne
-    @JoinColumn(name = "id_formula_medicamento")
+    @JoinColumn(name = "idFormulaMedicamento")
     FormulaMedicamento formulaMedicamento;
-    private LocalDateTime fecha_ini;
-    private LocalDateTime fecha_fin;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
 
     public ProgramarMedicamento(){
-        this.id_programar_medicamento=0;
+        this.idProgramarMedicamento=0;
     }
 
     public ProgramarMedicamento(int id){
-        this.id_programar_medicamento=id;
+        this.idProgramarMedicamento=id;
     }
 }

@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface MedicoRepository extends JpaRepository<Medico, Long>{
-    public Medico findAllByCedula(long cedula);
+public interface MedicoRepository extends JpaRepository<Medico, String>{
+    public Medico findAllByCedula(String cedula);
 }

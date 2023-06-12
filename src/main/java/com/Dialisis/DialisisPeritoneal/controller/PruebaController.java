@@ -280,7 +280,7 @@ public class PruebaController {
     }
 
     @GetMapping("/cuidador/{cedula}")
-    public Cuidador findAllCuidadores(long cedula){
+    public Cuidador findAllCuidadores(String cedula){
         return this.cuidadorService.findAllBycedula(cedula);
     }
 
@@ -359,7 +359,7 @@ public class PruebaController {
 
     @PatchMapping("/ActualizarMedicoClinica/{id_medico_clinica},{medico},{clinica}")
     public ResponseEntity<Void> actualizarMedicoClinica(@PathVariable("id_medico_clinica")int id_medico_clinica,
-                                                        @PathVariable("medico")long medico,
+                                                        @PathVariable("medico")String medico,
                                                         @PathVariable("clinica")int clinica,
                                                         @PathVariable("activa")boolean activa){
         this.medicoClinicaService.actualizarMedicoClinica(id_medico_clinica,medico,clinica, activa);

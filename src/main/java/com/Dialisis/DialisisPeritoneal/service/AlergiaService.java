@@ -1,5 +1,6 @@
 package com.Dialisis.DialisisPeritoneal.service;
 
+import com.Dialisis.DialisisPeritoneal.exceptions.ExceptionsEntitys;
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.AlergiaInDtoToAlergia;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Alergia;
@@ -18,9 +19,12 @@ public class AlergiaService {
     private final AlergiaRepository repository;
     private final AlergiaInDtoToAlergia mapper;
 
-    public AlergiaService(AlergiaRepository repositorio, AlergiaInDtoToAlergia mapper) {
+    private final ExceptionsEntitys exceptionsEntitysAlergia;
+
+    public AlergiaService(AlergiaRepository repositorio, AlergiaInDtoToAlergia mapper, ExceptionsEntitys exceptionsEntitysAlergia) {
         this.repository = repositorio;
         this.mapper = mapper;
+        this.exceptionsEntitysAlergia = exceptionsEntitysAlergia;
     }
 
     public Alergia crearAlergia(AlergiaInDto alergiaInDto){
@@ -34,18 +38,16 @@ public class AlergiaService {
     }
 
     public Alergia findById(int id_alergia){
-        Optional<Alergia> optionalTask = this.repository.findById(id_alergia);
-        if (optionalTask.isEmpty()) {
-            throw new ToDoExceptions("Alergia no encontrada", HttpStatus.NOT_FOUND);
-        }
-        return optionalTask.get();
+        exceptionsEntitysAlergia.errorId(id_alergia);
+        return this.repository.findById(id_alergia);
     }
-@Transactional
+    @Transactional
     public void actualizarAlergia(String nombre, int id_alergia){
-    Optional<Alergia> optionalAlergia = this.repository.findById(id_alergia);
-    if (optionalAlergia.isEmpty()) {
-        throw new ToDoExceptions("Alergia no encontrada", HttpStatus.NOT_FOUND);
-    }
+        exceptionsEntitysAlergia.actualizarAlergia(id_alergia,nombre);
+    //Optional<Alergia> optionalAlergia = this.repository.findById(id_alergia);
+    //if (optionalAlergia.isEmpty()) {
+        //throw new ToDoExceptions("Alergia no encontrada", HttpStatus.NOT_FOUND);
+    //}
         this.repository.actualizarAlergia(nombre,id_alergia);
 }
 }

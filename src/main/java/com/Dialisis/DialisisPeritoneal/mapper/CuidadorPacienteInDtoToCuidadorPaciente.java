@@ -13,8 +13,8 @@ public class CuidadorPacienteInDtoToCuidadorPaciente implements IMapper<Cuidador
         CuidadorPaciente cuidadorpaciente=new CuidadorPaciente();
         cuidadorpaciente.setCuidador(new Cuidador(in.getCuidador()));
         cuidadorpaciente.setPaciente(new Paciente(in.getPaciente()));
-        cuidadorpaciente.setFecha_ini(in.getFecha_ini());
-        cuidadorpaciente.setFecha_fin(in.getFecha_fin());
+        cuidadorpaciente.setFechaInicio(in.getFecha_ini());
+        cuidadorpaciente.setFechaFin(in.getFecha_fin());
         cuidadorpaciente.setActivo(true);
         return cuidadorpaciente;
     }

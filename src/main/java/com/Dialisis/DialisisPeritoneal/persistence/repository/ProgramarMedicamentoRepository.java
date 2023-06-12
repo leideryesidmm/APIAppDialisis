@@ -17,8 +17,8 @@ public interface ProgramarMedicamentoRepository extends JpaRepository<ProgramarM
 
 
     @Modifying
-    @Query(value = "update programar_medicamento set fecha_ini=:fecha_ini, fecha_fin=:fecha_fin where id_programar_medicamento=:id_programar_medicamento", nativeQuery = true)
-    public void actualizarProgramarMedicamento(@Param("id_programar_medicamento")int id_programar_medicamento,
-                                               @Param("fecha_ini")Date fecha_ini,
-                                               @Param("fecha_fin")Date fecha_fin);
+    @Query(value = "update programar_medicamento set fechaInicio=:fechaInicio, fechaFin=:fechaFin where idProgramarMedicamento=:idProgramarMedicamento", nativeQuery = true)
+    public void actualizarProgramarMedicamento(@Param("idProgramarMedicamento")int idProgramarMedicamento,
+                                               @Param("fechaInicio")Date fechaInicio,
+                                               @Param("fechaFin")Date fechaFin);
 }

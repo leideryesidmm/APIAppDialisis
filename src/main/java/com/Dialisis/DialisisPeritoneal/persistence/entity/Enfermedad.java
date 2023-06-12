@@ -9,14 +9,14 @@ import javax.persistence.*;
 public class Enfermedad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_enfermedad;
+    private int idEnfermedad;
     private String nombre;
 
     public Enfermedad(){
-        this.id_enfermedad=0;
+        this.idEnfermedad=0;
     }
 
-    public Enfermedad(int id_enfermedad) {
-        this.id_enfermedad = id_enfermedad;
+    public Enfermedad(int idEnfermedad) {
+        this.idEnfermedad = idEnfermedad;
     }
 }
