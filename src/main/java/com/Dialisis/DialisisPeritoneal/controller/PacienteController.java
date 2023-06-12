@@ -30,10 +30,10 @@ public class PacienteController {
     private final TomaMedicamentoService tomaMedicamentoService;
     private final PacienteAlergiaService pacienteAlergiaService;
     private final AlergiaService alergiaService;
-    private final AlimentacionPacienteService alimentacionPacienteService;
+    //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, AlimentacionPacienteService alimentacionPacienteService) {
+    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService) {
         this.pacienteService = pacienteService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
@@ -46,7 +46,7 @@ public class PacienteController {
         this.tomaMedicamentoService = tomaMedicamentoService;
         this.pacienteAlergiaService = pacienteAlergiaService;
         this.alergiaService = alergiaService;
-        this.alimentacionPacienteService = alimentacionPacienteService;
+        //this.alimentacionPacienteService = alimentacionPacienteService;
     }
 
     @PostMapping("/crearPaciente")
@@ -190,22 +190,22 @@ public class PacienteController {
     public void activarCormobilidad(@PathVariable("id_cormobilidad")int id_cormobilidad){
         this.cormobilidadService.activarCormobilidad(id_cormobilidad);
     }
-    @PostMapping("/alimentacion/agregar")
+    /*@PostMapping("/alimentacion/agregar")
     public void agregarAlimentacionPorPaciente(@RequestBody AlimentacionPacienteInDto alimentacionPacienteInDto){
         this.alimentacionPacienteService.crearAlimentacionPaciente(alimentacionPacienteInDto);
-    }
+    }*/
 
-    @GetMapping("/alimentacion/listarPorDia/{cedula},{fecha}")
+    /*@GetMapping("/alimentacion/listarPorDia/{cedula},{fecha}")
     public List<AlimentacionPaciente> findAllAlimentacionPacientePorDia(@PathVariable("cedula")long cedula,@PathVariable("fecha")Date fecha){
         return ListarAlimentoPorPacienteYFecha(cedula, fecha,fecha);
-    }
+    }*/
 
-    @GetMapping("/alimentacion/listAllByPaciente/{cedula}")
+    /*@GetMapping("/alimentacion/listAllByPaciente/{cedula}")
     public List<AlimentacionPaciente> ListarAlimentacionPaciente(@PathVariable("cedula")long cedula){
         return this.alimentacionPacienteService.findAllByPaciente(cedula);
-    }
+    }*/
 
-    @GetMapping("/alimentacion/ListarPorRango/{cedula},{fecha1},{fecha2}")
+    /*@GetMapping("/alimentacion/ListarPorRango/{cedula},{fecha1},{fecha2}")
     public List<AlimentacionPaciente>ListarAlimentoPorPacienteYFecha(@PathVariable("cedula")long cedula,@PathVariable("fecha1")Date fecha1,@PathVariable("fecha2")Date fecha2){
         ZoneId defaultZoneId = ZoneId.systemDefault();
         Instant instant = fecha1.toInstant();
@@ -213,14 +213,14 @@ public class PacienteController {
         Instant instant2 = fecha2.toInstant();
         LocalDate fecha_2 = instant2.atZone(defaultZoneId).toLocalDate();
         return this.alimentacionPacienteService.findAllByPacienteByRango(cedula, fecha_1,fecha_2);
-    }
+    }*/
 
-    @PatchMapping("/alimentacion/actualizar/{idAlimentacionPaciente}")
+    /*@PatchMapping("/alimentacion/actualizar/{idAlimentacionPaciente}")
     public void actualizarAlimentacionPaciente(@PathVariable("idAlimentacionPaciente") int idAlimentacionPaciente,@RequestBody AlimentacionPacienteInDto alimentacionPacienteInDto){
         AlimentacionPaciente alimentacionPaciente=this.alimentacionPacienteService.findById(idAlimentacionPaciente);
         if(alimentacionPaciente!=null)
             this.alimentacionPacienteService.actualizarAlimentacionPaciente(idAlimentacionPaciente,alimentacionPacienteInDto);
-    }
+    }*/
     @PostMapping("/cita/crearCita")
     public void crearCita(@RequestBody CitaInDto citaInDto){
         this.citaService.crearCita(citaInDto);

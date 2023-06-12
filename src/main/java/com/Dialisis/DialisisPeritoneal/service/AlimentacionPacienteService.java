@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.service;
+/* package com.Dialisis.DialisisPeritoneal.service;
 
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.AlimentacionPacienteInDtoToAlimentacionPaciente;
@@ -71,4 +71,4 @@ public class AlimentacionPacienteService {
         }
         return this.repository.findAllByPacienteByRango(cedula,fecha_1,fecha_2);
     }
-}
+}*/

@@ -13,9 +13,9 @@ public class TomaMedicamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_toma_medicamento;
+    private int idTomaMedicamento;
     @ManyToOne
-    @JoinColumn(name = "programar_medicamento")
+    @JoinColumn(name = "programarMedicamento")
     ProgramarMedicamento programarMedicamento;
     private LocalDateTime hora;
     private boolean tomado;

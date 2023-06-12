@@ -47,7 +47,7 @@ public class FormulaMedicamentoService {
     }
     public  List<FormulaMedicamento> findAllByCita(int cita){
         Cita citaobj=new Cita();
-        citaobj.setId_cita(cita);
+        citaobj.setIdCita(cita);
         return this.repository.findAllByCita(citaobj);
     }
 }

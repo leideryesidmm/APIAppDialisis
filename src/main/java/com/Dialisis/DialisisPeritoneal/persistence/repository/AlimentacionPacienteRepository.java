@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.persistence.repository;
+/*package com.Dialisis.DialisisPeritoneal.persistence.repository;
 
 import com.Dialisis.DialisisPeritoneal.persistence.entity.AlimentacionPaciente;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,3 +34,5 @@ public interface AlimentacionPacienteRepository extends JpaRepository<Alimentaci
                                                @Param("alimentacion")String alimentacion);
 
 }
+
+ */

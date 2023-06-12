@@ -25,13 +25,13 @@ public class PruebaController {
     private final TomaMedicamentoService tomaMedicamentoService;
     private final MedicoClinicaService medicoClinicaService;
     private final PacienteAlergiaService pacienteAlergiaService;
-    private final AlimentacionPacienteService alimentacionPacienteService;
+    //private final AlimentacionPacienteService alimentacionPacienteService;
     private final EnfermedadService enfermedadService;
     private final CuidadorService cuidadorService;
     private final JornadaService jornadaService;
     private final CuidadorPacienteService cuidadorPacienteService;
 
-    public PruebaController(AlergiaService alergiaService, CitaService citaService, ClinicaService clinicaService, CormobilidadService cormobilidadService, ParentescoService parentescoService, TipoRecambioService tipoRecambioService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, MedicoClinicaService medicoClinicaService, PacienteAlergiaService pacienteAlergiaService, AlimentacionPacienteService alimentacionPacienteService, EnfermedadService enfermedadService, CuidadorService cuidadorService, JornadaService jornadaService, CuidadorPacienteService cuidadorPacienteService) {
+    public PruebaController(AlergiaService alergiaService, CitaService citaService, ClinicaService clinicaService, CormobilidadService cormobilidadService, ParentescoService parentescoService, TipoRecambioService tipoRecambioService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, MedicoClinicaService medicoClinicaService, PacienteAlergiaService pacienteAlergiaService, /*AlimentacionPacienteService alimentacionPacienteService,*/ EnfermedadService enfermedadService, CuidadorService cuidadorService, JornadaService jornadaService, CuidadorPacienteService cuidadorPacienteService) {
         this.alergiaService = alergiaService;
         this.citaService = citaService;
         this.clinicaService = clinicaService;
@@ -43,7 +43,7 @@ public class PruebaController {
         this.tomaMedicamentoService = tomaMedicamentoService;
         this.medicoClinicaService = medicoClinicaService;
         this.pacienteAlergiaService = pacienteAlergiaService;
-        this.alimentacionPacienteService = alimentacionPacienteService;
+        //this.alimentacionPacienteService = alimentacionPacienteService;
         this.enfermedadService = enfermedadService;
         this.cuidadorService = cuidadorService;
         this.jornadaService = jornadaService;
@@ -107,10 +107,10 @@ public class PruebaController {
         return this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
     }
 
-    @PostMapping("AlimentacionPaciente")
+    /*@PostMapping("AlimentacionPaciente")
     public AlimentacionPaciente crearAlimentacionPaciente(@RequestBody AlimentacionPacienteInDto alimentacionPacienteInDto){
         return this.alimentacionPacienteService.crearAlimentacionPaciente(alimentacionPacienteInDto);
-    }
+    }*/
 
     @PostMapping("/enfermedad")
     public Enfermedad crearEnfermedad(@RequestBody EnfermedadInDto enfermedadInDto){
@@ -186,10 +186,10 @@ public class PruebaController {
         return this.pacienteAlergiaService.findAll();
     }
 
-    @GetMapping("/ListAlimentacionPaciente")
+    /*@GetMapping("/ListAlimentacionPaciente")
     public List<AlimentacionPaciente> findAllAlimentacionPaciente(){
         return this.alimentacionPacienteService.findAll();
-    }
+    }*/
 
     @GetMapping("/enfermedades")
     public List<Enfermedad> findAllEnfermedad(){
@@ -269,10 +269,10 @@ public class PruebaController {
         return this.pacienteAlergiaService.findById(id_paciente_alergia);
     }
 
-    @GetMapping("/AlimentacionPaciente/id/{id_alimentacion_paciente}")
+    /*@GetMapping("/AlimentacionPaciente/id/{id_alimentacion_paciente}")
     public AlimentacionPaciente findByIdAlimentacionPaciente(@PathVariable("id_alimentacion_paciente")int id_alimentacion_paciente){
         return this.alimentacionPacienteService.findById(id_alimentacion_paciente);
-    }
+    }*/
 
     @GetMapping("/enfermedad/{id_enfermedad}")
     public Enfermedad findByIdEnfermedad(int id_enfermedad){

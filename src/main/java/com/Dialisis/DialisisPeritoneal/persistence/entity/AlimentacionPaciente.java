@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+/*package com.Dialisis.DialisisPeritoneal.persistence.entity;
 
 import lombok.Data;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,3 +32,5 @@ public class AlimentacionPaciente {
         this.id_alimentacion_paciente = id_alimentacion_paciente;
     }
 }
+*/
+

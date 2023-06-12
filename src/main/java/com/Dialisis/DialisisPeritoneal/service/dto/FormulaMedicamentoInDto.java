@@ -7,7 +7,7 @@ public class FormulaMedicamentoInDto {
 
     private int cita;
     private int medicamento;
-    private int intervalo_tiempo;
+    private int intervaloTiempo;
     private int tomas;
     private int dosis;
 
