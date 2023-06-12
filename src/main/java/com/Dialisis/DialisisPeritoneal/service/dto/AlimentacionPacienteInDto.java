@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+/*package com.Dialisis.DialisisPeritoneal.service.dto;
 
 import lombok.Data;
 
@@ -12,3 +12,5 @@ public class AlimentacionPacienteInDto {
     private LocalDateTime fecha_hora;
     private int cantidad;
 }
+*/
+

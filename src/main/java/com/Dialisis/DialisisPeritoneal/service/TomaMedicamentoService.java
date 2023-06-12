@@ -36,10 +36,10 @@ public class TomaMedicamentoService {
 
     public List<TomaMedicamento> crearTomas(ProgramarMedicamento programarMedicamento, FormulaMedicamento formulaMedicamento){
         List<TomaMedicamento> tomasMedicamento=new ArrayList<>();
-        LocalDateTime tiempo=programarMedicamento.getFecha_ini();
+        LocalDateTime tiempo=programarMedicamento.getFechaInicio();
         for(int i =0; i<formulaMedicamento.getTomas();i++){
             TomaMedicamentoInDto tomaMedicamentoInDto=new TomaMedicamentoInDto();
-            tomaMedicamentoInDto.setProgramar_medicamento(programarMedicamento.getId_programar_medicamento());
+            tomaMedicamentoInDto.setProgramar_medicamento(programarMedicamento.getIdProgramarMedicamento());
             tomaMedicamentoInDto.setHora(tiempo);
             tiempo=tiempo.plusHours(formulaMedicamento.getIntervaloTiempo());
             tomaMedicamentoInDto.setTomado(false);

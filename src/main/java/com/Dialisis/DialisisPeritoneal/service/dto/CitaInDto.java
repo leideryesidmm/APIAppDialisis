@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class CitaInDto {
     private String cedulaMedico;
-    private int especialidad_medico;
+    private int especialidadMedico;
     private String cedulaPaciente;
     private String clinica;
     private String direccion;
