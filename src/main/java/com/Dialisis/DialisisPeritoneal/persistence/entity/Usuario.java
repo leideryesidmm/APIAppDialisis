@@ -8,11 +8,11 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
     @Id
-    private long cedula;
+    private String cedula;
     private String nombre;
     private String correo;
     private String contrasenia;
-    private long celular;
+    private String celular;
 
     public Usuario() {
     }

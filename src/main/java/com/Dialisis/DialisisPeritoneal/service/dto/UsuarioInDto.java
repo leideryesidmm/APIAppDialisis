@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class UsuarioInDto {
-    private long cedula;
+    private String cedula;
     private String nombre;
     private String correo;
     private String contrasenia;
-    private long celular;
+    private String celular;
 }

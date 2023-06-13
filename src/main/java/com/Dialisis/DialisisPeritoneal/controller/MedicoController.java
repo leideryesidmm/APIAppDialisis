@@ -17,9 +17,8 @@ public class MedicoController{
     private final MedicoClinicaService medicoClinicaService;
     private final ClinicaService clinicaService;
     private final PacienteService pacienteService;
-
     private final PrescripcionService prescripcionService;
-    public MedicoController(PrescripcionService prescripcionService,  MedicoService medicoService, MedicoClinicaService medicoClinicaService, ClinicaService clinicaService, PacienteService pacienteService) {
+    public MedicoController(MedicoService medicoService, MedicoClinicaService medicoClinicaService, ClinicaService clinicaService, PacienteService pacienteService, PrescripcionService prescripcionService) {
         this.medicoService = medicoService;
         this.medicoClinicaService = medicoClinicaService;
         this.clinicaService = clinicaService;

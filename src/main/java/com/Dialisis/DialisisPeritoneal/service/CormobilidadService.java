@@ -55,7 +55,7 @@ public class CormobilidadService {
         this.repository.activarCormobilidad(id_cormobilidad);
     }
 
-    public List<Cormobilidad> findEnfermedadesPasadas(long paciente){
+    public List<Cormobilidad> findEnfermedadesPasadas(String paciente){
         return repository.findAllActivo(paciente);
     }
 }

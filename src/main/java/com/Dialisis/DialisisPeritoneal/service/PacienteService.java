@@ -7,7 +7,6 @@ import com.Dialisis.DialisisPeritoneal.persistence.repository.PacienteRepository
 import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -34,7 +33,7 @@ public class PacienteService {
     }
 
     public Paciente findByCedula(String cedula){
-        return this.repository.findBy(cedula);
+        return this.repository.findAllByCedula(cedula);
     }
     @Transactional
     public void actualizarDatosPaciente(String cedula, String eps, int altura, double peso, double peso_seco, String direccion, String ocupacion){

@@ -145,38 +145,38 @@ public class PacienteController {
         this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
     }
     @GetMapping("/alergia/listByPaciente/{cedula}")
-    public List<PacienteAlergia> listarAlergiasPorPaciente(@PathVariable("cedula")long cedula){
+    public List<PacienteAlergia> listarAlergiasPorPaciente(@PathVariable("cedula")String cedula){
         return this.pacienteAlergiaService.findAllByPaciente(cedula);
     }
 
     @PatchMapping("/alergia/inactivar/{cedula}{id_alergia}")
-    public void inactivarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
+    public void inactivarAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia) {
         this.pacienteAlergiaService.inactivarAlergia(cedula,id_alergia);
     }
-    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia){
+    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia){
         return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,id_alergia);
     }
 
     @PatchMapping("/alergia/activar/{cedula}{id_alergia}")
-    public void activarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
+    public void activarAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia) {
         this.pacienteAlergiaService.activarAlergia(cedula,id_alergia);
     }
 
     @GetMapping("/alergia/ListPasadas/{cedula}")
-    public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")long cedula){
+    public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")String cedula){
         return this.pacienteAlergiaService.findAlergiasPasadas(cedula);
     }
     @GetMapping("/enfermedad/findPasadas/{cedula}")
-    public List<Cormobilidad> findEnfermedadesPasadas(@PathVariable("cedula")long cedula){
+    public List<Cormobilidad> findEnfermedadesPasadas(@PathVariable("cedula")String cedula){
         return this.cormobilidadService.findEnfermedadesPasadas(cedula);
     }
     @PostMapping("/enfermedad/crear/{cedula}")
-    public void crearEnfermedad(@PathVariable("cedula")long cedula,@RequestBody EnfermedadInDto enfermedadInDto){
+    public void crearEnfermedad(@PathVariable("cedula")String cedula,@RequestBody EnfermedadInDto enfermedadInDto){
         Enfermedad enfermedad=this.enfermedadService.crearEnfermedad(enfermedadInDto);
         agregarEnfermedadByPaciente(cedula, enfermedad.getIdEnfermedad());
     }
     @PostMapping("/enfermedad/añadir/{cedula},{id_enfermedad}")
-    public void agregarEnfermedadByPaciente(@PathVariable("cedula")long cedula,@PathVariable("id_enfermedad")int id_enfermedad){
+    public void agregarEnfermedadByPaciente(@PathVariable("cedula")String cedula,@PathVariable("id_enfermedad")int id_enfermedad){
         CormobilidadInDto cormobilidadInDto=new CormobilidadInDto();
         cormobilidadInDto.setEnfermedad(id_enfermedad);
         cormobilidadInDto.setPaciente(cedula);

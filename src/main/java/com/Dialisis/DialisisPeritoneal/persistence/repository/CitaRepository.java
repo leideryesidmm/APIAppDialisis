@@ -13,21 +13,18 @@ import java.util.List;
 
 public interface CitaRepository extends JpaRepository<Cita, Integer> {
 
-    public List<Cita> findAllByPaciente(Paciente paciente);
+    public List<Cita> findAllByCedulaPaciente(Paciente paciente);
     @Query(value = "SELECT * FROM cita where paciente=:paciente and fecha <:hoy",nativeQuery = true)
     public List<Cita> findAllCitasAntiguasByPaciente(Paciente paciente, LocalDateTime hoy);
     @Query(value = "SELECT * FROM cita where paciente=:paciente and fecha >:hoy",nativeQuery = true)
     public List<Cita> findAllCitasFuturasByPaciente(Paciente paciente, LocalDateTime hoy);
 
-
-
     @Modifying
-    @Query(value = "update cita set nombre_medico=:nombre_medico, paciente=:paciente, especialidad_medico=:especialidad_medico, lugar=:lugar, direccion=:direccion, fecha=:fecha where id_cita=:id_cita",nativeQuery = true)
+    @Query(value = "update cita set cedulaMedico=:cedulaMedico, cedulaPaciente=:cedulaPaciente,  clinica=:clinica, direccion=:direccion, fecha=:fecha where id_cita=:id_cita",nativeQuery = true)
     public void actualizarCita(@Param("id_cita")int cita,
-                               @Param("nombre_medico") String nombre_medico,
-                               @Param("paciente")String paciente,
-                               @Param("especialidad_medico") int especialidad_medico,
-                               @Param("lugar")String lugar,
+                               @Param("cedulaMedico") String cedulaMedico,
+                               @Param("cedulaPaciente")String cedulaPaciente,
+                               @Param("clinica")String clinica,
                                @Param("direccion")String direccion,
                                @Param("fecha") LocalDateTime fecha);
 }

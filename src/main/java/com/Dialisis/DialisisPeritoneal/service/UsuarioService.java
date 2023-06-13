@@ -29,16 +29,16 @@ public class UsuarioService {
         return this.repository.findAll();
     }
 
-    public Usuario findAllBycedula(long cedula){
+    public Usuario findAllBycedula(String cedula){
 
         return this.repository.findAllBycedula(cedula);
     }
     @Transactional
-    public void cambiarcontraseña(long cedula,String contrasenia){
+    public void cambiarcontraseña(String cedula,String contrasenia){
         this.repository.cambiarcontraseña(cedula,contrasenia);
     }
     @Transactional
-    public void cambiarCelular(long cedula,long celular){
+    public void cambiarCelular(String cedula,String celular){
         this.repository.cambiarCelular(cedula,celular);
     }
 

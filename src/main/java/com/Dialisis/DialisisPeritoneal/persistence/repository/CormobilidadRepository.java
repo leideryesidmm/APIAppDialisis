@@ -30,6 +30,6 @@ public interface CormobilidadRepository extends JpaRepository<Cormobilidad,Integ
 
     @GetMapping
     @Query(value = "Select * from cormobilidad where paciente=:paciente and activo=false", nativeQuery = true)
-    public List<Cormobilidad> findAllActivo(long paciente);
+    public List<Cormobilidad> findAllActivo(String paciente);
 
 }

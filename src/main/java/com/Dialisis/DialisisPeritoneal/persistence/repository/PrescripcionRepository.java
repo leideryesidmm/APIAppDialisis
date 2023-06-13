@@ -15,6 +15,4 @@ public interface PrescripcionRepository extends JpaRepository<Prescripcion, Inte
     public void actualizarPrescripcion(@Param("orificioSalida")String orificioSalida,
                                       @Param("nocheSeca") boolean nocheSeca,
                                       @Param("id_prescripcion")int id_prescripcion);
-
-    public Prescripcion findAllByCita(int idCita);
 }

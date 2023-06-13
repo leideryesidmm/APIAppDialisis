@@ -26,16 +26,16 @@ public class UsuarioController {
         return this.usuarioService.findAll();
     }
     @GetMapping("/cedula/{cedula}")
-    public Usuario findAllUsuarios(@PathVariable("cedula") long cedula){
+    public Usuario findAllUsuarios(@PathVariable("cedula") String cedula){
         return this.usuarioService.findAllBycedula(cedula);
     }
     @PatchMapping("/cambiar_contrasenia/{cedula},{contrasenia}")
-    public ResponseEntity<Void> cambiarcontrasenia(@PathVariable("cedula") long cedula,@PathVariable("contrasenia") String contrasenia){
+    public ResponseEntity<Void> cambiarcontrasenia(@PathVariable("cedula") String cedula,@PathVariable("contrasenia") String contrasenia){
         this.usuarioService.cambiarcontraseña(cedula,contrasenia);
         return ResponseEntity.noContent().build();
     }
     @PatchMapping("/cambiar_celular/{cedula},{celular}")
-    public ResponseEntity<Void> cambiarCelular(@PathVariable("cedula") long cedula,@PathVariable("celular") long celular) {
+    public ResponseEntity<Void> cambiarCelular(@PathVariable("cedula") String cedula,@PathVariable("celular") String celular) {
         this.usuarioService.cambiarCelular(cedula, celular);
         return ResponseEntity.noContent().build();
     }

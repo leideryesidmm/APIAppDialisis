@@ -37,7 +37,7 @@ public class CitaService {
     }
 
     public List<Cita> findAllByPaciente(Paciente cedula){
-        return this.repository.findAllByPaciente(cedula);
+        return this.repository.findAllByCedulaPaciente(cedula);
     }
     public Cita findById(int id_cita){
         Optional<Cita> optionalCita = this.repository.findById(id_cita);
@@ -49,7 +49,7 @@ public class CitaService {
     @Transactional
     public void actualizarCita(int id_cita,CitaInDto citaInDto){
 
-        this.repository.actualizarCita(id_cita,citaInDto.getCedulaMedico(),citaInDto.getCedulaPaciente(),citaInDto.getEspecialidad_medico(),citaInDto.getClinica(),citaInDto.getDireccion(),citaInDto.getFecha());
+        this.repository.actualizarCita(id_cita,citaInDto.getCedulaMedico(),citaInDto.getCedulaPaciente(),citaInDto.getClinica(),citaInDto.getDireccion(),citaInDto.getFecha());
     }
     public void deleteById(int id_cita){
         Cita cita=findById(id_cita);
