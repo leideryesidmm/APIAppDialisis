@@ -39,7 +39,7 @@ public class TomaMedicamentoService {
         LocalDateTime tiempo=programarMedicamento.getFechaInicio();
         for(int i =0; i<formulaMedicamento.getTomas();i++){
             TomaMedicamentoInDto tomaMedicamentoInDto=new TomaMedicamentoInDto();
-            tomaMedicamentoInDto.setProgramar_medicamento(programarMedicamento.getIdProgramarMedicamento());
+            tomaMedicamentoInDto.setProgramarMedicamento(programarMedicamento.getIdProgramarMedicamento());
             tomaMedicamentoInDto.setHora(tiempo);
             tiempo=tiempo.plusHours(formulaMedicamento.getIntervaloTiempo());
             tomaMedicamentoInDto.setTomado(false);
@@ -51,8 +51,8 @@ public class TomaMedicamentoService {
         return this.repository.findAll();
     }
 
-    public TomaMedicamento findById(int id_tipo_medicamento){
-        Optional<TomaMedicamento> optionalTomaMedicamento= this.repository.findById(id_tipo_medicamento);
+    public TomaMedicamento findById(int idTipoMedicamento){
+        Optional<TomaMedicamento> optionalTomaMedicamento= this.repository.findById(idTipoMedicamento);
         if (optionalTomaMedicamento.isEmpty()) {
             throw new ToDoExceptions("Toma de medicamento no encontrada", HttpStatus.NOT_FOUND);
         }
@@ -60,7 +60,7 @@ public class TomaMedicamentoService {
     }
 
     @Transactional
-    public void actualizarTomaMedicamento(int id_tipo_medicamento, Date hora, boolean tomado){
-        this.repository.actualizarTomaMedicamento(id_tipo_medicamento,hora,tomado);
+    public void actualizarTomaMedicamento(int idTipoMedicamento, LocalDateTime hora, boolean tomado){
+        this.repository.actualizarTomaMedicamento(idTipoMedicamento,hora,tomado);
     }
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class TomaMedicamentoInDto {
-    private int programar_medicamento;
+    private int programarMedicamento;
     private LocalDateTime hora;
     private boolean tomado;
 }

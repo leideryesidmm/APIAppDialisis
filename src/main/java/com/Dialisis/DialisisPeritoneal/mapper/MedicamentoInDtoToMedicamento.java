@@ -10,10 +10,8 @@ public class MedicamentoInDtoToMedicamento implements IMapper<MedicamentoInDto, 
         Medicamento medicamento = new Medicamento();
         medicamento.setConcentracion(in.getConcentracion());
         medicamento.setDescripcion(in.getDescripcion());
-        medicamento.setViaAdministracion(in.getVia_Administracion());
+        medicamento.setViaAdministracion(in.getViaAdministracion());
         medicamento.setNombre(in.getNombre());
-
         return medicamento;
     }
-
 }

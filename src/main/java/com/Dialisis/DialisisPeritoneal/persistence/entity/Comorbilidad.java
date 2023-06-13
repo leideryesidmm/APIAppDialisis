@@ -7,10 +7,10 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "cormobilidad")
-public class Cormobilidad {
+public class Comorbilidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCormobilidad;
+    private int idComorbilidad;
     @ManyToOne
     @JoinColumn(name = "paciente")
     Paciente paciente;

@@ -3,7 +3,6 @@ package com.Dialisis.DialisisPeritoneal.service;
 
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.JornadaInDtoToJornada;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cormobilidad;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Jornada;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.JornadaRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.JornadaInDto;
@@ -35,7 +34,7 @@ public class JornadaService {
     public Jornada findById(int id_jornada){
         Optional<Jornada> optionalJornada = this.jornadaRepository.findById(id_jornada);
         if (optionalJornada.isEmpty()) {
-            throw new ToDoExceptions("Cormobilidad no encontrada", HttpStatus.NOT_FOUND);
+            throw new ToDoExceptions("Comorbilidad no encontrada", HttpStatus.NOT_FOUND);
         }
         return optionalJornada.get();
     }

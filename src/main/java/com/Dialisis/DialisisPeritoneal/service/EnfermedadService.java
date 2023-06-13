@@ -2,9 +2,7 @@ package com.Dialisis.DialisisPeritoneal.service;
 
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.EnfermedadInDtoToEnfermedad;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cormobilidad;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Enfermedad;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Usuario;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.EnfermedadRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.EnfermedadInDto;
 import org.springframework.http.HttpStatus;
@@ -28,8 +26,8 @@ public class EnfermedadService {
         return this.enfermedadRepository.save(paciente);
     }
 
-    public Enfermedad findById(int id_enfermedad){
-        Optional<Enfermedad> optionalEnfermedad = this.enfermedadRepository.findById(id_enfermedad);
+    public Enfermedad findById(int idEnfermedad){
+        Optional<Enfermedad> optionalEnfermedad = this.enfermedadRepository.findById(idEnfermedad);
         if (optionalEnfermedad.isEmpty()) {
             throw new ToDoExceptions("Enfermedad no encontrada", HttpStatus.NOT_FOUND);
         }
@@ -40,7 +38,7 @@ public class EnfermedadService {
         return this.enfermedadRepository.findAll();
     }
     @Transactional
-    public void actualizarEnfermedad(int id_enfermedad, String nombre){
-        this.enfermedadRepository.actualizarEnfermedad(id_enfermedad,nombre);
+    public void actualizarEnfermedad(int idEnfermedad, String nombre){
+        this.enfermedadRepository.actualizarEnfermedad(idEnfermedad,nombre);
     }
 }

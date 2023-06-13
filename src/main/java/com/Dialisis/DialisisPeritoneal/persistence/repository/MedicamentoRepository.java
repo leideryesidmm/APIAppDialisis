@@ -10,11 +10,11 @@ import org.springframework.data.repository.query.Param;
 public interface MedicamentoRepository extends JpaRepository<Medicamento, Integer> {
 
     @Modifying
-    @Query(value = "update medicamento set nombre=:nombre, concentracion=:concentracion, via_administracion=:via_administracion, descripcion=:descripcion where id_medicamento=:id_medicamento", nativeQuery = true)
+    @Query(value = "update medicamento set nombre=:nombre, concentracion=:concentracion, viaAdministracion=:viaAdministracion, descripcion=:descripcion where idMedicamento=:idMedicamento", nativeQuery = true)
     public void actualizarMedicamento(@Param("nombre")String nombre,
                                       @Param("concentracion") int concentracion,
-                                      @Param("via_administracion") int via_administracion,
+                                      @Param("viaAdministracion") int viaAdministracion,
                                       @Param("descripcion") String descripcion,
-                                      @Param("id_medicamento")int id_medicamento);
+                                      @Param("idMedicamento")int idMedicamento);
 
 }

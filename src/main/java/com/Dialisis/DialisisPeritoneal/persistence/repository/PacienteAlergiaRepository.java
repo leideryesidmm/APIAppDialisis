@@ -12,30 +12,30 @@ public interface PacienteAlergiaRepository extends JpaRepository<PacienteAlergia
 
     public List<PacienteAlergia> findAll();
 
-    @Query(value = "select * from alergia a join paciente_alergia pa on a.id_alergia=pa.alergia join paciente p on pa.paciente=p.cedula where p.cedula=:cedula and pa.activa=true", nativeQuery = true)
+    @Query(value = "select * from alergia a join pacienteAlergia pa on a.idAlergia=pa.alergia join paciente p on pa.paciente=p.cedula where p.cedula=:cedula and pa.activa=true", nativeQuery = true)
     public List<PacienteAlergia> findAllByPaciente(String cedula);
 
     @Modifying
-    @Query(value = "update paciente_alergia set paciente=:paciente, alergia=:alergia, activa=:activa where id_paciente_alergia=:id_paciente_alergia", nativeQuery = true)
-    public void actualizarPacienteAlergia(@Param("id_paciente_alergia")int id_paciente_alergia,
+    @Query(value = "update pacienteAlergia set paciente=:paciente, alergia=:alergia, activa=:activa where idPacienteAlergia=:idPacienteAlergia", nativeQuery = true)
+    public void actualizarPacienteAlergia(@Param("idPacienteAlergia")int idPacienteAlergia,
                                           @Param("paciente")String paciente,
                                           @Param("alergia")int alergia,
                                           @Param("activa")boolean activa);
 
-    @Query(value = "select * from alergia a join paciente_alergia pa on a.id_alergia=pa.alergia join paciente p on p.cedula=pa.paciente where pa.paciente=:cedula and pa.alergia=:id_alergia", nativeQuery = true)
+    @Query(value = "select * from alergia a join pacienteAlergia pa on a.idAlergia=pa.alergia join paciente p on p.cedula=pa.paciente where pa.paciente=:cedula and pa.alergia=:idAlergia", nativeQuery = true)
     public PacienteAlergia findAlergiaPaciente(@Param("cedula")String cedula,
-                                               @Param("id_alergia")int id_alergia);
+                                               @Param("idAlergia")int idAlergia);
     @Modifying
-    @Query(value = "update paciente_alergia set activa=false where paciente=:cedula and alergia=:id_alergia", nativeQuery = true)
+    @Query(value = "update pacienteAlergia set activa=false where paciente=:cedula and alergia=:idAlergia", nativeQuery = true)
     public void inactivarAlergia(@Param("cedula")String cedula,
-                                 @Param("id_alergia")int id_alergia);
+                                 @Param("idAlergia")int idAlergia);
 
     @Modifying
-    @Query(value = "update paciente_alergia set activa=true where paciente=:cedula and alergia=:id_alergia", nativeQuery = true)
+    @Query(value = "update pacienteAlergia set activa=true where paciente=:cedula and alergia=:idAlergia", nativeQuery = true)
     public void activarAlergia(@Param("cedula")String cedula,
-                               @Param("id_alergia")int id_alergia);
+                               @Param("idAlergia")int idAlergia);
 
-    @Query(value = "select * from alergia a join paciente_alergia pa on a.id_alergia=pa.alergia join paciente p on pa.paciente=p.cedula where pa.paciente=:cedula and activa=false", nativeQuery = true)
+    @Query(value = "select * from alergia a join pacienteAlergia pa on a.idAlergia=pa.alergia join paciente p on pa.paciente=p.cedula where pa.paciente=:cedula and activa=false", nativeQuery = true)
     public List<PacienteAlergia> findAlergiasPasadas(@Param("cedula")String cedula);
 
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,8 @@ public interface TomaMedicamentoRepository extends JpaRepository<TomaMedicamento
 
 
     @Modifying
-    @Query(value = "update toma_medicamento set hora=:hora, tomado=:tomado where id_tipo_medicamento=:id_tipo_medicamento", nativeQuery = true)
-    public void actualizarTomaMedicamento(@Param("id_tipo_medicamento")int id_tipo_medicamento,
-                                          @Param("hora") Date hora,
+    @Query(value = "update tomaMedicamento set hora=:hora, tomado=:tomado where idTipoMedicamento=:idTipoMedicamento", nativeQuery = true)
+    public void actualizarTomaMedicamento(@Param("idTipoMedicamento")int idTipoMedicamento,
+                                          @Param("hora") LocalDateTime hora,
                                           @Param("tomado")boolean tomado);
 }

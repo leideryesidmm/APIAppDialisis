@@ -1,7 +1,6 @@
 package com.Dialisis.DialisisPeritoneal.service;
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.CuidadorPacienteInDtoToCuidadorPaciente;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cormobilidad;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.CuidadorPaciente;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.CuidadorPacienteRepository;
@@ -37,10 +36,10 @@ public class CuidadorPacienteService {
         return this.repository.findAllByPaciente(new Paciente(paciente));
     }
 
-    public CuidadorPaciente findById(int id_cuidadorpaciente){
-        Optional<CuidadorPaciente> optionalCuidadorPaciente = this.repository.findById(id_cuidadorpaciente);
+    public CuidadorPaciente findById(int idCuidadorPaciente){
+        Optional<CuidadorPaciente> optionalCuidadorPaciente = this.repository.findById(idCuidadorPaciente);
         if (optionalCuidadorPaciente.isEmpty()) {
-            throw new ToDoExceptions("Cormobilidad no encontrada", HttpStatus.NOT_FOUND);
+            throw new ToDoExceptions("Comorbilidad no encontrada", HttpStatus.NOT_FOUND);
         }
         return optionalCuidadorPaciente.get();
     }
@@ -48,13 +47,13 @@ public class CuidadorPacienteService {
     public CuidadorPaciente findCuidadorActivo(String cedula){
         return this.repository.findCuidadorActivo(cedula);
     }
-    public void actualizarCuidadorPaciente(int id_cuidador_paciente, Date fechaini,Date fecha_fin, boolean activo){
-        this.repository.actualizarCuidadorPaciente(id_cuidador_paciente,fechaini,fecha_fin, activo);
+    public void actualizarCuidadorPaciente(int idCuidadorPaciente, Date fechaInicio,Date fechaFin, boolean activo){
+        this.repository.actualizarCuidadorPaciente(idCuidadorPaciente,fechaInicio,fechaFin, activo);
     }
     @Transactional
-    public void inactivarCuidador(int id_cuidador_paciente){
-        LocalDate fecha_final= LocalDate.now();
-        this.repository.inactivarCuidador(id_cuidador_paciente,fecha_final);
+    public void inactivarCuidador(int idCuidadorPaciente){
+        LocalDate fechaFin= LocalDate.now();
+        this.repository.inactivarCuidador(idCuidadorPaciente,fechaFin);
     }
 
 }

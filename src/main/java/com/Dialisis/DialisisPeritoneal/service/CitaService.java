@@ -39,28 +39,28 @@ public class CitaService {
     public List<Cita> findAllByPaciente(Paciente cedula){
         return this.repository.findAllByCedulaPaciente(cedula);
     }
-    public Cita findById(int id_cita){
-        Optional<Cita> optionalCita = this.repository.findById(id_cita);
+    public Cita findById(int idCita){
+        Optional<Cita> optionalCita = this.repository.findById(idCita);
         if (optionalCita.isEmpty()) {
             throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
         }
         return optionalCita.get();
     }
     @Transactional
-    public void actualizarCita(int id_cita,CitaInDto citaInDto){
+    public void actualizarCita(int idCita,CitaInDto citaInDto){
 
-        this.repository.actualizarCita(id_cita,citaInDto.getCedulaMedico(),citaInDto.getCedulaPaciente(),citaInDto.getClinica(),citaInDto.getDireccion(),citaInDto.getFecha());
+        this.repository.actualizarCita(idCita,citaInDto.getCedulaMedico(),citaInDto.getCedulaPaciente(),citaInDto.getClinica(),citaInDto.getDireccion(),citaInDto.getFecha());
     }
-    public void deleteById(int id_cita){
-        Cita cita=findById(id_cita);
+    public void deleteById(int idCita){
+        Cita cita=findById(idCita);
         LocalDateTime hoy=LocalDateTime.now();
         LocalDateTime citaf=cita.getFecha();
-        Optional<Cita> optionalCita = this.repository.findById(id_cita);
+        Optional<Cita> optionalCita = this.repository.findById(idCita);
         if (optionalCita.isEmpty()) {
             throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
         }
         if(hoy.isBefore(citaf)){
-            this.repository.deleteById(id_cita);
+            this.repository.deleteById(idCita);
         }
         else{
                 throw new ToDoExceptions("La cita ya pasó, no se puede eliminar", HttpStatus.NOT_FOUND);

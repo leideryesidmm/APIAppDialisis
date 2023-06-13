@@ -10,7 +10,7 @@ public class TomaMedicamentoInDtoToTomaMedicamento implements IMapper<TomaMedica
 
     public TomaMedicamento map(TomaMedicamentoInDto in){
         TomaMedicamento tomaMedicamento= new TomaMedicamento();
-        tomaMedicamento.setProgramarMedicamento(new ProgramarMedicamento(in.getProgramar_medicamento()));
+        tomaMedicamento.setProgramarMedicamento(new ProgramarMedicamento(in.getProgramarMedicamento()));
         tomaMedicamento.setHora(in.getHora());
         tomaMedicamento.setTomado(false);
         return tomaMedicamento;

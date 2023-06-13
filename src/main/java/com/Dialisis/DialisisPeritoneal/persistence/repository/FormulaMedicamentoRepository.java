@@ -17,10 +17,10 @@ public interface FormulaMedicamentoRepository extends JpaRepository<FormulaMedic
     public List<FormulaMedicamento> findAllByCita(Cita cita);
 
     @Modifying
-    @Query(value = "update formula_medicamento set medicamento=:medicamento, intervalo_tiempo=:intervalo_tiempo, tomas=:tomas, dosis=:dosis where id_formula_medicamento=:id_formula_medicamento", nativeQuery = true)
-    public void actualizarFormula(@Param("id_formula_medicamento")int id_formula_medicamento,
+    @Query(value = "update formulaMedicamento set medicamento=:medicamento, intervaloTiempo=:intervaloTiempo, tomas=:tomas, dosis=:dosis where idFormulaMedicamento=:idFormulaMedicamento", nativeQuery = true)
+    public void actualizarFormula(@Param("idFormulaMedicamento")int idFormulaMedicamento,
                                   @Param("medicamento")int medicamento,
-                                  @Param("intervalo_tiempo")int intervalo_tiempo,
+                                  @Param("intervaloTiempo")int intervaloTiempo,
                                   @Param("tomas")int tomas,
                                   @Param("dosis")int dosis);
 

@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class MedicoClinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_medico_clinica;
+    private int idMedicoClinica;
     @ManyToOne
     @JoinColumn(name = "medico")
     Medico medico;

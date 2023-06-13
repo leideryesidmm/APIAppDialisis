@@ -36,10 +36,10 @@ public class PacienteService {
         return this.repository.findAllByCedula(cedula);
     }
     @Transactional
-    public void actualizarDatosPaciente(String cedula, String eps, int altura, double peso, double peso_seco, String direccion, String ocupacion){
-       if(peso<peso_seco){
+    public void actualizarDatosPaciente(String cedula, String eps, int altura, double peso, double pesoSeco, String direccion, String ocupacion){
+       if(peso<pesoSeco){
            throw new ToDoExceptions("Peso seco debe ser menor a peso", HttpStatus.BAD_REQUEST);
        }
-        this.repository.actualizarDatosPaciente(cedula,eps,altura,peso,peso_seco,direccion,ocupacion);
+        this.repository.actualizarDatosPaciente(cedula,eps,altura,peso,pesoSeco,direccion,ocupacion);
     }
 }

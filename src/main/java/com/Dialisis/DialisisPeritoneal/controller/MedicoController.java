@@ -26,70 +26,70 @@ public class MedicoController{
         this.prescripcionService=prescripcionService;
     }
 
-    @GetMapping("/findAllPacientes")
+    @GetMapping("/findAllPatients")
     public List<Paciente> findAllPacientes(){
         return this.pacienteService.findAll();
     }
-    @PostMapping("/crearOActualizar")
+    @PostMapping("/createOrUpdatePatients")
     public Medico crearoUpdateMedico(@RequestBody MedicoInDto medicoInDto){
         return this.medicoService.createoUpdateMedico(medicoInDto);
     }
-    @GetMapping("/findAll")
+    @GetMapping("/findAllDoctors")
     public List<Medico> findAllMedicos(){
         return this.medicoService.findAll();
     }
-    @GetMapping("/findByCedula/{cedula}")
+    @GetMapping("/findDoctorByCC/{cc}")
     public Usuario findMedico(@PathVariable("cedula") String cedula){
         return this.medicoService.findByCedula(cedula);
     }
-    @PatchMapping("/clinica/actualizarMedicoClinica/{id_medico_clinica},{medico},{clinica}")
-    public ResponseEntity<Void> actualizarMedicoClinica(@PathVariable("id_medico_clinica")int id_medico_clinica,
+    @PatchMapping("/clinic/updateDoctorClinic/{idDoctorClinic},{doctor},{clinic}")
+    public ResponseEntity<Void> actualizarMedicoClinica(@PathVariable("idMedicoClinica")int idMedicoClinica,
                                                         @PathVariable("medico")String medico,
                                                         @PathVariable("clinica")int clinica,
                                                         @PathVariable("activa")boolean activa){
-        this.medicoClinicaService.actualizarMedicoClinica(id_medico_clinica,medico,clinica, activa);
+        this.medicoClinicaService.actualizarMedicoClinica(idMedicoClinica,medico,clinica, activa);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/clinica/listClinicasByMedico/{cedula}")
+    @GetMapping("/clinic/listClinicsByDoctor/{cc}")
         public List<MedicoClinica> listarClinicasPorMedico(@PathVariable("cedula")String cedula){
         return this.medicoClinicaService.findAllByMedico(cedula);
     }
 
-    @PostMapping("/clinica/crearClinica/{cedula}")
+    @PostMapping("/clinic/createClinic/{cc}")
     public void crearClinica(@PathVariable("cedula")String cedula, @RequestBody ClinicaInDto clinicaInDto){
         Clinica clinica= this.clinicaService.crearClinica(clinicaInDto);
         agregarClinicaByMedico(cedula,clinica.getIdClinica());
     }
 
-    @PostMapping("/clinica/añadirClinicaByMedico/{cedula},{id_clinica}")
-    public void agregarClinicaByMedico(@PathVariable("cedula")String cedula,@PathVariable("id_clinica")int id_clinica){
+    @PostMapping("/clinic/addClinicByDoctor/{cc},{idClinic}")
+    public void agregarClinicaByMedico(@PathVariable("cedula")String cedula,@PathVariable("idClinica")int idClinica){
         MedicoClinicaInDto medicoClinicaInDto=new MedicoClinicaInDto();
         medicoClinicaInDto.setMedico(cedula);
-        medicoClinicaInDto.setClinica(id_clinica);
+        medicoClinicaInDto.setClinica(idClinica);
         this.medicoClinicaService.crearMedicoClinica(medicoClinicaInDto);
     }
-    @GetMapping("/clinica/findByMedico/{cedula},{id_clinica}")
-    public MedicoClinica findClinicaPorMedico(@PathVariable("cedula")String cedula,@PathVariable("id_clinica")int id_clinica) {
-        return this.medicoClinicaService.findClinicaPorMedico(cedula, id_clinica);
+    @GetMapping("/clinic/findByDoctor/{cc},{idClinic}")
+    public MedicoClinica findClinicaPorMedico(@PathVariable("cedula")String cedula,@PathVariable("idClinica")int idClinica) {
+        return this.medicoClinicaService.findClinicaPorMedico(cedula, idClinica);
     }
 
-    @PatchMapping("/clinica/activar/{cedula}{id_clinica}")
-    public void activarClinica(@PathVariable("cedula")String cedula,@PathVariable("id_clinica")int id_clinica) {
-        this.medicoClinicaService.activarClinica(cedula,id_clinica);
+    @PatchMapping("/clinic/activate/{cc}{idClinic}")
+    public void activarClinica(@PathVariable("cedula")String cedula,@PathVariable("idClinica")int idClinica) {
+        this.medicoClinicaService.activarClinica(cedula,idClinica);
     }
 
-    @PatchMapping("/clinica/Inactivar/{cedula}{id_clinica}")
-    public void inactivarClinica(@PathVariable("cedula")String cedula,@PathVariable("id_clinica")int id_clinica) {
-        this.medicoClinicaService.inactivarClinica(cedula,id_clinica);
+    @PatchMapping("/clinic/inactivar/{cc}{idClinica}")
+    public void inactivarClinica(@PathVariable("cedula")String cedula,@PathVariable("idClinica")int idClinica) {
+        this.medicoClinicaService.inactivarClinica(cedula,idClinica);
     }
 
-    @GetMapping("/clinica/listPasadas/{cedula}")
+    @GetMapping("/clinic/listPast/{cc}")
     public List<MedicoClinica> findClinicasPasadas(@PathVariable("cedula")String cedula){
         return this.medicoClinicaService.findClinicasPasadas(cedula);
     }
-    @PostMapping("/prescripcion/crearPrescripcion/{cita}")
-    public Prescripcion crearPrescripcion(@PathVariable("cita")int id_cita, @RequestBody PrescripcionInDto prescripcionInDto){
+    @PostMapping("/prescription/createPrescription/{appointment}")
+    public Prescripcion crearPrescripcion(@PathVariable("idCita")int idCita, @RequestBody PrescripcionInDto prescripcionInDto){
         return this.prescripcionService.createPrescripcion(prescripcionInDto);
     }
 

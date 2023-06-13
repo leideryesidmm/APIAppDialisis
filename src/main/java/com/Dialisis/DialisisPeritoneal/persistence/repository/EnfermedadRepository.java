@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface EnfermedadRepository extends JpaRepository<Enfermedad,Integer> {
     @Modifying
-    @Query(value = "Update enfermedad set nombre=:nombre where id_enfermedad=:id_enfermedad", nativeQuery = true)
-    public void actualizarEnfermedad(@Param("id_enfermedad") long id_enfermedad, @Param("nombre") String nombre);
+    @Query(value = "Update enfermedad set nombre=:nombre where idEnfermedad=:idEnfermedad", nativeQuery = true)
+    public void actualizarEnfermedad(@Param("idEnfermedad") long idEnfermedad, @Param("nombre") String nombre);
 
 
 }

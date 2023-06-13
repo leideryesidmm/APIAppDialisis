@@ -37,17 +37,17 @@ public class AlergiaService {
         return this.repository.findAll();
     }
 
-    public Alergia findById(int id_alergia){
-        exceptionsEntitysAlergia.errorId(id_alergia);
-        return this.repository.findById(id_alergia);
+    public Alergia findById(int idAlergia){
+        exceptionsEntitysAlergia.errorId(idAlergia);
+        return this.repository.findById(idAlergia);
     }
     @Transactional
-    public void actualizarAlergia(String nombre, int id_alergia){
-        exceptionsEntitysAlergia.actualizarAlergia(id_alergia,nombre);
-    //Optional<Alergia> optionalAlergia = this.repository.findById(id_alergia);
+    public void actualizarAlergia(String nombre, int idAlergia){
+        exceptionsEntitysAlergia.actualizarAlergia(idAlergia,nombre);
+    //Optional<Alergia> optionalAlergia = this.repository.findById(idAlergia);
     //if (optionalAlergia.isEmpty()) {
         //throw new ToDoExceptions("Alergia no encontrada", HttpStatus.NOT_FOUND);
     //}
-        this.repository.actualizarAlergia(nombre,id_alergia);
+        this.repository.actualizarAlergia(nombre,idAlergia);
 }
 }

@@ -3,27 +3,21 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("/pacient")
 public class PacienteController {
     private final PacienteService pacienteService;
     private final MedicamentoService medicamentoService;
     private final CuidadorPacienteService cuidadorPacienteService;
     private final CuidadorService cuidadorService;
     private final EnfermedadService enfermedadService;
-    private final CormobilidadService cormobilidadService;
+    private final ComorbilidadService comorbilidadService;
     private final CitaService citaService;
     private final FormulaMedicamentoService formulaMedicamentoService;
     private final ProgramarMedicamentoService programarMedicamentoService;
@@ -33,13 +27,13 @@ public class PacienteController {
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService) {
+    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, ComorbilidadService comorbilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService) {
         this.pacienteService = pacienteService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
         this.cuidadorService = cuidadorService;
         this.enfermedadService = enfermedadService;
-        this.cormobilidadService = cormobilidadService;
+        this.comorbilidadService = comorbilidadService;
         this.citaService = citaService;
         this.formulaMedicamentoService = formulaMedicamentoService;
         this.programarMedicamentoService = programarMedicamentoService;
@@ -49,75 +43,75 @@ public class PacienteController {
         //this.alimentacionPacienteService = alimentacionPacienteService;
     }
 
-    @PostMapping("/crearPaciente")
+    @PostMapping("/createPacient")
     public Paciente crearPaciente(@RequestBody PacienteInDto pacienteInDto){
         return this.pacienteService.crearPaciente(pacienteInDto);
     }
 
-    @GetMapping("/findPacienteByCedula/{cedula}")
+    @GetMapping("/findPacientByCc/{cc}")
     public Paciente findPacienteByCedula(@PathVariable("cedula")String cedula){
         return this.pacienteService.findByCedula(cedula);
     }
-    @PostMapping("/medicamento/crearMedicamento")
+    @PostMapping("/medicine/createMedicine")
     public Medicamento crearMedicamento(@RequestBody MedicamentoInDto medicamentoInDto){
         return this.medicamentoService.crearMedicamento(medicamentoInDto);
     }
 
 
-    @GetMapping("/medicamento/listMedimentos")
+    @GetMapping("/medicine/listMedicine")
     public List <Medicamento> findAllMed(){
         return this.medicamentoService.encontrarMedicamentos();
     }
 
 
-    @GetMapping("/medicamento/byId/{id_medicamento}")
-    public Medicamento findById(@PathVariable("id_medicamento") int id_medicamento){
-        return this.medicamentoService.findById(id_medicamento);
+    @GetMapping("/medicine/byId/{idMedicine}")
+    public Medicamento findById(@PathVariable("idMedicamento") int idMedicamento){
+        return this.medicamentoService.findById(idMedicamento);
     }
 
-    @PatchMapping("/actualizar/{cedula},{eps},{altura},{peso},{peso_seco},{direccion},{ocupacion}")
+    @PatchMapping("/update/{cc},{eps},{heigth},{weight},{dry_weight},{address},{ocupation}")
     public ResponseEntity<Void> actualizarDatosPaciente(@PathVariable("cedula")String cedula,
                                                         @PathVariable("eps") String eps,
                                                         @PathVariable("altura") int altura,
                                                         @PathVariable("peso") double peso,
-                                                        @PathVariable("peso_seco") double peso_seco,
+                                                        @PathVariable("pesoSeco") double pesoSeco,
                                                         @PathVariable("direccion") String direccion,
                                                         @PathVariable("ocupacion") String ocupacion){
-        this.pacienteService.actualizarDatosPaciente(cedula,eps,altura,peso,peso_seco,direccion,ocupacion);
+        this.pacienteService.actualizarDatosPaciente(cedula,eps,altura,peso,pesoSeco,direccion,ocupacion);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/medicamento/actualizar/{nombre},{concentracion},{via_administracion},{descripcion},{id_medicamento}")
+    @PatchMapping("/medicine/update/{name},{concentration},{viaAdministration},{description},{idMedicine}")
     public ResponseEntity<Void> actualizarMedicamentos(@PathVariable("nombre")String nombre,
                                                        @PathVariable("concentracion")int concentracion,
-                                                       @PathVariable("via_administracion")int via_administracion,
+                                                       @PathVariable("viaAdministracion")int viaAdministracion,
                                                        @PathVariable("descripcion")String descripcion,
-                                                       @PathVariable("id_medicamento")int id_medicamento){
-        this.medicamentoService.actualizarMedicamento(nombre,concentracion,via_administracion,descripcion,id_medicamento);
+                                                       @PathVariable("idMedicamento")int idMedicamento){
+        this.medicamentoService.actualizarMedicamento(nombre,concentracion,viaAdministracion,descripcion,idMedicamento);
         return  ResponseEntity.noContent().build();
     }
-    @GetMapping("/cuidador/listCuidadorPacienteByPaciente/{cedula}")
+    @GetMapping("/carer/listCarerPacientByPacient/{cc}")
     public List<CuidadorPaciente> ListarCuidadoresPorPaciente(@PathVariable("cedula")String cedula){
         return this.cuidadorPacienteService.findAllByPaciente(cedula);
     }
-    @GetMapping("/cuidador/findCuidadorActivo/{cedula}")
+    @GetMapping("/carer/findCarerActive/{cc}")
     public CuidadorPaciente findCuidadorActivo(@PathVariable("cedula")String cedula){
         return this.cuidadorPacienteService.findCuidadorActivo(cedula);
     }
-    @PatchMapping("/cuidador/reactivarCuidador/{cedula},{cuidador}")
-    public void ReactivarCuidadorAntiguo(@PathVariable("cedula")String cedula, @PathVariable("cuidador")String cuidador) {
+    @PatchMapping("/carer/reactivateCarer/{cc},{carer}")
+    public void ReactivarCuidadorAntiguo(@PathVariable("cedula")String cedula, @PathVariable("cedulaCuidador")String cedulaCuidador) {
         CuidadorPaciente cuidadorPaciente = findCuidadorActivo(cedula);
         if (cuidadorPaciente != null) {
             this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
         }
         CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
-        cuidadorPacienteInDto.setCuidador(cuidador);
+        cuidadorPacienteInDto.setCuidador(cedulaCuidador);
         cuidadorPacienteInDto.setPaciente(cedula);
         LocalDate fecha_ini = LocalDate.now();
         cuidadorPacienteInDto.setFecha_ini(fecha_ini);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
-    @PostMapping("/cuidador/crear/{cedula}")
+    @PostMapping("/carer/create/{cc}")
     public void crearCuidador(@PathVariable("cedula")String cedula, @RequestBody CuidadorInDto cuidadorInDto) {
         CuidadorPaciente cuidadorPaciente = findCuidadorActivo(cedula);
         if (cuidadorPaciente != null) {
@@ -131,64 +125,65 @@ public class PacienteController {
         cuidadorPacienteInDto.setFecha_ini(fecha_ini);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
-    @PostMapping("/alergia/crear/{cedula},{alergia}")
+    @PostMapping("/allergy/create/{cc},{allergy}")
     public void crearAlergia(@PathVariable("cedula") String cedula, @RequestBody AlergiaInDto alergiaInDto){
         Alergia alergia= this.alergiaService.crearAlergia(alergiaInDto);
         agregarAlergiaByPaciente(cedula, alergia.getIdAlergia());
 
     }
-    @PostMapping("/alergia/agregar/{cedula},{id_alergia}")
-    public void agregarAlergiaByPaciente(@PathVariable("cedula")String cedula, @PathVariable("id_alergia")int id_alergia){
+    @PostMapping("/allergy/add/{cc},{idAllergy}")
+    public void agregarAlergiaByPaciente(@PathVariable("cedula")String cedula, @PathVariable("idAlergia")int idAlergia){
         PacienteAlergiaInDto pacienteAlergiaInDto = new PacienteAlergiaInDto();
-        pacienteAlergiaInDto.setAlergia(id_alergia);
+        pacienteAlergiaInDto.setAlergia(idAlergia);
         pacienteAlergiaInDto.setPaciente(cedula);
         this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
     }
-    @GetMapping("/alergia/listByPaciente/{cedula}")
+    @GetMapping("/allergy/listByPacient/{CC}")
     public List<PacienteAlergia> listarAlergiasPorPaciente(@PathVariable("cedula")String cedula){
         return this.pacienteAlergiaService.findAllByPaciente(cedula);
     }
 
-    @PatchMapping("/alergia/inactivar/{cedula}{id_alergia}")
-    public void inactivarAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia) {
-        this.pacienteAlergiaService.inactivarAlergia(cedula,id_alergia);
+    @PatchMapping("/allergy/inactivaTE/{CC}{idAllergy}")
+    public void inactivarAlergia(@PathVariable("cedula")String cedula,@PathVariable("idAlergia")int idAlergia) {
+        this.pacienteAlergiaService.inactivarAlergia(cedula,idAlergia);
     }
-    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia){
-        return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,id_alergia);
-    }
-
-    @PatchMapping("/alergia/activar/{cedula}{id_alergia}")
-    public void activarAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia) {
-        this.pacienteAlergiaService.activarAlergia(cedula,id_alergia);
+    @GetMapping("/allergy/findPacientAllergy/{cc}/{idAllergy}")
+    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")String cedula,@PathVariable("idAlergia")int idAlergia){
+        return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,idAlergia);
     }
 
-    @GetMapping("/alergia/ListPasadas/{cedula}")
+    @PatchMapping("/allergy/activaTE/{CC}{idAlergia}")
+    public void activarAlergia(@PathVariable("cedula")String cedula,@PathVariable("idAlergia")int idAlergia) {
+        this.pacienteAlergiaService.activarAlergia(cedula,idAlergia);
+    }
+
+    @GetMapping("/allergy/ListPast/{cc}")
     public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")String cedula){
         return this.pacienteAlergiaService.findAlergiasPasadas(cedula);
     }
-    @GetMapping("/enfermedad/findPasadas/{cedula}")
-    public List<Cormobilidad> findEnfermedadesPasadas(@PathVariable("cedula")String cedula){
-        return this.cormobilidadService.findEnfermedadesPasadas(cedula);
+    @GetMapping("/disease/findPast/{cc}")
+    public List<Comorbilidad> findEnfermedadesPasadas(@PathVariable("cedula")String cedula){
+        return this.comorbilidadService.findEnfermedadesPasadas(cedula);
     }
-    @PostMapping("/enfermedad/crear/{cedula}")
+    @PostMapping("/disease/create/{cc}")
     public void crearEnfermedad(@PathVariable("cedula")String cedula,@RequestBody EnfermedadInDto enfermedadInDto){
         Enfermedad enfermedad=this.enfermedadService.crearEnfermedad(enfermedadInDto);
         agregarEnfermedadByPaciente(cedula, enfermedad.getIdEnfermedad());
     }
-    @PostMapping("/enfermedad/añadir/{cedula},{id_enfermedad}")
-    public void agregarEnfermedadByPaciente(@PathVariable("cedula")String cedula,@PathVariable("id_enfermedad")int id_enfermedad){
-        CormobilidadInDto cormobilidadInDto=new CormobilidadInDto();
-        cormobilidadInDto.setEnfermedad(id_enfermedad);
-        cormobilidadInDto.setPaciente(cedula);
-        this.cormobilidadService.crearCormobilidad(cormobilidadInDto);
+    @PostMapping("/disease/add/{cc},{idDisease}")
+    public void agregarEnfermedadByPaciente(@PathVariable("cedula")String cedula,@PathVariable("idEnfermedad")int idEnfermedad){
+        ComorbilidadInDto comorbilidadInDto=new ComorbilidadInDto();
+        comorbilidadInDto.setEnfermedad(idEnfermedad);
+        comorbilidadInDto.setPaciente(cedula);
+        this.comorbilidadService.crearComorbilidad(comorbilidadInDto);
     }
-    @PatchMapping("/enfermedad/eliminar/{id_cormobilidad}")
-    public void eliminarEnfermedad(@PathVariable("id_cormobilidad")int id_cormobilidad){
-        this.cormobilidadService.inactivarCormobilidad(id_cormobilidad);
+    @PatchMapping("/disease/eliminate/{idComorbidity}")
+    public void eliminarEnfermedad(@PathVariable("idComorbilidad")int idComorbilidad){
+        this.comorbilidadService.inactivarCormobilidad(idComorbilidad);
     }
-    @PatchMapping("/enfermedad/activar/{id_cormobilidad}")
-    public void activarCormobilidad(@PathVariable("id_cormobilidad")int id_cormobilidad){
-        this.cormobilidadService.activarCormobilidad(id_cormobilidad);
+    @PatchMapping("/disease/activate/{idComorbility}")
+    public void activarCormobilidad(@PathVariable("idComorbilidad")int idComorbilidad){
+        this.comorbilidadService.activarCormobilidad(idComorbilidad);
     }
     /*@PostMapping("/alimentacion/agregar")
     public void agregarAlimentacionPorPaciente(@RequestBody AlimentacionPacienteInDto alimentacionPacienteInDto){
@@ -221,51 +216,51 @@ public class PacienteController {
         if(alimentacionPaciente!=null)
             this.alimentacionPacienteService.actualizarAlimentacionPaciente(idAlimentacionPaciente,alimentacionPacienteInDto);
     }*/
-    @PostMapping("/cita/crearCita")
+    @PostMapping("/appointment/createCita")
     public void crearCita(@RequestBody CitaInDto citaInDto){
         this.citaService.crearCita(citaInDto);
     }
-    @GetMapping("/cita/listByPaciente/{cedula}")
-    public List<Cita> findAllCitas(@PathVariable("cedula")String cedula){
-        Paciente paciente=new Paciente(cedula);
+    @GetMapping("/appointment/listByPacient/{cc}")
+    public List<Cita> findAllCitas(@PathVariable("cedulaPaciente")String cedulaPaciente){
+        Paciente paciente=new Paciente(cedulaPaciente);
         return this.citaService.findAllByPaciente(paciente);
     }
-    @PatchMapping("/cita/actualizar/{id_cita}")
-    public void actualizarCita(@PathVariable("id_cita")int id_cita,@RequestBody CitaInDto citaInDto){
-        this.citaService.actualizarCita(id_cita, citaInDto);
+    @PatchMapping("/appointment/update/{idAppointment}")
+    public void actualizarCita(@PathVariable("idCita")int idCita,@RequestBody CitaInDto citaInDto){
+        this.citaService.actualizarCita(idCita, citaInDto);
     }
-    @DeleteMapping("/cita/eliminar/{id_cita}")
-    public void eliminarCita(@PathVariable("id_cita")int id_cita){
-        this.citaService.deleteById(id_cita);
+    @DeleteMapping("/appointment/eliminate/{idAppointmenta}")
+    public void eliminarCita(@PathVariable("idCita")int idCita){
+        this.citaService.deleteById(idCita);
     }
-    @GetMapping("/cita/antiguas/{cedula}")
+    @GetMapping("/appointment/antiques/{cc}")
     public List<Cita> findAllCitasAntiguasByPaciente(@PathVariable("cedula")String cedula){
         Paciente paciente=new Paciente(cedula);
         return this.citaService.findAllCitasAntiguasByPaciente(paciente);
     }
-    @GetMapping("/cita/futuras")
+    @GetMapping("/appointment/future")
     public List<Cita> findAllCitasFuturasByPaciente(@PathVariable("cedula")String cedula){
         Paciente paciente=new Paciente(cedula);
         return this.citaService.findAllCitasFuturasByPaciente(paciente);
     }
-    @GetMapping("/cita/filtroPyF/{cedula},{filtro}")
+    @GetMapping("/appointment/filtrePyF/{cc},{filtre}")
     public List<Cita> findAllCitasPyFByPaciente(@PathVariable("cedula")String cedula,@PathVariable("filtro")byte filtro){
         Paciente paciente=new Paciente(cedula);
         if(filtro==1)
         return this.citaService.findAllCitasFuturasByPaciente(paciente);
         else return this.citaService.findAllCitasAntiguasByPaciente(paciente);
     }
-    @GetMapping("/cita/formula/{cita}")
+    @GetMapping("/appointment/formule/{appointment}")
     public List<FormulaMedicamento> findFormulaByCita(@PathVariable("cita")int cita){
         return this.formulaMedicamentoService.findAllByCita(cita);
     }
 
-    @PostMapping("/citas/formula/crear")
+    @PostMapping("/appointment/formule/create")
     public FormulaMedicamento crearFormulaMedicamento(@RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto) {
         return this.formulaMedicamentoService.crearFormulaMedicamento(formulaMedicamentoInDto);
     }
 
-    @PostMapping("/cita/formula/ProgramarMedicamento")
+    @PostMapping("/appointment/formule/ProgrameMedicine")
     public List<TomaMedicamento> programarMedicamento(@RequestBody ProgramarMedicamentoInDto programarMedicamentoInDto){
         ProgramarMedicamento programarMedicamento=this.programarMedicamentoService.crearProgramarMedicamento(programarMedicamentoInDto);
         List<TomaMedicamento> tomaMedicamentoList=this.tomaMedicamentoService.crearTomas(programarMedicamento,this.formulaMedicamentoService.findById(programarMedicamento.getFormulaMedicamento().getIdFormulaMedicamento()));

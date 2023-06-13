@@ -11,8 +11,8 @@ import org.springframework.data.repository.query.Param;
 public interface PrescripcionRepository extends JpaRepository<Prescripcion, Integer> {
 
     @Modifying
-    @Query(value = "update prescripcion set orificioSalida=:orificioSalida, nocheSeca=:nocheSeca where id_prescripcion=:id_prescripcion", nativeQuery = true)
+    @Query(value = "update prescripcion set orificioSalida=:orificioSalida, nocheSeca=:nocheSeca where idPrescripcion=:idPrescripcion", nativeQuery = true)
     public void actualizarPrescripcion(@Param("orificioSalida")String orificioSalida,
                                       @Param("nocheSeca") boolean nocheSeca,
-                                      @Param("id_prescripcion")int id_prescripcion);
+                                      @Param("idPrescripcion")int idPrescripcion);
 }

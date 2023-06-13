@@ -2,7 +2,6 @@ package com.Dialisis.DialisisPeritoneal.service;
 
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.MedicamentoInDtoToMedicamento;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cormobilidad;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Medicamento;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.MedicamentoRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.MedicamentoInDto;
@@ -34,15 +33,15 @@ public class MedicamentoService {
         return this.repository.findAll();
     }
 
-    public Medicamento findById(int id_medicamento){
-        Optional<Medicamento> optionalMedicamento= this.repository.findById(id_medicamento);
+    public Medicamento findById(int idMedicamento){
+        Optional<Medicamento> optionalMedicamento= this.repository.findById(idMedicamento);
         if (optionalMedicamento.isEmpty()) {
             throw new ToDoExceptions("Medicamento no encontrada", HttpStatus.NOT_FOUND);
         }
         return optionalMedicamento.get();
     }
     @Transactional
-    public void actualizarMedicamento (String nombre, int concentracion, int via_administracion, String descripcion, int id_medicamento){
-        this.repository.actualizarMedicamento(nombre,concentracion,via_administracion,descripcion,id_medicamento);
+    public void actualizarMedicamento (String nombre, int concentracion, int viaAdministracion, String descripcion, int idMedicamento){
+        this.repository.actualizarMedicamento(nombre,concentracion,viaAdministracion,descripcion,idMedicamento);
     }
 }

@@ -14,17 +14,17 @@ import java.util.List;
 public interface CuidadorPacienteRepository extends JpaRepository<CuidadorPaciente,Integer> {
 
     @Modifying
-    @Query(value = "Update cuidador_paciente set activo=false, fecha_fin=:fecha_fin where id_cuidador_paciente=:id_cuidador_paciente", nativeQuery = true)
-    public void inactivarCuidador(@Param("id_cuidador_paciente") long id_cuidador_paciente,
-                                  @Param("fecha_fin") LocalDate fecha_fin);
+    @Query(value = "Update cuidadorPaciente set activo=false, fechaFin=:fechaFin where idCuidadorPaciente=:idCuidadorPaciente", nativeQuery = true)
+    public void inactivarCuidador(@Param("idCuidadorPaciente") long idCuidadorPaciente,
+                                  @Param("fechaFin") LocalDate fechaFin);
 
     @Modifying
-    @Query(value = "update cuidador_paciente set fecha_ini=:fecha_ini,fecha_fin=:fecha_fin, activo=:activo where id_cuidador_paciente=:id_cuidador_paciente", nativeQuery = true)
-    public void actualizarCuidadorPaciente(@Param("id_cuidador_paciente")int id_cuidador_paciente,
-                                           @Param("fecha_ini") Date fecha_ini,
-                                           @Param("fecha_fin")Date fecha_fin,
+    @Query(value = "update cuidadorPaciente set fechaInicio=:fechaInicio,fechaFin=:fechaFin, activo=:activo where idCuidadorPaciente=:idCuidadorPaciente", nativeQuery = true)
+    public void actualizarCuidadorPaciente(@Param("idCuidadorPaciente")int idCuidadorPaciente,
+                                           @Param("fechaInicio") Date fechaInicio,
+                                           @Param("fechaFin")Date fechaFin,
                                            @Param("activo")boolean activo);
     public List<CuidadorPaciente> findAllByPaciente(Paciente cedula);
-    @Query(value = "SELECT * from cuidador c join cuidador_paciente cp on c.cedula=cp.cuidador join parentesco p on c.parentesco=p.id_parentesco where cp.paciente=:cedula and cp.activo=true", nativeQuery = true)
+    @Query(value = "SELECT * from cuidador c join cuidadorPaciente cp on c.cedula=cp.cuidador join parentesco p on c.parentesco=p.idParentesco where cp.paciente=:cedula and cp.activo=true", nativeQuery = true)
     public CuidadorPaciente findCuidadorActivo(String cedula);
 }

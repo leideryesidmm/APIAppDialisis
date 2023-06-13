@@ -12,8 +12,6 @@ public interface ParentescoRepository extends JpaRepository<Parentesco, Integer>
 
     public List<Parentesco> findAll();
 
-
-
     @Modifying
     @Query(value = "update parentesco set descripcion=:descripcion where idParentesco=:idParentesco", nativeQuery = true)
     public void actualizarParentesco(@Param("idParentesco")int idParentesco, @Param("descripcion")String descripcion);

@@ -32,15 +32,15 @@ public class ProgramarMedicamentoService {
     public List<ProgramarMedicamento> findAll(){
         return this.repository.findAll();
     }
-    public ProgramarMedicamento findById(int id_programar_medicamento){
-        Optional<ProgramarMedicamento> optionalProgramarMedicamento= this.repository.findById(id_programar_medicamento);
+    public ProgramarMedicamento findById(int idProgramarMedicamento){
+        Optional<ProgramarMedicamento> optionalProgramarMedicamento= this.repository.findById(idProgramarMedicamento);
         if (optionalProgramarMedicamento.isEmpty()) {
             throw new ToDoExceptions("Programcion de medicamento no encontrada", HttpStatus.NOT_FOUND);
         }
         return optionalProgramarMedicamento.get();
     }
     @Transactional
-    public void actualizarProgramarMedicamento(int id_programar_medicamento, Date fecha_ini, Date fecha_fin){
-        this.repository.actualizarProgramarMedicamento(id_programar_medicamento,fecha_ini,fecha_fin);
+    public void actualizarProgramarMedicamento(int idProgramarMedicamento, Date fechaInicio, Date fechaFin){
+        this.repository.actualizarProgramarMedicamento(idProgramarMedicamento,fechaInicio,fechaFin);
     }
 }

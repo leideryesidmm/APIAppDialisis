@@ -34,8 +34,8 @@ public class MedicoClinicaService {
         return this.repository.findAll();
     }
 
-    public MedicoClinica findById(int id_medico_clinica){
-        Optional<MedicoClinica> optionalMedicoClinica= this.repository.findById(id_medico_clinica);
+    public MedicoClinica findById(int idMedicoClinica){
+        Optional<MedicoClinica> optionalMedicoClinica= this.repository.findById(idMedicoClinica);
         if (optionalMedicoClinica.isEmpty()) {
             throw new ToDoExceptions("Clínica por médico no encontrada", HttpStatus.NOT_FOUND);
         }
@@ -43,22 +43,22 @@ public class MedicoClinicaService {
     }
 
     @Transactional
-    public void actualizarMedicoClinica(int id_medico_clinica, String medico, int clinica, boolean activa){
-        this.repository.actualizarMedicoClinica(id_medico_clinica,medico,clinica, activa);
+    public void actualizarMedicoClinica(int idMedicoClinica, String medico, int clinica, boolean activa){
+        this.repository.actualizarMedicoClinica(idMedicoClinica,medico,clinica, activa);
     }
     public List<MedicoClinica> findAllByMedico(String cedula){
         return this.repository.findAllByMedico(cedula);
     }
-    public MedicoClinica findClinicaPorMedico(String cedula,int id_clinica){
-        return this.repository.findClinicaPorMedico(cedula,id_clinica);
+    public MedicoClinica findClinicaPorMedico(String cedula,int idClinica){
+        return this.repository.findClinicaPorMedico(cedula,idClinica);
     }
     @Transactional
-    public void activarClinica(String cedula,int id_clinica){
-        this.repository.activarClinica(cedula,id_clinica);
+    public void activarClinica(String cedula,int idClinica){
+        this.repository.activarClinica(cedula,idClinica);
     }
     @Transactional
-    public void inactivarClinica(String cedula,int id_clinica){
-        this.repository.inactivarClinica(cedula,id_clinica);
+    public void inactivarClinica(String cedula,int idClinica){
+        this.repository.inactivarClinica(cedula,idClinica);
     }
     public List<MedicoClinica> findClinicasPasadas(String cedula){
         return this.repository.findClinicasPasadas(cedula);
