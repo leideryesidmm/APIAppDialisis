@@ -19,6 +19,6 @@ public class PacienteAlergia {
     @ManyToOne
     @JoinColumn(name = "alergia")
     Alergia alergia;
-    boolean activa;
+    boolean activo;
 
 }

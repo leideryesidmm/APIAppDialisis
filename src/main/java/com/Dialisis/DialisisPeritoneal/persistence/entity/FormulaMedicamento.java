@@ -12,11 +12,11 @@ public class FormulaMedicamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idFormulaMedicamento;
     @ManyToOne
-    @JoinColumn(name = "cita")
-    Cita cita;
+    @JoinColumn(name = "paciente")
+    private Paciente paciente;
     @ManyToOne
     @JoinColumn(name = "medicamento")
-    Medicamento medicamento;
+    private Medicamento medicamento;
     private int intervaloTiempo;
     private int tomas;
     private int dosis;

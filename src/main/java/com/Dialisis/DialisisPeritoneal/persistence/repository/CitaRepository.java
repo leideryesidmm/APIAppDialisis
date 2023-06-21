@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface CitaRepository extends JpaRepository<Cita, Integer> {
 
-    public List<Cita> findAllByPaciente(Paciente paciente);
+    public List<Cita> findAllByCedulaPaciente(Paciente paciente);
     @Query(value = "SELECT * FROM cita where paciente=:paciente and fecha <:hoy",nativeQuery = true)
     public List<Cita> findAllCitasAntiguasByPaciente(Paciente paciente, LocalDateTime hoy);
     @Query(value = "SELECT * FROM cita where paciente=:paciente and fecha >:hoy",nativeQuery = true)
@@ -22,12 +22,12 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
 
 
     @Modifying
-    @Query(value = "update cita set nombre_medico=:nombre_medico, paciente=:paciente, lugar=:lugar, direccion=:direccion, fecha=:fecha where id_cita=:id_cita",nativeQuery = true)
+    @Query(value = "update cita set cedula_medico=:cedula_medico, cedula_paciente=:cedula_paciente, direccion=:direccion, hora=:hora, fecha=:fecha where id_cita=:id_cita",nativeQuery = true)
     public void actualizarCita(@Param("id_cita")int cita,
-                               @Param("nombre_medico") String nombre_medico,
-                               @Param("paciente")String paciente,
-                               @Param("lugar")String lugar,
+                               @Param("cedula_medico") String cedula_medico,
+                               @Param("cedula_paciente")String cedula_paciente,
                                @Param("direccion")String direccion,
+                               @Param("hora")LocalDateTime hora,
                                @Param("fecha") LocalDateTime fecha);
 }
 

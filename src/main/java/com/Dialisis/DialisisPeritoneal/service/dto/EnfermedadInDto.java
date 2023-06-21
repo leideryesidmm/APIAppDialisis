@@ -3,5 +3,5 @@ import lombok.Data;
 
 @Data
 public class EnfermedadInDto {
-    private String nombre;
+    private String descripcion;
 }

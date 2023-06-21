@@ -2,6 +2,7 @@ package com.Dialisis.DialisisPeritoneal.service;
 
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.PrescripcionInDtoToPrescripcion;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Medico;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Prescripcion;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.PrescripcionRepository;
@@ -30,9 +31,7 @@ public class PrescripcionService {
         return this.repository.save(pres);
     }
 
-    public Prescripcion findAllByCita(int idCita){
-        return this.repository.findAllByCita(idCita);
-    }
+
 
     @Transactional
     public void actualizarPrescripcion(PrescripcionInDto prescripcionInDto, boolean nocheSeca, int idPrescripcion){

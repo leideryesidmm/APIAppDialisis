@@ -1,14 +1,12 @@
 package com.Dialisis.DialisisPeritoneal.persistence.entity;
-
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "tomaMedicamento")
+@Table(name = "tomamedicamento")
 public class TomaMedicamento {
 
     @Id
@@ -16,7 +14,7 @@ public class TomaMedicamento {
     private int idTomaMedicamento;
     @ManyToOne
     @JoinColumn(name = "programarMedicamento")
-    ProgramarMedicamento programarMedicamento;
+    private ProgramarMedicamento programarMedicamento;
     private LocalDateTime hora;
     private boolean tomado;
 }

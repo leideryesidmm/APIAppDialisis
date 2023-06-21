@@ -1,8 +1,10 @@
 package com.Dialisis.DialisisPeritoneal.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -11,17 +13,16 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(referencedColumnName = "cedula")
 public class Paciente extends Usuario{
 @Id
-    private String cedula;
-    private Date fechaNacimiento;
-    private int edad;
+private String cedula;
+    private LocalDateTime fechaNacimiento;
     private String eps;
     private int altura;
-    private double peso;
-    private double pesoSeco;
+    private float peso;
+    private float pesoSeco;
     private String direccion;
     private String ocupacion;
     private String tipoSangre;
-    private String rh;
+    private char rh;
 
     public Paciente(){
         this.cedula=null;
@@ -30,10 +31,9 @@ public class Paciente extends Usuario{
         this.cedula=id;
     }
 
-    public Paciente(String cedula, Date fechaNacimiento, int edad, String eps, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, String rh) {
+    public Paciente(String cedula, LocalDateTime fechaNacimiento, String eps, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh) {
         this.cedula = cedula;
         this.fechaNacimiento = fechaNacimiento;
-        this.edad = edad;
         this.eps = eps;
         this.altura = altura;
         this.peso = peso;

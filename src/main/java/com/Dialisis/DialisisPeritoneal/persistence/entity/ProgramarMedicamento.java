@@ -15,7 +15,7 @@ public class ProgramarMedicamento {
     private int idProgramarMedicamento;
     @ManyToOne
     @JoinColumn(name = "idFormulaMedicamento")
-    FormulaMedicamento formulaMedicamento;
+    private FormulaMedicamento formulaMedicamento;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
 

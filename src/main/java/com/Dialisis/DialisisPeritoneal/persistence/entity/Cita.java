@@ -15,14 +15,13 @@ public class Cita {
     private int idCita;
     @ManyToOne
     @JoinColumn(name = "medico")
-    String cedulaMedico;
+    Medico cedulaMedico;
     /*@ManyToOne
     @JoinColumn(name = "especialidad_medico")
     Especialidad especialidad_medico;*/
     @ManyToOne
     @JoinColumn(name = "paciente")
     Paciente cedulaPaciente;
-    private String clinica;
     private String direccion;
     private LocalDateTime fecha;
     private LocalDateTime hora;

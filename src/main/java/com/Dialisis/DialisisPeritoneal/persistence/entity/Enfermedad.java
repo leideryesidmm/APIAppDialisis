@@ -10,7 +10,7 @@ public class Enfermedad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEnfermedad;
-    private String nombre;
+    private String descripcion;
 
     public Enfermedad(){
         this.idEnfermedad=0;

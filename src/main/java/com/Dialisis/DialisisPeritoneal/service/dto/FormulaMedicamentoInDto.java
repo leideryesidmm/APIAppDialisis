@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FormulaMedicamentoInDto {
 
-    private int cita;
+    private String paciente;
     private int medicamento;
     private int intervaloTiempo;
     private int tomas;

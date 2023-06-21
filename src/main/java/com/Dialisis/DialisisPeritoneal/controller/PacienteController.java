@@ -56,6 +56,7 @@ public class PacienteController {
 
     @GetMapping("/findPacienteByCedula/{cedula}")
     public Paciente findPacienteByCedula(@PathVariable("cedula")String cedula){
+
         return this.pacienteService.findByCedula(cedula);
     }
     @PostMapping("/medicamento/crearMedicamento")
@@ -171,12 +172,12 @@ public class PacienteController {
         return this.cormobilidadService.findEnfermedadesPasadas(cedula);
     }
     @PostMapping("/enfermedad/crear/{cedula}")
-    public void crearEnfermedad(@PathVariable("cedula")long cedula,@RequestBody EnfermedadInDto enfermedadInDto){
+    public void crearEnfermedad(@PathVariable("cedula")String cedula,@RequestBody EnfermedadInDto enfermedadInDto){
         Enfermedad enfermedad=this.enfermedadService.crearEnfermedad(enfermedadInDto);
         agregarEnfermedadByPaciente(cedula, enfermedad.getIdEnfermedad());
     }
     @PostMapping("/enfermedad/añadir/{cedula},{id_enfermedad}")
-    public void agregarEnfermedadByPaciente(@PathVariable("cedula")long cedula,@PathVariable("id_enfermedad")int id_enfermedad){
+    public void agregarEnfermedadByPaciente(@PathVariable("cedula")String cedula,@PathVariable("id_enfermedad")int id_enfermedad){
         CormobilidadInDto cormobilidadInDto=new CormobilidadInDto();
         cormobilidadInDto.setEnfermedad(id_enfermedad);
         cormobilidadInDto.setPaciente(cedula);
@@ -255,9 +256,9 @@ public class PacienteController {
         return this.citaService.findAllCitasFuturasByPaciente(paciente);
         else return this.citaService.findAllCitasAntiguasByPaciente(paciente);
     }
-    @GetMapping("/cita/formula/{cita}")
-    public List<FormulaMedicamento> findFormulaByCita(@PathVariable("cita")int cita){
-        return this.formulaMedicamentoService.findAllByCita(cita);
+    @GetMapping("/formula/{cedulapaciente}")
+    public List<FormulaMedicamento> findFormulaByCita(@PathVariable("cedulapaciente")String paciente){
+        return this.formulaMedicamentoService.findAllByCita(paciente);
     }
 
     @PostMapping("/citas/formula/crear")

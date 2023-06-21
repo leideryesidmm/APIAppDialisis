@@ -18,6 +18,9 @@ public class Prescripcion {
     public Prescripcion() {
         this.idPrescripcion = 0;
     }
+    public Prescripcion(int idPrescripcion) {
+        this.idPrescripcion = idPrescripcion;
+    }
 
     public Prescripcion(int idPrescripcion, String orificioSalida, boolean nocheSeca) {
         this.idPrescripcion = idPrescripcion;

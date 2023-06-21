@@ -27,6 +27,7 @@ public class PacienteService {
         }
 
         Paciente paciente = mapper.map(pacienteInDto);
+        System.out.println(paciente.getFechaNacimiento());
         return this.repository.save(paciente);
     }
     public List <Paciente> findAll(){
@@ -34,7 +35,7 @@ public class PacienteService {
     }
 
     public Paciente findByCedula(String cedula){
-        return this.repository.findBy(cedula);
+        return this.repository.findByCedula(cedula);
     }
     @Transactional
     public void actualizarDatosPaciente(String cedula, String eps, int altura, double peso, double peso_seco, String direccion, String ocupacion){

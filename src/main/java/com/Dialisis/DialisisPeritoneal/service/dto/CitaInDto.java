@@ -9,8 +9,8 @@ public class CitaInDto {
     private String cedulaMedico;
     private int especialidadMedico;
     private String cedulaPaciente;
-    private String clinica;
     private String direccion;
     private LocalDateTime fecha;
     private LocalDateTime hora;
+    private int prescripcion;
 }

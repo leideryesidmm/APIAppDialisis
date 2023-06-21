@@ -1,5 +1,6 @@
 package com.Dialisis.DialisisPeritoneal.persistence.repository;
 
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Cuidador;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Prescripcion;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,6 @@ public interface PrescripcionRepository extends JpaRepository<Prescripcion, Inte
                                       @Param("nocheSeca") boolean nocheSeca,
                                       @Param("id_prescripcion")int id_prescripcion);
 
-    public Prescripcion findAllByCita(int idCita);
+
 
 }

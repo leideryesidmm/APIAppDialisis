@@ -10,7 +10,7 @@ public class EnfermedadInDtoToEnfermedad implements IMapper<EnfermedadInDto, Enf
     @Override
     public Enfermedad map(EnfermedadInDto in) {
         Enfermedad enfermedad=new Enfermedad();
-        enfermedad.setNombre(in.getNombre());
+        enfermedad.setDescripcion(in.getDescripcion());
         return enfermedad;
     }
 }

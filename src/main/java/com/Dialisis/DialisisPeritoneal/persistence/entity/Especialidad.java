@@ -10,15 +10,15 @@ import javax.persistence.*;
 public class Especialidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idEspecialidadMedico;
+    private int idEspecialidad;
     private String descripcion;
 
     public Especialidad(){
-        this.idEspecialidadMedico=0;
+        this.idEspecialidad=0;
     }
 
-    public Especialidad(int idEspecialidadMedico) {
+    public Especialidad(int idEspecialidad) {
 
-        this.idEspecialidadMedico = idEspecialidadMedico;
+        this.idEspecialidad = idEspecialidad;
     }
 }

@@ -19,34 +19,28 @@ public class PruebaController {
     private final ClinicaService clinicaService;
     private final CormobilidadService cormobilidadService;
     private final ParentescoService parentescoService;
-    private final TipoRecambioService tipoRecambioService;
     private final FormulaMedicamentoService formulaMedicamentoService;
     private final ProgramarMedicamentoService programarMedicamentoService;
     private final TomaMedicamentoService tomaMedicamentoService;
-    private final MedicoClinicaService medicoClinicaService;
     private final PacienteAlergiaService pacienteAlergiaService;
     //private final AlimentacionPacienteService alimentacionPacienteService;
     private final EnfermedadService enfermedadService;
     private final CuidadorService cuidadorService;
-    private final JornadaService jornadaService;
     private final CuidadorPacienteService cuidadorPacienteService;
 
-    public PruebaController(AlergiaService alergiaService, CitaService citaService, ClinicaService clinicaService, CormobilidadService cormobilidadService, ParentescoService parentescoService, TipoRecambioService tipoRecambioService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, MedicoClinicaService medicoClinicaService, PacienteAlergiaService pacienteAlergiaService, /*AlimentacionPacienteService alimentacionPacienteService,*/ EnfermedadService enfermedadService, CuidadorService cuidadorService, JornadaService jornadaService, CuidadorPacienteService cuidadorPacienteService) {
+    public PruebaController(AlergiaService alergiaService, CitaService citaService, ClinicaService clinicaService, CormobilidadService cormobilidadService, ParentescoService parentescoService,  FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, /*AlimentacionPacienteService alimentacionPacienteService,*/ EnfermedadService enfermedadService, CuidadorService cuidadorService, CuidadorPacienteService cuidadorPacienteService) {
         this.alergiaService = alergiaService;
         this.citaService = citaService;
         this.clinicaService = clinicaService;
         this.cormobilidadService = cormobilidadService;
         this.parentescoService = parentescoService;
-        this.tipoRecambioService = tipoRecambioService;
         this.formulaMedicamentoService = formulaMedicamentoService;
         this.programarMedicamentoService = programarMedicamentoService;
         this.tomaMedicamentoService = tomaMedicamentoService;
-        this.medicoClinicaService = medicoClinicaService;
         this.pacienteAlergiaService = pacienteAlergiaService;
         //this.alimentacionPacienteService = alimentacionPacienteService;
         this.enfermedadService = enfermedadService;
         this.cuidadorService = cuidadorService;
-        this.jornadaService = jornadaService;
         this.cuidadorPacienteService = cuidadorPacienteService;
     }
 
@@ -77,10 +71,7 @@ public class PruebaController {
         return this.parentescoService.crearParentesco(parentescoInDto);
     }
 
-    @PostMapping("Tipo_Recambio")
-    public TipoRecambio crearTipoRecambio(@RequestBody TipoRecambioInDto tipoRecambioInDto) {
-        return this.tipoRecambioService.crearTipoRecambio(tipoRecambioInDto);
-    }
+
 
     @PostMapping("FormulaMedicamento")
     public FormulaMedicamento crearFormulaMedicamento(@RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto) {
@@ -97,10 +88,6 @@ public class PruebaController {
         return this.tomaMedicamentoService.crearTomaMedicamento(tomaMedicamentoInDto);
     }*/
 
-    @PostMapping("MedicoClinica")
-    public MedicoClinica crearMedicoClinica(@RequestBody MedicoClinicaInDto medicoClinicaInDto) {
-        return this.medicoClinicaService.crearMedicoClinica(medicoClinicaInDto);
-    }
 
     @PostMapping("PacienteAlergia")
     public PacienteAlergia crearPacienteAlergia(@RequestBody PacienteAlergiaInDto pacienteAlergiaInDto){
@@ -122,10 +109,7 @@ public class PruebaController {
         return this.cuidadorService.crearoActualizarCuidador(cuidadorInDto);
     }
 
-    @PostMapping("/jornada")
-    public Jornada crearJornada(@RequestBody JornadaInDto jornadaInDto){
-        return this.jornadaService.crearJornada(jornadaInDto);
-    }
+
 
     @PostMapping("/Cuidador_Paciente")
     public CuidadorPaciente crearCuidadorPaciente(@RequestBody CuidadorPacienteInDto cuidadorpacienteInDto) {
@@ -156,10 +140,6 @@ public class PruebaController {
         return this.parentescoService.findAll();
     }
 
-    @GetMapping("/ListTipoRecambio")
-    public List<TipoRecambio> findAllTipoRecambio() {
-        return this.tipoRecambioService.findAll();
-    }
 
     @GetMapping("ListFormulaMedicamento")
     public List<FormulaMedicamento> findAllFormulaMed() {
@@ -174,11 +154,6 @@ public class PruebaController {
     @GetMapping("/ListTomaMedicamento")
     public List<TomaMedicamento> findAllTomaMedicamento() {
         return this.tomaMedicamentoService.findAll();
-    }
-
-    @GetMapping("/ListMedicoClinica")
-    public List<MedicoClinica> findAllMedicoClinica() {
-        return this.medicoClinicaService.findAll();
     }
 
     @GetMapping("/ListPacienteAlergia")
@@ -201,10 +176,6 @@ public class PruebaController {
         return this.cuidadorService.findAll();
     }
 
-    @GetMapping("/jornadas")
-    public List<Jornada> findAllJornada(){
-        return this.jornadaService.findAll();
-    }
 
     @GetMapping("/ListCuidador_Paciente")
     public List<CuidadorPaciente> findAllCuidadorPaciente(){
@@ -239,10 +210,7 @@ public class PruebaController {
         return this.parentescoService.findById(id_parenetsco);
     }
 
-    @GetMapping("/TipoRecambio/Id/{id_tipo}")
-    public TipoRecambio findByIdTipoRecambio(@PathVariable("id_tipo") int id_tipo) {
-        return this.tipoRecambioService.findById(id_tipo);
-    }
+
 
     @GetMapping("/FormulaMedicamento/Id/{id_formula_medicamento}")
     public FormulaMedicamento findByIdFormula(@PathVariable("id_formula_medicamento") int id_formula_medicamento) {
@@ -259,10 +227,7 @@ public class PruebaController {
         return this.tomaMedicamentoService.findById(id_toma_medicamento);
     }
 
-    @GetMapping("/MedicoClinica/Id/{id_medico_clinica}")
-    public MedicoClinica findByIdMedicoClinica(@PathVariable("id_medico_clinica")int id_medico_clinica){
-        return this.medicoClinicaService.findById(id_medico_clinica);
-    }
+
 
     @GetMapping("/PacienteAlergia/Id/{id_paciente_alergia}")
     public PacienteAlergia findByIdPacienteAlergia(@PathVariable("id_paciente_alergia")int id_paciente_alergia){
@@ -284,10 +249,7 @@ public class PruebaController {
         return this.cuidadorService.findAllBycedula(cedula);
     }
 
-    @GetMapping("/Jornada/Id/{id_jornada}")
-    public Jornada findByIdJornada(@PathVariable("id_jornada")int id_jornada){
-        return this.jornadaService.findById(id_jornada);
-    }
+
 
     @GetMapping("/CuidadorPaciente/{id_cuidador_paciente}")
     public CuidadorPaciente findByIdCuidadorPaciente(@PathVariable("id_cuidador_paciente")int id_cuidador_paciente){
@@ -325,12 +287,7 @@ public class PruebaController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("ActualizarTipoRecambio/{id_tipo},{descripcion}")
-    public ResponseEntity<Void> actualizarTipoRecambio(@PathVariable("id_tipo")int id_tipo,
-                                                       @PathVariable("descripcion")String descripcion){
-        this.tipoRecambioService.actualizarTipoRecambio(id_tipo,descripcion);
-        return ResponseEntity.noContent().build();
-    }
+
 
     @PatchMapping("ActualizarFormulaMedicamento/{id_formula_medicamento},{medicamento},{intervalo_tiempo},{tomas},{dosis}")
     public ResponseEntity<Void> actualizarFormulaMedicamento(@PathVariable("id_formula_medicamento")int id_formula_medicamento,
@@ -357,14 +314,6 @@ public class PruebaController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/ActualizarMedicoClinica/{id_medico_clinica},{medico},{clinica}")
-    public ResponseEntity<Void> actualizarMedicoClinica(@PathVariable("id_medico_clinica")int id_medico_clinica,
-                                                        @PathVariable("medico")String medico,
-                                                        @PathVariable("clinica")int clinica,
-                                                        @PathVariable("activa")boolean activa){
-        this.medicoClinicaService.actualizarMedicoClinica(id_medico_clinica,medico,clinica, activa);
-        return ResponseEntity.noContent().build();
-    }
 
     /*@PatchMapping("/ActualizarPacienteAlergia/{id_paciente_alergia},{paciente},{alergia}")
     public ResponseEntity<Void> actualizarPacienteAlergia(@PathVariable("id_paciente_alergia")int id_paciente_alergia,

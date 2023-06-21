@@ -1,24 +1,19 @@
 package com.Dialisis.DialisisPeritoneal.persistence.entity;
-
-
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "jornada")
-public class Jornada {
+@Table(name="intervalosHoras")
+public class IntervalosHoras {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_jornada;
+    private int idIntervalosHoras;
+    @ManyToOne
+    @JoinColumn(name = "prescripcion")
+    private Prescripcion prescripcion;
     private String descripcion;
 
-    public Jornada(){
-        this.id_jornada=0;
-    }
 
-    public Jornada(int id_jornada) {
-        this.id_jornada = id_jornada;
-    }
 }

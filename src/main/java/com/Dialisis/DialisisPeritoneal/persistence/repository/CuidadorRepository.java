@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 
 public interface CuidadorRepository extends JpaRepository<Cuidador, String> {
-    public Cuidador findAllByCedula(String cedula);
+    public Cuidador findAllByCedulaCuidador(String cedula);
 
 
 }
