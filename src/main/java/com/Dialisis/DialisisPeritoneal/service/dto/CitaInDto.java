@@ -6,9 +6,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 @Data
 public class CitaInDto {
-    private String cedulaMedico;
-    private int especialidadMedico;
-    private String cedulaPaciente;
+    private String medico;
+    private String paciente;
     private String direccion;
     private LocalDateTime fecha;
     private LocalDateTime hora;

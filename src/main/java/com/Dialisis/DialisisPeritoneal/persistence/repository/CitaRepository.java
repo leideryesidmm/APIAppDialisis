@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface CitaRepository extends JpaRepository<Cita, Integer> {
 
-    public List<Cita> findAllByCedulaPaciente(Paciente paciente);
+    public List<Cita> findAllByPaciente(Paciente paciente);
     @Query(value = "SELECT * FROM cita where paciente=:paciente and fecha <:hoy",nativeQuery = true)
     public List<Cita> findAllCitasAntiguasByPaciente(Paciente paciente, LocalDateTime hoy);
     @Query(value = "SELECT * FROM cita where paciente=:paciente and fecha >:hoy",nativeQuery = true)

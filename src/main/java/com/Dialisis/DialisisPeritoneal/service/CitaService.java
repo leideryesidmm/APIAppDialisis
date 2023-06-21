@@ -28,16 +28,18 @@ public class CitaService {
     }
 
     public Cita crearCita(CitaInDto citaInDto) {
+        System.out.println("antes del if");
         LocalDateTime now = LocalDateTime.now();
-        if(citaInDto.getFecha().isBefore(now)){
-        throw new ToDoExceptions("Fecha de la cita inválida", HttpStatus.BAD_REQUEST);
-        }
+        //if(citaInDto.getFecha().isBefore(now)){
+        //throw new ToDoExceptions("Fecha de la cita inválida", HttpStatus.BAD_REQUEST);
+        //}
             Cita cita = mapper.map(citaInDto);
+        System.out.println(cita);
             return this.repository.save(cita);
     }
 
     public List<Cita> findAllByPaciente(Paciente cedula){
-        return this.repository.findAllByCedulaPaciente(cedula);
+        return this.repository.findAllByPaciente(cedula);
     }
     public Cita findById(int id_cita){
         Optional<Cita> optionalCita = this.repository.findById(id_cita);
@@ -49,7 +51,7 @@ public class CitaService {
     @Transactional
     public void actualizarCita(int id_cita,CitaInDto citaInDto){
 
-        this.repository.actualizarCita(id_cita,citaInDto.getCedulaMedico(),citaInDto.getCedulaPaciente(),citaInDto.getDireccion(),citaInDto.getFecha(),citaInDto.getHora());
+        this.repository.actualizarCita(id_cita,citaInDto.getMedico(),citaInDto.getPaciente(),citaInDto.getDireccion(),citaInDto.getFecha(),citaInDto.getHora());
     }
     public void deleteById(int id_cita){
         Cita cita=findById(id_cita);

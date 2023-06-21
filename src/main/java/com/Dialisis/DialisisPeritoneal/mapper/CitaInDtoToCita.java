@@ -12,8 +12,8 @@ public class CitaInDtoToCita implements IMapper<CitaInDto, Cita>{
 
     public Cita map(CitaInDto in){
         Cita cita= new Cita();
-        cita.setCedulaMedico(new Medico(in.getCedulaMedico()));
-        cita.setCedulaPaciente(new Paciente(in.getCedulaPaciente()));
+        cita.setMedico(new Medico(in.getMedico()));
+        cita.setPaciente(new Paciente(in.getPaciente()));
         cita.setDireccion(in.getDireccion());
         cita.setFecha(in.getFecha());
         cita.setHora(in.getHora());

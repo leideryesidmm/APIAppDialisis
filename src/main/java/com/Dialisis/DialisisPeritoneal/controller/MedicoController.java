@@ -1,9 +1,7 @@
 package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.ClinicaInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.MedicoInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.PrescripcionInDto;
+import com.Dialisis.DialisisPeritoneal.service.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +14,14 @@ public class MedicoController{
     private final ClinicaService clinicaService;
     private final PacienteService pacienteService;
     private final PrescripcionService prescripcionService;
+    private final CitaService citaService;
 
-    public MedicoController(PrescripcionService prescripcionService,  MedicoService medicoService,ClinicaService clinicaService, PacienteService pacienteService) {
+    public MedicoController(PrescripcionService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
         this.prescripcionService=prescripcionService;
+        this.citaService = citaService;
     }
 
     @GetMapping("/findAllPacientes")
@@ -49,9 +49,17 @@ public class MedicoController{
     }
 
 
-    @PostMapping("/prescripcion/crearPrescripcion/{cita}")
-    public Prescripcion crearPrescripcion(@PathVariable("cita")int id_cita, @RequestBody PrescripcionInDto prescripcionInDto){
-        return this.prescripcionService.createPrescripcion(prescripcionInDto);
+    @PostMapping("/prescripcion/crearPrescripcion")
+    public Prescripcion crearPrescripcion(@RequestBody PrescripcionCitaDto prescripcionCitaDto) {
+        PrescripcionInDto prescripcionInDto = prescripcionCitaDto.getPrescripcion();
+        CitaInDto citaInDto = prescripcionCitaDto.getCita();
+
+        Prescripcion pre = prescripcionService.createPrescripcion(prescripcionInDto);
+        citaInDto.setPrescripcion(pre.getIdPrescripcion());
+        System.out.println(citaInDto);
+        citaService.crearCita(citaInDto);
+
+        return pre;
     }
 
     /*@GetMapping("/findPrescripcionByCita/{idCita}")
