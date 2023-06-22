@@ -74,6 +74,9 @@ public class CitaService {
         LocalDateTime hoy=LocalDateTime.now();
         return this.repository.findAllCitasAntiguasByPaciente(cedula,hoy);
     }
+    public List<Cita> findAllCitas(){
+        return this.repository.findAll();
+    }
     public List<Cita> findAllCitasFuturasByPaciente(Paciente cedula){
         LocalDateTime hoy=LocalDateTime.now();
         return this.repository.findAllCitasFuturasByPaciente(cedula,hoy);

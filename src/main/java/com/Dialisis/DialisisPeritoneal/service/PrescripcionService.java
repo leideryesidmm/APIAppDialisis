@@ -26,9 +26,15 @@ public class PrescripcionService {
         this.mapper = mapper;
     }
 
+
+
     public Prescripcion createPrescripcion(PrescripcionInDto prescripcionInDto) {
         Prescripcion pres = mapper.map(prescripcionInDto);
         return this.repository.save(pres);
+    }
+
+    public List<Prescripcion> findAllPrescripciones() {
+        return this.repository.findAll();
     }
 
 

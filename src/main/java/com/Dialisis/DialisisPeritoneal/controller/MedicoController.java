@@ -75,8 +75,11 @@ public class MedicoController{
         this.prescripcionService.actualizarPrescripcion(orificioSalida, nocheSeca, id_prescripcion);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/prescripciones/listPrescripciones")
+    public List<Cita> findAllPrescripciones(){
 
-    /*@GetMapping("/prescripcion/listprescripciones/{cita}")
+        return this.citaService.findAllCitas();
+    }    /*@GetMapping("/prescripcion/listprescripciones/{cita}")
     public List<Prescripcion> listarPrescripcionesPorPaciente(@PathVariable("idCita")int idCita){
         return this.prescripcionService.findAllByCita(idCita);
     }*/
