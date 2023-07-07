@@ -1,6 +1,7 @@
 package com.Dialisis.DialisisPeritoneal.mapper;
 
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Medicamento;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.ViaAdministracion;
 import com.Dialisis.DialisisPeritoneal.service.dto.MedicamentoInDto;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ public class MedicamentoInDtoToMedicamento implements IMapper<MedicamentoInDto, 
         Medicamento medicamento = new Medicamento();
         medicamento.setConcentracion(in.getConcentracion());
         medicamento.setDescripcion(in.getDescripcion());
-        medicamento.setViaAdministracion(in.getVia_Administracion());
+        medicamento.setViaAdministracion(new ViaAdministracion(in.getVia_Administracion()));
         medicamento.setNombre(in.getNombre());
 
         return medicamento;

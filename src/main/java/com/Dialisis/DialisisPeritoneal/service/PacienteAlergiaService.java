@@ -3,6 +3,7 @@ package com.Dialisis.DialisisPeritoneal.service;
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.PacienteAlergiaInDtoToPacienteAlergia;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Medicamento;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.PacienteAlergia;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.PacienteAlergiaRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.PacienteAlergiaInDto;
@@ -26,6 +27,7 @@ public class PacienteAlergiaService {
 
     public PacienteAlergia crearPacienteAlergia(PacienteAlergiaInDto pacienteAlergiaInDto){
         PacienteAlergia pacienteAlergia= mapper.map(pacienteAlergiaInDto);
+        pacienteAlergia.setActivo(true);
         return this.repository.save(pacienteAlergia);
     }
 

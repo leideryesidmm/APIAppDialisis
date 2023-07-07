@@ -18,7 +18,7 @@ public class Alergia {
     }
 
     public Alergia(int id_alergia) {
-        this.idAlergia = idAlergia;
+        this.idAlergia = id_alergia;
     }
 
 }

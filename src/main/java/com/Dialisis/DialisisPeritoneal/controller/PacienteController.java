@@ -3,16 +3,10 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,10 +24,11 @@ public class PacienteController {
     private final TomaMedicamentoService tomaMedicamentoService;
     private final PacienteAlergiaService pacienteAlergiaService;
     private final AlergiaService alergiaService;
+    private final ViaAdministracionService viaAdministracionService;
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService) {
+    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService) {
         this.pacienteService = pacienteService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
@@ -47,6 +42,7 @@ public class PacienteController {
         this.pacienteAlergiaService = pacienteAlergiaService;
         this.alergiaService = alergiaService;
         //this.alimentacionPacienteService = alimentacionPacienteService;
+        this.viaAdministracionService = viaAdministracionService;
     }
 
     @PostMapping("/crearPaciente")
@@ -135,6 +131,7 @@ public class PacienteController {
     @PostMapping("/alergia/crear/{cedula},{alergia}")
     public void crearAlergia(@PathVariable("cedula") String cedula, @RequestBody AlergiaInDto alergiaInDto){
         Alergia alergia= this.alergiaService.crearAlergia(alergiaInDto);
+        System.out.println(alergia);
         agregarAlergiaByPaciente(cedula, alergia.getIdAlergia());
 
     }
@@ -256,12 +253,12 @@ public class PacienteController {
         return this.citaService.findAllCitasFuturasByPaciente(paciente);
         else return this.citaService.findAllCitasAntiguasByPaciente(paciente);
     }
-    @GetMapping("/formula/{cedulapaciente}")
-    public List<FormulaMedicamento> findFormulaByCita(@PathVariable("cedulapaciente")String paciente){
+    @GetMapping("/medicamento/findMedicamentoByPaciente/{cedulapaciente}")
+    public List<FormulaMedicamento> findFormulaByPaciente(@PathVariable("cedulapaciente")String paciente){
         return this.formulaMedicamentoService.findAllByCita(paciente);
     }
 
-    @PostMapping("/citas/formula/crear")
+    @PostMapping("/formula/crear")
     public FormulaMedicamento crearFormulaMedicamento(@RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto) {
         return this.formulaMedicamentoService.crearFormulaMedicamento(formulaMedicamentoInDto);
     }
@@ -272,5 +269,16 @@ public class PacienteController {
         List<TomaMedicamento> tomaMedicamentoList=this.tomaMedicamentoService.crearTomas(programarMedicamento,this.formulaMedicamentoService.findById(programarMedicamento.getFormulaMedicamento().getIdFormulaMedicamento()));
         return tomaMedicamentoList;
     }
-
+    @GetMapping("medicamento/viaAdministracion")
+    public List<ViaAdministracion> viaAdministracionList(){
+        return this.viaAdministracionService.findAll();
+    }
+    @PostMapping("/medicamento/viaAdministración/crear")
+    public void crearViaAdministracion(@RequestBody ViaAdministracionInDto viaAdministracionInDto){
+        this.viaAdministracionService.createoViaAdministracion(viaAdministracionInDto);
+    }
+    @PostMapping("/medicamento/viaAdministración/actualizar/{id}")
+    public void crearViaAdministracion(@PathVariable("id") int id,@RequestBody ViaAdministracionInDto viaAdministracionInDto){
+        this.viaAdministracionService.UpdateViaAdministracion(id,viaAdministracionInDto);
+    }
 }

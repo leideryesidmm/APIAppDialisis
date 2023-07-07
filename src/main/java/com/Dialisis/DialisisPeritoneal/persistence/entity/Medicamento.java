@@ -13,7 +13,9 @@ public class Medicamento {
     private int idMedicamento;
     private String nombre;
     private String descripcion;
-    private int viaAdministracion;
+    @ManyToOne
+    @JoinColumn(name="viaAdministracion")
+    private ViaAdministracion viaAdministracion;
     private int concentracion;
 
     public Medicamento(){
