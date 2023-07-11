@@ -2,6 +2,8 @@ package com.Dialisis.DialisisPeritoneal.service.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class FormulaMedicamentoInDto {
 
@@ -10,5 +12,11 @@ public class FormulaMedicamentoInDto {
     private int intervaloTiempo;
     private int tomas;
     private int dosis;
+    private String nombre;
+    private String descripcion;
+    private int via_Administracion;
+    private double concentracion;
+    private LocalDateTime fechaIni;
+    private LocalDateTime fechaFin;
 
 }

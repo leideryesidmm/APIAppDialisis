@@ -255,7 +255,7 @@ public class PacienteController {
     }
     @GetMapping("/medicamento/findMedicamentoByPaciente/{cedulapaciente}")
     public List<FormulaMedicamento> findFormulaByPaciente(@PathVariable("cedulapaciente")String paciente){
-        return this.formulaMedicamentoService.findAllByCita(paciente);
+        return this.formulaMedicamentoService.findAllByPaciente(paciente);
     }
 
     @PostMapping("/formula/crear")
@@ -268,6 +268,10 @@ public class PacienteController {
         ProgramarMedicamento programarMedicamento=this.programarMedicamentoService.crearProgramarMedicamento(programarMedicamentoInDto);
         List<TomaMedicamento> tomaMedicamentoList=this.tomaMedicamentoService.crearTomas(programarMedicamento,this.formulaMedicamentoService.findById(programarMedicamento.getFormulaMedicamento().getIdFormulaMedicamento()));
         return tomaMedicamentoList;
+    }
+    @GetMapping("/medicamento/findById/{id}")
+    public FormulaMedicamento findMedicamento(@PathVariable int id) {
+        return this.formulaMedicamentoService.findById(id);
     }
     @GetMapping("medicamento/viaAdministracion")
     public List<ViaAdministracion> viaAdministracionList(){

@@ -18,9 +18,8 @@ public interface FormulaMedicamentoRepository extends JpaRepository<FormulaMedic
     public List<FormulaMedicamento> findAllByPaciente(Paciente paciente);
 
     @Modifying
-    @Query(value = "update formula_medicamento set medicamento=:medicamento, intervalo_tiempo=:intervalo_tiempo, tomas=:tomas, dosis=:dosis where id_formula_medicamento=:id_formula_medicamento", nativeQuery = true)
+    @Query(value = "update formula_medicamento set intervalo_tiempo=:intervalo_tiempo, tomas=:tomas, dosis=:dosis where id_formula_medicamento=:id_formula_medicamento", nativeQuery = true)
     public void actualizarFormula(@Param("id_formula_medicamento")int id_formula_medicamento,
-                                  @Param("medicamento")int medicamento,
                                   @Param("intervalo_tiempo")int intervalo_tiempo,
                                   @Param("tomas")int tomas,
                                   @Param("dosis")int dosis);
