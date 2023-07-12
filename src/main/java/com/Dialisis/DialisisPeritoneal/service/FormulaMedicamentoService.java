@@ -43,8 +43,10 @@ public class FormulaMedicamentoService {
         return optionalFormulaMedicamento.get();
     }
     @Transactional
-    public void actualizarFormula(int id_formula_medicamento,int intervalo_tiempo, int tomas, int dosis){
-        this.repository.actualizarFormula(id_formula_medicamento,intervalo_tiempo,tomas,dosis);
+    public void actualizarFormula(int id_formula_medicamento,FormulaMedicamentoInDto formulaMedicamentoInDto){
+        FormulaMedicamento formulaMedicamento= mapper.map(formulaMedicamentoInDto);
+        formulaMedicamento.setIdFormulaMedicamento(id_formula_medicamento);
+        this.repository.save(formulaMedicamento);
     }
     public  List<FormulaMedicamento> findAllByPaciente(String pacientein){
         Paciente paciente=new Paciente(pacientein);

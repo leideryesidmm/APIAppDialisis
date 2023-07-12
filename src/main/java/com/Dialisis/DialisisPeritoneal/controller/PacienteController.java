@@ -93,6 +93,12 @@ public class PacienteController {
         this.medicamentoService.actualizarMedicamento(nombre,concentracion,via_administracion,descripcion,id_medicamento);
         return  ResponseEntity.noContent().build();
     }
+    @PatchMapping("formulaMedicamento/actualizar/{id_formula_medicamento}")
+    public ResponseEntity<Void> actualizarFormulaMedicamento(@PathVariable("id_formula_medicamento")int id_formula_medicamento,
+                                                             @RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto){
+        this.formulaMedicamentoService.actualizarFormula(id_formula_medicamento,formulaMedicamentoInDto);
+        return ResponseEntity.noContent().build();
+    }
     @GetMapping("/cuidador/listCuidadorPacienteByPaciente/{cedula}")
     public List<CuidadorPaciente> ListarCuidadoresPorPaciente(@PathVariable("cedula")String cedula){
         return this.cuidadorPacienteService.findAllByPaciente(cedula);

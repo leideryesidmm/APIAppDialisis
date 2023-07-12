@@ -289,12 +289,10 @@ public class PruebaController {
 
 
 
-    @PatchMapping("ActualizarFormulaMedicamento/{id_formula_medicamento},{medicamento},{intervalo_tiempo},{tomas},{dosis}")
+    @PatchMapping("ActualizarFormulaMedicamento/{id_formula_medicamento}")
     public ResponseEntity<Void> actualizarFormulaMedicamento(@PathVariable("id_formula_medicamento")int id_formula_medicamento,
-                                                             @PathVariable("intervalo_tiempo")int intervalo_tiempo,
-                                                             @PathVariable("tomas")int tomas,
-                                                             @PathVariable("dosis")int dosis){
-        this.formulaMedicamentoService.actualizarFormula(id_formula_medicamento,intervalo_tiempo,tomas,dosis);
+                                                             @RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto){
+        this.formulaMedicamentoService.actualizarFormula(id_formula_medicamento,formulaMedicamentoInDto);
         return ResponseEntity.noContent().build();
     }
     @PatchMapping("/ActualizarProgramarMedicamento/{id_programar_Medicamento},{fecha_ini},{fecha_fin}")
