@@ -291,4 +291,9 @@ public class PacienteController {
     public void crearViaAdministracion(@PathVariable("id") int id,@RequestBody ViaAdministracionInDto viaAdministracionInDto){
         this.viaAdministracionService.UpdateViaAdministracion(id,viaAdministracionInDto);
     }
+    @DeleteMapping("/medicamento/eliminar/{id_medicamento}")
+    public ResponseEntity<Void> deleteMedicamento(@PathVariable("id_medicamento") int id_medicamento) {
+        this.formulaMedicamentoService.deleteById(id_medicamento);
+        return ResponseEntity.noContent().build();
+    }
 }
