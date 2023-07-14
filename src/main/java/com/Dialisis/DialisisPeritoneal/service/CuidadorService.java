@@ -5,6 +5,7 @@ import com.Dialisis.DialisisPeritoneal.persistence.repository.CuidadorRepository
 import com.Dialisis.DialisisPeritoneal.service.dto.CuidadorInDto;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -28,6 +29,12 @@ public class CuidadorService {
     public Cuidador findAllBycedula(String cedula){
 
         return this.cuidadorRepository.findAllByCedulaCuidador(cedula);
+    }
+    @Transactional
+    public Cuidador actualizarCuidador(String cedula,CuidadorInDto cuidadorInDto){
+        Cuidador cuidador=cuidadorInDTOtoCuidador.map(cuidadorInDto);
+        cuidador.setCedulaCuidador(cedula);
+       return this.cuidadorRepository.save(cuidador);
     }
 
 

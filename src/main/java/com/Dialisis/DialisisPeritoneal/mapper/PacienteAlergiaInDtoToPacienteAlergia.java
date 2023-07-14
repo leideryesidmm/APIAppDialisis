@@ -13,6 +13,7 @@ public class PacienteAlergiaInDtoToPacienteAlergia implements IMapper<PacienteAl
         PacienteAlergia pacienteAlergia= new PacienteAlergia();
         pacienteAlergia.setPaciente(new Paciente(in.getPaciente()));
         pacienteAlergia.setAlergia(new Alergia(in.getAlergia()));
+        pacienteAlergia.setActivo(true);
         return pacienteAlergia;
     }
 }

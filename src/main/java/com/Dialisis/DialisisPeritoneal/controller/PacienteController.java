@@ -134,6 +134,12 @@ public class PacienteController {
         cuidadorPacienteInDto.setFecha_ini(fecha_ini);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
+
+    @PutMapping("/cuidador/actualizar/{cedula}")
+    public void actualizarCuidador(@PathVariable("cedula")String cedula, @RequestBody CuidadorInDto cuidadorInDto) {
+        Cuidador cuidador = this.cuidadorService.actualizarCuidador(cedula,cuidadorInDto);
+
+    }
     @PostMapping("/alergia/crear/{cedula},{alergia}")
     public void crearAlergia(@PathVariable("cedula") String cedula, @RequestBody AlergiaInDto alergiaInDto){
         Alergia alergia= this.alergiaService.crearAlergia(alergiaInDto);
