@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +52,13 @@ public class FormulaMedicamentoService {
     public  List<FormulaMedicamento> findAllByPaciente(String pacientein){
         Paciente paciente=new Paciente(pacientein);
         return this.repository.findAllByPaciente(paciente);
+    }
+    public void deleteById(int id_medicamento){
+        Optional<FormulaMedicamento> optionalCita = this.repository.findById(id_medicamento);
+        if (optionalCita.isEmpty()) {
+            throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
+        }else {
+            this.repository.deleteById(id_medicamento);
+        }
     }
 }
