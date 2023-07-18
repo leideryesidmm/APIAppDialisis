@@ -258,13 +258,13 @@ public class PruebaController {
     //Actualizar datos
 
 
-    @PatchMapping("/ActualizarAlergia/{descripcion},{id_alergia}")
+    /*@PatchMapping("/ActualizarAlergia/{descripcion},{id_alergia}")
     public ResponseEntity<Void> actualizarAlergia(@PathVariable("descripcion") String descripcion,
                                                   @PathVariable("id_alergia") int id_alergia) {
         this.alergiaService.actualizarAlergia(descripcion, id_alergia);
         return ResponseEntity.noContent().build();
     }
-
+*/
 
     @PatchMapping("ActualizarClinica/{id_clinica},{nombre},{direccion}")
     public ResponseEntity<Void> actualizarClinica(@PathVariable("id_clinica")int id_clinica,

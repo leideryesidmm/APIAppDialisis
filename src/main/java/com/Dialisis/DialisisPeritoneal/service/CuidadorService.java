@@ -27,15 +27,14 @@ public class CuidadorService {
     }
 
     public Cuidador findAllBycedula(String cedula){
-
         return this.cuidadorRepository.findAllByCedulaCuidador(cedula);
     }
     @Transactional
-    public Cuidador actualizarCuidador(String cedula,CuidadorInDto cuidadorInDto){
-        Cuidador cuidador=cuidadorInDTOtoCuidador.map(cuidadorInDto);
+    public Cuidador actualizarCuidador(String cedula,CuidadorInDto cuidadorInDto) {
+        Cuidador cuidador = cuidadorInDTOtoCuidador.map(cuidadorInDto);
         cuidador.setCedulaCuidador(cedula);
-       return this.cuidadorRepository.save(cuidador);
+        System.out.println(cuidador);
+        return this.cuidadorRepository.save(cuidador);
     }
-
 
 }
