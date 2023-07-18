@@ -140,14 +140,14 @@ public class PacienteController {
         Cuidador cuidador = this.cuidadorService.actualizarCuidador(cedula,cuidadorInDto);
 
     }
-    @PostMapping("/alergia/crear/{cedula},{alergia}")
+    @PostMapping("/alergia/crear/{cedula}")
     public void crearAlergia(@PathVariable("cedula") String cedula, @RequestBody AlergiaInDto alergiaInDto){
         Alergia alergia= this.alergiaService.crearAlergia(alergiaInDto);
         System.out.println(alergia);
         agregarAlergiaByPaciente(cedula, alergia.getIdAlergia());
 
     }
-    @PostMapping("/alergia/agregar/{cedula},{id_alergia}")
+    @PostMapping("/alergia/agregar/{cedula}/{id_alergia}")
     public void agregarAlergiaByPaciente(@PathVariable("cedula")String cedula, @PathVariable("id_alergia")int id_alergia){
         PacienteAlergiaInDto pacienteAlergiaInDto = new PacienteAlergiaInDto();
         pacienteAlergiaInDto.setAlergia(id_alergia);
@@ -159,7 +159,7 @@ public class PacienteController {
         return this.pacienteAlergiaService.findAllByPaciente(cedula);
     }
 
-    @PatchMapping("/alergia/inactivar/{cedula}{id_alergia}")
+    @PatchMapping("/alergia/inactivar/{cedula}/{id_alergia}")
     public void inactivarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
         this.pacienteAlergiaService.inactivarAlergia(cedula,id_alergia);
     }
@@ -167,7 +167,7 @@ public class PacienteController {
         return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,id_alergia);
     }
 
-    @PatchMapping("/alergia/activar/{cedula}{id_alergia}")
+    @PatchMapping("/alergia/activar/{cedula}/{id_alergia}")
     public void activarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
         this.pacienteAlergiaService.activarAlergia(cedula,id_alergia);
     }
