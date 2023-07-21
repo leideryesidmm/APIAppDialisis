@@ -12,8 +12,8 @@ public class Recambio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRecambio;
     @ManyToOne
-    @JoinColumn(name = "prescripcion")
-    private Prescripcion prescripcion;
+    @JoinColumn(name = "prescripcionDia")
+    private PrescripcionDia prescripcionDia;
     private LocalDateTime fecha;
     private LocalDateTime hora;
     private double concentración;

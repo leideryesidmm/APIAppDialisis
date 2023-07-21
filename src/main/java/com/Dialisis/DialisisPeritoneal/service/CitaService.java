@@ -87,6 +87,16 @@ public class CitaService {
         if(citaInDto.getFecha().isBefore(now)){
             throw new ToDoExceptions("Fecha de la cita inválida", HttpStatus.BAD_REQUEST);
         }
-               }
+    }
+    public Cita findUltimaCita() {
+        System.out.println("antes del if");
+        LocalDateTime now = LocalDateTime.now();
+        //if(citaInDto.getFecha().isBefore(now)){
+        //throw new ToDoExceptions("Fecha de la cita inválida", HttpStatus.BAD_REQUEST);
+        //}
+        //Cita cita = mapper.map(citaInDto);
+        //System.out.println(cita);
+        return null;//this.repository.save(cita);
+    }
 
     }

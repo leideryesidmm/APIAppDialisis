@@ -19,4 +19,5 @@ public interface PrescripcionRepository extends JpaRepository<Prescripcion, Inte
 
 
 
+
 }

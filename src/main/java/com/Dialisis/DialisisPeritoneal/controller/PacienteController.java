@@ -264,7 +264,7 @@ public class PacienteController {
         return this.formulaMedicamentoService.findAllByPaciente(paciente);
     }
 
-    @PostMapping("/formula/crear")
+    @PostMapping("/Medicamento/crear")
     public FormulaMedicamento crearFormulaMedicamento(@RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto) {
         return this.formulaMedicamentoService.crearFormulaMedicamento(formulaMedicamentoInDto);
     }
@@ -296,4 +296,21 @@ public class PacienteController {
         this.formulaMedicamentoService.deleteById(id_medicamento);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/prescripcion/")
+    public ResponseEntity<List<Cita>> getPrescisciones(){
+        List<Cita> citas=this.citaService.findAllCitas();
+        if(citas==null)
+            return ResponseEntity.noContent().build();
+        else
+            return ResponseEntity.ok(citas);
+    }
+    @GetMapping("/prescripcion/prescripcionActual")
+    public ResponseEntity<Cita> getPresciscionActual(){
+        Cita cita=this.citaService.findUltimaCita();
+        if(cita==null)
+            return ResponseEntity.noContent().build();
+        else
+            return ResponseEntity.ok(cita);
+    }
+
 }
