@@ -4,8 +4,10 @@ import com.Dialisis.DialisisPeritoneal.exceptions.ExceptionsEntitys;
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.AlergiaInDtoToAlergia;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Alergia;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Cuidador;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.AlergiaRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.AlergiaInDto;
+import com.Dialisis.DialisisPeritoneal.service.dto.CuidadorInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ public class AlergiaService {
 
     private final AlergiaRepository repository;
     private final AlergiaInDtoToAlergia mapper;
+
+
 
     private final ExceptionsEntitys exceptionsEntitysAlergia;
 
@@ -42,12 +46,9 @@ public class AlergiaService {
         return this.repository.findById(id_alergia);
     }
     @Transactional
-    public void actualizarAlergia(String nombre, int id_alergia){
-        exceptionsEntitysAlergia.actualizarAlergia(id_alergia,nombre);
-    //Optional<Alergia> optionalAlergia = this.repository.findById(id_alergia);
-    //if (optionalAlergia.isEmpty()) {
-        //throw new ToDoExceptions("Alergia no encontrada", HttpStatus.NOT_FOUND);
-    //}
-        this.repository.actualizarAlergia(nombre,id_alergia);
+    public Alergia actualizarAlergia(int idAlergia, AlergiaInDto alergiaInDto){
+       Alergia alergia=mapper.map(alergiaInDto);
+       alergia.setIdAlergia(idAlergia);
+        return this.repository.save(alergia);
 }
 }

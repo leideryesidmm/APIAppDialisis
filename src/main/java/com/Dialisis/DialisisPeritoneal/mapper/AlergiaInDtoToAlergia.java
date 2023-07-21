@@ -11,6 +11,7 @@ public class AlergiaInDtoToAlergia implements IMapper<AlergiaInDto, Alergia> {
     public Alergia map(AlergiaInDto in) {
         Alergia alergia = new Alergia();
         alergia.setNombre(in.getNombre());
+
         return alergia;
     }
 }

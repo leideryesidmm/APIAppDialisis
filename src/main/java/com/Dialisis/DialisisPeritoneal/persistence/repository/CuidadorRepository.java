@@ -1,6 +1,7 @@
 package com.Dialisis.DialisisPeritoneal.persistence.repository;
 
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Cuidador;
+import com.Dialisis.DialisisPeritoneal.service.dto.CuidadorInDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,4 @@ import java.util.Date;
 
 public interface CuidadorRepository extends JpaRepository<Cuidador, String> {
     public Cuidador findAllByCedulaCuidador(String cedula);
-
-
 }
