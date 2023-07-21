@@ -100,27 +100,31 @@ public class PacienteController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/cuidador/listCuidadorPacienteByPaciente/{cedula}")
-    public List<CuidadorPaciente> ListarCuidadoresPorPaciente(@PathVariable("cedula")String cedula){
-        return this.cuidadorPacienteService.findAllByPaciente(cedula);
+    public ResponseEntity<List<CuidadorPaciente>> ListarCuidadoresPorPaciente(@PathVariable("cedula")String cedula){
+        List<CuidadorPaciente> cuidadorPaciente = this.cuidadorPacienteService.findAllByPaciente(cedula);
+
+        if (cuidadorPaciente == null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(cuidadorPaciente);
     }
     @GetMapping("/cuidador/findCuidadorActivo/{cedula}")
     public ResponseEntity<CuidadorPaciente> findCuidadorActivo(@PathVariable("cedula") String cedula) {
         CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(cedula);
 
         if (cuidadorPaciente == null) {
-            // Si el cuidadorPaciente es null, no se encontró el registro en la base de datos.
-            // Retornar un status 204 (No Content) con el cuerpo vacío.
+
             return ResponseEntity.noContent().build();
         }
 
-        System.out.println(cuidadorPaciente);
         return ResponseEntity.ok(cuidadorPaciente);
     }
 
     @PatchMapping("/cuidador/reactivarCuidador/{cedula}")
     public void ReactivarCuidadorAntiguo(@PathVariable("cedula")String cedula, @RequestBody CuidadorInDto cuidador) {
         CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(cedula);
-        System.out.println(cuidadorPaciente.getIdCuidadorPaciente());
+
+
         if (cuidadorPaciente != null) {
             this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
 
@@ -132,9 +136,21 @@ public class PacienteController {
         cuidadorPacienteInDto.setFecha_ini(fecha_ini);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
+
+    @PatchMapping("/cuidador/ReactivarCuidadorAntiguoSinActivo")
+    public void ReactivarCuidadorAntiguoSinActivo(@RequestBody CuidadorInDto cuidador) {
+        CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
+        cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
+        cuidadorPacienteInDto.setPaciente(cuidadorPacienteInDto.getCuidador());
+        LocalDate fecha_ini = LocalDate.now();
+        cuidadorPacienteInDto.setFecha_ini(fecha_ini);
+        this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
+    }
+
     @PostMapping("/cuidador/crear/{cedula}")
     public void crearCuidador(@PathVariable("cedula")String cedula, @RequestBody CuidadorInDto cuidadorInDto) {
         CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(cedula);
+
         if (cuidadorPaciente != null) {
             this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
         }
@@ -147,6 +163,18 @@ public class PacienteController {
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
+
+    @PatchMapping("/cuidador/inhabilitarCuidadorActivo/{cedula}")
+    public void InhabilitarCuidadorActivo(@PathVariable("cedula")String cedula,@RequestBody CuidadorInDto cuidador) {
+        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(cedula);
+
+        if (cuidadorPaciente != null) {
+            this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
+            cuidadorPaciente.setActivo(false);
+
+        }
+    }
+
     @PatchMapping("/cuidador/actualizar")
     public void actualizarCuidador(@RequestBody CuidadorInDto cuidadorInDto) {
         Cuidador cuidador = this.cuidadorService.actualizarCuidador(cuidadorInDto.getCedulaCuidador(), cuidadorInDto);
@@ -155,7 +183,7 @@ public class PacienteController {
     @PostMapping("/alergia/crear/{cedula},{alergia}")
     public void crearAlergia(@PathVariable("cedula") String cedula, @RequestBody AlergiaInDto alergiaInDto){
         Alergia alergia= this.alergiaService.crearAlergia(alergiaInDto);
-        System.out.println(alergia);
+
         agregarAlergiaByPaciente(cedula, alergia.getIdAlergia());
     }
 
