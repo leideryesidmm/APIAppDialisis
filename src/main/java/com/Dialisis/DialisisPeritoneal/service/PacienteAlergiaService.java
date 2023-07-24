@@ -43,13 +43,13 @@ public class PacienteAlergiaService {
         return optionalPacienteAlergia.get();
     }
     @Transactional
-    public void actualizarPacienteAlergia(int id_paciente_alergia, long paciente, int alergia, boolean activa){
+    public void actualizarPacienteAlergia(int id_paciente_alergia, String paciente, int alergia, boolean activa){
         this.repository.actualizarPacienteAlergia(id_paciente_alergia,paciente,alergia, activa);
     }
-    public List<PacienteAlergia> findAllByPaciente(long cedula){
+    public List<PacienteAlergia> findAllByPaciente(String cedula){
         return this.repository.findAllByPaciente(cedula);
     }
-    public PacienteAlergia findAlergiaPorPaciente(long cedula,int idPacienteAlergia){
+    public PacienteAlergia findAlergiaPorPaciente(String cedula,int idPacienteAlergia){
         return this.repository.findAlergiaPaciente(cedula,idPacienteAlergia);
     }
     @Transactional

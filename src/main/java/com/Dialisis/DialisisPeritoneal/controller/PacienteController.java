@@ -6,6 +6,7 @@ import com.Dialisis.DialisisPeritoneal.service.dto.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCitaPrescripcionDias;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPrescripcionDiasRecambios;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteAlergiaInDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -190,11 +191,11 @@ public class PacienteController {
         Cuidador cuidador = this.cuidadorService.actualizarCuidador(cuidadorInDto.getCedulaCuidador(), cuidadorInDto);
     }
 
-    @PostMapping("/alergia/crear/{cedula}")
-    public void crearAlergia(@PathVariable("cedula") String cedula, @RequestBody AlergiaInDto alergiaInDto){
-        Alergia alergia= this.alergiaService.crearAlergia(alergiaInDto);
+    @PostMapping("/alergia/crear")
+    public void crearAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto){
+        Alergia alergia= this.alergiaService.crearAlergia(unionPacienteAlergiaInDto.getAlergiaInDto());
 
-        agregarAlergiaByPaciente(cedula, alergia.getIdAlergia());
+        agregarAlergiaByPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula(), alergia.getIdAlergia());
     }
 
     @PostMapping("/alergia/agregar/{cedula}/{id_alergia}")
@@ -204,9 +205,9 @@ public class PacienteController {
         pacienteAlergiaInDto.setPaciente(cedula);
         this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
     }
-    @GetMapping("/alergia/listByPaciente/{cedula}")
-    public List<PacienteAlergia> listarAlergiasPorPaciente(@PathVariable("cedula")long cedula){
-        return this.pacienteAlergiaService.findAllByPaciente(cedula);
+    @PostMapping("/alergia/listByPaciente")
+    public List<PacienteAlergia> listarAlergiasPorPaciente(@RequestBody PacienteInDto pacienteInDto){
+        return this.pacienteAlergiaService.findAllByPaciente(pacienteInDto.getCedula());
     }
 
     @PatchMapping("/alergia/editar/{id_alergia}")
@@ -219,7 +220,7 @@ public class PacienteController {
     public void inactivarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
         this.pacienteAlergiaService.inactivarAlergia(cedula,id_alergia);
     }
-    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia){
+    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia){
         return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,id_alergia);
     }
 
