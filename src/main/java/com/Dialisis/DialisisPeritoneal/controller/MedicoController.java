@@ -13,10 +13,10 @@ public class MedicoController{
     private final MedicoService medicoService;
     private final ClinicaService clinicaService;
     private final PacienteService pacienteService;
-    private final PrescripcionService prescripcionService;
+    private final PrescripcionDiaService prescripcionService;
     private final CitaService citaService;
 
-    public MedicoController(PrescripcionService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService) {
+    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
@@ -54,12 +54,12 @@ public class MedicoController{
         PrescripcionInDto prescripcionInDto = prescripcionCitaDto.getPrescripcion();
         CitaInDto citaInDto = prescripcionCitaDto.getCita();
 
-        Prescripcion pre = prescripcionService.createPrescripcion(prescripcionInDto);
+        //Prescripcion pre = prescripcionService.createPrescripcion(prescripcionInDto);
         //citaInDto.setPrescripcion(pre.getIdPrescripcion());
         System.out.println(citaInDto);
         citaService.crearCita(citaInDto);
 
-        return pre;
+        return null;
     }
 
     /*@GetMapping("/findPrescripcionByCita/{idCita}")

@@ -13,7 +13,7 @@ public class PrescripcionDia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPrescripcionDia;
     @ManyToOne
-    @JoinColumn(name = "prescipcion")
+    @JoinColumn(name = "cita")
     private Cita cita;
     private boolean lunes;
     private boolean martes;

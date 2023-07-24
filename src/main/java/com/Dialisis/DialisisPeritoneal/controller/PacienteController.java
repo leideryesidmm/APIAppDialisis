@@ -3,12 +3,14 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCitaPrescripcionDias;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
-import jdk.swing.interop.SwingInterOpUtils;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPrescripcionDiasRecambios;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,10 +29,12 @@ public class PacienteController {
     private final PacienteAlergiaService pacienteAlergiaService;
     private final AlergiaService alergiaService;
     private final ViaAdministracionService viaAdministracionService;
+    private final PrescripcionDiaService prescripcionDiaService;
+    private final RecambioService recambioService;
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService) {
+    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioService recambioService) {
         this.pacienteService = pacienteService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
@@ -45,6 +49,8 @@ public class PacienteController {
         this.alergiaService = alergiaService;
         //this.alimentacionPacienteService = alimentacionPacienteService;
         this.viaAdministracionService = viaAdministracionService;
+        this.prescripcionDiaService = prescripcionDiaService;
+        this.recambioService = recambioService;
     }
 
     @PostMapping("/crearPaciente")
@@ -361,12 +367,25 @@ public class PacienteController {
             return ResponseEntity.ok(citas);
     }
     @PostMapping("/prescripcion/prescripcionActual")
-    public ResponseEntity<Cita> getPresciscionActual(@RequestBody Paciente paciente){
+    public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody Paciente paciente){
         Cita cita=this.citaService.findUltimaCita(paciente);
         if(cita==null)
             return ResponseEntity.noContent().build();
-        else
-            return ResponseEntity.ok(cita);
+        else{
+            UnionCitaPrescripcionDias citaPres=new UnionCitaPrescripcionDias();
+            citaPres.setCita(cita);
+            List<PrescripcionDia> prescripcionDias=this.prescripcionDiaService.findByCita(cita);
+            List<UnionPrescripcionDiasRecambios> listPrescripcionDiasRecambios=new ArrayList<>();
+            for (PrescripcionDia prescripcionDia:prescripcionDias) {
+                UnionPrescripcionDiasRecambios prescripcionDiasRecambios=new UnionPrescripcionDiasRecambios();
+                prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);
+                prescripcionDiasRecambios.setRecambios(this.recambioService.findByPrescripcionDia(prescripcionDia));
+                listPrescripcionDiasRecambios.add(prescripcionDiasRecambios);
+            }
+
+            citaPres.setUnionPrescripcionDiasRecambios(listPrescripcionDiasRecambios);
+            return ResponseEntity.ok(citaPres);
+        }
     }
 
 }

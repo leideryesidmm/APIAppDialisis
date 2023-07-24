@@ -5,7 +5,7 @@ import com.Dialisis.DialisisPeritoneal.mapper.PrescripcionInDtoToPrescripcion;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Medico;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Prescripcion;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.MedicoRepository;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.PrescripcionRepository;
+import com.Dialisis.DialisisPeritoneal.persistence.repository.PrescripcionDiaRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.MedicoInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.PrescripcionInDto;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ import java.util.List;
 @Service
 public class MedicoService {
     private final MedicoRepository medicoRepository;
-    private final PrescripcionRepository prescripcionRepository;
+    private final PrescripcionDiaRepository prescripcionRepository;
     private final PrescripcionInDtoToPrescripcion mapper2;
     private final MedicoInDtoToMedico mapper;
 
-    public MedicoService(PrescripcionInDtoToPrescripcion mapper2,PrescripcionRepository prescripcionRepository,MedicoRepository medicoRepository, MedicoInDtoToMedico mapper) {
+    public MedicoService(PrescripcionInDtoToPrescripcion mapper2, PrescripcionDiaRepository prescripcionRepository, MedicoRepository medicoRepository, MedicoInDtoToMedico mapper) {
         this.medicoRepository = medicoRepository;
         this.mapper = mapper;
         this.prescripcionRepository=prescripcionRepository;
@@ -39,6 +39,6 @@ public class MedicoService {
 
     public Prescripcion createoUpdatePrescripcion(PrescripcionInDto prescripcionInDto){
         Prescripcion prescripcion=mapper2.map(prescripcionInDto);
-        return this.prescripcionRepository.save(prescripcion);
+        return null;//this.prescripcionRepository.save(prescripcion);
     }
 }
