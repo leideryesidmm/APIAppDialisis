@@ -3,6 +3,7 @@ package com.Dialisis.DialisisPeritoneal.persistence.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,7 +14,7 @@ public class PrescripcionDia {
     private int idPrescripcionDia;
     @ManyToOne
     @JoinColumn(name = "prescipcion")
-    private Prescripcion prescipcion;
+    private Cita cita;
     private boolean lunes;
     private boolean martes;
     private boolean miercoles;
@@ -21,4 +22,11 @@ public class PrescripcionDia {
     private boolean viernes;
     private boolean sabado;
     private boolean domingo;
+
+    public PrescripcionDia() {
+    }
+
+    public PrescripcionDia(int idPrescripcionDia) {
+        this.idPrescripcionDia = idPrescripcionDia;
+    }
 }

@@ -55,7 +55,7 @@ public class MedicoController{
         CitaInDto citaInDto = prescripcionCitaDto.getCita();
 
         Prescripcion pre = prescripcionService.createPrescripcion(prescripcionInDto);
-        citaInDto.setPrescripcion(pre.getIdPrescripcion());
+        //citaInDto.setPrescripcion(pre.getIdPrescripcion());
         System.out.println(citaInDto);
         citaService.crearCita(citaInDto);
 

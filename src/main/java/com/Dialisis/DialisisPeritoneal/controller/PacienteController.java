@@ -348,7 +348,7 @@ public class PacienteController {
         this.formulaMedicamentoService.deleteById(id_medicamento);
         return ResponseEntity.noContent().build();
     }
-    @GetMapping("/prescripcion/")
+    @GetMapping("/prescripcion")
     public ResponseEntity<List<Cita>> getPrescisciones(){
         List<Cita> citas=this.citaService.findAllCitas();
         if(citas==null)
@@ -356,9 +356,9 @@ public class PacienteController {
         else
             return ResponseEntity.ok(citas);
     }
-    @GetMapping("/prescripcion/prescripcionActual")
-    public ResponseEntity<Cita> getPresciscionActual(){
-        Cita cita=this.citaService.findUltimaCita();
+    @PostMapping("/prescripcion/prescripcionActual")
+    public ResponseEntity<Cita> getPresciscionActual(@RequestBody Paciente paciente){
+        Cita cita=this.citaService.findUltimaCita(paciente);
         if(cita==null)
             return ResponseEntity.noContent().build();
         else
