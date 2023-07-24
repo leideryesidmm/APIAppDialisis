@@ -4,6 +4,7 @@ import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteAlergiaInDto;
 import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -185,10 +186,10 @@ public class PacienteController {
     }
 
     @PostMapping("/alergia/crear")
-    public void crearAlergia(@PathVariable("cedula") String cedula, @RequestBody AlergiaInDto alergiaInDto){
-        Alergia alergia= this.alergiaService.crearAlergia(alergiaInDto);
+    public void crearAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto){
+        Alergia alergia= this.alergiaService.crearAlergia(unionPacienteAlergiaInDto.getAlergiaInDto());
 
-        agregarAlergiaByPaciente(cedula, alergia.getIdAlergia());
+        agregarAlergiaByPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula(), alergia.getIdAlergia());
     }
 
     @PostMapping("/alergia/agregar/{cedula}/{id_alergia}")
