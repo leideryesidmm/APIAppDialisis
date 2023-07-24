@@ -44,4 +44,6 @@ public class PrescripcionService {
         this.repository.actualizarPrescripcion(prescripcionInDto.getOrificioSalida(), nocheSeca, idPrescripcion);
     }
 
+
+
 }

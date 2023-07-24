@@ -3,6 +3,8 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,18 +101,19 @@ public class PacienteController {
         this.formulaMedicamentoService.actualizarFormula(id_formula_medicamento,formulaMedicamentoInDto);
         return ResponseEntity.noContent().build();
     }
-    @GetMapping("/cuidador/listCuidadorPacienteByPaciente/{cedula}")
-    public ResponseEntity<List<CuidadorPaciente>> ListarCuidadoresPorPaciente(@PathVariable("cedula")String cedula){
-        List<CuidadorPaciente> cuidadorPaciente = this.cuidadorPacienteService.findAllByPaciente(cedula);
+    @PostMapping("/cuidador/listCuidadorPacienteByPaciente")
+    public ResponseEntity<List<CuidadorPaciente>> ListarCuidadoresPorPaciente(@RequestBody PacienteInDto pacienteInDto){
+
+        List<CuidadorPaciente> cuidadorPaciente = this.cuidadorPacienteService.findAllByPaciente(pacienteInDto.getCedula());
 
         if (cuidadorPaciente == null) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(cuidadorPaciente);
     }
-    @GetMapping("/cuidador/findCuidadorActivo/{cedula}")
-    public ResponseEntity<CuidadorPaciente> findCuidadorActivo(@PathVariable("cedula") String cedula) {
-        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(cedula);
+    @PostMapping("/cuidador/findCuidadorActivo")
+    public ResponseEntity<CuidadorPaciente> findCuidadorActivo(@RequestBody PacienteInDto pacienteInDto) {
+        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(pacienteInDto.getCedula());
 
         if (cuidadorPaciente == null) {
 
@@ -120,9 +123,9 @@ public class PacienteController {
         return ResponseEntity.ok(cuidadorPaciente);
     }
 
-    @PatchMapping("/cuidador/reactivarCuidador/{cedula}")
-    public void ReactivarCuidadorAntiguo(@PathVariable("cedula")String cedula, @RequestBody CuidadorInDto cuidador) {
-        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(cedula);
+    @PatchMapping("/cuidador/reactivarCuidador")
+    public void ReactivarCuidadorAntiguo(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
+        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
 
 
         if (cuidadorPaciente != null) {
@@ -130,8 +133,8 @@ public class PacienteController {
 
         }
         CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
-        cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
-        cuidadorPacienteInDto.setPaciente(cedula);
+        cuidadorPacienteInDto.setCuidador(unionCuidadorPacienteInDto.getCuidadorInDto().getCedulaCuidador());
+        cuidadorPacienteInDto.setPaciente(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
         LocalDate fecha_ini = LocalDate.now();
         cuidadorPacienteInDto.setFecha_ini(fecha_ini);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
@@ -147,26 +150,27 @@ public class PacienteController {
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
-    @PostMapping("/cuidador/crear/{cedula}")
-    public void crearCuidador(@PathVariable("cedula")String cedula, @RequestBody CuidadorInDto cuidadorInDto) {
-        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(cedula);
+    @PostMapping("/cuidador/crear")
+    public void crearCuidador(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
+
+        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
 
         if (cuidadorPaciente != null) {
             this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
         }
-        Cuidador cuidador = this.cuidadorService.crearoActualizarCuidador(cuidadorInDto);
+        Cuidador cuidador = this.cuidadorService.crearoActualizarCuidador(unionCuidadorPacienteInDto.getCuidadorInDto());
         CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
         cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
-        cuidadorPacienteInDto.setPaciente(cedula);
+        cuidadorPacienteInDto.setPaciente(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
         LocalDate fecha_ini = LocalDate.now();
         cuidadorPacienteInDto.setFecha_ini(fecha_ini);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
 
-    @PatchMapping("/cuidador/inhabilitarCuidadorActivo/{cedula}")
-    public void InhabilitarCuidadorActivo(@PathVariable("cedula")String cedula,@RequestBody CuidadorInDto cuidador) {
-        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(cedula);
+    @PatchMapping("/cuidador/inhabilitarCuidadorActivo")
+    public void InhabilitarCuidadorActivo(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
+        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
 
         if (cuidadorPaciente != null) {
             this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
@@ -316,7 +320,7 @@ public class PacienteController {
         return this.formulaMedicamentoService.findAllByPaciente(paciente);
     }
 
-    @PostMapping("/formula/crear")
+    @PostMapping("/Medicamento/crear")
     public FormulaMedicamento crearFormulaMedicamento(@RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto) {
         return this.formulaMedicamentoService.crearFormulaMedicamento(formulaMedicamentoInDto);
     }
@@ -348,4 +352,22 @@ public class PacienteController {
         this.formulaMedicamentoService.deleteById(id_medicamento);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/prescripcion/")
+    public ResponseEntity<List<Cita>> getPrescisciones(){
+        List<Cita> citas=this.citaService.findAllCitas();
+        if(citas==null)
+            return ResponseEntity.noContent().build();
+        else
+            return ResponseEntity.ok(citas);
+    }
+    @GetMapping("/prescripcion/prescripcionActual")
+    public ResponseEntity<Cita> getPresciscionActual(){
+        Cita cita=this.citaService.findUltimaCita();
+        if(cita==null)
+            return ResponseEntity.noContent().build();
+        else
+            return ResponseEntity.ok(cita);
+    }
+
 }
+
