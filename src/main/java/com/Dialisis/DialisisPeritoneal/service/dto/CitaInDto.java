@@ -11,5 +11,5 @@ public class CitaInDto {
     private String direccion;
     private LocalDateTime fecha;
     private LocalDateTime hora;
-    private int prescripcion;
+    private int prescripcionDia;
 }

@@ -6,6 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "cita")
@@ -25,11 +27,8 @@ public class Cita {
     private String direccion;
     private LocalDateTime fecha;
     private LocalDateTime hora;
-
-    @OneToOne
-    @JoinColumn(name = "prescripcion")
-    Prescripcion prescripcion;
-
+    private String orificioSalida;
+    private boolean nocheSeca;
     public Cita(){
         this.idCita=0;
     }
