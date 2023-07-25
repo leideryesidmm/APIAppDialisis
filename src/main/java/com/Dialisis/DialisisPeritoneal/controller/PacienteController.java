@@ -28,10 +28,11 @@ public class PacienteController {
     private final PacienteAlergiaService pacienteAlergiaService;
     private final AlergiaService alergiaService;
     private final ViaAdministracionService viaAdministracionService;
+    private final RecambioService recambioService;
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService) {
+    public PacienteController(PacienteService pacienteService,RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService) {
         this.pacienteService = pacienteService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
@@ -46,6 +47,7 @@ public class PacienteController {
         this.alergiaService = alergiaService;
         //this.alimentacionPacienteService = alimentacionPacienteService;
         this.viaAdministracionService = viaAdministracionService;
+        this.recambioService=recambioService;
     }
 
     @PostMapping("/crearPaciente")
@@ -368,6 +370,11 @@ public class PacienteController {
             return ResponseEntity.noContent().build();
         else
             return ResponseEntity.ok(cita);
+    }
+
+    @PostMapping("/prescripcion/crearRecambio")
+    public void crearRecambio(@RequestBody RecambioInDto recambioInDto){
+     this.recambioService.crearRecambio(recambioInDto);
     }
 
 }
