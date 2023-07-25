@@ -7,12 +7,8 @@ import java.time.LocalDateTime;
 public class RecambioInDto {
     private int idRecambio;
     private int prescripcionDia;
-    private LocalDateTime fecha;
-    private LocalDateTime hora;
-    private double concentración;
-    private double drenajeDialisis;
-    private boolean realizada;
-    private String estadoLiquido;
+    private double concentracion;
+    private int intervaloTiempo;
 }
 
 
