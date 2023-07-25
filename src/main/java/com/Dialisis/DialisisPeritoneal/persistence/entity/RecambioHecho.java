@@ -17,5 +17,5 @@ public class RecambioHecho {
     private LocalDateTime fecha;
     private LocalDateTime hora;
     private double drenajeDialisis;
-    private String OrificioSalida;
+    private String orificioSalida;
 }

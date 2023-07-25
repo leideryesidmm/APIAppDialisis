@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class RecambioInDto {
     private int idRecambio;
     private int prescripcionDia;
-    private double concentración;
+    private double concentracion;
     private int intervaloTiempo;
 }
 
