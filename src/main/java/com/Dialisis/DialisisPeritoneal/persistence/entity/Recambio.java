@@ -14,10 +14,10 @@ public class Recambio {
     @ManyToOne
     @JoinColumn(name = "prescripcionDia")
     private PrescripcionDia prescripcionDia;
-    private LocalDateTime fecha;
-    private LocalDateTime hora;
     private double concentración;
-    private double drenajeDialisis;
-    private boolean realizada;
-    private String estadoLiquido;
+    private int intervaloTiempo;
+
+    public Recambio(int idRecambio) {
+        this.idRecambio = idRecambio;
+    }
 }
