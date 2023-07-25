@@ -5,7 +5,6 @@ import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteAlergiaInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionRecambioPacienteInDto;
 import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
