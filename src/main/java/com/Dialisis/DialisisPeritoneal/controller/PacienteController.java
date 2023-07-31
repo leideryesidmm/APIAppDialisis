@@ -5,6 +5,7 @@ import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteAlergiaInDto;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteInDtoUsuarioInDto;
 import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +30,11 @@ public class PacienteController {
     private final AlergiaService alergiaService;
     private final ViaAdministracionService viaAdministracionService;
     private final RecambioService recambioService;
+    private final UsuarioService usuarioService;
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService,RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService) {
+    public PacienteController(PacienteService pacienteService, UsuarioService usuarioService,RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService) {
         this.pacienteService = pacienteService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
@@ -48,17 +50,18 @@ public class PacienteController {
         //this.alimentacionPacienteService = alimentacionPacienteService;
         this.viaAdministracionService = viaAdministracionService;
         this.recambioService=recambioService;
+        this.usuarioService=usuarioService;
     }
 
     @PostMapping("/crearPaciente")
-    public Paciente crearPaciente(@RequestBody PacienteInDto pacienteInDto){
-        return this.pacienteService.crearPaciente(pacienteInDto);
+    public void crearPaciente(@RequestBody PacienteInDto pacienteInDto){
+        this.pacienteService.crearPaciente(pacienteInDto);
     }
 
-    @GetMapping("/findPacienteByCedula/{cedula}")
-    public Paciente findPacienteByCedula(@PathVariable("cedula")String cedula){
+    @PostMapping("/findPacienteByCedula")
+    public Paciente findPacienteByCedula(@RequestBody PacienteInDto pacienteInDto){
 
-        return this.pacienteService.findByCedula(cedula);
+        return this.pacienteService.findByCedula(pacienteInDto.getCedula());
     }
     @PostMapping("/medicamento/crearMedicamento")
     public Medicamento crearMedicamento(@RequestBody MedicamentoInDto medicamentoInDto){

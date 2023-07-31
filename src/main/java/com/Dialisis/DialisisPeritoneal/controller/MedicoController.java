@@ -25,9 +25,15 @@ public class MedicoController{
     }
 
     @GetMapping("/findAllPacientes")
-    public List<Paciente> findAllPacientes(){
-        return this.pacienteService.findAll();
+    public ResponseEntity<List<Paciente>> findAllPacientes(){
+        List<Paciente> pacientes= this.pacienteService.findAll();
+        System.out.println(pacientes);
+        if(pacientes==null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(pacientes);
     }
+
     @PostMapping("/crearOActualizar")
     public Medico crearoUpdateMedico(@RequestBody MedicoInDto medicoInDto){
         return this.medicoService.createoUpdateMedico(medicoInDto);

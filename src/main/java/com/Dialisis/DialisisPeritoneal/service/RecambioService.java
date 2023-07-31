@@ -29,10 +29,10 @@ public class RecambioService {
 
     public Recambio crearRecambio(RecambioInDto recambioInDto){
             Recambio recambio= mapper.map(recambioInDto);
-        LocalDateTime fecha= LocalDateTime.now();
+       /* LocalDateTime fecha= LocalDateTime.now();
         recambio.setFecha(fecha);
         LocalDateTime hora= LocalDateTime.now();
-        recambio.setHora(hora);
+        recambio.setHora(hora);*/
         return this.repository.save(recambio);
     }
 }
