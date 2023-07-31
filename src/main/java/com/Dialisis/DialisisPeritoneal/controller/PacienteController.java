@@ -187,16 +187,18 @@ public class PacienteController {
 
     @PostMapping("/alergia/crear")
     public void crearAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto){
+        System.out.println(unionPacienteAlergiaInDto);
         Alergia alergia= this.alergiaService.crearAlergia(unionPacienteAlergiaInDto.getAlergiaInDto());
-
-        agregarAlergiaByPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula(), alergia.getIdAlergia());
+        System.out.println(alergia);
+        agregarAlergiaByPaciente(unionPacienteAlergiaInDto, alergia.getIdAlergia());
     }
 
-    @PostMapping("/alergia/agregar/{cedula}/{id_alergia}")
-    public void agregarAlergiaByPaciente(@PathVariable("cedula")String cedula, @PathVariable("id_alergia")int id_alergia){
+    @PostMapping("/alergia/agregar/")
+    public void agregarAlergiaByPaciente(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto, int id){
+        System.out.println(id);
         PacienteAlergiaInDto pacienteAlergiaInDto = new PacienteAlergiaInDto();
-        pacienteAlergiaInDto.setAlergia(id_alergia);
-        pacienteAlergiaInDto.setPaciente(cedula);
+        pacienteAlergiaInDto.setAlergia(id);
+        pacienteAlergiaInDto.setPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula());
         this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
     }
     @PostMapping("/alergia/listByPaciente")
@@ -210,11 +212,11 @@ public class PacienteController {
 
     }
 
-    @PatchMapping("/alergia/inactivar/{cedula}/{id_alergia}")
-    public void inactivarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
-        this.pacienteAlergiaService.inactivarAlergia(cedula,id_alergia);
+    @PatchMapping("/alergia/inactivar")
+    public void inactivarAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto) {
+        this.pacienteAlergiaService.inactivarAlergia(unionPacienteAlergiaInDto.getPacienteInDto().getCedula(),unionPacienteAlergiaInDto.getAlergiaInDto().getIdAlergia());
     }
-    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia){
+    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")Long cedula,@PathVariable("id_alergia")int id_alergia){
         return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,id_alergia);
     }
 
