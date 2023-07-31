@@ -5,7 +5,7 @@ import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
 import lombok.Data;
 
 @Data
-public class UnionPacienteAlergiaInDto {
+public class    UnionPacienteAlergiaInDto {
 
     private PacienteInDto pacienteInDto;
 

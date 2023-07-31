@@ -27,12 +27,5 @@ public class RecambioService {
         return this.repository.findByPrescripcionDia(prescripcionDia);
     }
 
-    public Recambio crearRecambio(RecambioInDto recambioInDto){
-            Recambio recambio= mapper.map(recambioInDto);
-       /* LocalDateTime fecha= LocalDateTime.now();
-        recambio.setFecha(fecha);
-        LocalDateTime hora= LocalDateTime.now();
-        recambio.setHora(hora);*/
-        return this.repository.save(recambio);
-    }
+
 }

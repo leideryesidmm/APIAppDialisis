@@ -3,14 +3,15 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCitaPrescripcionDias;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteAlergiaInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteInDtoUsuarioInDto;
-import jdk.swing.interop.SwingInterOpUtils;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPrescripcionDiasRecambios;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,11 +31,11 @@ public class PacienteController {
     private final AlergiaService alergiaService;
     private final ViaAdministracionService viaAdministracionService;
     private final RecambioService recambioService;
-    private final UsuarioService usuarioService;
+    private final PrescripcionDiaService prescripcionDiaService;
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, UsuarioService usuarioService,RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService) {
+    public PacienteController(PacienteService pacienteService, RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService) {
         this.pacienteService = pacienteService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
@@ -50,18 +51,18 @@ public class PacienteController {
         //this.alimentacionPacienteService = alimentacionPacienteService;
         this.viaAdministracionService = viaAdministracionService;
         this.recambioService=recambioService;
-        this.usuarioService=usuarioService;
+        this.prescripcionDiaService = prescripcionDiaService;
     }
 
     @PostMapping("/crearPaciente")
-    public void crearPaciente(@RequestBody PacienteInDto pacienteInDto){
-        this.pacienteService.crearPaciente(pacienteInDto);
+    public Paciente crearPaciente(@RequestBody PacienteInDto pacienteInDto){
+        return this.pacienteService.crearPaciente(pacienteInDto);
     }
 
-    @PostMapping("/findPacienteByCedula")
-    public Paciente findPacienteByCedula(@RequestBody PacienteInDto pacienteInDto){
+    @GetMapping("/findPacienteByCedula/{cedula}")
+    public Paciente findPacienteByCedula(@PathVariable("cedula")String cedula){
 
-        return this.pacienteService.findByCedula(pacienteInDto.getCedula());
+        return this.pacienteService.findByCedula(cedula);
     }
     @PostMapping("/medicamento/crearMedicamento")
     public Medicamento crearMedicamento(@RequestBody MedicamentoInDto medicamentoInDto){
@@ -192,16 +193,18 @@ public class PacienteController {
 
     @PostMapping("/alergia/crear")
     public void crearAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto){
+        System.out.println(unionPacienteAlergiaInDto);
         Alergia alergia= this.alergiaService.crearAlergia(unionPacienteAlergiaInDto.getAlergiaInDto());
-
-        agregarAlergiaByPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula(), alergia.getIdAlergia());
+        System.out.println(alergia);
+        agregarAlergiaByPaciente(unionPacienteAlergiaInDto, alergia.getIdAlergia());
     }
 
-    @PostMapping("/alergia/agregar/{cedula}/{id_alergia}")
-    public void agregarAlergiaByPaciente(@PathVariable("cedula")String cedula, @PathVariable("id_alergia")int id_alergia){
+    @PostMapping("/alergia/agregar/")
+    public void agregarAlergiaByPaciente(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto, int id){
+        System.out.println(id);
         PacienteAlergiaInDto pacienteAlergiaInDto = new PacienteAlergiaInDto();
-        pacienteAlergiaInDto.setAlergia(id_alergia);
-        pacienteAlergiaInDto.setPaciente(cedula);
+        pacienteAlergiaInDto.setAlergia(id);
+        pacienteAlergiaInDto.setPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula());
         this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
     }
     @PostMapping("/alergia/listByPaciente")
@@ -215,11 +218,11 @@ public class PacienteController {
 
     }
 
-    @PatchMapping("/alergia/inactivar/{cedula}/{id_alergia}")
-    public void inactivarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
-        this.pacienteAlergiaService.inactivarAlergia(cedula,id_alergia);
+    @PatchMapping("/alergia/inactivar")
+    public void inactivarAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto) {
+        this.pacienteAlergiaService.inactivarAlergia(unionPacienteAlergiaInDto.getPacienteInDto().getCedula(),unionPacienteAlergiaInDto.getAlergiaInDto().getIdAlergia());
     }
-    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int id_alergia){
+    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")Long cedula,@PathVariable("id_alergia")int id_alergia){
         return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,id_alergia);
     }
 
@@ -367,18 +370,29 @@ public class PacienteController {
             return ResponseEntity.ok(citas);
     }
     @PostMapping("/prescripcion/prescripcionActual")
-    public ResponseEntity<Cita> getPresciscionActual(@RequestBody Paciente paciente){
+    public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody Paciente paciente){
         Cita cita=this.citaService.findUltimaCita(paciente);
         if(cita==null)
             return ResponseEntity.noContent().build();
-        else
-            return ResponseEntity.ok(cita);
+        else{
+            UnionCitaPrescripcionDias citaPres=new UnionCitaPrescripcionDias();
+            citaPres.setCita(cita);
+            List<PrescripcionDia> prescripcionDias=this.prescripcionDiaService.findByCita(cita);
+            List<UnionPrescripcionDiasRecambios> listPrescripcionDiasRecambios=new ArrayList<>();
+            for (PrescripcionDia prescripcionDia:prescripcionDias) {
+                UnionPrescripcionDiasRecambios prescripcionDiasRecambios=new UnionPrescripcionDiasRecambios();
+                prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);
+                prescripcionDiasRecambios.setRecambios(this.recambioService.findByPrescripcionDia(prescripcionDia));
+                listPrescripcionDiasRecambios.add(prescripcionDiasRecambios);
+            }
+            citaPres.setUnionPrescripcionDiasRecambios(listPrescripcionDiasRecambios);
+            return ResponseEntity.ok(citaPres);
+        }
     }
 
     @PostMapping("/prescripcion/crearRecambio")
     public void crearRecambio(@RequestBody RecambioInDto recambioInDto){
-     this.recambioService.crearRecambio(recambioInDto);
+        //this.recambioService.crearRecambio(recambioInDto);
     }
 
 }
-
