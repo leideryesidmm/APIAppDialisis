@@ -406,5 +406,11 @@ public class PacienteController {
 
 
 
-}
 
+
+    @PostMapping("/prescripcion/crearRecambio")
+    public void crearRecambio(@RequestBody RecambioInDto recambioInDto){
+        //this.recambioService.crearRecambio(recambioInDto);
+    }
+
+}

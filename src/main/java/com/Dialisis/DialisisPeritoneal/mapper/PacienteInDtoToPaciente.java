@@ -20,7 +20,6 @@ public class   PacienteInDtoToPaciente implements IMapper<PacienteInDto, Pacient
         paciente.setTipoSangre(in.getTipoSangre());
         paciente.setRh(in.getRh());
         paciente.setNombre(in.getNombre());
-        paciente.setCorreo(in.getCorreo());
         paciente.setCelular(in.getCelular());
         paciente.setContrasenia(in.getContrasenia());
 

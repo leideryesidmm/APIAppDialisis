@@ -10,7 +10,6 @@ public class Usuario {
     @Id
     private String cedula;
     private String nombre;
-    private String correo;
     private String contrasenia;
     private String celular;
 
