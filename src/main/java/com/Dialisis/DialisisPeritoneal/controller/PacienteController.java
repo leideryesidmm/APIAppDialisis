@@ -7,6 +7,7 @@ import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCitaPrescripcion
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteAlergiaInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPrescripcionDiasRecambios;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,10 +33,11 @@ public class PacienteController {
     private final ViaAdministracionService viaAdministracionService;
     private final RecambioService recambioService;
     private final PrescripcionDiaService prescripcionDiaService;
+    private final RecambioHechoService recambioHechoService;
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService) {
+    public PacienteController(PacienteService pacienteService, RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
         this.pacienteService = pacienteService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
@@ -52,6 +54,7 @@ public class PacienteController {
         this.viaAdministracionService = viaAdministracionService;
         this.recambioService=recambioService;
         this.prescripcionDiaService = prescripcionDiaService;
+        this.recambioHechoService = recambioHechoService;
     }
 
     @PostMapping("/crearPaciente")
@@ -390,10 +393,18 @@ public class PacienteController {
         }
     }
 
-    @PostMapping("/prescripcion/crearRecambio")
-    public void crearRecambio(@RequestBody RecambioInDto recambioInDto){
-     //this.recambioService.crearRecambio(recambioInDto);
+    @PostMapping("/recambio/crearRecambioHecho")
+    public ResponseEntity<RecambioHecho>  crearRecambioHecho(@RequestBody RecambioHechoInDto recambioHechoInDto){
+        try{
+            RecambioHecho recambioHecho=this.recambioHechoService.crearRecambio(recambioHechoInDto);
+            return ResponseEntity.ok(recambioHecho);
+        }catch (Exception e){
+        System.out.println(e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
+
 
 }
 

@@ -18,6 +18,7 @@ public class RecambioHechoInDtoToRecambioHecho implements  IMapper<RecambioHecho
         recambioHecho.setHora(in.getHora());
         recambioHecho.setFecha(in.getFecha());
         recambioHecho.setOrificioSalida(in.getOrificioSalida());
+        recambioHecho.setCaracteristicaLiquido(in.getCaracteristicaLiquido());
         return recambioHecho;
     }
 }
