@@ -16,6 +16,7 @@ public class RecambioHecho {
     private Recambio recambio;
     private LocalDateTime fecha;
     private LocalDateTime hora;
-    private double drenajeDialisis;
+    private String drenajeDialisis;
     private String orificioSalida;
+    private String caracteristicaLiquido;
 }

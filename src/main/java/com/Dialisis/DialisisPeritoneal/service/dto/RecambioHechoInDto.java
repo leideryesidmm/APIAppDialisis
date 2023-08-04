@@ -7,6 +7,7 @@ public class RecambioHechoInDto {
     private int recambio;
     private LocalDateTime fecha;
     private LocalDateTime hora;
-    private double drenajeDialisis;
-    private String OrificioSalida;
+    private String drenajeDialisis;
+    private String orificioSalida;
+    private String caracteristicaLiquido;
 }
