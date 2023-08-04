@@ -21,7 +21,7 @@ public class UsuarioController {
     public Usuario crearoUpdateUsuario(@RequestBody UsuarioInDto usuarioInDto){
         return this.usuarioService.createoUpdateUsuario(usuarioInDto);
     }
-    @GetMapping
+    @GetMapping("/findAllUsuarios")
     public List<Usuario> findAllUsuarios(){
         return this.usuarioService.findAll();
     }
