@@ -374,6 +374,7 @@ public class PacienteController {
     }
     @PostMapping("/prescripcion/prescripcionActual")
     public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody Paciente paciente){
+        System.out.println(paciente);
         Cita cita=this.citaService.findUltimaCita(paciente);
         if(cita==null)
             return ResponseEntity.noContent().build();
@@ -404,6 +405,27 @@ public class PacienteController {
         }
     }
 
+    @PostMapping("/recambio/findRecambioHechoByPaciente")
+    public ResponseEntity<List<RecambioHecho>>  findRecambioHechoByPaciente(@RequestBody Paciente paciente){
+        try{
+            List<RecambioHecho> recambioHechos=new ArrayList<>();
+            ResponseEntity<UnionCitaPrescripcionDias> unionCitaPrescripcionDias=getPresciscionActual(paciente);
+            UnionCitaPrescripcionDias presciscionActual=unionCitaPrescripcionDias.getBody();
+            for(UnionPrescripcionDiasRecambios prescripcionDia :presciscionActual.getUnionPrescripcionDiasRecambios()) {
+                for(Recambio recambio:prescripcionDia.getRecambios()){
+                    System.out.println(paciente);
+                    List<RecambioHecho> recambioHechoLista2=this.recambioHechoService.findByRecambio(recambio);
+                    System.out.println(recambioHechoLista2);
+                    recambioHechos.addAll(recambioHechoLista2);
+                    System.out.println("si");
+                }
+            }
+            return ResponseEntity.ok(recambioHechos);//recambioHecho);
+        }catch (Exception e){
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
 

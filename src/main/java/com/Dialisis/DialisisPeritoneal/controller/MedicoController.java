@@ -27,7 +27,6 @@ public class MedicoController{
     @GetMapping("/findAllPacientes")
     public ResponseEntity<List<Paciente>> findAllPacientes(){
         List<Paciente> pacientes= this.pacienteService.findAll();
-        System.out.println(pacientes);
         if(pacientes==null){
             return ResponseEntity.noContent().build();
         }
