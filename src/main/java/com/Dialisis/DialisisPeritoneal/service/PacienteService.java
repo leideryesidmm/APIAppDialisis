@@ -22,12 +22,12 @@ public class PacienteService {
         this.mapper = mapper;
     }
     public Paciente crearPaciente(PacienteInDto pacienteInDto){
+        System.out.println(pacienteInDto);
         if(pacienteInDto.getPeso()<pacienteInDto.getPesoSeco()){
             throw new ToDoExceptions("Peso seco debe ser menor a peso", HttpStatus.NOT_FOUND);
         }
 
         Paciente paciente = mapper.map(pacienteInDto);
-        System.out.println(paciente.getFechaNacimiento());
         return this.repository.save(paciente);
     }
     public List <Paciente> findAll(){

@@ -62,10 +62,10 @@ public class PacienteController {
         return this.pacienteService.crearPaciente(pacienteInDto);
     }
 
-    @GetMapping("/findPacienteByCedula/{cedula}")
-    public Paciente findPacienteByCedula(@PathVariable("cedula")String cedula){
+    @PostMapping("/findPacienteByCedula")
+    public Paciente findPacienteByCedula(@RequestBody PacienteInDto pacienteInDto){
 
-        return this.pacienteService.findByCedula(cedula);
+        return this.pacienteService.findByCedula(pacienteInDto.getCedula());
     }
     @PostMapping("/medicamento/crearMedicamento")
     public Medicamento crearMedicamento(@RequestBody MedicamentoInDto medicamentoInDto){
@@ -211,9 +211,13 @@ public class PacienteController {
         this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
     }
     @PostMapping("/alergia/listByPaciente")
-    public List<PacienteAlergia> listarAlergiasPorPaciente(@RequestBody PacienteInDto pacienteInDto){
-        return this.pacienteAlergiaService.findAllByPaciente(pacienteInDto.getCedula());
-    }
+    public ResponseEntity<List<PacienteAlergia>> listarAlergiasPorPaciente(@RequestBody PacienteInDto pacienteInDto){
+        List<PacienteAlergia> pacienteAlergia= pacienteAlergiaService.findAllByPaciente(pacienteInDto.getCedula());
+        if(pacienteAlergia ==null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(pacienteAlergia);
+        }
 
     @PatchMapping("/alergia/editar/{id_alergia}")
     public void editarAlergia(@PathVariable("id_alergia") int idAlergia, @RequestBody AlergiaInDto alergiaInDto){
