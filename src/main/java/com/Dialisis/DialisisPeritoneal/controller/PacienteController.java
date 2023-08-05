@@ -331,9 +331,9 @@ public class PacienteController {
             return this.citaService.findAllCitasFuturasByPaciente(paciente);
         else return this.citaService.findAllCitasAntiguasByPaciente(paciente);
     }
-    @GetMapping("/medicamento/findMedicamentoByPaciente/{cedulapaciente}")
-    public List<FormulaMedicamento> findFormulaByPaciente(@PathVariable("cedulapaciente")String paciente){
-        return this.formulaMedicamentoService.findAllByPaciente(paciente);
+    @PostMapping("/medicamento/findMedicamentoByPaciente")
+    public List<FormulaMedicamento> findFormulaByPaciente(@RequestBody PacienteInDto pacienteInDto){
+        return this.formulaMedicamentoService.findAllByPaciente(pacienteInDto.getCedula());
     }
 
     @PostMapping("/Medicamento/crear")

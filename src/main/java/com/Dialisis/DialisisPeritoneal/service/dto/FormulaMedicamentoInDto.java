@@ -14,7 +14,7 @@ public class FormulaMedicamentoInDto {
     private String nombre;
     private String descripcion;
     private int via_Administracion;
-    private double concentracion;
+    private String concentracion;
     private LocalDateTime fechaIni;
     private LocalDateTime fechaFin;
 

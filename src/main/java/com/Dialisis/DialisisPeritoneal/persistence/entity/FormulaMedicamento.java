@@ -23,7 +23,7 @@ public class FormulaMedicamento {
     @ManyToOne
     @JoinColumn(name="viaAdministracion")
     private ViaAdministracion viaAdministracion;
-    private double concentracion;
+    private String concentracion;
 
     private LocalDateTime fechaIni;
     private LocalDateTime fechaFin;
