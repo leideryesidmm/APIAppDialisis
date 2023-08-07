@@ -31,9 +31,10 @@ public class UsuarioController {
     public Usuario findAllUsuarios(@PathVariable("cedula") long cedula){
         return this.usuarioService.findAllBycedula(cedula);
     }
-    @PatchMapping("/cambiar_contrasenia/{cedula},{contrasenia}")
-    public ResponseEntity<Void> cambiarcontrasenia(@PathVariable("cedula") long cedula,@PathVariable("contrasenia") String contrasenia){
-        this.usuarioService.cambiarcontraseña(cedula,contrasenia);
+    @PatchMapping("/cambiar_contrasenia")
+    public ResponseEntity<Void> cambiarcontrasenia(UsuarioInDto usuario){
+        System.out.println(usuario);
+        this.usuarioService.cambiarcontraseña(usuario.getCedula(),usuario.getContrasenia());
         return ResponseEntity.noContent().build();
     }
     @PatchMapping("/cambiar_celular/{cedula},{celular}")

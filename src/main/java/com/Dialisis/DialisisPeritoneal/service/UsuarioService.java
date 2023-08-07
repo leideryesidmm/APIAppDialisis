@@ -34,7 +34,7 @@ public class UsuarioService {
         return this.repository.findAllBycedula(cedula);
     }
     @Transactional
-    public void cambiarcontraseña(long cedula,String contrasenia){
+    public void cambiarcontraseña(String cedula,String contrasenia){
         this.repository.cambiarcontraseña(cedula,contrasenia);
     }
     @Transactional
