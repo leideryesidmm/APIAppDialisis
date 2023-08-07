@@ -23,6 +23,8 @@ public class UsuarioController {
     }
     @GetMapping("/findAllUsuarios")
     public List<Usuario> findAllUsuarios(){
+        System.out.println("si llama");
+        System.out.println(this.usuarioService.findAll());
         return this.usuarioService.findAll();
     }
     @GetMapping("/cedula/{cedula}")
