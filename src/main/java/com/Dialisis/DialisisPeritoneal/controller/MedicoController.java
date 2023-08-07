@@ -44,6 +44,7 @@ public class MedicoController{
     }
     @GetMapping("/findByCedula/{cedula}")
     public Usuario findMedico(@PathVariable("cedula") String cedula){
+
         return this.medicoService.findByCedula(cedula);
     }
 
