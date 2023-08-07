@@ -33,7 +33,6 @@ public class CuidadorService {
     public Cuidador actualizarCuidador(String cedula,CuidadorInDto cuidadorInDto) {
         Cuidador cuidador = cuidadorInDTOtoCuidador.map(cuidadorInDto);
         cuidador.setCedulaCuidador(cedula);
-        System.out.println(cuidador);
         return this.cuidadorRepository.save(cuidador);
     }
 

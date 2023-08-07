@@ -27,7 +27,7 @@ public class MedicoController{
     @GetMapping("/findAllPacientes")
     public ResponseEntity<List<Paciente>> findAllPacientes(){
         List<Paciente> pacientes= this.pacienteService.findAll();
-        System.out.println(pacientes);
+
         if(pacientes==null){
             return ResponseEntity.noContent().build();
         }
@@ -63,7 +63,7 @@ public class MedicoController{
 
         //Prescripcion pre = prescripcionService.createPrescripcion(prescripcionInDto);
         //citaInDto.setPrescripcion(pre.getIdPrescripcion());
-        System.out.println(citaInDto);
+
         citaService.crearCita(citaInDto);
 
         return null;

@@ -196,15 +196,15 @@ public class PacienteController {
 
     @PostMapping("/alergia/crear")
     public void crearAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto){
-        System.out.println(unionPacienteAlergiaInDto);
+
         Alergia alergia= this.alergiaService.crearAlergia(unionPacienteAlergiaInDto.getAlergiaInDto());
-        System.out.println(alergia);
+
         agregarAlergiaByPaciente(unionPacienteAlergiaInDto, alergia.getIdAlergia());
     }
 
     @PostMapping("/alergia/agregar/")
     public void agregarAlergiaByPaciente(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto, int id){
-        System.out.println(id);
+
         PacienteAlergiaInDto pacienteAlergiaInDto = new PacienteAlergiaInDto();
         pacienteAlergiaInDto.setAlergia(id);
         pacienteAlergiaInDto.setPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula());
@@ -403,7 +403,6 @@ public class PacienteController {
             RecambioHecho recambioHecho=this.recambioHechoService.crearRecambio(recambioHechoInDto);
             return ResponseEntity.ok(recambioHecho);
         }catch (Exception e){
-        System.out.println(e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
