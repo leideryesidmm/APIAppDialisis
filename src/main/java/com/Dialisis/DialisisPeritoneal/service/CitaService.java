@@ -28,7 +28,6 @@ public class CitaService {
     }
 
     public Cita crearCita(CitaInDto citaInDto) {
-        System.out.println("antes del if");
         LocalDateTime now = LocalDateTime.now();
         //if(citaInDto.getFecha().isBefore(now)){
         //throw new ToDoExceptions("Fecha de la cita inválida", HttpStatus.BAD_REQUEST);
@@ -88,9 +87,7 @@ public class CitaService {
         }
     }
     public Cita findUltimaCita(Paciente paciente) {
-        System.out.println("antes del if");
         Cita cita=this.repository.findUltimaCita(paciente).get(0);
-        System.out.println(cita);
         return this.repository.findUltimaCita(paciente).get(0);
     }
 
