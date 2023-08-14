@@ -10,6 +10,7 @@ public class CitaInDto {
     private String paciente;
     private String direccion;
     private LocalDateTime fecha;
+    private LocalDateTime fechaFin;
     private LocalDateTime hora;
     private int prescripcionDia;
 }

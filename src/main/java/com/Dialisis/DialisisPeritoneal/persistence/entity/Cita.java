@@ -26,6 +26,7 @@ public class Cita {
     private Paciente paciente;
     private String direccion;
     private LocalDateTime fecha;
+    private LocalDateTime fechaFin;
     private LocalDateTime hora;
     private String orificioSalida;
     private boolean nocheSeca;
