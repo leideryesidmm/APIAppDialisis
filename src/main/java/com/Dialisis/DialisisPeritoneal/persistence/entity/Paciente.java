@@ -25,6 +25,7 @@ private String cedula;
     private char rh;
     private boolean diabetes;
     private boolean hipertension;
+    private boolean activo;
 
     public Paciente(){
         this.cedula=null;
@@ -33,7 +34,7 @@ private String cedula;
         this.cedula=id;
     }
 
-    public Paciente(String cedula, LocalDateTime fechaNacimiento, String eps, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension) {
+    public Paciente(String cedula, LocalDateTime fechaNacimiento, String eps, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension, boolean activo) {
         this.cedula = cedula;
         this.fechaNacimiento = fechaNacimiento;
         this.eps = eps;
@@ -46,5 +47,6 @@ private String cedula;
         this.rh = rh;
         this.diabetes=diabetes;
         this.hipertension=hipertension;
+        this.activo=activo;
     }
 }

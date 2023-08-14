@@ -31,15 +31,16 @@ public class UsuarioController {
     public Usuario findAllUsuarios(@PathVariable("cedula") long cedula){
         return this.usuarioService.findAllBycedula(cedula);
     }
-    @PatchMapping("/cambiar_contrasenia")
-    public ResponseEntity<Void> cambiarcontrasenia(UsuarioInDto usuario){
-        System.out.println("usuario");
-        System.out.println(usuario);
-        this.usuarioService.cambiarcontraseña(usuario.getCedula(),usuario.getContrasenia());
+
+    @PatchMapping("/cambiarContrasenia")
+    public ResponseEntity<Void> cambiarcontrasenia(UsuarioInDto usuarioInDto){
+        System.out.println(usuarioInDto);
+        this.usuarioService.cambiarcontraseña(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
+
         return ResponseEntity.noContent().build();
     }
     @PatchMapping("/cambiar_celular/{cedula},{celular}")
-    public ResponseEntity<Void> cambiarCelular(@PathVariable("cedula") long cedula,@PathVariable("celular") long celular) {
+    public ResponseEntity<Void> cambiarCelular(@PathVariable("cedula") String cedula,@PathVariable("celular") String celular) {
         this.usuarioService.cambiarCelular(cedula, celular);
         return ResponseEntity.noContent().build();
     }
