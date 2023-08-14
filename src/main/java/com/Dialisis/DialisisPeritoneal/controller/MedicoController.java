@@ -2,6 +2,7 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,4 +90,27 @@ public class MedicoController{
         return this.prescripcionService.findAllByCita(idCita);
     }*/
 
-}
+    @PatchMapping("/inhabilitarPaciente")
+    public void inhabilitarPaciente(@RequestBody PacienteInDto pacienteInDto) {
+        System.out.println(pacienteInDto);
+       this.pacienteService.inactivarPaciente(pacienteInDto.getCedula());
+    }
+
+    @PatchMapping("/reactivarPaciente")
+    public void reactivarPaciente(@RequestBody PacienteInDto pacienteInDto) {
+        this.pacienteService.activarPaciente(pacienteInDto.getCedula());
+    }
+
+    @GetMapping("/findPacientesActivos")
+    public ResponseEntity<List<Paciente>> findPacientesActivos(){
+        List<Paciente> pacientes= this.pacienteService.findPacientesActivos();
+        if(pacientes==null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(pacientes);
+    }
+
+
+
+
+    }

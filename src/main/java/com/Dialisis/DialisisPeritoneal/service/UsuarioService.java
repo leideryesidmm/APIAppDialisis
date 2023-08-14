@@ -38,7 +38,7 @@ public class UsuarioService {
         this.repository.cambiarcontraseña(cedula,contrasenia);
     }
     @Transactional
-    public void cambiarCelular(long cedula,long celular){
+    public void cambiarCelular(String cedula,String celular){
         this.repository.cambiarCelular(cedula,celular);
     }
 

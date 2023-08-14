@@ -15,7 +15,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
                                   @Param("contrasenia") String contrasenia);
     @Modifying
     @Query(value = "Update usuario set celular=:celular where cedula=:cedula", nativeQuery = true)
-    public void cambiarCelular(@Param("cedula") long cedula,
-                               @Param("celular") long celular);
+    public void cambiarCelular(@Param("cedula") String cedula,
+                               @Param("celular") String celular);
 
 }
