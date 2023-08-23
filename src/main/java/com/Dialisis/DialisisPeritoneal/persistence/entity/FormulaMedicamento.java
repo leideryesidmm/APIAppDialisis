@@ -27,6 +27,7 @@ public class FormulaMedicamento {
 
     private LocalDateTime fechaIni;
     private LocalDateTime fechaFin;
+    private boolean recetado;
 
     public FormulaMedicamento(){
 

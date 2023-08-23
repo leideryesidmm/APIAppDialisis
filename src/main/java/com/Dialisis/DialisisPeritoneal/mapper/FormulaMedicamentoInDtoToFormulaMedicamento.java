@@ -19,6 +19,7 @@ public class FormulaMedicamentoInDtoToFormulaMedicamento implements IMapper<Form
         formulaMedicamento.setDescripcion(in.getDescripcion());
         formulaMedicamento.setFechaIni(in.getFechaIni());
         formulaMedicamento.setFechaFin(in.getFechaFin());
+        formulaMedicamento.setRecetado(in.isRecetado());
         return formulaMedicamento;
     }
 

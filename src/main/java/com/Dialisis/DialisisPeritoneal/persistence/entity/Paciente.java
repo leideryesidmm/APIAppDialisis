@@ -15,7 +15,9 @@ public class Paciente extends Usuario{
 @Id
 private String cedula;
     private LocalDateTime fechaNacimiento;
-    private String eps;
+    @ManyToOne
+    @JoinColumn(name="eps")
+    private Eps eps;
     private int altura;
     private float peso;
     private float pesoSeco;
@@ -23,9 +25,12 @@ private String cedula;
     private String ocupacion;
     private String tipoSangre;
     private char rh;
+    private String correo;
     private boolean diabetes;
     private boolean hipertension;
     private boolean activo;
+    private String tipo_documento;
+    private boolean cambio_contrasenia;
 
     public Paciente(){
         this.cedula=null;
@@ -34,10 +39,9 @@ private String cedula;
         this.cedula=id;
     }
 
-    public Paciente(String cedula, LocalDateTime fechaNacimiento, String eps, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension, boolean activo) {
+    public Paciente(String cedula, String correo, boolean cambio_contrasenia, String tipo_documento, LocalDateTime fechaNacimiento, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension, Eps eps, boolean activo) {
         this.cedula = cedula;
         this.fechaNacimiento = fechaNacimiento;
-        this.eps = eps;
         this.altura = altura;
         this.peso = peso;
         this.pesoSeco = pesoSeco;
@@ -45,8 +49,12 @@ private String cedula;
         this.ocupacion = ocupacion;
         this.tipoSangre = tipoSangre;
         this.rh = rh;
+        this.correo= correo;
         this.diabetes=diabetes;
         this.hipertension=hipertension;
+        this.tipo_documento=tipo_documento;
+        this.eps=eps;
         this.activo=activo;
+        this.cambio_contrasenia=cambio_contrasenia;
     }
 }

@@ -33,7 +33,7 @@ public class UsuarioController {
     }
 
     @PatchMapping("/cambiarContrasenia")
-    public ResponseEntity<Void> cambiarcontrasenia(UsuarioInDto usuarioInDto){
+    public ResponseEntity<Void> cambiarcontrasenia(@RequestBody UsuarioInDto usuarioInDto){
         System.out.println(usuarioInDto);
         this.usuarioService.cambiarcontraseña(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
 

@@ -3,14 +3,18 @@ package com.Dialisis.DialisisPeritoneal.service;
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.PacienteInDtoToPaciente;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.CuidadorPaciente;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.FormulaMedicamento;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.PacienteRepository;
+import com.Dialisis.DialisisPeritoneal.service.dto.FormulaMedicamentoInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -43,12 +47,20 @@ public class PacienteService {
         return this.repository.findByCedula(cedula);
     }
 
-    @Transactional
-    public void actualizarDatosPaciente(String cedula, String eps, int altura, double peso, double peso_seco, String direccion, String ocupacion) {
-        if (peso < peso_seco) {
-            throw new ToDoExceptions("Peso seco debe ser menor a peso", HttpStatus.BAD_REQUEST);
+   /* public void uploadPhoto(String cedula, MultipartFile foto) {
+        Paciente paciente =repository.findByCedula(cedula);
+        try {
+            paciente.setFoto(foto.getBytes());
+            repository.save(paciente);
+        } catch (IOException e) {
+            throw new RuntimeException("Error al cargar la imagen del paciente", e);
         }
-        this.repository.actualizarDatosPaciente(cedula, eps, altura, peso, peso_seco, direccion, ocupacion);
+    }*/
+    @Transactional
+    public void actualizarDatosPaciente(PacienteInDto pacienteInDto) {
+        Paciente paciente= mapper.map(pacienteInDto);
+        paciente.setCedula(pacienteInDto.getCedula());
+        this.repository.save(paciente);
     }
 
     @Transactional

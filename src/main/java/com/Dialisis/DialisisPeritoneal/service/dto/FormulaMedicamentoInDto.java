@@ -17,5 +17,6 @@ public class FormulaMedicamentoInDto {
     private String concentracion;
     private LocalDateTime fechaIni;
     private LocalDateTime fechaFin;
+    private boolean recetado;
 
 }

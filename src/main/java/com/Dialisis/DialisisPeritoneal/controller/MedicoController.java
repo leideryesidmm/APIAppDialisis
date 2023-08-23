@@ -100,6 +100,7 @@ public class MedicoController{
 
     @PatchMapping("/reactivarPaciente")
     public void reactivarPaciente(@RequestBody PacienteInDto pacienteInDto) {
+        System.out.println(pacienteInDto);
         this.pacienteService.activarPaciente(pacienteInDto.getCedula());
     }
 
