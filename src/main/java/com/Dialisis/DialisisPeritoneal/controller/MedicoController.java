@@ -17,14 +17,16 @@ public class MedicoController{
     private final PrescripcionDiaService prescripcionService;
     private final CitaService citaService;
     private final VisitaEspecialistaService visitaService;
+    private  final ChequeoMensualService chequeoService;
 
-    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService) {
+    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
         this.prescripcionService=prescripcionService;
         this.citaService = citaService;
         this.visitaService = visitaService;
+        this.chequeoService = chequeoService;
     }
 
     @GetMapping("/findAllPacientes")
@@ -116,6 +118,13 @@ public class MedicoController{
     public ResponseEntity<VisitaEspecialista>  crearVisitaEspecialista(@RequestBody VisitaEspecialistaInDto visitaEspecialistaDto){
             VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
             return ResponseEntity.ok(visitaEspecialista);
+
+    }
+
+    @PostMapping("/chequeoMensual")
+    public ResponseEntity<ChequeoMensual>  crearChequeoMensual(@RequestBody ChequeoMensualInDto chequeoMensualInDto){
+        ChequeoMensual chequeoMensual=this.chequeoService.crearChequeo(chequeoMensualInDto);
+        return ResponseEntity.ok(chequeoMensual);
 
     }
 
