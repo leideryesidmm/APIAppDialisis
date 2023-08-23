@@ -29,7 +29,7 @@ public class UsuarioService {
         return this.repository.findAll();
     }
 
-    public Usuario findAllBycedula(long cedula){
+    public Usuario findAllBycedula(String cedula){
 
         return this.repository.findAllBycedula(cedula);
     }

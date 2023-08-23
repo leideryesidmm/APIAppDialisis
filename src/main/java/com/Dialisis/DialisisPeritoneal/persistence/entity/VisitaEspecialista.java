@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table(name= "visitaEspecialista")
 public class VisitaEspecialista {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVistaEspecialista;
     @ManyToOne
     @JoinColumn(name = "cita")

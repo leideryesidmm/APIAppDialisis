@@ -2,7 +2,7 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +16,17 @@ public class MedicoController{
     private final PacienteService pacienteService;
     private final PrescripcionDiaService prescripcionService;
     private final CitaService citaService;
+    private final VisitaEspecialistaService visitaService;
+    private  final ChequeoMensualService chequeoService;
 
-    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService) {
+    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
         this.prescripcionService=prescripcionService;
         this.citaService = citaService;
+        this.visitaService = visitaService;
+        this.chequeoService = chequeoService;
     }
 
     @GetMapping("/findAllPacientes")
@@ -113,7 +117,19 @@ public class MedicoController{
         return ResponseEntity.ok(pacientes);
     }
 
+    @PostMapping("/visitaEspecialista")
+    public ResponseEntity<VisitaEspecialista>  crearVisitaEspecialista(@RequestBody VisitaEspecialistaInDto visitaEspecialistaDto){
+            VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
+            return ResponseEntity.ok(visitaEspecialista);
 
+    }
+
+    @PostMapping("/chequeoMensual")
+    public ResponseEntity<ChequeoMensual>  crearChequeoMensual(@RequestBody ChequeoMensualInDto chequeoMensualInDto){
+        ChequeoMensual chequeoMensual=this.chequeoService.crearChequeo(chequeoMensualInDto);
+        return ResponseEntity.ok(chequeoMensual);
+
+    }
 
 
     }

@@ -27,9 +27,10 @@ public class UsuarioController {
         System.out.println(this.usuarioService.findAll());
         return this.usuarioService.findAll();
     }
-    @GetMapping("/cedula/{cedula}")
-    public Usuario findAllUsuarios(@PathVariable("cedula") long cedula){
-        return this.usuarioService.findAllBycedula(cedula);
+    @PostMapping("/cedula")
+        public Usuario findAllUsuarios(@RequestBody UsuarioInDto usuarioInDto){
+        System.out.println(usuarioInDto);
+        return this.usuarioService.findAllBycedula(usuarioInDto.getCedula());
     }
 
     @PatchMapping("/cambiarContrasenia")
