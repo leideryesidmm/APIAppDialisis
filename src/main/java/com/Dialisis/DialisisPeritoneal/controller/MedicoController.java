@@ -2,6 +2,7 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +16,15 @@ public class MedicoController{
     private final PacienteService pacienteService;
     private final PrescripcionDiaService prescripcionService;
     private final CitaService citaService;
+    private final VisitaEspecialistaService visitaService;
 
-    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService) {
+    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
         this.prescripcionService=prescripcionService;
         this.citaService = citaService;
+        this.visitaService = visitaService;
     }
 
     @GetMapping("/findAllPacientes")
@@ -89,4 +92,32 @@ public class MedicoController{
         return this.prescripcionService.findAllByCita(idCita);
     }*/
 
-}
+    @PatchMapping("/inhabilitarPaciente")
+    public void inhabilitarPaciente(@RequestBody PacienteInDto pacienteInDto) {
+        System.out.println(pacienteInDto);
+       this.pacienteService.inactivarPaciente(pacienteInDto.getCedula());
+    }
+
+    @PatchMapping("/reactivarPaciente")
+    public void reactivarPaciente(@RequestBody PacienteInDto pacienteInDto) {
+        this.pacienteService.activarPaciente(pacienteInDto.getCedula());
+    }
+
+    @GetMapping("/findPacientesActivos")
+    public ResponseEntity<List<Paciente>> findPacientesActivos(){
+        List<Paciente> pacientes= this.pacienteService.findPacientesActivos();
+        if(pacientes==null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(pacientes);
+    }
+
+    @PostMapping("/visitaEspecialista")
+    public ResponseEntity<VisitaEspecialista>  crearVisitaEspecialista(@RequestBody VisitaEspecialistaInDto visitaEspecialistaDto){
+            VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
+            return ResponseEntity.ok(visitaEspecialista);
+
+    }
+
+
+    }

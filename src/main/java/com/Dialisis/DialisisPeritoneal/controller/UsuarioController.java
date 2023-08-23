@@ -38,7 +38,7 @@ public class UsuarioController {
         return null;
     }
     @PatchMapping("/cambiar_celular/{cedula},{celular}")
-    public ResponseEntity<Void> cambiarCelular(@PathVariable("cedula") long cedula,@PathVariable("celular") long celular) {
+    public ResponseEntity<Void> cambiarCelular(@PathVariable("cedula") String cedula,@PathVariable("celular") String celular) {
         this.usuarioService.cambiarCelular(cedula, celular);
         return ResponseEntity.noContent().build();
     }

@@ -24,6 +24,7 @@ public class   PacienteInDtoToPaciente implements IMapper<PacienteInDto, Pacient
         paciente.setContrasenia(in.getContrasenia());
         paciente.setDiabetes(in.isDiabetes());
         paciente.setHipertension(in.isHipertension());
+        paciente.setActivo(in.isActivo());
 
         return paciente;
     }
