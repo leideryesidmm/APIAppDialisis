@@ -72,6 +72,7 @@ public class PacienteController {
     }
 
 
+
     @GetMapping("/medicamento/listMedimentos")
     public List <Medicamento> findAllMed(){
         return this.medicamentoService.encontrarMedicamentos();

@@ -40,6 +40,14 @@ public class UsuarioController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/cambioContraseniaPrimeraVez")
+    public ResponseEntity<Void> cambiarcontraseniaPrimeraVez(@RequestBody UsuarioInDto usuarioInDto){
+       if(usuarioInDto.getContrasenia()!=null || usuarioInDto.getContrasenia()==""){
+        this.usuarioService.cambiocontraseñaPrimeraVez(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
+        this.usuarioService.marcarCambiada(usuarioInDto.getCedula());}
+        return ResponseEntity.noContent().build();
+    }
     @PatchMapping("/cambiar_celular/{cedula},{celular}")
     public ResponseEntity<Void> cambiarCelular(@PathVariable("cedula") String cedula,@PathVariable("celular") String celular) {
         this.usuarioService.cambiarCelular(cedula, celular);
