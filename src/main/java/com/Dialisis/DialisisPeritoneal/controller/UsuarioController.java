@@ -39,7 +39,6 @@ public class UsuarioController {
     public ResponseEntity<Void> cambiarcontrasenia(@RequestBody UsuarioInDto usuarioInDto){
 
         this.usuarioService.cambiarcontraseña(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
-
         return ResponseEntity.noContent().build();
     }
 

@@ -9,7 +9,9 @@ import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.RecambioHechoInDto;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,5 +31,12 @@ public class RecambioHechoService {
     }
     public List<RecambioHecho> findByRecambio(Recambio recambio){
         return this.repository.findByRecambio(recambio);
+    }
+
+    public RecambioHecho findByRecambioAndFecha(int recambio, LocalDate fecha){
+        System.out.println(recambio);
+        System.out.println(fecha);
+        System.out.println(this.repository.findByRecambioAndFecha(recambio,fecha));
+        return this.repository.findByRecambioAndFecha(recambio,fecha);
     }
 }
