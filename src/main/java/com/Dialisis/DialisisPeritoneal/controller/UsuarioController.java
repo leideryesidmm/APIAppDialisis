@@ -27,15 +27,25 @@ public class UsuarioController {
         System.out.println(this.usuarioService.findAll());
         return this.usuarioService.findAll();
     }
-    @GetMapping("/cedula/{cedula}")
-    public Usuario findAllUsuarios(@PathVariable("cedula") long cedula){
-        return this.usuarioService.findAllBycedula(cedula);
+    @PostMapping("/cedula")
+        public Usuario findAllUsuarios(@RequestBody UsuarioInDto usuarioInDto){
+        System.out.println(usuarioInDto);
+        return this.usuarioService.findAllBycedula(usuarioInDto.getCedula());
     }
+
     @PatchMapping("/cambiarContrasenia")
     public ResponseEntity<Void> cambiarcontrasenia(@RequestBody UsuarioInDto usuarioInDto){
         System.out.println(usuarioInDto);
         this.usuarioService.cambiarcontraseña(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
-        return null;
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/cambioContraseniaPrimeraVez")
+    public ResponseEntity<Void> cambiarcontraseniaPrimeraVez(@RequestBody UsuarioInDto usuarioInDto){
+       if(usuarioInDto.getContrasenia()!=null || usuarioInDto.getContrasenia()==""){
+        this.usuarioService.cambiocontraseñaPrimeraVez(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
+        this.usuarioService.marcarCambiada(usuarioInDto.getCedula());}
+        return ResponseEntity.noContent().build();
     }
     @PatchMapping("/cambiar_celular/{cedula},{celular}")
     public ResponseEntity<Void> cambiarCelular(@PathVariable("cedula") String cedula,@PathVariable("celular") String celular) {

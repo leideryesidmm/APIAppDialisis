@@ -28,12 +28,13 @@ public class CitaService {
     }
 
     public Cita crearCita(CitaInDto citaInDto) {
+
         LocalDateTime now = LocalDateTime.now();
         //if(citaInDto.getFecha().isBefore(now)){
         //throw new ToDoExceptions("Fecha de la cita inválida", HttpStatus.BAD_REQUEST);
         //}
             Cita cita = mapper.map(citaInDto);
-        System.out.println(cita);
+
             return this.repository.save(cita);
     }
 
@@ -87,7 +88,9 @@ public class CitaService {
         }
     }
     public Cita findUltimaCita(Paciente paciente) {
+
         Cita cita=this.repository.findUltimaCita(paciente).get(0);
+
         return this.repository.findUltimaCita(paciente).get(0);
     }
 

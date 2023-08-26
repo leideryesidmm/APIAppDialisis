@@ -14,6 +14,7 @@ public class CitaInDtoToCita implements IMapper<CitaInDto, Cita>{
         cita.setDireccion(in.getDireccion());
         cita.setFecha(in.getFecha());
         cita.setHora(in.getHora());
+        cita.setFechaFin(in.getFechaFin());
         return cita;
     }
 }

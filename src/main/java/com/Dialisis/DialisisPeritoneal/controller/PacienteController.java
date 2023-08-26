@@ -3,15 +3,12 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCitaPrescripcionDias;
-import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionCuidadorPacienteInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPacienteAlergiaInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.UnionPrescripcionDiasRecambios;
+import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.Instant;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -62,6 +59,7 @@ public class PacienteController {
 
     @PostMapping("/crearPaciente")
     public Paciente crearPaciente(@RequestBody PacienteInDto pacienteInDto){
+        System.out.println(pacienteInDto);
         return this.pacienteService.crearPaciente(pacienteInDto);
     }
 
@@ -76,6 +74,7 @@ public class PacienteController {
     }
 
 
+
     @GetMapping("/medicamento/listMedimentos")
     public List <Medicamento> findAllMed(){
         return this.medicamentoService.encontrarMedicamentos();
@@ -87,15 +86,9 @@ public class PacienteController {
         return this.medicamentoService.findById(id_medicamento);
     }
 
-    @PatchMapping("/actualizar/{cedula},{eps},{altura},{peso},{peso_seco},{direccion},{ocupacion}")
-    public ResponseEntity<Void> actualizarDatosPaciente(@PathVariable("cedula")String cedula,
-                                                        @PathVariable("eps") String eps,
-                                                        @PathVariable("altura") int altura,
-                                                        @PathVariable("peso") double peso,
-                                                        @PathVariable("peso_seco") double peso_seco,
-                                                        @PathVariable("direccion") String direccion,
-                                                        @PathVariable("ocupacion") String ocupacion){
-        this.pacienteService.actualizarDatosPaciente(cedula,eps,altura,peso,peso_seco,direccion,ocupacion);
+    @PatchMapping("/actualizar")
+    public ResponseEntity<Void> actualizarDatosPaciente(@RequestBody PacienteInDto pacienteInDto){
+        this.pacienteService.actualizarDatosPaciente(pacienteInDto);
         return ResponseEntity.noContent().build();
     }
 
@@ -114,6 +107,14 @@ public class PacienteController {
         this.formulaMedicamentoService.actualizarFormula(id_formula_medicamento,formulaMedicamentoInDto);
         return ResponseEntity.noContent().build();
     }
+
+    /*@PostMapping("/foto")
+    public ResponseEntity<String> uploadPhoto(@RequestBody UnionPacienteFotoInDto unionPacienteFotoInDto) {
+        pacienteService.uploadPhoto(unionPacienteFotoInDto.getCedula(), unionPacienteFotoInDto.getFoto());
+        System.out.println(unionPacienteFotoInDto);
+        return ResponseEntity.ok("Imagen cargada exitosamente");
+    }*/
+
     @PostMapping("/cuidador/listCuidadorPacienteByPaciente")
     public ResponseEntity<List<CuidadorPaciente>> ListarCuidadoresPorPaciente(@RequestBody PacienteInDto pacienteInDto){
 
@@ -199,15 +200,15 @@ public class PacienteController {
 
     @PostMapping("/alergia/crear")
     public void crearAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto){
-        System.out.println(unionPacienteAlergiaInDto);
+
         Alergia alergia= this.alergiaService.crearAlergia(unionPacienteAlergiaInDto.getAlergiaInDto());
-        System.out.println(alergia);
+
         agregarAlergiaByPaciente(unionPacienteAlergiaInDto, alergia.getIdAlergia());
     }
 
     @PostMapping("/alergia/agregar/")
     public void agregarAlergiaByPaciente(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto, int id){
-        System.out.println(id);
+
         PacienteAlergiaInDto pacienteAlergiaInDto = new PacienteAlergiaInDto();
         pacienteAlergiaInDto.setAlergia(id);
         pacienteAlergiaInDto.setPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula());
@@ -381,7 +382,7 @@ public class PacienteController {
     }
     @PostMapping("/prescripcion/prescripcionActual")
     public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody Paciente paciente){
-        System.out.println(paciente);
+        //System.out.println(paciente);
         Cita cita=this.citaService.findUltimaCita(paciente);
         if(cita==null)
             return ResponseEntity.noContent().build();
@@ -407,7 +408,6 @@ public class PacienteController {
             RecambioHecho recambioHecho=this.recambioHechoService.crearRecambio(recambioHechoInDto);
             return ResponseEntity.ok(recambioHecho);
         }catch (Exception e){
-        System.out.println(e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -420,16 +420,16 @@ public class PacienteController {
             UnionCitaPrescripcionDias presciscionActual=unionCitaPrescripcionDias.getBody();
             for(UnionPrescripcionDiasRecambios prescripcionDia :presciscionActual.getUnionPrescripcionDiasRecambios()) {
                 for(Recambio recambio:prescripcionDia.getRecambios()){
-                    System.out.println(paciente);
+                    //System.out.println(paciente);
                     List<RecambioHecho> recambioHechoLista2=this.recambioHechoService.findByRecambio(recambio);
-                    System.out.println(recambioHechoLista2);
+                    //System.out.println(recambioHechoLista2);
                     recambioHechos.addAll(recambioHechoLista2);
-                    System.out.println("si");
+                    //System.out.println("si");
                 }
             }
             return ResponseEntity.ok(recambioHechos);//recambioHecho);
         }catch (Exception e){
-            System.out.println(e);
+            //System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

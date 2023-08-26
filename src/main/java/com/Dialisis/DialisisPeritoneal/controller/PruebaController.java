@@ -27,10 +27,12 @@ public class PruebaController {
     private final EnfermedadService enfermedadService;
     private final CuidadorService cuidadorService;
     private final CuidadorPacienteService cuidadorPacienteService;
+    private  final EpsService epsService;
 
-    public PruebaController(AlergiaService alergiaService, CitaService citaService, ClinicaService clinicaService, CormobilidadService cormobilidadService, ParentescoService parentescoService,  FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, /*AlimentacionPacienteService alimentacionPacienteService,*/ EnfermedadService enfermedadService, CuidadorService cuidadorService, CuidadorPacienteService cuidadorPacienteService) {
+    public PruebaController(EpsService epsService, AlergiaService alergiaService, CitaService citaService, ClinicaService clinicaService, CormobilidadService cormobilidadService, ParentescoService parentescoService,  FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, /*AlimentacionPacienteService alimentacionPacienteService,*/ EnfermedadService enfermedadService, CuidadorService cuidadorService, CuidadorPacienteService cuidadorPacienteService) {
         this.alergiaService = alergiaService;
         this.citaService = citaService;
+        this.epsService= epsService;
         this.clinicaService = clinicaService;
         this.cormobilidadService = cormobilidadService;
         this.parentescoService = parentescoService;
@@ -138,6 +140,11 @@ public class PruebaController {
     @GetMapping("/ListParentesco")
     public List<Parentesco> findAllParentesco() {
         return this.parentescoService.findAll();
+    }
+
+    @GetMapping("/ListEps")
+    public List<Eps> findAllEps() {
+        return this.epsService.findAllEps();
     }
 
 

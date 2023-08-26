@@ -11,7 +11,7 @@ public class ChequeoMensual {
     @Id
     private int idChequeoMensual;
     @ManyToOne
-    @JoinColumn(name = "prescripcion")
+    @JoinColumn(name = "cita")
     private Cita cita;
     private double tensionArterial;
     private double colesterolTotal;

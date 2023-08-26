@@ -29,7 +29,7 @@ public class UsuarioService {
         return this.repository.findAll();
     }
 
-    public Usuario findAllBycedula(long cedula){
+    public Usuario findAllBycedula(String cedula){
 
         return this.repository.findAllBycedula(cedula);
     }
@@ -37,6 +37,17 @@ public class UsuarioService {
     public void cambiarcontraseña(String cedula,String contrasenia){
         this.repository.cambiarcontraseña(cedula,contrasenia);
     }
+
+    @Transactional
+    public void cambiocontraseñaPrimeraVez(String cedula,String contrasenia){
+        this.repository.cambiocontraseñaPrimeraVez(cedula,contrasenia);
+    }
+
+    @Transactional
+    public void marcarCambiada(String cedula){
+        this.repository.marcarCambiada(cedula);
+    }
+
     @Transactional
     public void cambiarCelular(String cedula,String celular){
         this.repository.cambiarCelular(cedula,celular);

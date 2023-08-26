@@ -17,19 +17,22 @@ public class MedicoController{
     private final PrescripcionDiaService prescripcionService;
     private final CitaService citaService;
     private final VisitaEspecialistaService visitaService;
+    private  final ChequeoMensualService chequeoService;
 
-    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService) {
+    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
         this.prescripcionService=prescripcionService;
         this.citaService = citaService;
         this.visitaService = visitaService;
+        this.chequeoService = chequeoService;
     }
 
     @GetMapping("/findAllPacientes")
     public ResponseEntity<List<Paciente>> findAllPacientes(){
         List<Paciente> pacientes= this.pacienteService.findAll();
+
         if(pacientes==null){
             return ResponseEntity.noContent().build();
         }
@@ -46,6 +49,7 @@ public class MedicoController{
     }
     @GetMapping("/findByCedula/{cedula}")
     public Usuario findMedico(@PathVariable("cedula") String cedula){
+
         return this.medicoService.findByCedula(cedula);
     }
 
@@ -64,7 +68,7 @@ public class MedicoController{
 
         //Prescripcion pre = prescripcionService.createPrescripcion(prescripcionInDto);
         //citaInDto.setPrescripcion(pre.getIdPrescripcion());
-        System.out.println(citaInDto);
+
         citaService.crearCita(citaInDto);
 
         return null;
@@ -100,6 +104,7 @@ public class MedicoController{
 
     @PatchMapping("/reactivarPaciente")
     public void reactivarPaciente(@RequestBody PacienteInDto pacienteInDto) {
+        System.out.println(pacienteInDto);
         this.pacienteService.activarPaciente(pacienteInDto.getCedula());
     }
 
@@ -116,6 +121,13 @@ public class MedicoController{
     public ResponseEntity<VisitaEspecialista>  crearVisitaEspecialista(@RequestBody VisitaEspecialistaInDto visitaEspecialistaDto){
             VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
             return ResponseEntity.ok(visitaEspecialista);
+
+    }
+
+    @PostMapping("/chequeoMensual")
+    public ResponseEntity<ChequeoMensual>  crearChequeoMensual(@RequestBody ChequeoMensualInDto chequeoMensualInDto){
+        ChequeoMensual chequeoMensual=this.chequeoService.crearChequeo(chequeoMensualInDto);
+        return ResponseEntity.ok(chequeoMensual);
 
     }
 
