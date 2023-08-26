@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     public Usuario findAllBycedula(String cedula);
     @Modifying
@@ -20,7 +22,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
                                   @Param("contrasenia") String contrasenia);
 
     @Modifying
-    @Query(value = "Update paciente set cambiada=true where cedula=:cedula", nativeQuery = true)
+    @Query(value = "Update paciente set cambio_contrasenia=true where cedula=:cedula", nativeQuery = true)
     public void marcarCambiada(@Param("cedula") String cedula);
 
 

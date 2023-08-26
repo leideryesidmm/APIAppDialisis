@@ -29,7 +29,6 @@ public class   PacienteInDtoToPaciente implements IMapper<PacienteInDto, Pacient
         paciente.setTipo_documento(in.getTipo_documento());
         paciente.setActivo(in.isActivo());
         paciente.setCambio_contrasenia(in.isCambio_contrasenia());
-
         return paciente;
     }
 }

@@ -6,6 +6,7 @@ import com.Dialisis.DialisisPeritoneal.persistence.repository.UsuarioRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.UsuarioInDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Base64;
 
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class UsuarioService {
     public Usuario findAllBycedula(String cedula){
 
         return this.repository.findAllBycedula(cedula);
+    }
+
+    public byte[] getFotoByCedula(String cedula) {
+        Usuario usuario = repository.findAllBycedula(cedula);
+        return usuario.getFoto();
     }
     @Transactional
     public void cambiarcontraseña(String cedula,String contrasenia){

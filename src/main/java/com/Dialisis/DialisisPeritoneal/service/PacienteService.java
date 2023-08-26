@@ -44,6 +44,7 @@ public class PacienteService {
     }
 
     public Paciente findByCedula(String cedula) {
+
         return this.repository.findByCedula(cedula);
     }
 
@@ -57,10 +58,13 @@ public class PacienteService {
         }
     }*/
     @Transactional
-    public void actualizarDatosPaciente(PacienteInDto pacienteInDto) {
-        Paciente paciente= mapper.map(pacienteInDto);
-        paciente.setCedula(pacienteInDto.getCedula());
-        this.repository.save(paciente);
+    public void actualizarDatosPaciente(PacienteInDto pacienteInDto, Paciente paciente) {
+        Paciente pac= mapper.map(pacienteInDto);
+        pac.setCedula(pacienteInDto.getCedula());
+        if(paciente.getFoto()!=null) {
+            pac.setFoto(paciente.getFoto());
+        }
+        this.repository.save(pac);
     }
 
     @Transactional

@@ -12,8 +12,12 @@ public class Usuario {
     private String nombre;
     private String contrasenia;
     private String celular;
+    @Lob
+    @Column(name = "foto")
+    private byte[] foto;
 
     public Usuario() {
     }
+
 }
 

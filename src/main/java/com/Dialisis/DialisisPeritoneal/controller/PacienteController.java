@@ -1,22 +1,30 @@
 package com.Dialisis.DialisisPeritoneal.controller;
 
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
+import com.Dialisis.DialisisPeritoneal.persistence.repository.PacienteRepository;
+import com.Dialisis.DialisisPeritoneal.persistence.repository.UsuarioRepository;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/paciente")
 public class PacienteController {
     private final PacienteService pacienteService;
+    private final UsuarioService usuarioService;
+    private final UsuarioRepository usuarioRepository;
     private final MedicamentoService medicamentoService;
     private final CuidadorPacienteService cuidadorPacienteService;
     private final CuidadorService cuidadorService;
@@ -35,8 +43,10 @@ public class PacienteController {
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
+    public PacienteController(PacienteService pacienteService, UsuarioService usuarioService, UsuarioRepository usuarioRepository, RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
         this.pacienteService = pacienteService;
+        this.usuarioService=usuarioService;
+        this.usuarioRepository=usuarioRepository;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
         this.cuidadorService = cuidadorService;
@@ -86,8 +96,13 @@ public class PacienteController {
 
     @PatchMapping("/actualizar")
     public ResponseEntity<Void> actualizarDatosPaciente(@RequestBody PacienteInDto pacienteInDto){
-        this.pacienteService.actualizarDatosPaciente(pacienteInDto);
+        Paciente paciente= this.pacienteService.findByCedula(pacienteInDto.getCedula());
+
+
+        this.pacienteService.actualizarDatosPaciente(pacienteInDto, paciente);
         return ResponseEntity.noContent().build();
+
+
     }
 
     @PatchMapping("/medicamento/actualizar/{nombre},{concentracion},{via_administracion},{descripcion},{id_medicamento}")
@@ -112,6 +127,24 @@ public class PacienteController {
         System.out.println(unionPacienteFotoInDto);
         return ResponseEntity.ok("Imagen cargada exitosamente");
     }*/
+
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> uploadImage(@RequestParam("cedula") String cedula,
+                                              @RequestParam("foto") MultipartFile imageFile) {
+        try {
+            Usuario usuario = usuarioService.findAllBycedula(cedula);
+            byte[] imageBytes = imageFile.getBytes();
+            usuario.setFoto(imageBytes);
+
+            // Actualiza otros campos del paciente si es necesario
+            usuarioRepository.save(usuario);
+
+            return ResponseEntity.ok("{\"success\": true}");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"success\": false}");
+        }
+    }
 
     @PostMapping("/cuidador/listCuidadorPacienteByPaciente")
     public ResponseEntity<List<CuidadorPaciente>> ListarCuidadoresPorPaciente(@RequestBody PacienteInDto pacienteInDto){

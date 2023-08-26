@@ -13,6 +13,7 @@ public class UsuarioInDtoToUsuario implements IMapper<UsuarioInDto, Usuario>{
         usuario.setNombre(in.getNombre());
         usuario.setContrasenia(in.getContrasenia());
         usuario.setCelular(in.getCelular());
+        usuario.setFoto(in.getFoto());
         return usuario;
     }
 }
