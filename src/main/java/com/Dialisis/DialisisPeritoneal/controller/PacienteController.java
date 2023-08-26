@@ -11,8 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -425,6 +428,25 @@ public class PacienteController {
                 }
             }
             return ResponseEntity.ok(recambioHechos);//recambioHecho);
+        }catch (Exception e){
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    @PostMapping("/recambio/findRecambioHechosByPrescripcionDiaAndFecha/{fecha}")
+    public ResponseEntity<List<RecambioHecho>>  findRecambioHechosByPrescripcionDiaAndFecha(@RequestBody List<Recambio> recambios,@PathVariable("fecha") Date fecha){
+        try{
+            System.out.println(fecha);
+            List<RecambioHecho> recambioHechos=new ArrayList<>();
+
+            LocalDate fecha2 = Instant.ofEpochMilli(fecha.getTime())
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            for (Recambio recambio:recambios) {
+                recambioHechos.add(this.recambioHechoService.findByRecambioAndFecha(recambio.getIdRecambio(),fecha2));
+                System.out.println(recambioHechos);
+            }
+            return ResponseEntity.ok(recambioHechos);
         }catch (Exception e){
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
