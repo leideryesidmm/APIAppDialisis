@@ -7,6 +7,8 @@ import com.Dialisis.DialisisPeritoneal.service.dto.RecambioHechoInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.RecambioInDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class RecambioHechoInDtoToRecambioHecho implements  IMapper<RecambioHechoInDto, RecambioHecho> {
 
@@ -15,8 +17,9 @@ public class RecambioHechoInDtoToRecambioHecho implements  IMapper<RecambioHecho
         RecambioHecho recambioHecho= new RecambioHecho();
         recambioHecho.setDrenajeDialisis(in.getDrenajeDialisis());
         recambioHecho.setRecambio(new Recambio(in.getRecambio()));
-        recambioHecho.setHora(in.getHora());
-        recambioHecho.setFecha(in.getFecha());
+        recambioHecho.setHora_ini(in.getHora_ini());
+        recambioHecho.setHora_fin(in.getHora_fin());
+        recambioHecho.setFecha(LocalDateTime.now());
         recambioHecho.setOrificioSalida(in.getOrificioSalida());
         recambioHecho.setCaracteristicaLiquido(in.getCaracteristicaLiquido());
         return recambioHecho;

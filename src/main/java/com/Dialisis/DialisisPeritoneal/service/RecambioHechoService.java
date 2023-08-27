@@ -39,4 +39,8 @@ public class RecambioHechoService {
         System.out.println(this.repository.findByRecambioAndFecha(recambio,fecha));
         return this.repository.findByRecambioAndFecha(recambio,fecha);
     }
+
+    public RecambioHecho findRecambioById(int id_recambio_hecho){
+        return this.repository.findById(id_recambio_hecho);
+    }
 }

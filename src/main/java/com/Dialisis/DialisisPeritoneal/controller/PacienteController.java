@@ -495,4 +495,14 @@ public class PacienteController {
         //this.recambioService.crearRecambio(recambioInDto);
     }
 
+    @PostMapping("/prescripcion/findRecambioHechoById/{id_recambio_hecho}")
+    public ResponseEntity<RecambioHecho> findRecambioHechoById(int id_recambio_hecho){
+        try{
+            RecambioHecho recambio=this.recambioHechoService.findRecambioById(id_recambio_hecho);
+            return ResponseEntity.ok(recambio);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

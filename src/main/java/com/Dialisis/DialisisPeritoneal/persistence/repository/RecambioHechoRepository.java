@@ -16,4 +16,6 @@ public interface RecambioHechoRepository extends JpaRepository<RecambioHecho, In
     @Query(value = "Select * from recambio_hecho where recambio=:recambio and Date(fecha)=:fecha", nativeQuery = true)
     public RecambioHecho findByRecambioAndFecha(@Param("recambio") int id_recambio,
                                                 @Param("fecha") LocalDate fecha);
+
+    public RecambioHecho findById(int id_recambio_hecho);
 }
