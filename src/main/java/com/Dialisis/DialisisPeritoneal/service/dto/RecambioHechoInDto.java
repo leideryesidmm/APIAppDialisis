@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public class RecambioHechoInDto {
     private int recambio;
     private LocalDateTime fecha;
+    private LocalDateTime fecha_real;
     private LocalDateTime hora_ini;
     private LocalDateTime hora_fin;
     private String drenajeDialisis;

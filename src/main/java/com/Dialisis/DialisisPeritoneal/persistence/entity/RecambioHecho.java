@@ -15,6 +15,7 @@ public class RecambioHecho {
     @JoinColumn(name = "recambio")
     private Recambio recambio;
     private LocalDateTime fecha;
+    private LocalDateTime fecha_real;
     private LocalDateTime hora_ini;
     private LocalDateTime hora_fin;
     private String drenajeDialisis;
