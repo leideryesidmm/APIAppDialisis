@@ -446,6 +446,20 @@ public class PacienteController {
         }
     }
 
+    @PostMapping("/recambio/editarRecambioHecho/{id_recambioHecho}")
+    public ResponseEntity<RecambioHecho>  editarRecambioHecho(@RequestBody RecambioHechoInDto recambioHechoInDto,@PathVariable("id_recambioHecho") int id_recambioHecho){
+        try{
+
+            System.out.println(recambioHechoInDto);
+
+            System.out.println(id_recambioHecho);
+            RecambioHecho recambioHecho=this.recambioHechoService.editarRecambio(recambioHechoInDto,id_recambioHecho);
+            return ResponseEntity.ok(recambioHecho);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @PostMapping("/recambio/findRecambioHechoByPaciente")
     public ResponseEntity<List<RecambioHecho>>  findRecambioHechoByPaciente(@RequestBody Paciente paciente){
         try{
@@ -496,7 +510,7 @@ public class PacienteController {
     }
 
     @PostMapping("/prescripcion/findRecambioHechoById/{id_recambio_hecho}")
-    public ResponseEntity<RecambioHecho> findRecambioHechoById(int id_recambio_hecho){
+    public ResponseEntity<RecambioHecho> findRecambioHechoById(@PathVariable int id_recambio_hecho){
         try{
             RecambioHecho recambio=this.recambioHechoService.findRecambioById(id_recambio_hecho);
             return ResponseEntity.ok(recambio);
