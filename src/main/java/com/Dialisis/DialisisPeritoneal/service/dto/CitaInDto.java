@@ -8,9 +8,9 @@ import java.util.Date;
 public class CitaInDto {
     private String medico;
     private String paciente;
-    private String direccion;
     private LocalDateTime fecha;
     private LocalDateTime fechaFin;
     private LocalDateTime hora;
-    private int prescripcionDia;
+    private String orificioSalida;
+
 }

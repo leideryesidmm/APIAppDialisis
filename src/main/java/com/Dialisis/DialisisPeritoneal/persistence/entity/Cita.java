@@ -24,12 +24,10 @@ public class Cita {
     @ManyToOne
     @JoinColumn(name = "paciente")
     private Paciente paciente;
-    private String direccion;
     private LocalDateTime fecha;
     private LocalDateTime fechaFin;
     private LocalDateTime hora;
     private String orificioSalida;
-    private boolean nocheSeca;
     public Cita(){
         this.idCita=0;
     }

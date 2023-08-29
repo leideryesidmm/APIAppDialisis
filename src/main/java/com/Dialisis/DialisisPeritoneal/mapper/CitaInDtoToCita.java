@@ -4,6 +4,8 @@ import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.CitaInDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class CitaInDtoToCita implements IMapper<CitaInDto, Cita>{
 
@@ -11,10 +13,10 @@ public class CitaInDtoToCita implements IMapper<CitaInDto, Cita>{
         Cita cita= new Cita();
         cita.setMedico(new Medico(in.getMedico()));
         cita.setPaciente(new Paciente(in.getPaciente()));
-        cita.setDireccion(in.getDireccion());
-        cita.setFecha(in.getFecha());
-        cita.setHora(in.getHora());
+        cita.setFecha(LocalDateTime.now());
+        cita.setHora(LocalDateTime.now());
         cita.setFechaFin(in.getFechaFin());
+        cita.setOrificioSalida(in.getOrificioSalida());
         return cita;
     }
 }

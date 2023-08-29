@@ -22,6 +22,7 @@ public class PrescripcionDia {
     private boolean viernes;
     private boolean sabado;
     private boolean domingo;
+    private boolean nocheSeca;
 
     public PrescripcionDia() {
     }

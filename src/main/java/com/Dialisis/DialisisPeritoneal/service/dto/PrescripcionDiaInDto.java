@@ -12,5 +12,6 @@ public class PrescripcionDiaInDto {
     private boolean viernes;
     private boolean sabado;
     private boolean domingo;
+    private boolean nocheSeca;
 
 }

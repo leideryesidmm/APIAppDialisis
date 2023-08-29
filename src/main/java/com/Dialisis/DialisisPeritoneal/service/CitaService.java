@@ -50,7 +50,7 @@ public class CitaService {
     }
     @Transactional
     public void actualizarCita(int id_cita,CitaInDto citaInDto){
-        this.repository.actualizarCita(id_cita,citaInDto.getMedico(),citaInDto.getPaciente(),citaInDto.getDireccion(),citaInDto.getFecha(),citaInDto.getHora());
+        //this.repository.actualizarCita(id_cita,citaInDto.getMedico(),citaInDto.getPaciente(),citaInDto.getFecha(),citaInDto.getHora());
     }
     public void deleteById(int id_cita){
         Cita cita=findById(id_cita);
