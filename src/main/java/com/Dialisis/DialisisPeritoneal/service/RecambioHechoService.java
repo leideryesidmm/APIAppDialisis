@@ -29,6 +29,14 @@ public class RecambioHechoService {
         RecambioHecho recambioHecho= mapper.map(recambioHechoInDto);
         return this.repository.save(recambioHecho);
     }
+    public RecambioHecho editarRecambio(RecambioHechoInDto recambioHechoInDto, int id_recambioHecho){
+        RecambioHecho recambioHecho1=this.findRecambioById(id_recambioHecho);
+        RecambioHecho recambioHecho= mapper.map(recambioHechoInDto);
+        recambioHecho.setIdRecambioHecho(id_recambioHecho);
+        recambioHecho.setRecambio(recambioHecho1.getRecambio());
+        System.out.println(recambioHecho);
+        return this.repository.save(recambioHecho);
+    }
     public List<RecambioHecho> findByRecambio(Recambio recambio){
         return this.repository.findByRecambio(recambio);
     }
