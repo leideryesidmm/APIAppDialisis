@@ -3,6 +3,7 @@ package com.Dialisis.DialisisPeritoneal.service;
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.CitaInDtoToCita;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.FormulaMedicamento;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.CitaRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.CitaInDto;
@@ -53,19 +54,14 @@ public class CitaService {
         //this.repository.actualizarCita(id_cita,citaInDto.getMedico(),citaInDto.getPaciente(),citaInDto.getFecha(),citaInDto.getHora());
     }
     public void deleteById(int id_cita){
-        Cita cita=findById(id_cita);
-        LocalDateTime hoy=LocalDateTime.now();
-        LocalDateTime citaf=cita.getFecha();
+        System.out.println(id_cita);
         Optional<Cita> optionalCita = this.repository.findById(id_cita);
         if (optionalCita.isEmpty()) {
             throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
-        }
-        if(hoy.isBefore(citaf)){
+        }else {
             this.repository.deleteById(id_cita);
         }
-        else{
-                throw new ToDoExceptions("La cita ya pasó, no se puede eliminar", HttpStatus.NOT_FOUND);
-        }
+
     }
 
 

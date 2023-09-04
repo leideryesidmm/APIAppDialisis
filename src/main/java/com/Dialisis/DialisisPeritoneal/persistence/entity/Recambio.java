@@ -12,7 +12,7 @@ public class Recambio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRecambio;
     @ManyToOne
-    @JoinColumn(name = "prescripcionDia")
+    @JoinColumn(name = "prescripcion_dia")
     private PrescripcionDia prescripcionDia;
     private double concentracion;
     private int intervaloTiempo;

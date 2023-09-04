@@ -80,13 +80,13 @@ public class MedicoController{
         return this.prescripcionService.findAllByCita(cita);
     }*/
 
-    @PatchMapping("actualizarPrescripcion/{idCita}")
+    /*@PatchMapping("actualizarPrescripcion/{idCita}")
     public ResponseEntity<Void> actualizarPrescripcion(@PathVariable("orificioSalida")PrescripcionInDto orificioSalida,
                                                         @PathVariable("nocheSeca")boolean nocheSeca,
                                                         @PathVariable("id_prescripcion")int id_prescripcion){
         this.prescripcionService.actualizarPrescripcion(orificioSalida, nocheSeca, id_prescripcion);
         return ResponseEntity.noContent().build();
-    }
+    }*/
     @GetMapping("/prescripciones/listPrescripciones")
     public List<Cita> findAllPrescripciones(){
 
@@ -131,5 +131,22 @@ public class MedicoController{
 
     }
 
-
+    @DeleteMapping("/EliminarCita/{id_cita}")
+    public ResponseEntity<Void> deleteCita(@PathVariable("id_cita") int id_cita) {
+        System.out.println(id_cita);
+        this.citaService.deleteById(id_cita);
+        return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/encontrarChequeo/{id_cita}")
+    public ResponseEntity<ChequeoMensual> encontrarChequeo(@PathVariable("id_cita") int id_cita) {
+        ChequeoMensual chequeo=this.chequeoService.findUltimoChequeo(id_cita);
+        return ResponseEntity.ok(chequeo);
+    }
+
+    @PostMapping("/encontrarVisita/{id_cita}")
+    public ResponseEntity<VisitaEspecialista> encontrarVisita(@PathVariable("id_cita") int id_cita) {
+        VisitaEspecialista visita=this.visitaService.findUltimaVisita(id_cita);
+        return ResponseEntity.ok(visita);
+    }
+}

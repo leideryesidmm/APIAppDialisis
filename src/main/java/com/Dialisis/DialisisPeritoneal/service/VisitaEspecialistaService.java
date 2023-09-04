@@ -28,5 +28,10 @@ public class VisitaEspecialistaService {
         VisitaEspecialista visitaEspecialista = mapper.map(visitaEspecialistaInDto);
         return this.repository.save(visitaEspecialista);
     }
+
+    public VisitaEspecialista findUltimaVisita(int idCita) {
+        System.out.println(idCita);
+        return this.repository.findUltimaVisita(idCita).get(0);
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.Dialisis.DialisisPeritoneal.mapper;
 
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.PrescripcionDia;
 import com.Dialisis.DialisisPeritoneal.service.dto.PrescripcionDiaInDto;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ public class PrescripcionDiaToPrescripcionDia implements IMapper<PrescripcionDia
         prescripcionDia.setSabado(in.isSabado());
         prescripcionDia.setDomingo(in.isDomingo());
         prescripcionDia.setNocheSeca(in.isNocheSeca());
+        prescripcionDia.setCita(new Cita(in.getCita()));
         return prescripcionDia;
     }
 }

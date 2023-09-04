@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PrescripcionDiaInDto {
-    private int prescripcion;
+    private int cita;
     private boolean lunes;
     private boolean martes;
     private boolean miercoles;

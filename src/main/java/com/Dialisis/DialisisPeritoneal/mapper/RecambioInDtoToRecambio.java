@@ -12,7 +12,6 @@ public class RecambioInDtoToRecambio implements  IMapper<RecambioInDto, Recambio
     public Recambio map(RecambioInDto in){
         Recambio recambio= new Recambio();
         recambio.setPrescripcionDia(new PrescripcionDia());
-        recambio.setIdRecambio(in.getIdRecambio());
         recambio.setConcentracion(in.getConcentracion());
         recambio.setIntervaloTiempo(in.getIntervaloTiempo());
         return recambio;

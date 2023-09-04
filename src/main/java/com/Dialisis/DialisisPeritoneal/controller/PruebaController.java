@@ -352,9 +352,5 @@ public class PruebaController {
 
 
     //Métodos de eliminar
-    @DeleteMapping("/EliminarCita/{id_cita}")
-    public ResponseEntity<Void> deleteCita(@PathVariable("id_cita") int id_cita) {
-        this.citaService.deleteById(id_cita);
-        return ResponseEntity.noContent().build();
-    }
+
 }

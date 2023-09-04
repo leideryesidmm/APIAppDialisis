@@ -3,6 +3,7 @@ package com.Dialisis.DialisisPeritoneal.service;
 import com.Dialisis.DialisisPeritoneal.mapper.ChequeoMensualInDtoToChequeoMensual;
 import com.Dialisis.DialisisPeritoneal.mapper.VisitaEspecialistaInDtoToVisitaEspecialista;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.ChequeoMensual;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.VisitaEspecialista;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.ChequeoMensualRepository;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.VisitaEspecialistaRepository;
@@ -24,5 +25,9 @@ public class ChequeoMensualService {
     public ChequeoMensual crearChequeo(ChequeoMensualInDto chequeoMensualInDto) {
         ChequeoMensual chequeoMensual = mapper.map(chequeoMensualInDto);
         return this.repository.save(chequeoMensual);
+    }
+
+    public ChequeoMensual findUltimoChequeo(int idCita) {
+        return this.repository.findUltimoChequeoMensual(idCita).get(0);
     }
 }

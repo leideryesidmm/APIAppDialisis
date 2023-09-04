@@ -352,6 +352,16 @@ public class PacienteController {
     public void eliminarCita(@PathVariable("id_cita")int id_cita){
         this.citaService.deleteById(id_cita);
     }
+
+    @DeleteMapping("/prescripcionDia/eliminar/{id_prescripcionDia}")
+    public void eliminarPrescripcionDia(@PathVariable("id_prescripcionDia")int id_prescripcionDia){
+        this.prescripcionDiaService.deleteById(id_prescripcionDia);
+    }
+    @DeleteMapping("/recambio/eliminar/{id_recambio}")
+    public void eliminarRecambio(@PathVariable("id_recambio")int id_recambio){
+        this.recambioService.deleteById(id_recambio);
+    }
+
     @GetMapping("/cita/antiguas/{cedula}")
     public List<Cita> findAllCitasAntiguasByPaciente(@PathVariable("cedula")String cedula){
         Paciente paciente=new Paciente(cedula);
@@ -492,7 +502,10 @@ public class PacienteController {
 
     @PostMapping("/prescripcion/crearRecambio")
     public void crearRecambio(@RequestBody RecambioInDto recambioInDto){
-        //this.recambioService.crearRecambio(recambioInDto);
+        System.out.println(recambioInDto);
+        Recambio recambio=new Recambio();
+        recambio.setPrescripcionDia(this.prescripcionDiaService.findById(recambioInDto.getPrescripcionDia()));
+        this.recambioService.crearRecambio(recambioInDto, recambio);
     }
 
     @PostMapping("/prescripcion/findRecambioHechoById/{id_recambio_hecho}")
@@ -503,6 +516,30 @@ public class PacienteController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @PostMapping("/ultimaCita")
+    public ResponseEntity<Cita> ultimaCita(@RequestBody Paciente paciente){
+        System.out.println(paciente);
+        Cita cita=this.citaService.findUltimaCita(paciente);
+        return ResponseEntity.ok(cita);
+    }
+
+    @PostMapping("crear/prescripcionDia")
+    public PrescripcionDia crearPrescripcionDia(@RequestBody PrescripcionDiaInDto prescripcionDiaInDto){
+        System.out.println(prescripcionDiaInDto);
+        return this.prescripcionDiaService.crearPrescripcionDia(prescripcionDiaInDto);
+    }
+
+    @PostMapping("/prescripcionDia/findByCita/{cita}")
+    public List<PrescripcionDia> findprescripcionByCita(@PathVariable int cita){
+
+        return this.prescripcionDiaService.findByCita(new Cita(cita));
+    }
+
+    @PostMapping("/recambio/findRecambioByPrescripcion/{prescripcionDia}")
+    public List<Recambio> findRecambiosByPrescripcion(@PathVariable int prescripcionDia){
+        return  this.recambioService.findByPrescripcionDia(new PrescripcionDia(prescripcionDia));
     }
 
 }
