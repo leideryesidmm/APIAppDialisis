@@ -414,6 +414,31 @@ public class PacienteController {
         else
             return ResponseEntity.ok(citas);
     }
+    @PostMapping("/prescripcionesByPaciente")
+    public ResponseEntity<List<UnionCitaPrescripcionDias>> getPresciscionesByPaciente(@RequestBody Paciente paciente){
+        List<Cita> citas=this.citaService.findAllByPaciente(paciente);
+
+        List<UnionCitaPrescripcionDias> prescripciones=new ArrayList<>();
+        if(citas==null)
+            return ResponseEntity.noContent().build();
+        else {
+            for (Cita cita:citas) {
+                UnionCitaPrescripcionDias prescripcion=new UnionCitaPrescripcionDias();
+                prescripcion.setCita(cita);
+                List<PrescripcionDia> prescripcionDias=this.prescripcionDiaService.findByCita(cita);
+                List<UnionPrescripcionDiasRecambios> recambios=new ArrayList<>();
+                for (PrescripcionDia prescripcionDia:prescripcionDias) {
+                    UnionPrescripcionDiasRecambios precrip=new UnionPrescripcionDiasRecambios();
+                    precrip.setPrescripcionDia(prescripcionDia);
+                    precrip.setRecambios(this.recambioService.findByPrescripcionDia(prescripcionDia));
+                    recambios.add(precrip);
+                }
+                prescripcion.setUnionPrescripcionDiasRecambios(recambios);
+                prescripciones.add(prescripcion);
+            }
+            return ResponseEntity.ok(prescripciones);
+        }
+    }
     @PostMapping("/prescripcion/prescripcionActual")
     public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody Paciente paciente){
         //System.out.println(paciente);
@@ -484,7 +509,6 @@ public class PacienteController {
     @PostMapping("/recambio/findRecambioHechosByPrescripcionDiaAndFecha/{fecha}")
     public ResponseEntity<List<RecambioHecho>>  findRecambioHechosByPrescripcionDiaAndFecha(@RequestBody List<Recambio> recambios,@PathVariable("fecha") Date fecha){
         try{
-            System.out.println(fecha);
             List<RecambioHecho> recambioHechos=new ArrayList<>();
 
             LocalDate fecha2 = Instant.ofEpochMilli(fecha.getTime())
@@ -492,8 +516,8 @@ public class PacienteController {
                     .toLocalDate();
             for (Recambio recambio:recambios) {
                 recambioHechos.add(this.recambioHechoService.findByRecambioAndFecha(recambio.getIdRecambio(),fecha2));
-                System.out.println(recambioHechos);
             }
+            System.out.println(recambioHechos);
             return ResponseEntity.ok(recambioHechos);
         }catch (Exception e){
             System.out.println(e);
@@ -519,4 +543,40 @@ public class PacienteController {
         }
     }
 
+    @GetMapping("/findAllRecambiosHechos/{idCita}")
+    public ResponseEntity<List<RecambioHecho>> findAllReacambioHechoByCita(@PathVariable("idCita") int idCita) {
+        try {
+            List<RecambioHecho> recambioHechos=new ArrayList<>();
+            List<Recambio> recambioPrescri;
+            Cita cita = new Cita(idCita);
+            List<PrescripcionDia> prescripcionDias = this.prescripcionDiaService.findByCita(cita);
+            List<UnionPrescripcionDiasRecambios> listPrescripcionDiasRecambios = new ArrayList<>();
+            for (PrescripcionDia prescripcionDia : prescripcionDias) {
+                UnionPrescripcionDiasRecambios prescripcionDiasRecambios = new UnionPrescripcionDiasRecambios();
+                prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);
+                prescripcionDiasRecambios.setRecambios(this.recambioService.findByPrescripcionDia(prescripcionDia));
+                recambioPrescri=prescripcionDiasRecambios.getRecambios();
+                for (Recambio recambio:recambioPrescri) {
+                    recambioHechos.addAll(this.recambioHechoService.findByRecambio(recambio));
+                }
+            }
+
+            return ResponseEntity.ok(recambioHechos);//recambioHecho);
+        } catch (Exception e) {
+            //System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @PatchMapping("/finalizarPrescripcion/{idCita}")
+    public ResponseEntity<Void>  finalizarPrescripcion(@PathVariable("idCita") int idCita) {
+        try {
+            this.citaService.finalizarById(idCita);
+            return ResponseEntity.noContent().build();//recambioHecho);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
 }
