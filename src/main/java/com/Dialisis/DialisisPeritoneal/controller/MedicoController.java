@@ -126,6 +126,7 @@ public class MedicoController{
 
     @PostMapping("/chequeoMensual")
     public ResponseEntity<ChequeoMensual>  crearChequeoMensual(@RequestBody ChequeoMensualInDto chequeoMensualInDto){
+        System.out.println(chequeoMensualInDto);
         ChequeoMensual chequeoMensual=this.chequeoService.crearChequeo(chequeoMensualInDto);
         return ResponseEntity.ok(chequeoMensual);
 
@@ -141,12 +142,20 @@ public class MedicoController{
     @PostMapping("/encontrarChequeo/{id_cita}")
     public ResponseEntity<ChequeoMensual> encontrarChequeo(@PathVariable("id_cita") int id_cita) {
         ChequeoMensual chequeo=this.chequeoService.findUltimoChequeo(id_cita);
+        if(chequeo==null){
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(chequeo);
     }
+
 
     @PostMapping("/encontrarVisita/{id_cita}")
     public ResponseEntity<VisitaEspecialista> encontrarVisita(@PathVariable("id_cita") int id_cita) {
         VisitaEspecialista visita=this.visitaService.findUltimaVisita(id_cita);
+        if(visita==null){
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(visita);
     }
+
 }

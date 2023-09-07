@@ -43,13 +43,17 @@ public class PacienteController {
     private final RecambioService recambioService;
     private final PrescripcionDiaService prescripcionDiaService;
     private final RecambioHechoService recambioHechoService;
+    private final VisitaEspecialistaService visitaEspecialistaService;
+    private final ChequeoMensualService chequeoMensualService;
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, UsuarioService usuarioService, UsuarioRepository usuarioRepository, RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
+    public PacienteController(PacienteService pacienteService, VisitaEspecialistaService visitaEspecialistaService, ChequeoMensualService chequeoMensualService, UsuarioService usuarioService, UsuarioRepository usuarioRepository, RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
         this.pacienteService = pacienteService;
         this.usuarioService=usuarioService;
         this.usuarioRepository=usuarioRepository;
+        this.visitaEspecialistaService=visitaEspecialistaService;
+        this.chequeoMensualService=chequeoMensualService;
         this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
         this.cuidadorService = cuidadorService;
@@ -76,7 +80,8 @@ public class PacienteController {
 
     @PostMapping("/findPacienteByCedula")
     public Paciente findPacienteByCedula(@RequestBody PacienteInDto pacienteInDto){
-
+        System.out.println(pacienteInDto);
+        System.out.println(this.pacienteService.findByCedula(pacienteInDto.getCedula()));
         return this.pacienteService.findByCedula(pacienteInDto.getCedula());
     }
     @PostMapping("/medicamento/crearMedicamento")
@@ -554,6 +559,21 @@ public class PacienteController {
     @PostMapping("/recambio/findRecambioByPrescripcion/{prescripcionDia}")
     public List<Recambio> findRecambiosByPrescripcion(@PathVariable int prescripcionDia){
         return  this.recambioService.findByPrescripcionDia(new PrescripcionDia(prescripcionDia));
+    }
+
+    @PatchMapping("ActualizarVisita/{idVisita}")
+    public ResponseEntity<Void> actualizarVisita(@PathVariable("idVisita")int idVisita,
+                                                             @RequestBody VisitaEspecialistaInDto visitaEspecialistaInDto){
+        this.visitaEspecialistaService.actualizarVisita(idVisita,visitaEspecialistaInDto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("ActualizarChequeo/{id_chequeo_mensual}")
+    public ResponseEntity<Void> actualizarChequeo(@PathVariable("id_chequeo_mensual")int id_chequeo_mensual,
+                                                 @RequestBody ChequeoMensualInDto chequeoMensualInDto){
+        System.out.println();
+        this.chequeoMensualService.actualizarChequeo(id_chequeo_mensual,chequeoMensualInDto);
+        return ResponseEntity.noContent().build();
     }
 
 }

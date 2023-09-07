@@ -1,7 +1,10 @@
 package com.Dialisis.DialisisPeritoneal.persistence.entity;
+import com.Dialisis.DialisisPeritoneal.persistence.repository.VisitaEspecialistaRepository;
+import com.Dialisis.DialisisPeritoneal.service.dto.FormulaMedicamentoInDto;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Data
 @Entity
@@ -20,5 +23,6 @@ public class VisitaEspecialista {
     private boolean trabajoSocial;
     private boolean auxiliarAdmisiones;
     private boolean farmacia;
+
 
 }

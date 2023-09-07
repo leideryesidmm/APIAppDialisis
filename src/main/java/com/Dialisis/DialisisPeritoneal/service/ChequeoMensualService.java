@@ -11,6 +11,8 @@ import com.Dialisis.DialisisPeritoneal.service.dto.ChequeoMensualInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.VisitaEspecialistaInDto;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class ChequeoMensualService {
 
@@ -29,5 +31,12 @@ public class ChequeoMensualService {
 
     public ChequeoMensual findUltimoChequeo(int idCita) {
         return this.repository.findUltimoChequeoMensual(idCita).get(0);
+    }
+
+    @Transactional
+    public void actualizarChequeo(int id_chequeo_mensual, ChequeoMensualInDto chequeoMensualInDto){
+        ChequeoMensual chequeoMensual= mapper.map(chequeoMensualInDto);
+        chequeoMensual.setIdChequeoMensual(id_chequeo_mensual);
+        this.repository.save(chequeoMensual);
     }
 }

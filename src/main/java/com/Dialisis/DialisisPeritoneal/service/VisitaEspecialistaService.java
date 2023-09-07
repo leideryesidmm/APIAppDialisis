@@ -2,15 +2,18 @@ package com.Dialisis.DialisisPeritoneal.service;
 
 import com.Dialisis.DialisisPeritoneal.mapper.RecambioHechoInDtoToRecambioHecho;
 import com.Dialisis.DialisisPeritoneal.mapper.VisitaEspecialistaInDtoToVisitaEspecialista;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.FormulaMedicamento;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.RecambioHecho;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.VisitaEspecialista;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.RecambioHechoRepository;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.VisitaEspecialistaRepository;
+import com.Dialisis.DialisisPeritoneal.service.dto.FormulaMedicamentoInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.RecambioHechoInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.VisitaEspecialistaInDto;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -32,6 +35,14 @@ public class VisitaEspecialistaService {
     public VisitaEspecialista findUltimaVisita(int idCita) {
         System.out.println(idCita);
         return this.repository.findUltimaVisita(idCita).get(0);
+    }
+
+    @Transactional
+    public void actualizarVisita(int idVisita, VisitaEspecialistaInDto visitaEspecialistaInDto){
+        VisitaEspecialista visitaEspecialista= mapper.map(visitaEspecialistaInDto);
+        visitaEspecialista.setIdVistaEspecialista(idVisita);
+        System.out.println(visitaEspecialista);
+        this.repository.save(visitaEspecialista);
     }
 }
 
