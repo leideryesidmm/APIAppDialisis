@@ -461,6 +461,9 @@ public class PacienteController {
         if(cita==null)
             return ResponseEntity.noContent().build();
         else{
+            Paciente p=cita.getPaciente();
+            p.setFoto(null);
+            cita.setPaciente(p);
             UnionCitaPrescripcionDias citaPres=new UnionCitaPrescripcionDias();
             citaPres.setCita(cita);
             List<PrescripcionDia> prescripcionDias=this.prescripcionDiaService.findByCita(cita);
