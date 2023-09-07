@@ -423,6 +423,9 @@ public class PacienteController {
             return ResponseEntity.noContent().build();
         else {
             for (Cita cita:citas) {
+                Paciente p=cita.getPaciente();
+                p.setFoto(null);
+                cita.setPaciente(p);
                 UnionCitaPrescripcionDias prescripcion=new UnionCitaPrescripcionDias();
                 prescripcion.setCita(cita);
                 List<PrescripcionDia> prescripcionDias=this.prescripcionDiaService.findByCita(cita);
