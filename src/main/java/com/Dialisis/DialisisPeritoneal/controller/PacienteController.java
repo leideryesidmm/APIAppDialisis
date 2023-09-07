@@ -570,7 +570,7 @@ public class PacienteController {
 
     @PostMapping("crear/prescripcionDia")
     public PrescripcionDia crearPrescripcionDia(@RequestBody PrescripcionDiaInDto prescripcionDiaInDto){
-        System.out.println(prescripcionDiaInDto);
+
         return this.prescripcionDiaService.crearPrescripcionDia(prescripcionDiaInDto);
     }
 
