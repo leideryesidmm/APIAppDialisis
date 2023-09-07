@@ -119,7 +119,8 @@ public class MedicoController{
 
     @PostMapping("/visitaEspecialista")
     public ResponseEntity<VisitaEspecialista>  crearVisitaEspecialista(@RequestBody VisitaEspecialistaInDto visitaEspecialistaDto){
-            VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
+        System.out.println(visitaEspecialistaDto);
+        VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
             return ResponseEntity.ok(visitaEspecialista);
 
     }
