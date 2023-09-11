@@ -2,7 +2,6 @@ package com.Dialisis.DialisisPeritoneal.controller;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +17,9 @@ public class MedicoController{
     private final CitaService citaService;
     private final VisitaEspecialistaService visitaService;
     private  final ChequeoMensualService chequeoService;
+    private final  EspecialidadService especialidadService;
 
-    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService) {
+    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService, EspecialidadService especialidadService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
@@ -27,6 +27,7 @@ public class MedicoController{
         this.citaService = citaService;
         this.visitaService = visitaService;
         this.chequeoService = chequeoService;
+        this.especialidadService = especialidadService;
     }
 
     @GetMapping("/findAllPacientes")
@@ -157,6 +158,16 @@ public class MedicoController{
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(visita);
+    }
+
+    @GetMapping("/findAllEspecialidad")
+    public ResponseEntity<List<Especialidad>> findAllEspecialidad(){
+        List<Especialidad> especialidades=this.especialidadService.findAllEspecialidad();
+        if(especialidades==null||especialidades.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.ok(especialidades);
+        }
     }
 
 }
