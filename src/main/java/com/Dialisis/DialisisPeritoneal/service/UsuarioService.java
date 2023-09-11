@@ -59,4 +59,7 @@ public class UsuarioService {
         this.repository.cambiarCelular(cedula,celular);
     }
 
+    public Usuario findAdmin(){
+        return this.repository.findBytipoUsuario("admin");
+    }
 }

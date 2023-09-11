@@ -101,4 +101,9 @@ public class UsuarioController {
     public void reactivarMedico(@RequestBody MedicoInDto medicoInDto) {
         this.medicoService.activarMedico(medicoInDto.getCedula());
     }
+
+    @GetMapping("/findAdmin")
+    public Usuario findAdmin(){
+        return this.usuarioService.findAdmin();
+    }
 }
