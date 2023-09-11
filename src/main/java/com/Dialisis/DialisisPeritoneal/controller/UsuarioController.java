@@ -1,7 +1,12 @@
 package com.Dialisis.DialisisPeritoneal.controller;
 
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Medico;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Usuario;
+import com.Dialisis.DialisisPeritoneal.service.MedicoService;
 import com.Dialisis.DialisisPeritoneal.service.UsuarioService;
+import com.Dialisis.DialisisPeritoneal.service.dto.MedicoInDto;
+import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
 import com.Dialisis.DialisisPeritoneal.service.dto.UsuarioInDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,9 +21,11 @@ import java.util.List;
 @RequestMapping("/Usuario")
 public class UsuarioController {
     private final UsuarioService usuarioService;
+    private final MedicoService medicoService;
 
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, MedicoService medicoService) {
         this.usuarioService = usuarioService;
+        this.medicoService = medicoService;
     }
 
     @PostMapping
@@ -30,7 +37,7 @@ public class UsuarioController {
         return this.usuarioService.findAll();
     }
     @PostMapping("/cedula")
-        public Usuario findAllUsuarios(@RequestBody UsuarioInDto usuarioInDto) throws IOException {
+    public Usuario findAllUsuarios(@RequestBody UsuarioInDto usuarioInDto) throws IOException {
 
         return this.usuarioService.findAllBycedula(usuarioInDto.getCedula());
     }
@@ -66,5 +73,33 @@ public class UsuarioController {
         headers.setContentType(MediaType.IMAGE_JPEG); // Cambia esto según el tipo de imagen
 
         return new ResponseEntity<>(fotoBytes, headers, HttpStatus.OK);
+    }
+
+    @PostMapping("/crearMedico")
+    public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
+        System.out.println(medicoInDto);
+        return this.medicoService.crearMedico(medicoInDto);
+    }
+
+    @PostMapping("/findMedicoByCedula")
+    public Medico findMedicoByCedula(@RequestBody MedicoInDto medicoInDto){
+        return this.medicoService.findByCedula(medicoInDto.getCedula());
+    }
+
+    @PatchMapping("/actualizarMedico")
+    public ResponseEntity<Void> actualizarDatosMedico(@RequestBody MedicoInDto medicoInDto){
+        Medico medico= this.medicoService.findByCedula(medicoInDto.getCedula());
+        this.medicoService.actualizarDatosMedico(medicoInDto, medico);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/inhabilitarMedico")
+    public void inhabilitarMedico(@RequestBody MedicoInDto medicoInDto) {
+        this.medicoService.inactivarMedico(medicoInDto.getCedula());
+    }
+
+    @PatchMapping("/reactivarMedico")
+    public void reactivarMedico(@RequestBody MedicoInDto medicoInDto) {
+        this.medicoService.activarMedico(medicoInDto.getCedula());
     }
 }

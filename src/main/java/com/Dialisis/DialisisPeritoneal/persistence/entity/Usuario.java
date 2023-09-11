@@ -15,7 +15,7 @@ public class Usuario {
     @Lob
     @Column(name = "foto")
     private byte[] foto;
-
+    private String correo;
     public Usuario() {
     }
 
