@@ -105,12 +105,8 @@ public class PacienteController {
     @PatchMapping("/actualizar")
     public ResponseEntity<Void> actualizarDatosPaciente(@RequestBody PacienteInDto pacienteInDto){
         Paciente paciente= this.pacienteService.findByCedula(pacienteInDto.getCedula());
-
-
         this.pacienteService.actualizarDatosPaciente(pacienteInDto, paciente);
         return ResponseEntity.noContent().build();
-
-
     }
 
     @PatchMapping("/medicamento/actualizar/{nombre},{concentracion},{via_administracion},{descripcion},{id_medicamento}")
