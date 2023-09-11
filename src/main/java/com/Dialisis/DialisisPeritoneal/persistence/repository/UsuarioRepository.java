@@ -31,4 +31,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     public void cambiarCelular(@Param("cedula") String cedula,
                                @Param("celular") String celular);
 
+
+    public Usuario findBytipoUsuario(String tipo_usuario);
+
 }

@@ -77,6 +77,7 @@ public class UsuarioController {
 
     @PostMapping("/crearMedico")
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
+
         System.out.println(medicoInDto);
         return this.medicoService.crearMedico(medicoInDto);
     }
@@ -101,5 +102,10 @@ public class UsuarioController {
     @PatchMapping("/reactivarMedico")
     public void reactivarMedico(@RequestBody MedicoInDto medicoInDto) {
         this.medicoService.activarMedico(medicoInDto.getCedula());
+    }
+
+    @GetMapping("/findAdmin")
+    public Usuario findAdmin(){
+        return this.usuarioService.findAdmin();
     }
 }
