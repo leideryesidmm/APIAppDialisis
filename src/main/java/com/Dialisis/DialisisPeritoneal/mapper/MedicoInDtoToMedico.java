@@ -18,6 +18,7 @@ public class MedicoInDtoToMedico implements IMapper<MedicoInDto, Medico> {
         medico.setContrasenia(in.getContrasenia());
         medico.setCorreo(in.getCorreo());
         medico.setFoto(in.getFoto());
+        medico.setActivo(in.isActivo());
         return medico;
     }
 }
