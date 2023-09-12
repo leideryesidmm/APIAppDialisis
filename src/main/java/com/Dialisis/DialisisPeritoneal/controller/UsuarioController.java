@@ -96,12 +96,12 @@ public class UsuarioController {
 
     @PatchMapping("/inhabilitarMedico")
     public void inhabilitarMedico(@RequestBody MedicoInDto medicoInDto) {
-        this.medicoService.inactivarMedico(medicoInDto.getCedula());
+        this.usuarioService.inactivarUsuario(medicoInDto.getCedula());
     }
 
     @PatchMapping("/reactivarMedico")
     public void reactivarMedico(@RequestBody MedicoInDto medicoInDto) {
-        this.medicoService.activarMedico(medicoInDto.getCedula());
+        this.usuarioService.activarUsuario(medicoInDto.getCedula());
     }
 
     @GetMapping("/findAdmin")

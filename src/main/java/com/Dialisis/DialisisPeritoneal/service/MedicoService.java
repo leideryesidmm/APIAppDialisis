@@ -60,13 +60,5 @@ public class MedicoService {
         this.medicoRepository.save(med);
     }
 
-    @Transactional
-    public void inactivarMedico(String cedula) {
-        this.medicoRepository.inactivarMedico(cedula);
-    }
 
-    @Transactional
-    public void activarMedico(String cedula) {
-        this.medicoRepository.activarMedico(cedula);
-    }
 }
