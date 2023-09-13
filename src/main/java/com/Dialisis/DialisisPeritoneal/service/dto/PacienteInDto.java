@@ -23,7 +23,6 @@ public class PacienteInDto extends UsuarioInDto {
     private char rh;
     private boolean diabetes;
     private boolean hipertension;
-    private boolean activo;
     private boolean cambio_contrasenia;
 }
 

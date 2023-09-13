@@ -16,6 +16,7 @@ public class Usuario {
     @Column(name = "foto")
     private byte[] foto;
     private String correo;
+    private boolean activo;
     private String tipoUsuario="user";
 
     public Usuario() {

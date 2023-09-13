@@ -12,6 +12,7 @@ public class UsuarioInDto {
     private String contrasenia;
     private String celular;
     private String correo;
+    private boolean activo;
     @Lob
     private byte[] foto;
 }

@@ -67,16 +67,6 @@ public class PacienteService {
         this.repository.save(pac);
     }
 
-    @Transactional
-    public void inactivarPaciente(String cedula) {
-        this.repository.inactivarPaciente(cedula);
-    }
-
-    @Transactional
-    public void activarPaciente(String cedula) {
-        this.repository.activarPaciente(cedula);
-    }
-
 
     public List<Paciente> findPacientesActivos() {
         return this.repository.findPacientesActivos();
