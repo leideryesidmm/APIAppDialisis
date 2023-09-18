@@ -13,17 +13,19 @@ public class MedicoController{
     private final MedicoService medicoService;
     private final ClinicaService clinicaService;
     private final PacienteService pacienteService;
+    private final UsuarioService usuarioService;
     private final PrescripcionDiaService prescripcionService;
     private final CitaService citaService;
     private final VisitaEspecialistaService visitaService;
     private  final ChequeoMensualService chequeoService;
     private final  EspecialidadService especialidadService;
 
-    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService, EspecialidadService especialidadService) {
+    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, UsuarioService usuarioService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService, EspecialidadService especialidadService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
         this.prescripcionService=prescripcionService;
+        this.usuarioService = usuarioService;
         this.citaService = citaService;
         this.visitaService = visitaService;
         this.chequeoService = chequeoService;
@@ -100,13 +102,13 @@ public class MedicoController{
     @PatchMapping("/inhabilitarPaciente")
     public void inhabilitarPaciente(@RequestBody PacienteInDto pacienteInDto) {
         System.out.println(pacienteInDto);
-       this.pacienteService.inactivarPaciente(pacienteInDto.getCedula());
+        this.usuarioService.inactivarUsuario(pacienteInDto.getCedula());
     }
 
     @PatchMapping("/reactivarPaciente")
     public void reactivarPaciente(@RequestBody PacienteInDto pacienteInDto) {
         System.out.println(pacienteInDto);
-        this.pacienteService.activarPaciente(pacienteInDto.getCedula());
+        this.usuarioService.activarUsuario(pacienteInDto.getCedula());
     }
 
     @GetMapping("/findPacientesActivos")
@@ -122,7 +124,7 @@ public class MedicoController{
     public ResponseEntity<VisitaEspecialista>  crearVisitaEspecialista(@RequestBody VisitaEspecialistaInDto visitaEspecialistaDto){
         System.out.println(visitaEspecialistaDto);
         VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
-            return ResponseEntity.ok(visitaEspecialista);
+        return ResponseEntity.ok(visitaEspecialista);
 
     }
 
@@ -166,6 +168,7 @@ public class MedicoController{
         if(especialidades==null||especialidades.isEmpty()){
             return ResponseEntity.noContent().build();
         }else{
+            System.out.println(especialidades);
             return ResponseEntity.ok(especialidades);
         }
     }

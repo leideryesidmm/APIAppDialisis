@@ -64,4 +64,14 @@ public class UsuarioService {
         Usuario usuario=this.repository.findBytipoUsuario("admin");
         return usuario;
     }
+
+    @Transactional
+    public void inactivarUsuario(String cedula) {
+        this.repository.inactivarUsuario(cedula);
+    }
+
+    @Transactional
+    public void activarUsuario(String cedula) {
+        this.repository.activarUsuario(cedula);
+    }
 }

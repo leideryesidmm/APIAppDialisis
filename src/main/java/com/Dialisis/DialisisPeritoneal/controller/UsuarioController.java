@@ -37,7 +37,7 @@ public class UsuarioController {
         return this.usuarioService.findAll();
     }
     @PostMapping("/cedula")
-        public Usuario findAllUsuarios(@RequestBody UsuarioInDto usuarioInDto) throws IOException {
+    public Usuario findAllUsuarios(@RequestBody UsuarioInDto usuarioInDto) throws IOException {
 
         return this.usuarioService.findAllBycedula(usuarioInDto.getCedula());
     }
@@ -77,6 +77,8 @@ public class UsuarioController {
 
     @PostMapping("/crearMedico")
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
+
+        System.out.println(medicoInDto);
         return this.medicoService.crearMedico(medicoInDto);
     }
 
@@ -94,12 +96,12 @@ public class UsuarioController {
 
     @PatchMapping("/inhabilitarMedico")
     public void inhabilitarMedico(@RequestBody MedicoInDto medicoInDto) {
-        this.medicoService.inactivarMedico(medicoInDto.getCedula());
+        this.usuarioService.inactivarUsuario(medicoInDto.getCedula());
     }
 
     @PatchMapping("/reactivarMedico")
     public void reactivarMedico(@RequestBody MedicoInDto medicoInDto) {
-        this.medicoService.activarMedico(medicoInDto.getCedula());
+        this.usuarioService.activarUsuario(medicoInDto.getCedula());
     }
 
     @GetMapping("/findAdmin")

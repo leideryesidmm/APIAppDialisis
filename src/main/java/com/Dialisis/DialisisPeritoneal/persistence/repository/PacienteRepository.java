@@ -25,14 +25,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, String> {
                                         @Param("ocupacion")String ocupacion ),
                                         @Param("correo") String correo;
 */
-    @Modifying
-    @Query(value = "Update paciente set activo=false where cedula=:cedula", nativeQuery = true)
-    public void inactivarPaciente(@Param("cedula") String cedula);
-
-
-    @Modifying
-    @Query(value = "Update paciente set activo=true where cedula=:cedula", nativeQuery = true)
-    public void activarPaciente(@Param("cedula") String cedula);
 
 
     @Query(value = "SELECT * from paciente where activo = true", nativeQuery = true)

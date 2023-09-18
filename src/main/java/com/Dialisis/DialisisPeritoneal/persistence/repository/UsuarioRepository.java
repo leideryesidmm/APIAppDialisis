@@ -34,4 +34,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
     public Usuario findBytipoUsuario(String tipo_usuario);
 
+
+    @Modifying
+    @Query(value = "Update usuario set activo=false where cedula=:cedula", nativeQuery = true)
+    public void inactivarUsuario(@Param("cedula") String cedula);
+
+
+    @Modifying
+    @Query(value = "Update usuario set activo=true where cedula=:cedula", nativeQuery = true)
+    public void activarUsuario(@Param("cedula") String cedula);
+
 }
