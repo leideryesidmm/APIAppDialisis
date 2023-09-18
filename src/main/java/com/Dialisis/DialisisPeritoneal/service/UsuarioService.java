@@ -4,6 +4,7 @@ import com.Dialisis.DialisisPeritoneal.mapper.UsuarioInDtoToUsuario;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Usuario;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.UsuarioRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.UsuarioInDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Base64;
@@ -60,6 +61,7 @@ public class UsuarioService {
     }
 
     public Usuario findAdmin(){
-        return this.repository.findBytipoUsuario("admin");
+        Usuario usuario=this.repository.findBytipoUsuario("admin");
+        return usuario;
     }
 }

@@ -466,6 +466,7 @@ public class PacienteController {
             UnionCitaPrescripcionDias citaPres=new UnionCitaPrescripcionDias();
             citaPres.setCita(cita);
             List<PrescripcionDia> prescripcionDias=this.prescripcionDiaService.findByCita(cita);
+
             List<UnionPrescripcionDiasRecambios> listPrescripcionDiasRecambios=new ArrayList<>();
             for (PrescripcionDia prescripcionDia:prescripcionDias) {
                 UnionPrescripcionDiasRecambios prescripcionDiasRecambios=new UnionPrescripcionDiasRecambios();
