@@ -89,9 +89,16 @@ public class UsuarioController {
 
     @PatchMapping("/actualizarMedico")
     public ResponseEntity<Void> actualizarDatosMedico(@RequestBody MedicoInDto medicoInDto){
-        Medico medico= this.medicoService.findByCedula(medicoInDto.getCedula());
-        this.medicoService.actualizarDatosMedico(medicoInDto, medico);
-        return ResponseEntity.noContent().build();
+        System.out.println(medicoInDto);
+        if(medicoInDto.getAniosExperiencia()>0){
+            System.out.println("pasó");
+            Medico medico= this.medicoService.findByCedula(medicoInDto.getCedula());
+            this.medicoService.actualizarDatosMedico(medicoInDto, medico);
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
     @PatchMapping("/inhabilitarMedico")
