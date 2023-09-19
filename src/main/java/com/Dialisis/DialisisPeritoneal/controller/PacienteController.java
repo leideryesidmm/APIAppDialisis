@@ -507,9 +507,13 @@ public class PacienteController {
 
     @PostMapping("/ultimaCita")
     public ResponseEntity<Cita> ultimaCita(@RequestBody Paciente paciente){
-        System.out.println(paciente);
         Cita cita=this.citaService.findUltimaCita(paciente);
+        if(cita!=null)
         return ResponseEntity.ok(cita);
+        else{
+            return ResponseEntity.noContent().build();
+        }
+
     }
 
     @PostMapping("crear/prescripcionDia")
