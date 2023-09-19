@@ -28,15 +28,10 @@ public class PacienteController {
     private final PacienteService pacienteService;
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
-    private final MedicamentoService medicamentoService;
     private final CuidadorPacienteService cuidadorPacienteService;
     private final CuidadorService cuidadorService;
-    private final EnfermedadService enfermedadService;
-    private final CormobilidadService cormobilidadService;
     private final CitaService citaService;
     private final FormulaMedicamentoService formulaMedicamentoService;
-    private final ProgramarMedicamentoService programarMedicamentoService;
-    private final TomaMedicamentoService tomaMedicamentoService;
     private final PacienteAlergiaService pacienteAlergiaService;
     private final AlergiaService alergiaService;
     private final ViaAdministracionService viaAdministracionService;
@@ -48,21 +43,16 @@ public class PacienteController {
     //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
-    public PacienteController(PacienteService pacienteService, VisitaEspecialistaService visitaEspecialistaService, ChequeoMensualService chequeoMensualService, UsuarioService usuarioService, UsuarioRepository usuarioRepository, RecambioService recambioService, MedicamentoService medicamentoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, EnfermedadService enfermedadService, CormobilidadService cormobilidadService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, ProgramarMedicamentoService programarMedicamentoService, TomaMedicamentoService tomaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
+    public PacienteController(PacienteService pacienteService, VisitaEspecialistaService visitaEspecialistaService, ChequeoMensualService chequeoMensualService, UsuarioService usuarioService, UsuarioRepository usuarioRepository, RecambioService recambioService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
         this.pacienteService = pacienteService;
         this.usuarioService=usuarioService;
         this.usuarioRepository=usuarioRepository;
         this.visitaEspecialistaService=visitaEspecialistaService;
         this.chequeoMensualService=chequeoMensualService;
-        this.medicamentoService = medicamentoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
         this.cuidadorService = cuidadorService;
-        this.enfermedadService = enfermedadService;
-        this.cormobilidadService = cormobilidadService;
         this.citaService = citaService;
         this.formulaMedicamentoService = formulaMedicamentoService;
-        this.programarMedicamentoService = programarMedicamentoService;
-        this.tomaMedicamentoService = tomaMedicamentoService;
         this.pacienteAlergiaService = pacienteAlergiaService;
         this.alergiaService = alergiaService;
         //this.alimentacionPacienteService = alimentacionPacienteService;
@@ -84,23 +74,10 @@ public class PacienteController {
         System.out.println(this.pacienteService.findByCedula(pacienteInDto.getCedula()));
         return this.pacienteService.findByCedula(pacienteInDto.getCedula());
     }
-    @PostMapping("/medicamento/crearMedicamento")
-    public Medicamento crearMedicamento(@RequestBody MedicamentoInDto medicamentoInDto){
-        return this.medicamentoService.crearMedicamento(medicamentoInDto);
-    }
 
 
 
-    @GetMapping("/medicamento/listMedimentos")
-    public List <Medicamento> findAllMed(){
-        return this.medicamentoService.encontrarMedicamentos();
-    }
 
-
-    @GetMapping("/medicamento/byId/{id_medicamento}")
-    public Medicamento findById(@PathVariable("id_medicamento") int id_medicamento){
-        return this.medicamentoService.findById(id_medicamento);
-    }
 
     @PatchMapping("/actualizar")
     public ResponseEntity<Void> actualizarDatosPaciente(@RequestBody PacienteInDto pacienteInDto){
@@ -109,15 +86,7 @@ public class PacienteController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/medicamento/actualizar/{nombre},{concentracion},{via_administracion},{descripcion},{id_medicamento}")
-    public ResponseEntity<Void> actualizarMedicamentos(@PathVariable("nombre")String nombre,
-                                                       @PathVariable("concentracion")int concentracion,
-                                                       @PathVariable("via_administracion")int via_administracion,
-                                                       @PathVariable("descripcion")String descripcion,
-                                                       @PathVariable("id_medicamento")int id_medicamento){
-        this.medicamentoService.actualizarMedicamento(nombre,concentracion,via_administracion,descripcion,id_medicamento);
-        return  ResponseEntity.noContent().build();
-    }
+
     @PatchMapping("formulaMedicamento/actualizar/{id_formula_medicamento}")
     public ResponseEntity<Void> actualizarFormulaMedicamento(@PathVariable("id_formula_medicamento")int id_formula_medicamento,
                                                              @RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto){
@@ -281,30 +250,7 @@ public class PacienteController {
     public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")long cedula){
         return this.pacienteAlergiaService.findAlergiasPasadas(cedula);
     }
-    @GetMapping("/enfermedad/findPasadas/{cedula}")
-    public List<Cormobilidad> findEnfermedadesPasadas(@PathVariable("cedula")long cedula){
-        return this.cormobilidadService.findEnfermedadesPasadas(cedula);
-    }
-    @PostMapping("/enfermedad/crear/{cedula}")
-    public void crearEnfermedad(@PathVariable("cedula")String cedula,@RequestBody EnfermedadInDto enfermedadInDto){
-        Enfermedad enfermedad=this.enfermedadService.crearEnfermedad(enfermedadInDto);
-        agregarEnfermedadByPaciente(cedula, enfermedad.getIdEnfermedad());
-    }
-    @PostMapping("/enfermedad/añadir/{cedula},{id_enfermedad}")
-    public void agregarEnfermedadByPaciente(@PathVariable("cedula")String cedula,@PathVariable("id_enfermedad")int id_enfermedad){
-        CormobilidadInDto cormobilidadInDto=new CormobilidadInDto();
-        cormobilidadInDto.setEnfermedad(id_enfermedad);
-        cormobilidadInDto.setPaciente(cedula);
-        this.cormobilidadService.crearCormobilidad(cormobilidadInDto);
-    }
-    @PatchMapping("/enfermedad/eliminar/{id_cormobilidad}")
-    public void eliminarEnfermedad(@PathVariable("id_cormobilidad")int id_cormobilidad){
-        this.cormobilidadService.inactivarCormobilidad(id_cormobilidad);
-    }
-    @PatchMapping("/enfermedad/activar/{id_cormobilidad}")
-    public void activarCormobilidad(@PathVariable("id_cormobilidad")int id_cormobilidad){
-        this.cormobilidadService.activarCormobilidad(id_cormobilidad);
-    }
+
     /*@PostMapping("/alimentacion/agregar")
     public void agregarAlimentacionPorPaciente(@RequestBody AlimentacionPacienteInDto alimentacionPacienteInDto){
         this.alimentacionPacienteService.crearAlimentacionPaciente(alimentacionPacienteInDto);
@@ -390,12 +336,7 @@ public class PacienteController {
         return this.formulaMedicamentoService.crearFormulaMedicamento(formulaMedicamentoInDto);
     }
 
-    @PostMapping("/cita/formula/ProgramarMedicamento")
-    public List<TomaMedicamento> programarMedicamento(@RequestBody ProgramarMedicamentoInDto programarMedicamentoInDto){
-        ProgramarMedicamento programarMedicamento=this.programarMedicamentoService.crearProgramarMedicamento(programarMedicamentoInDto);
-        List<TomaMedicamento> tomaMedicamentoList=this.tomaMedicamentoService.crearTomas(programarMedicamento,this.formulaMedicamentoService.findById(programarMedicamento.getFormulaMedicamento().getIdFormulaMedicamento()));
-        return tomaMedicamentoList;
-    }
+
     @GetMapping("/medicamento/findById/{id}")
     public FormulaMedicamento findMedicamento(@PathVariable int id) {
         return this.formulaMedicamentoService.findById(id);

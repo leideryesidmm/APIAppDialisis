@@ -2,7 +2,6 @@ package com.Dialisis.DialisisPeritoneal.service;
 
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.ParentescoInDtoToParentesco;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Medicamento;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Parentesco;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.ParentescoRepository;
 import com.Dialisis.DialisisPeritoneal.service.dto.ParentescoInDto;
