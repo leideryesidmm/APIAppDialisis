@@ -105,7 +105,10 @@ public class UsuarioController {
     }
 
     @GetMapping("/findAdmin")
-    public Usuario findAdmin(){
-        return this.usuarioService.findAdmin();
+    public ResponseEntity<Usuario> findAdmin(){
+        Usuario usuario= this.usuarioService.findAdmin();
+        if(usuario==null)
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(usuario);
     }
 }

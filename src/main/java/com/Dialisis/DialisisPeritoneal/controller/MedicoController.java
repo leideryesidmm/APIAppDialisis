@@ -62,34 +62,6 @@ public class MedicoController{
     public void crearClinica(@PathVariable("cedula")String cedula, @RequestBody ClinicaInDto clinicaInDto){
         Clinica clinica= this.clinicaService.crearClinica(clinicaInDto);
     }
-
-
-    @PostMapping("/prescripcion/crearPrescripcion")
-    public Prescripcion crearPrescripcion(@RequestBody PrescripcionCitaDto prescripcionCitaDto) {
-        PrescripcionInDto prescripcionInDto = prescripcionCitaDto.getPrescripcion();
-        CitaInDto citaInDto = prescripcionCitaDto.getCita();
-
-        //Prescripcion pre = prescripcionService.createPrescripcion(prescripcionInDto);
-        //citaInDto.setPrescripcion(pre.getIdPrescripcion());
-
-        citaService.crearCita(citaInDto);
-
-        return null;
-    }
-
-    /*@GetMapping("/findPrescripcionByCita/{idCita}")
-    public Prescripcion findAllByCita(@PathVariable("idCita")int idCita){
-        Cita cita =new Cita(idCita);
-        return this.prescripcionService.findAllByCita(cita);
-    }*/
-
-    /*@PatchMapping("actualizarPrescripcion/{idCita}")
-    public ResponseEntity<Void> actualizarPrescripcion(@PathVariable("orificioSalida")PrescripcionInDto orificioSalida,
-                                                        @PathVariable("nocheSeca")boolean nocheSeca,
-                                                        @PathVariable("id_prescripcion")int id_prescripcion){
-        this.prescripcionService.actualizarPrescripcion(orificioSalida, nocheSeca, id_prescripcion);
-        return ResponseEntity.noContent().build();
-    }*/
     @GetMapping("/prescripciones/listPrescripciones")
     public List<Cita> findAllPrescripciones(){
 

@@ -1,7 +1,6 @@
 package com.Dialisis.DialisisPeritoneal.service;
 import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
 import com.Dialisis.DialisisPeritoneal.mapper.CuidadorPacienteInDtoToCuidadorPaciente;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cormobilidad;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.CuidadorPaciente;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.CuidadorPacienteRepository;
