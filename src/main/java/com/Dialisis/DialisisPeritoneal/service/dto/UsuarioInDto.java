@@ -15,4 +15,5 @@ public class UsuarioInDto {
     private boolean activo;
     @Lob
     private byte[] foto;
+    private String tipo_documento;
 }

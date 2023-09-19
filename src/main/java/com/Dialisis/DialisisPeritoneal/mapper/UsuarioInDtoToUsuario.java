@@ -16,6 +16,7 @@ public class UsuarioInDtoToUsuario implements IMapper<UsuarioInDto, Usuario>{
         usuario.setFoto(in.getFoto());
         usuario.setCorreo(in.getCorreo());
         usuario.setActivo(in.isActivo());
+        usuario.setTipo_documento(in.getTipo_documento());
         return usuario;
     }
 }

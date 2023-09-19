@@ -18,6 +18,7 @@ public class Usuario {
     private String correo;
     private boolean activo;
     private String tipoUsuario="user";
+    private String tipo_documento;
 
     public Usuario() {
     }

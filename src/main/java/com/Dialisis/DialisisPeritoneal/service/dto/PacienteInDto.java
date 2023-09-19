@@ -19,7 +19,6 @@ public class PacienteInDto extends UsuarioInDto {
     private String direccion;
     private String ocupacion;
     private String tipoSangre;
-    private String tipo_documento;
     private char rh;
     private boolean diabetes;
     private boolean hipertension;

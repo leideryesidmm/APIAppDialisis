@@ -28,7 +28,6 @@ private String cedula;
 
     private boolean diabetes;
     private boolean hipertension;
-    private String tipo_documento;
     private boolean cambio_contrasenia;
 
 
@@ -39,7 +38,7 @@ private String cedula;
         this.cedula=id;
     }
 
-    public Paciente(String cedula,  boolean cambio_contrasenia, String tipo_documento, LocalDateTime fechaNacimiento, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension, Eps eps) {
+    public Paciente(String cedula,  boolean cambio_contrasenia, LocalDateTime fechaNacimiento, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension, Eps eps) {
         this.cedula = cedula;
         this.fechaNacimiento = fechaNacimiento;
         this.altura = altura;
@@ -51,7 +50,6 @@ private String cedula;
         this.rh = rh;
         this.diabetes=diabetes;
         this.hipertension=hipertension;
-        this.tipo_documento=tipo_documento;
         this.eps=eps;
         this.cambio_contrasenia=cambio_contrasenia;
     }
