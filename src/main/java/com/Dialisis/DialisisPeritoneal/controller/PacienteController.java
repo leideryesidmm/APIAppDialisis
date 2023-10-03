@@ -396,8 +396,9 @@ public class PacienteController {
     }
     @PostMapping("/prescripcion/prescripcionActual")
     public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody Paciente paciente){
-        //System.out.println(paciente);
+        System.out.println(paciente);
         Cita cita=this.citaService.findUltimaCita(paciente);
+        System.out.println(cita);
         if(cita==null)
             return ResponseEntity.noContent().build();
         else{

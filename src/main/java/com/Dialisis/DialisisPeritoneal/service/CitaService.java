@@ -84,8 +84,13 @@ public class CitaService {
         }
     }
     public Cita findUltimaCita(Paciente paciente) {
-
-        return this.repository.findUltimaCita(paciente).get(0);
+        List<Cita> citas=this.repository.findUltimaCita(paciente);
+        System.out.println(citas);
+        if(citas.isEmpty())
+            return null;
+        else{
+            return citas.get(0);
+        }
     }
     @Transactional
     public void  finalizarById(int cita){
