@@ -34,7 +34,11 @@ public class VisitaEspecialistaService {
 
     public VisitaEspecialista findUltimaVisita(int idCita) {
         System.out.println(idCita);
-        return this.repository.findUltimaVisita(idCita).get(0);
+        List<VisitaEspecialista> visitas=this.repository.findUltimaVisita(idCita);
+        if(visitas.isEmpty())
+            return null;
+            else
+        return visitas.get(0);
     }
 
     @Transactional

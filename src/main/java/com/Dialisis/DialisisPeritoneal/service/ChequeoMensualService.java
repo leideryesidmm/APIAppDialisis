@@ -12,6 +12,7 @@ import com.Dialisis.DialisisPeritoneal.service.dto.VisitaEspecialistaInDto;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class ChequeoMensualService {
@@ -30,7 +31,11 @@ public class ChequeoMensualService {
     }
 
     public ChequeoMensual findUltimoChequeo(int idCita) {
-        return this.repository.findUltimoChequeoMensual(idCita).get(0);
+        List<ChequeoMensual> chequeos=this.repository.findUltimoChequeoMensual(idCita);
+        if(chequeos.isEmpty())
+            return null;
+        else
+        return chequeos.get(0);
     }
 
     @Transactional
