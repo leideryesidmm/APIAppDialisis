@@ -79,6 +79,7 @@ public class PacienteController {
 
 
 
+
     @PatchMapping("/actualizar")
     public ResponseEntity<Void> actualizarDatosPaciente(@RequestBody PacienteInDto pacienteInDto){
         Paciente paciente= this.pacienteService.findByCedula(pacienteInDto.getCedula());
@@ -584,6 +585,28 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
+    }
+
+    @PostMapping("/prescripcion/visitas")
+    public ResponseEntity<List<VisitaEspecialista>> findAllVisitas(@RequestBody PacienteInDto pacienteInDto) {
+
+        List<Cita> citas= citaService.findAllByPaciente(new Paciente(pacienteInDto.getCedula()));
+        List<VisitaEspecialista> visitas = visitaEspecialistaService.findAllVisitas(citas);
+            if(visitas!=null)
+            return ResponseEntity.ok(visitas);
+            else
+                return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/prescripcion/chequeos")
+    public ResponseEntity<List<ChequeoMensual>> findAllChequeos(@RequestBody PacienteInDto pacienteInDto) {
+
+        List<Cita> citas= citaService.findAllByPaciente(new Paciente(pacienteInDto.getCedula()));
+        List<ChequeoMensual> chequeos = chequeoMensualService.findAllChequeos(citas);
+        if(chequeos!=null)
+            return ResponseEntity.ok(chequeos);
+        else
+            return ResponseEntity.noContent().build();
     }
 
 }

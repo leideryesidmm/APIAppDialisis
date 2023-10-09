@@ -7,5 +7,5 @@ import lombok.Data;
 public class MedicoInDto extends UsuarioInDto{
     private String cedula;
     private Especialidad especialidad;
-    private int aniosExperiencia;
+    private String profesion;
 }

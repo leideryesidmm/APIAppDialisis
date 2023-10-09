@@ -13,7 +13,7 @@ public class Medico extends Usuario {
     @ManyToOne
     @JoinColumn(name = "especialidad")
     private Especialidad especialidad;
-    private int aniosExperiencia;
+    private String profesion;
 
     public Medico(){
         this.cedula=null;

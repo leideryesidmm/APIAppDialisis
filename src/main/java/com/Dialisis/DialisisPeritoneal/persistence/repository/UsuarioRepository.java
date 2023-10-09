@@ -44,4 +44,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     @Query(value = "Update usuario set activo=true where cedula=:cedula", nativeQuery = true)
     public void activarUsuario(@Param("cedula") String cedula);
 
+    @Modifying
+    @Query(value = "Update usuario set contrasenia=:cedula where cedula=:cedula", nativeQuery = true)
+    public void restaurarContrasenia(@Param("cedula") String cedula);
+
 }

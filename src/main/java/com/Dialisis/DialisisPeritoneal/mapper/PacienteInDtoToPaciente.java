@@ -5,6 +5,8 @@ import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
 import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class   PacienteInDtoToPaciente implements IMapper<PacienteInDto, Paciente> {
     @Override
@@ -27,6 +29,7 @@ public class   PacienteInDtoToPaciente implements IMapper<PacienteInDto, Pacient
         paciente.setDiabetes(in.isDiabetes());
         paciente.setHipertension(in.isHipertension());
         paciente.setTipo_documento(in.getTipo_documento());
+        paciente.setFecha_registro(in.getFecha_registro());
         paciente.setActivo(in.isActivo());
         paciente.setCambio_contrasenia(in.isCambio_contrasenia());
         return paciente;

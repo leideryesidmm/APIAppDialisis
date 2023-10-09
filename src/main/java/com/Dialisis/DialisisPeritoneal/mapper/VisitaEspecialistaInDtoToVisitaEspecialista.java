@@ -21,6 +21,9 @@ public class   VisitaEspecialistaInDtoToVisitaEspecialista implements IMapper<Vi
         visita.setTrabajoSocial(in.isTrabajoSocial());
         visita.setAuxiliarAdmisiones(in.isAuxiliarAdmisiones());
         visita.setFarmacia(in.isFarmacia());
+        visita.setEntrenamiento(in.isEntrenamiento());
+        visita.setReentrenamiento(in.isReentrenamiento());
+        visita.setVisita_domiciliaria(in.isVisita_domiciliaria());
 
         return visita;
 }

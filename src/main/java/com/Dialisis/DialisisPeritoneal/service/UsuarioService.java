@@ -74,4 +74,9 @@ public class UsuarioService {
     public void activarUsuario(String cedula) {
         this.repository.activarUsuario(cedula);
     }
+
+    @Transactional
+    public void restaurarContrasenia(String cedula){
+        this.repository.restaurarContrasenia(cedula);
+    }
 }
