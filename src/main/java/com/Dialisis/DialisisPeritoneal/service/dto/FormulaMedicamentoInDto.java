@@ -8,9 +8,7 @@ import java.time.LocalDateTime;
 public class FormulaMedicamentoInDto {
 
     private String paciente;
-    private int intervaloTiempo;
     private int tomas;
-    private int dosis;
     private String nombre;
     private String descripcion;
     private int via_Administracion;

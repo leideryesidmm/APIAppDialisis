@@ -15,9 +15,7 @@ public class FormulaMedicamento {
     @ManyToOne
     @JoinColumn(name = "paciente")
     private Paciente paciente;
-    private int intervaloTiempo;
     private int tomas;
-    private int dosis;
     private String nombre;
     private String descripcion;
     @ManyToOne

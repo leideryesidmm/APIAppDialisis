@@ -10,9 +10,7 @@ public class FormulaMedicamentoInDtoToFormulaMedicamento implements IMapper<Form
     public FormulaMedicamento map(FormulaMedicamentoInDto in){
         FormulaMedicamento formulaMedicamento=new FormulaMedicamento();
         formulaMedicamento.setPaciente(new Paciente(in.getPaciente()));
-        formulaMedicamento.setIntervaloTiempo(in.getIntervaloTiempo());
         formulaMedicamento.setTomas(in.getTomas());
-        formulaMedicamento.setDosis(in.getDosis());
         formulaMedicamento.setNombre(in.getNombre());
         formulaMedicamento.setConcentracion(in.getConcentracion());
         formulaMedicamento.setViaAdministracion(new ViaAdministracion(in.getVia_Administracion()));
