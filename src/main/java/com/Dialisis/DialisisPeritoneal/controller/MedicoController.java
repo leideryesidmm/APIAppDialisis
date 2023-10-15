@@ -14,17 +14,15 @@ public class MedicoController{
     private final ClinicaService clinicaService;
     private final PacienteService pacienteService;
     private final UsuarioService usuarioService;
-    private final PrescripcionDiaService prescripcionService;
     private final CitaService citaService;
     private final VisitaEspecialistaService visitaService;
     private  final ChequeoMensualService chequeoService;
     private final  EspecialidadService especialidadService;
 
-    public MedicoController(PrescripcionDiaService prescripcionService, MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, UsuarioService usuarioService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService, EspecialidadService especialidadService) {
+    public MedicoController(MedicoService medicoService, ClinicaService clinicaService, PacienteService pacienteService, UsuarioService usuarioService, CitaService citaService, VisitaEspecialistaService visitaService, ChequeoMensualService chequeoService, EspecialidadService especialidadService) {
         this.medicoService = medicoService;
         this.clinicaService = clinicaService;
         this.pacienteService = pacienteService;
-        this.prescripcionService=prescripcionService;
         this.usuarioService = usuarioService;
         this.citaService = citaService;
         this.visitaService = visitaService;
@@ -60,26 +58,20 @@ public class MedicoController{
 
     @PostMapping("/clinica/crearClinica/{cedula}")
     public void crearClinica(@PathVariable("cedula")String cedula, @RequestBody ClinicaInDto clinicaInDto){
-        Clinica clinica= this.clinicaService.crearClinica(clinicaInDto);
+        this.clinicaService.crearClinica(clinicaInDto);
     }
     @GetMapping("/prescripciones/listPrescripciones")
     public List<Cita> findAllPrescripciones(){
 
         return this.citaService.findAllCitas();
-    }    /*@GetMapping("/prescripcion/listprescripciones/{cita}")
-    public List<Prescripcion> listarPrescripcionesPorPaciente(@PathVariable("idCita")int idCita){
-        return this.prescripcionService.findAllByCita(idCita);
-    }*/
-
+    }
     @PatchMapping("/inhabilitarPaciente")
     public void inhabilitarPaciente(@RequestBody PacienteInDto pacienteInDto) {
-        System.out.println(pacienteInDto);
         this.usuarioService.inactivarUsuario(pacienteInDto.getCedula());
     }
 
     @PatchMapping("/reactivarPaciente")
     public void reactivarPaciente(@RequestBody PacienteInDto pacienteInDto) {
-        System.out.println(pacienteInDto);
         this.usuarioService.activarUsuario(pacienteInDto.getCedula());
     }
 
@@ -102,22 +94,20 @@ public class MedicoController{
 
     @PostMapping("/chequeoMensual")
     public ResponseEntity<ChequeoMensual>  crearChequeoMensual(@RequestBody ChequeoMensualInDto chequeoMensualInDto){
-        System.out.println(chequeoMensualInDto);
         ChequeoMensual chequeoMensual=this.chequeoService.crearChequeo(chequeoMensualInDto);
         return ResponseEntity.ok(chequeoMensual);
 
     }
 
     @DeleteMapping("/EliminarCita/{id_cita}")
-    public ResponseEntity<Void> deleteCita(@PathVariable("id_cita") int id_cita) {
-        System.out.println(id_cita);
-        this.citaService.deleteById(id_cita);
+    public ResponseEntity<Void> deleteCita(@PathVariable("id_cita") int idCita) {
+        this.citaService.deleteById(idCita);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/encontrarChequeo/{id_cita}")
-    public ResponseEntity<ChequeoMensual> encontrarChequeo(@PathVariable("id_cita") int id_cita) {
-        ChequeoMensual chequeo=this.chequeoService.findUltimoChequeo(id_cita);
+    public ResponseEntity<ChequeoMensual> encontrarChequeo(@PathVariable("id_cita") int idCita) {
+        ChequeoMensual chequeo=this.chequeoService.findUltimoChequeo(idCita);
         if(chequeo==null){
             return ResponseEntity.noContent().build();
         }
@@ -140,7 +130,6 @@ public class MedicoController{
         if(especialidades==null||especialidades.isEmpty()){
             return ResponseEntity.noContent().build();
         }else{
-            System.out.println(especialidades);
             return ResponseEntity.ok(especialidades);
         }
     }

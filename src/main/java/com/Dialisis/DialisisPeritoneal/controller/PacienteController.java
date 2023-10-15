@@ -40,7 +40,6 @@ public class PacienteController {
     private final RecambioHechoService recambioHechoService;
     private final VisitaEspecialistaService visitaEspecialistaService;
     private final ChequeoMensualService chequeoMensualService;
-    //private final AlimentacionPacienteService alimentacionPacienteService;
 
 
     public PacienteController(PacienteService pacienteService, VisitaEspecialistaService visitaEspecialistaService, ChequeoMensualService chequeoMensualService, UsuarioService usuarioService, UsuarioRepository usuarioRepository, RecambioService recambioService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
@@ -55,7 +54,6 @@ public class PacienteController {
         this.formulaMedicamentoService = formulaMedicamentoService;
         this.pacienteAlergiaService = pacienteAlergiaService;
         this.alergiaService = alergiaService;
-        //this.alimentacionPacienteService = alimentacionPacienteService;
         this.viaAdministracionService = viaAdministracionService;
         this.recambioService=recambioService;
         this.prescripcionDiaService = prescripcionDiaService;
@@ -64,14 +62,11 @@ public class PacienteController {
 
     @PostMapping("/crearPaciente")
     public Paciente crearPaciente(@RequestBody PacienteInDto pacienteInDto){
-        System.out.println(pacienteInDto);
         return this.pacienteService.crearPaciente(pacienteInDto);
     }
 
     @PostMapping("/findPacienteByCedula")
     public Paciente findPacienteByCedula(@RequestBody PacienteInDto pacienteInDto){
-        System.out.println(pacienteInDto);
-        System.out.println(this.pacienteService.findByCedula(pacienteInDto.getCedula()));
         return this.pacienteService.findByCedula(pacienteInDto.getCedula());
     }
 
@@ -88,18 +83,11 @@ public class PacienteController {
 
 
     @PatchMapping("formulaMedicamento/actualizar/{id_formula_medicamento}")
-    public ResponseEntity<Void> actualizarFormulaMedicamento(@PathVariable("id_formula_medicamento")int id_formula_medicamento,
+    public ResponseEntity<Void> actualizarFormulaMedicamento(@PathVariable("id_formula_medicamento")int idFormulaMedicamento,
                                                              @RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto){
-        this.formulaMedicamentoService.actualizarFormula(id_formula_medicamento,formulaMedicamentoInDto);
+        this.formulaMedicamentoService.actualizarFormula(idFormulaMedicamento,formulaMedicamentoInDto);
         return ResponseEntity.noContent().build();
     }
-
-    /*@PostMapping("/foto")
-    public ResponseEntity<String> uploadPhoto(@RequestBody UnionPacienteFotoInDto unionPacienteFotoInDto) {
-        pacienteService.uploadPhoto(unionPacienteFotoInDto.getCedula(), unionPacienteFotoInDto.getFoto());
-        System.out.println(unionPacienteFotoInDto);
-        return ResponseEntity.ok("Imagen cargada exitosamente");
-    }*/
 
     @PostMapping("/upload-image")
     public ResponseEntity<String> uploadImage(@RequestParam("cedula") String cedula,
@@ -120,7 +108,7 @@ public class PacienteController {
     }
 
     @PostMapping("/cuidador/listCuidadorPacienteByPaciente")
-    public ResponseEntity<List<CuidadorPaciente>> ListarCuidadoresPorPaciente(@RequestBody PacienteInDto pacienteInDto){
+    public ResponseEntity<List<CuidadorPaciente>> listarCuidadoresPorPaciente(@RequestBody PacienteInDto pacienteInDto){
 
         List<CuidadorPaciente> cuidadorPaciente = this.cuidadorPacienteService.findAllByPaciente(pacienteInDto.getCedula());
 
@@ -142,7 +130,7 @@ public class PacienteController {
     }
 
     @PatchMapping("/cuidador/reactivarCuidador")
-    public void ReactivarCuidadorAntiguo(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
+    public void reactivarCuidadorAntiguo(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
         CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
 
 
@@ -153,18 +141,18 @@ public class PacienteController {
         CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
         cuidadorPacienteInDto.setCuidador(unionCuidadorPacienteInDto.getCuidadorInDto().getCedulaCuidador());
         cuidadorPacienteInDto.setPaciente(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
-        LocalDate fecha_ini = LocalDate.now();
-        cuidadorPacienteInDto.setFecha_ini(fecha_ini);
+        LocalDate fechaIni = LocalDate.now();
+        cuidadorPacienteInDto.setFecha_ini(fechaIni);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
     @PatchMapping("/cuidador/ReactivarCuidadorAntiguoSinActivo")
-    public void ReactivarCuidadorAntiguoSinActivo(@RequestBody CuidadorInDto cuidador) {
+    public void reactivarCuidadorAntiguoSinActivo(@RequestBody CuidadorInDto cuidador) {
         CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
         cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
         cuidadorPacienteInDto.setPaciente(cuidadorPacienteInDto.getCuidador());
-        LocalDate fecha_ini = LocalDate.now();
-        cuidadorPacienteInDto.setFecha_ini(fecha_ini);
+        LocalDate fechaIni = LocalDate.now();
+        cuidadorPacienteInDto.setFecha_ini(fechaIni);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
@@ -180,14 +168,14 @@ public class PacienteController {
         CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
         cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
         cuidadorPacienteInDto.setPaciente(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
-        LocalDate fecha_ini = LocalDate.now();
-        cuidadorPacienteInDto.setFecha_ini(fecha_ini);
+        LocalDate fechaIni = LocalDate.now();
+        cuidadorPacienteInDto.setFecha_ini(fechaIni);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
 
     @PatchMapping("/cuidador/inhabilitarCuidadorActivo")
-    public void InhabilitarCuidadorActivo(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
+    public void inhabilitarCuidadorActivo(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
         CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
 
         if (cuidadorPaciente != null) {
@@ -199,7 +187,7 @@ public class PacienteController {
 
     @PatchMapping("/cuidador/actualizar")
     public void actualizarCuidador(@RequestBody CuidadorInDto cuidadorInDto) {
-        Cuidador cuidador = this.cuidadorService.actualizarCuidador(cuidadorInDto.getCedulaCuidador(), cuidadorInDto);
+        this.cuidadorService.actualizarCuidador(cuidadorInDto.getCedulaCuidador(), cuidadorInDto);
     }
 
     @PostMapping("/alergia/crear")
@@ -229,7 +217,7 @@ public class PacienteController {
 
     @PatchMapping("/alergia/editar/{id_alergia}")
     public void editarAlergia(@PathVariable("id_alergia") int idAlergia, @RequestBody AlergiaInDto alergiaInDto){
-        Alergia alergia= this.alergiaService.actualizarAlergia(idAlergia, alergiaInDto);
+        this.alergiaService.actualizarAlergia(idAlergia, alergiaInDto);
 
     }
 
@@ -237,51 +225,19 @@ public class PacienteController {
     public void inactivarAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto) {
         this.pacienteAlergiaService.inactivarAlergia(unionPacienteAlergiaInDto.getPacienteInDto().getCedula(),unionPacienteAlergiaInDto.getAlergiaInDto().getIdAlergia());
     }
-    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")Long cedula,@PathVariable("id_alergia")int id_alergia){
-        return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,id_alergia);
+    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")Long cedula,@PathVariable("id_alergia")int idAlergia){
+        return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,idAlergia);
     }
 
     @PatchMapping("/alergia/activar/{cedula}{id_alergia}")
-    public void activarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int id_alergia) {
-        this.pacienteAlergiaService.activarAlergia(cedula,id_alergia);
+    public void activarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int idAlergia) {
+        this.pacienteAlergiaService.activarAlergia(cedula,idAlergia);
     }
 
     @GetMapping("/alergia/ListPasadas/{cedula}")
     public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")long cedula){
         return this.pacienteAlergiaService.findAlergiasPasadas(cedula);
     }
-
-    /*@PostMapping("/alimentacion/agregar")
-    public void agregarAlimentacionPorPaciente(@RequestBody AlimentacionPacienteInDto alimentacionPacienteInDto){
-        this.alimentacionPacienteService.crearAlimentacionPaciente(alimentacionPacienteInDto);
-    }*/
-
-    /*@GetMapping("/alimentacion/listarPorDia/{cedula},{fecha}")
-    public List<AlimentacionPaciente> findAllAlimentacionPacientePorDia(@PathVariable("cedula")long cedula,@PathVariable("fecha")Date fecha){
-        return ListarAlimentoPorPacienteYFecha(cedula, fecha,fecha);
-    }*/
-
-    /*@GetMapping("/alimentacion/listAllByPaciente/{cedula}")
-    public List<AlimentacionPaciente> ListarAlimentacionPaciente(@PathVariable("cedula")long cedula){
-        return this.alimentacionPacienteService.findAllByPaciente(cedula);
-    }*/
-
-    /*@GetMapping("/alimentacion/ListarPorRango/{cedula},{fecha1},{fecha2}")
-    public List<AlimentacionPaciente>ListarAlimentoPorPacienteYFecha(@PathVariable("cedula")long cedula,@PathVariable("fecha1")Date fecha1,@PathVariable("fecha2")Date fecha2){
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        Instant instant = fecha1.toInstant();
-        LocalDate fecha_1 = instant.atZone(defaultZoneId).toLocalDate();
-        Instant instant2 = fecha2.toInstant();
-        LocalDate fecha_2 = instant2.atZone(defaultZoneId).toLocalDate();
-        return this.alimentacionPacienteService.findAllByPacienteByRango(cedula, fecha_1,fecha_2);
-    }*/
-
-    /*@PatchMapping("/alimentacion/actualizar/{idAlimentacionPaciente}")
-    public void actualizarAlimentacionPaciente(@PathVariable("idAlimentacionPaciente") int idAlimentacionPaciente,@RequestBody AlimentacionPacienteInDto alimentacionPacienteInDto){
-        AlimentacionPaciente alimentacionPaciente=this.alimentacionPacienteService.findById(idAlimentacionPaciente);
-        if(alimentacionPaciente!=null)
-            this.alimentacionPacienteService.actualizarAlimentacionPaciente(idAlimentacionPaciente,alimentacionPacienteInDto);
-    }*/
     @PostMapping("/cita/crearCita")
     public void crearCita(@RequestBody CitaInDto citaInDto){
         this.citaService.crearCita(citaInDto);
@@ -292,21 +248,21 @@ public class PacienteController {
         return this.citaService.findAllByPaciente(paciente);
     }
     @PatchMapping("/cita/actualizar/{id_cita}")
-    public void actualizarCita(@PathVariable("id_cita")int id_cita,@RequestBody CitaInDto citaInDto){
-        this.citaService.actualizarCita(id_cita, citaInDto);
+    public void actualizarCita(@PathVariable("id_cita")int idCita,@RequestBody CitaInDto citaInDto){
+        this.citaService.actualizarCita(idCita, citaInDto);
     }
     @DeleteMapping("/cita/eliminar/{id_cita}")
-    public void eliminarCita(@PathVariable("id_cita")int id_cita){
-        this.citaService.deleteById(id_cita);
+    public void eliminarCita(@PathVariable("id_cita")int idCita){
+        this.citaService.deleteById(idCita);
     }
 
     @DeleteMapping("/prescripcionDia/eliminar/{id_prescripcionDia}")
-    public void eliminarPrescripcionDia(@PathVariable("id_prescripcionDia")int id_prescripcionDia){
-        this.prescripcionDiaService.deleteById(id_prescripcionDia);
+    public void eliminarPrescripcionDia(@PathVariable("id_prescripcionDia")int idPrescripcionDia){
+        this.prescripcionDiaService.deleteById(idPrescripcionDia);
     }
     @DeleteMapping("/recambio/eliminar/{id_recambio}")
-    public void eliminarRecambio(@PathVariable("id_recambio")int id_recambio){
-        this.recambioService.deleteById(id_recambio);
+    public void eliminarRecambio(@PathVariable("id_recambio")int idRecambio){
+        this.recambioService.deleteById(idRecambio);
     }
 
     @GetMapping("/cita/antiguas/{cedula}")
@@ -354,8 +310,8 @@ public class PacienteController {
         this.viaAdministracionService.UpdateViaAdministracion(id,viaAdministracionInDto);
     }
     @DeleteMapping("/medicamento/eliminar/{id_medicamento}")
-    public ResponseEntity<Void> deleteMedicamento(@PathVariable("id_medicamento") int id_medicamento) {
-        this.formulaMedicamentoService.deleteById(id_medicamento);
+    public ResponseEntity<Void> deleteMedicamento(@PathVariable("id_medicamento") int idMedicamento) {
+        this.formulaMedicamentoService.deleteById(idMedicamento);
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/prescripcion")
@@ -396,9 +352,7 @@ public class PacienteController {
     }
     @PostMapping("/prescripcion/prescripcionActual")
     public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody Paciente paciente){
-        System.out.println(paciente);
         Cita cita=this.citaService.findUltimaCita(paciente);
-        System.out.println(cita);
         if(cita==null)
             return ResponseEntity.noContent().build();
         else{
@@ -432,13 +386,9 @@ public class PacienteController {
     }
 
     @PostMapping("/recambio/editarRecambioHecho/{id_recambioHecho}")
-    public ResponseEntity<RecambioHecho>  editarRecambioHecho(@RequestBody RecambioHechoInDto recambioHechoInDto,@PathVariable("id_recambioHecho") int id_recambioHecho){
+    public ResponseEntity<RecambioHecho>  editarRecambioHecho(@RequestBody RecambioHechoInDto recambioHechoInDto,@PathVariable("id_recambioHecho") int idRecambioHecho){
         try{
-
-            System.out.println(recambioHechoInDto);
-
-            System.out.println(id_recambioHecho);
-            RecambioHecho recambioHecho=this.recambioHechoService.editarRecambio(recambioHechoInDto,id_recambioHecho);
+            RecambioHecho recambioHecho=this.recambioHechoService.editarRecambio(recambioHechoInDto,idRecambioHecho);
             return ResponseEntity.ok(recambioHecho);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -453,16 +403,12 @@ public class PacienteController {
             UnionCitaPrescripcionDias presciscionActual=unionCitaPrescripcionDias.getBody();
             for(UnionPrescripcionDiasRecambios prescripcionDia :presciscionActual.getUnionPrescripcionDiasRecambios()) {
                 for(Recambio recambio:prescripcionDia.getRecambios()){
-                    //System.out.println(paciente);
                     List<RecambioHecho> recambioHechoLista2=this.recambioHechoService.findByRecambio(recambio);
-                    //System.out.println(recambioHechoLista2);
                     recambioHechos.addAll(recambioHechoLista2);
-                    //System.out.println("si");
                 }
             }
-            return ResponseEntity.ok(recambioHechos);//recambioHecho);
+            return ResponseEntity.ok(recambioHechos);
         }catch (Exception e){
-            //System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -477,10 +423,8 @@ public class PacienteController {
             for (Recambio recambio:recambios) {
                 recambioHechos.add(this.recambioHechoService.findByRecambioAndFecha(recambio.getIdRecambio(),fecha2));
             }
-            System.out.println(recambioHechos);
             return ResponseEntity.ok(recambioHechos);
         }catch (Exception e){
-            System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -490,16 +434,15 @@ public class PacienteController {
 
     @PostMapping("/prescripcion/crearRecambio")
     public void crearRecambio(@RequestBody RecambioInDto recambioInDto){
-        System.out.println(recambioInDto);
         Recambio recambio=new Recambio();
         recambio.setPrescripcionDia(this.prescripcionDiaService.findById(recambioInDto.getPrescripcionDia()));
         this.recambioService.crearRecambio(recambioInDto, recambio);
     }
 
     @PostMapping("/prescripcion/findRecambioHechoById/{id_recambio_hecho}")
-    public ResponseEntity<RecambioHecho> findRecambioHechoById(@PathVariable int id_recambio_hecho){
+    public ResponseEntity<RecambioHecho> findRecambioHechoById(@PathVariable int idRecambioHecho){
         try{
-            RecambioHecho recambio=this.recambioHechoService.findRecambioById(id_recambio_hecho);
+            RecambioHecho recambio=this.recambioHechoService.findRecambioById(idRecambioHecho);
             return ResponseEntity.ok(recambio);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -542,10 +485,9 @@ public class PacienteController {
     }
 
     @PatchMapping("ActualizarChequeo/{id_chequeo_mensual}")
-    public ResponseEntity<Void> actualizarChequeo(@PathVariable("id_chequeo_mensual")int id_chequeo_mensual,
+    public ResponseEntity<Void> actualizarChequeo(@PathVariable("id_chequeo_mensual")int idChequeoMensual,
                                                  @RequestBody ChequeoMensualInDto chequeoMensualInDto){
-        System.out.println();
-        this.chequeoMensualService.actualizarChequeo(id_chequeo_mensual,chequeoMensualInDto);
+        this.chequeoMensualService.actualizarChequeo(idChequeoMensual,chequeoMensualInDto);
         return ResponseEntity.noContent().build();
     }
 
@@ -556,7 +498,6 @@ public class PacienteController {
             List<Recambio> recambioPrescri;
             Cita cita = new Cita(idCita);
             List<PrescripcionDia> prescripcionDias = this.prescripcionDiaService.findByCita(cita);
-            List<UnionPrescripcionDiasRecambios> listPrescripcionDiasRecambios = new ArrayList<>();
             for (PrescripcionDia prescripcionDia : prescripcionDias) {
                 UnionPrescripcionDiasRecambios prescripcionDiasRecambios = new UnionPrescripcionDiasRecambios();
                 prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);
@@ -567,9 +508,8 @@ public class PacienteController {
                 }
             }
 
-            return ResponseEntity.ok(recambioHechos);//recambioHecho);
+            return ResponseEntity.ok(recambioHechos);
         } catch (Exception e) {
-            //System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
