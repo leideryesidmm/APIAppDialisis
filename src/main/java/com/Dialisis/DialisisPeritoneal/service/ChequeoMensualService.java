@@ -3,6 +3,7 @@ package com.Dialisis.DialisisPeritoneal.service;
 import com.Dialisis.DialisisPeritoneal.mapper.ChequeoMensualInDtoToChequeoMensual;
 import com.Dialisis.DialisisPeritoneal.mapper.VisitaEspecialistaInDtoToVisitaEspecialista;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.ChequeoMensual;
+import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
 import com.Dialisis.DialisisPeritoneal.persistence.entity.VisitaEspecialista;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.ChequeoMensualRepository;
@@ -12,6 +13,7 @@ import com.Dialisis.DialisisPeritoneal.service.dto.VisitaEspecialistaInDto;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,5 +45,18 @@ public class ChequeoMensualService {
         ChequeoMensual chequeoMensual= mapper.map(chequeoMensualInDto);
         chequeoMensual.setIdChequeoMensual(id_chequeo_mensual);
         this.repository.save(chequeoMensual);
+    }
+
+    public List<ChequeoMensual> findAllChequeos(List<Cita> citas){
+        List<ChequeoMensual> chequeos=new ArrayList<>();
+        for (Cita cita:citas){
+            ChequeoMensual chequeoM=this.repository.findByCita(cita);
+            if(chequeoM!=null)
+                chequeos.add(chequeoM);
+        }
+        if(chequeos.isEmpty())
+            return null;
+        else{
+            return chequeos;}
     }
 }

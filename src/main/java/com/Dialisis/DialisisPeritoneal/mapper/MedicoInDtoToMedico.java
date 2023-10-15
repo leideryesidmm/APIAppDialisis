@@ -12,7 +12,7 @@ public class MedicoInDtoToMedico implements IMapper<MedicoInDto, Medico> {
         Medico medico=new Medico();
         medico.setCedula(in.getCedula());
         medico.setEspecialidad(in.getEspecialidad());
-        medico.setAniosExperiencia(in.getAniosExperiencia());
+        medico.setProfesion(in.getProfesion());
         medico.setNombre(in.getNombre());
         medico.setCelular(in.getCelular());
         medico.setContrasenia(in.getContrasenia());

@@ -23,6 +23,9 @@ public class VisitaEspecialista {
     private boolean trabajoSocial;
     private boolean auxiliarAdmisiones;
     private boolean farmacia;
+    private boolean entrenamiento;
+    private boolean reentrenamiento;
+    private boolean visita_domiciliaria;
 
 
 }

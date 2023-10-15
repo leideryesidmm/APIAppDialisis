@@ -15,6 +15,7 @@ public class Paciente extends Usuario{
 @Id
 private String cedula;
     private LocalDateTime fechaNacimiento;
+    private LocalDateTime fecha_registro;
     @ManyToOne
     @JoinColumn(name="eps")
     private Eps eps;
@@ -38,11 +39,12 @@ private String cedula;
         this.cedula=id;
     }
 
-    public Paciente(String cedula,  boolean cambio_contrasenia, LocalDateTime fechaNacimiento, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension, Eps eps) {
+    public Paciente(String cedula,  boolean cambio_contrasenia,LocalDateTime fecha_registro, LocalDateTime fechaNacimiento, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension, Eps eps) {
         this.cedula = cedula;
         this.fechaNacimiento = fechaNacimiento;
         this.altura = altura;
         this.peso = peso;
+        this.fecha_registro=fecha_registro;
         this.pesoSeco = pesoSeco;
         this.direccion = direccion;
         this.ocupacion = ocupacion;

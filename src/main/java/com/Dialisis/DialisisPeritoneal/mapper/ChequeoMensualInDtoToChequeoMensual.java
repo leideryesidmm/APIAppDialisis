@@ -23,6 +23,11 @@ public class ChequeoMensualInDtoToChequeoMensual implements IMapper<ChequeoMensu
         chequeoMensual.setPotasio(in.getPotasio());
         chequeoMensual.setFosforo(in.getFosforo());
         chequeoMensual.setNitrogenoUreico(in.getNitrogenoUreico());
+        chequeoMensual.setPeso(in.getPeso());
+        chequeoMensual.setPeso_seco(in.getPeso_seco());
+        chequeoMensual.setKtv(in.getKtv());
+        chequeoMensual.setGlucosa(in.getGlucosa());
+        chequeoMensual.setCreatinina(in.getCreatinina());
         return chequeoMensual;
     }
 }

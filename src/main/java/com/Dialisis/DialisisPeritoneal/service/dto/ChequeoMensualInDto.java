@@ -16,6 +16,11 @@ public class ChequeoMensualInDto {
     private double potasio;
     private double fosforo;
     private double nitrogenoUreico;
+    private double peso;
+    private double peso_seco;
+    private double ktv;
+    private double glucosa;
+    private double creatinina;
 
 
 }

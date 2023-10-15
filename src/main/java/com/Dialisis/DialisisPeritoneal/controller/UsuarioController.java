@@ -90,12 +90,11 @@ public class UsuarioController {
     @PatchMapping("/actualizarMedico")
     public ResponseEntity<Void> actualizarDatosMedico(@RequestBody MedicoInDto medicoInDto){
         System.out.println(medicoInDto);
-        if(medicoInDto.getAniosExperiencia()>0){
-            System.out.println("pasó");
+        try{
             Medico medico= this.medicoService.findByCedula(medicoInDto.getCedula());
             this.medicoService.actualizarDatosMedico(medicoInDto, medico);
             return ResponseEntity.noContent().build();
-        }else{
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
@@ -109,6 +108,11 @@ public class UsuarioController {
     @PatchMapping("/reactivarMedico")
     public void reactivarMedico(@RequestBody MedicoInDto medicoInDto) {
         this.usuarioService.activarUsuario(medicoInDto.getCedula());
+    }
+
+    @PatchMapping("/restaurarContrasenia")
+    public void restaurarContrasenia(@RequestBody UsuarioInDto usuarioInDto){
+        this.usuarioService.restaurarContrasenia(usuarioInDto.getCedula());
     }
 
     @GetMapping("/findAdmin")
