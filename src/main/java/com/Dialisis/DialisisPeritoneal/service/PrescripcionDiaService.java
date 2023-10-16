@@ -31,13 +31,6 @@ public class PrescripcionDiaService {
         this.mapper = mapper;
     }
 
-
-
-    /*public PrescripcionDia createPrescripcion(PrescripcionInDto prescripcionInDto) {
-        Prescripcion pres = mapper.map(prescripcionInDto);
-        return this.repository.save(pres);
-    }*/
-
     public PrescripcionDia crearPrescripcionDia(PrescripcionDiaInDto prescripcionDiaInDto){
         PrescripcionDia prescripcionDia= mapper.map(prescripcionDiaInDto);
         return this.repository.save(prescripcionDia);
@@ -58,8 +51,8 @@ public class PrescripcionDiaService {
         this.repository.actualizarPrescripcion(prescripcionInDto.getOrificioSalida(), nocheSeca, idPrescripcion);
     }*/
 
-    public void deleteById(int id_prescripcionDia){
-            this.repository.deleteById(id_prescripcionDia);
+    public void deleteById(int idPrescripcionDia){
+            this.repository.deleteById(idPrescripcionDia);
 
     }
 

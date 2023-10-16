@@ -1,36 +1,33 @@
 package com.Dialisis.DialisisPeritoneal.controller;
 
 import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.PacienteRepository;
 import com.Dialisis.DialisisPeritoneal.persistence.repository.UsuarioRepository;
 import com.Dialisis.DialisisPeritoneal.service.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.*;
 import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
-import javax.transaction.Transactional;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/paciente")
 public class PacienteController {
     private final PacienteService pacienteService;
+    private final ParentescoService parentescoService;
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
     private final CuidadorPacienteService cuidadorPacienteService;
     private final CuidadorService cuidadorService;
     private final CitaService citaService;
+    private final EpsService epsService;
     private final FormulaMedicamentoService formulaMedicamentoService;
     private final PacienteAlergiaService pacienteAlergiaService;
     private final AlergiaService alergiaService;
@@ -42,8 +39,9 @@ public class PacienteController {
     private final ChequeoMensualService chequeoMensualService;
 
 
-    public PacienteController(PacienteService pacienteService, VisitaEspecialistaService visitaEspecialistaService, ChequeoMensualService chequeoMensualService, UsuarioService usuarioService, UsuarioRepository usuarioRepository, RecambioService recambioService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, CitaService citaService, FormulaMedicamentoService formulaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
+    public PacienteController(PacienteService pacienteService, ParentescoService parentescoService, VisitaEspecialistaService visitaEspecialistaService, ChequeoMensualService chequeoMensualService, UsuarioService usuarioService, UsuarioRepository usuarioRepository, RecambioService recambioService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, CitaService citaService, EpsService epsService, FormulaMedicamentoService formulaMedicamentoService, PacienteAlergiaService pacienteAlergiaService, AlergiaService alergiaService, ViaAdministracionService viaAdministracionService, PrescripcionDiaService prescripcionDiaService, RecambioHechoService recambioHechoService) {
         this.pacienteService = pacienteService;
+        this.parentescoService = parentescoService;
         this.usuarioService=usuarioService;
         this.usuarioRepository=usuarioRepository;
         this.visitaEspecialistaService=visitaEspecialistaService;
@@ -51,6 +49,7 @@ public class PacienteController {
         this.cuidadorPacienteService = cuidadorPacienteService;
         this.cuidadorService = cuidadorService;
         this.citaService = citaService;
+        this.epsService = epsService;
         this.formulaMedicamentoService = formulaMedicamentoService;
         this.pacienteAlergiaService = pacienteAlergiaService;
         this.alergiaService = alergiaService;
@@ -238,10 +237,6 @@ public class PacienteController {
     @GetMapping("/alergia/ListPasadas/{cedula}")
     public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")long cedula){
         return this.pacienteAlergiaService.findAlergiasPasadas(cedula);
-    }
-    @PostMapping("/cita/crearCita")
-    public void crearCita(@RequestBody CitaInDto citaInDto){
-        this.citaService.crearCita(citaInDto);
     }
     @GetMapping("/cita/listByPaciente/{cedula}")
     public List<Cita> findAllCitas(@PathVariable("cedula")String cedula){
@@ -454,7 +449,7 @@ public class PacienteController {
     public ResponseEntity<Cita> ultimaCita(@RequestBody Paciente paciente){
         Cita cita=this.citaService.findUltimaCita(paciente);
         if(cita!=null)
-        return ResponseEntity.ok(cita);
+            return ResponseEntity.ok(cita);
         else{
             return ResponseEntity.noContent().build();
         }
@@ -520,7 +515,7 @@ public class PacienteController {
     public ResponseEntity<Void>  finalizarPrescripcion(@PathVariable("idCita") int idCita) {
         try {
             this.citaService.finalizarById(idCita);
-            return ResponseEntity.noContent().build();//recambioHecho);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -533,7 +528,7 @@ public class PacienteController {
         List<Cita> citas= citaService.findAllByPaciente(new Paciente(pacienteInDto.getCedula()));
         List<VisitaEspecialista> visitas = visitaEspecialistaService.findAllVisitas(citas);
             if(visitas!=null)
-            return ResponseEntity.ok(visitas);
+                return ResponseEntity.ok(visitas);
             else
                 return ResponseEntity.noContent().build();
     }
@@ -548,5 +543,16 @@ public class PacienteController {
         else
             return ResponseEntity.noContent().build();
     }
-
+    @GetMapping("/ListParentesco")
+    public List<Parentesco> findAllParentesco() {
+        return this.parentescoService.findAll();
+    }
+    @GetMapping("/ListEps")
+    public List<Eps> findAllEps() {
+        return this.epsService.findAllEps();
+    }
+    @PostMapping("/Cita")
+    public Cita crearCita(@RequestBody CitaInDto citaInDto) {
+        return this.citaService.crearCita(citaInDto);
+    }
 }

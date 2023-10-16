@@ -17,7 +17,7 @@ public class Parentesco {
         this.idParentesco=0;
     }
 
-    public Parentesco(int id_parentesco) {
-        this.idParentesco = id_parentesco;
+    public Parentesco(int idParentesco) {
+        this.idParentesco = idParentesco;
     }
 }

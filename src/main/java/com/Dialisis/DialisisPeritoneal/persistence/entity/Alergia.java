@@ -17,8 +17,13 @@ public class Alergia {
         this.idAlergia=0;
     }
 
-    public Alergia(int id_alergia) {
-        this.idAlergia = id_alergia;
+    public Alergia(int idAlergia) {
+        this.idAlergia = idAlergia;
+    }
+
+    public Alergia(int idAlergia, String nombre){
+        this.idAlergia = idAlergia;
+        this.nombre = nombre;
     }
 
 }

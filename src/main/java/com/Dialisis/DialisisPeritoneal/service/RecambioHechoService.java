@@ -29,12 +29,11 @@ public class RecambioHechoService {
         RecambioHecho recambioHecho= mapper.map(recambioHechoInDto);
         return this.repository.save(recambioHecho);
     }
-    public RecambioHecho editarRecambio(RecambioHechoInDto recambioHechoInDto, int id_recambioHecho){
-        RecambioHecho recambioHecho1=this.findRecambioById(id_recambioHecho);
+    public RecambioHecho editarRecambio(RecambioHechoInDto recambioHechoInDto, int idRecambioHecho){
+        RecambioHecho recambioHecho1=this.findRecambioById(idRecambioHecho);
         RecambioHecho recambioHecho= mapper.map(recambioHechoInDto);
-        recambioHecho.setIdRecambioHecho(id_recambioHecho);
+        recambioHecho.setIdRecambioHecho(idRecambioHecho);
         recambioHecho.setRecambio(recambioHecho1.getRecambio());
-        System.out.println(recambioHecho);
         return this.repository.save(recambioHecho);
     }
     public List<RecambioHecho> findByRecambio(Recambio recambio){
@@ -42,13 +41,10 @@ public class RecambioHechoService {
     }
 
     public RecambioHecho findByRecambioAndFecha(int recambio, LocalDate fecha){
-        System.out.println(recambio);
-        System.out.println(fecha);
-        System.out.println(this.repository.findByRecambioAndFecha(recambio,fecha));
         return this.repository.findByRecambioAndFecha(recambio,fecha);
     }
 
-    public RecambioHecho findRecambioById(int id_recambio_hecho){
-        return this.repository.findById(id_recambio_hecho);
+    public RecambioHecho findRecambioById(int idRecambioHecho){
+        return this.repository.findById(idRecambioHecho);
     }
 }

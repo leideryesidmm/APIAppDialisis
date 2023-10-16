@@ -32,15 +32,15 @@ public class ParentescoService {
         return this.repository.findAll();
     }
 
-    public Parentesco findById(int id_parentesco){
-        Optional<Parentesco> optionalParentesco= this.repository.findById(id_parentesco);
+    public Parentesco findById(int idParentesco){
+        Optional<Parentesco> optionalParentesco= this.repository.findById(idParentesco);
         if (optionalParentesco.isEmpty()) {
             throw new ToDoExceptions("Parentesco no encontrado", HttpStatus.NOT_FOUND);
         }
         return optionalParentesco.get();
     }
     @Transactional
-    public void actualizarParentesco(int id_parentesco, String descricion){
-        this.repository.actualizarParentesco(id_parentesco,descricion);
+    public void actualizarParentesco(int idParentesco, String descricion){
+        this.repository.actualizarParentesco(idParentesco,descricion);
     }
 }

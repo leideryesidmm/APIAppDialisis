@@ -34,8 +34,8 @@ public class RecambioService {
         return this.repository.findByPrescripcionDia(prescripcionDia);
     }
 
-    public void deleteById(int id_recambio){
-        this.repository.deleteById(id_recambio);
+    public void deleteById(int idRecambio){
+        this.repository.deleteById(idRecambio);
 
     }
 

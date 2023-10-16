@@ -45,15 +45,14 @@ public class UsuarioController {
     @PatchMapping("/cambiarContrasenia")
     public ResponseEntity<Void> cambiarcontrasenia(@RequestBody UsuarioInDto usuarioInDto){
 
-        this.usuarioService.cambiarcontraseña(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
+        this.usuarioService.cambiarContraseña(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/cambioContraseniaPrimeraVez")
     public ResponseEntity<Void> cambiarcontraseniaPrimeraVez(@RequestBody UsuarioInDto usuarioInDto){
-        System.out.println(usuarioInDto);
         if(usuarioInDto.getContrasenia()!="") {
-            this.usuarioService.cambiocontraseñaPrimeraVez(usuarioInDto.getCedula(), usuarioInDto.getContrasenia());
+            this.usuarioService.cambioContraseñaPrimeraVez(usuarioInDto.getCedula(), usuarioInDto.getContrasenia());
         }
         this.usuarioService.marcarCambiada(usuarioInDto.getCedula());
         return ResponseEntity.noContent().build();
@@ -66,7 +65,6 @@ public class UsuarioController {
 
     @PostMapping("/imagen")
     public ResponseEntity<byte[]> getUsuarioFoto(@RequestBody UsuarioInDto usuarioInDto) {
-        System.out.println(usuarioInDto);
         byte[] fotoBytes = usuarioService.getFotoByCedula(usuarioInDto.getCedula());
 
         HttpHeaders headers = new HttpHeaders();
@@ -77,8 +75,6 @@ public class UsuarioController {
 
     @PostMapping("/crearMedico")
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
-
-        System.out.println(medicoInDto);
         return this.medicoService.crearMedico(medicoInDto);
     }
 
@@ -89,7 +85,6 @@ public class UsuarioController {
 
     @PatchMapping("/actualizarMedico")
     public ResponseEntity<Void> actualizarDatosMedico(@RequestBody MedicoInDto medicoInDto){
-        System.out.println(medicoInDto);
         try{
             Medico medico= this.medicoService.findByCedula(medicoInDto.getCedula());
             this.medicoService.actualizarDatosMedico(medicoInDto, medico);

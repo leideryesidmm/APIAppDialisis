@@ -25,7 +25,7 @@ public class ExceptionsEntitys {
 
     public void errorString(String cadena){
         boolean nombre=contieneSoloLetras(cadena);
-        if(nombre==false){
+        if(!nombre){
             throw new FieldInvalidException("nombre " + cadena+ ", no puede contener numeros");
         }
     }

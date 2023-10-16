@@ -13,19 +13,13 @@ import java.util.List;
 @Service
 public class MedicoService {
     private final MedicoRepository medicoRepository;
-    private final PrescripcionDiaRepository prescripcionRepository;
     private final MedicoInDtoToMedico mapper;
 
-    public MedicoService( PrescripcionDiaRepository prescripcionRepository, MedicoRepository medicoRepository, MedicoInDtoToMedico mapper) {
+    public MedicoService(MedicoRepository medicoRepository, MedicoInDtoToMedico mapper) {
         this.medicoRepository = medicoRepository;
         this.mapper = mapper;
-        this.prescripcionRepository=prescripcionRepository;
     }
 
-    public Medico createoUpdateMedico(MedicoInDto medicoInDto){
-        Medico medico=mapper.map(medicoInDto);
-        return this.medicoRepository.save(medico);
-    }
     public List<Medico> findAll(){
         return this.medicoRepository.findAll();
     }

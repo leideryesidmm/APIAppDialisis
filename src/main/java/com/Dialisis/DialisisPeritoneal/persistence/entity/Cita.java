@@ -18,9 +18,6 @@ public class Cita {
     @ManyToOne
     @JoinColumn(name = "medico")
     private Medico medico;
-    /*@ManyToOne
-    @JoinColumn(name = "especialidad_medico")
-    Especialidad especialidad_medico;*/
     @ManyToOne
     @JoinColumn(name = "paciente")
     private Paciente paciente;

@@ -41,9 +41,9 @@ public class AlergiaService {
         return this.repository.findAll();
     }
 
-    public Alergia findById(int id_alergia){
-        exceptionsEntitysAlergia.errorId(id_alergia);
-        return this.repository.findById(id_alergia);
+    public Alergia findById(int idAlergia){
+        exceptionsEntitysAlergia.errorId(idAlergia);
+        return this.repository.findById(idAlergia);
     }
     @Transactional
     public Alergia actualizarAlergia(int idAlergia, AlergiaInDto alergiaInDto){

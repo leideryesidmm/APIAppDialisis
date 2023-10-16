@@ -21,6 +21,7 @@ public class Usuario {
     private String tipo_documento;
 
     public Usuario() {
+        //Fue necesario añadir un constructor vacio para crear un objeto usuario sin datos en otra seccion
     }
 
 }

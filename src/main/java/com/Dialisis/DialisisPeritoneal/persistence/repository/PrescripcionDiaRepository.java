@@ -16,7 +16,7 @@ public interface PrescripcionDiaRepository extends JpaRepository<PrescripcionDia
     @Query(value = "update prescripcion set orificioSalida=:orificioSalida, nocheSeca=:nocheSeca where id_prescripcion=:id_prescripcion", nativeQuery = true)
     public void actualizarPrescripcion(@Param("orificioSalida") String orificioSalida,
                                        @Param("nocheSeca") boolean nocheSeca,
-                                       @Param("id_prescripcion") int id_prescripcion);
+                                       @Param("id_prescripcion") int idPrescripcion);
 
     public List<PrescripcionDia> findByCita(Cita cita);
 

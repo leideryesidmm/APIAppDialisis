@@ -17,5 +17,5 @@ public interface AlergiaRepository extends JpaRepository<Alergia, Integer> {
     @Modifying
     @Query(value = "update alergia set nombre=:nombre where id_alergia=:id_alergia", nativeQuery = true)
     public void actualizarAlergia(@Param("nombre")String nombre,
-                                  @Param("id_alergia")int id_alergia);
+                                  @Param("id_alergia")int idAlergia);
 }

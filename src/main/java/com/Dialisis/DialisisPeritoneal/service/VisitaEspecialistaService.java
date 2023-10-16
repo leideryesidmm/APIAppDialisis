@@ -31,12 +31,11 @@ public class VisitaEspecialistaService {
     }
 
     public VisitaEspecialista findUltimaVisita(int idCita) {
-        System.out.println(idCita);
         List<VisitaEspecialista> visitas=this.repository.findUltimaVisita(idCita);
         if(visitas.isEmpty())
             return null;
-            else
-        return visitas.get(0);
+        else
+            return visitas.get(0);
     }
 
     public List<VisitaEspecialista> findAllVisitas(List<Cita> citas){
@@ -44,19 +43,18 @@ public class VisitaEspecialistaService {
         for (Cita cita:citas){
             VisitaEspecialista visitaEspecialista=this.repository.findByCita(cita);
             if(visitaEspecialista!=null)
-            visitas.add(visitaEspecialista);
+                visitas.add(visitaEspecialista);
         }
         if(visitas.isEmpty())
             return null;
-            else{
-                return visitas;}
+        else{
+            return visitas;}
     }
 
     @Transactional
     public void actualizarVisita(int idVisita, VisitaEspecialistaInDto visitaEspecialistaInDto){
         VisitaEspecialista visitaEspecialista= mapper.map(visitaEspecialistaInDto);
         visitaEspecialista.setIdVistaEspecialista(idVisita);
-        System.out.println(visitaEspecialista);
         this.repository.save(visitaEspecialista);
     }
 }

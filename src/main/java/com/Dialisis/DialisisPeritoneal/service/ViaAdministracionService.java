@@ -37,7 +37,7 @@ public class ViaAdministracionService {
         ViaAdministracion viaAdministracion=mapper.map(viaAdministracionInDto);
         return this.repository.save(viaAdministracion);
     }
-    public ViaAdministracion UpdateViaAdministracion(int id,ViaAdministracionInDto viaAdministracionInDto){
+    public ViaAdministracion updateViaAdministracion(int id,ViaAdministracionInDto viaAdministracionInDto){
         ViaAdministracion viaAdministracion=mapper.map(viaAdministracionInDto);
         viaAdministracion.setIdViaAdministracion(id);
         return this.repository.save(viaAdministracion);

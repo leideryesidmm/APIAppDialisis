@@ -36,8 +36,8 @@ public class CuidadorPacienteService {
         return this.repository.findAllByPaciente(new Paciente(paciente));
     }
 
-    public CuidadorPaciente findById(int id_cuidadorpaciente){
-        Optional<CuidadorPaciente> optionalCuidadorPaciente = this.repository.findById(id_cuidadorpaciente);
+    public CuidadorPaciente findById(int idCuidadorpaciente){
+        Optional<CuidadorPaciente> optionalCuidadorPaciente = this.repository.findById(idCuidadorpaciente);
         if (optionalCuidadorPaciente.isEmpty()) {
             throw new ToDoExceptions("Cormobilidad no encontrada", HttpStatus.NOT_FOUND);
         }
@@ -47,13 +47,13 @@ public class CuidadorPacienteService {
     public CuidadorPaciente findCuidadorActivo(String cedula){
         return this.repository.findCuidadorActivo(cedula);
     }
-    public void actualizarCuidadorPaciente(int id_cuidador_paciente, Date fechaini,Date fecha_fin, boolean activo){
-        this.repository.actualizarCuidadorPaciente(id_cuidador_paciente,fechaini,fecha_fin, activo);
+    public void actualizarCuidadorPaciente(int idCuidadorPaciente, Date fechaini,Date fechaFin, boolean activo){
+        this.repository.actualizarCuidadorPaciente(idCuidadorPaciente,fechaini,fechaFin, activo);
     }
     @Transactional
-    public void inactivarCuidador(int id_cuidador_paciente){
-        LocalDate fecha_final= LocalDate.now();
-        this.repository.inactivarCuidador(id_cuidador_paciente,fecha_final);
+    public void inactivarCuidador(int idCuidadorPaciente){
+        LocalDate fechaFinal= LocalDate.now();
+        this.repository.inactivarCuidador(idCuidadorPaciente,fechaFinal);
     }
 
 }

@@ -40,10 +40,6 @@ public class MedicoController{
         return ResponseEntity.ok(pacientes);
     }
 
-    @PostMapping("/crearOActualizar")
-    public Medico crearoUpdateMedico(@RequestBody MedicoInDto medicoInDto){
-        return this.medicoService.createoUpdateMedico(medicoInDto);
-    }
     @GetMapping("/findAll")
     public List<Medico> findAllMedicos(){
         return this.medicoService.findAll();
@@ -86,7 +82,6 @@ public class MedicoController{
 
     @PostMapping("/visitaEspecialista")
     public ResponseEntity<VisitaEspecialista>  crearVisitaEspecialista(@RequestBody VisitaEspecialistaInDto visitaEspecialistaDto){
-        System.out.println(visitaEspecialistaDto);
         VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
         return ResponseEntity.ok(visitaEspecialista);
 
@@ -116,8 +111,8 @@ public class MedicoController{
 
 
     @PostMapping("/encontrarVisita/{id_cita}")
-    public ResponseEntity<VisitaEspecialista> encontrarVisita(@PathVariable("id_cita") int id_cita) {
-        VisitaEspecialista visita=this.visitaService.findUltimaVisita(id_cita);
+    public ResponseEntity<VisitaEspecialista> encontrarVisita(@PathVariable("id_cita") int idCita) {
+        VisitaEspecialista visita=this.visitaService.findUltimaVisita(idCita);
         if(visita==null){
             return ResponseEntity.noContent().build();
         }

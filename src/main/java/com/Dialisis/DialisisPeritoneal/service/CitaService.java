@@ -31,9 +31,6 @@ public class CitaService {
     public Cita crearCita(CitaInDto citaInDto) {
 
         LocalDateTime now = LocalDateTime.now();
-        //if(citaInDto.getFecha().isBefore(now)){
-        //throw new ToDoExceptions("Fecha de la cita inválida", HttpStatus.BAD_REQUEST);
-        //}
             Cita cita = mapper.map(citaInDto);
 
             return this.repository.save(cita);
@@ -42,8 +39,8 @@ public class CitaService {
     public List<Cita> findAllByPaciente(Paciente cedula){
         return this.repository.findAllByPaciente(cedula);
     }
-    public Cita findById(int id_cita){
-        Optional<Cita> optionalCita = this.repository.findById(id_cita);
+    public Cita findById(int idCita){
+        Optional<Cita> optionalCita = this.repository.findById(idCita);
         if (optionalCita.isEmpty()) {
             throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
         }
@@ -51,10 +48,8 @@ public class CitaService {
     }
     @Transactional
     public void actualizarCita(int id_cita,CitaInDto citaInDto){
-        //this.repository.actualizarCita(id_cita,citaInDto.getMedico(),citaInDto.getPaciente(),citaInDto.getFecha(),citaInDto.getHora());
     }
     public void deleteById(int id_cita){
-        System.out.println(id_cita);
         Optional<Cita> optionalCita = this.repository.findById(id_cita);
         if (optionalCita.isEmpty()) {
             throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
@@ -77,17 +72,11 @@ public class CitaService {
         return this.repository.findAllCitasFuturasByPaciente(cedula,hoy);
     }
 
-    public void excepciones(CitaInDto citaInDto, BindingResult result){
-        LocalDateTime now= LocalDateTime.now();
-        if(citaInDto.getFecha().isBefore(now)){
-            throw new ToDoExceptions("Fecha de la cita inválida", HttpStatus.BAD_REQUEST);
-        }
-    }
+
     public Cita findUltimaCita(Paciente paciente) {
         List<Cita> citas=this.repository.findUltimaCita(paciente);
-        System.out.println(citas);
             if(citas.isEmpty())
-        return null;
+                return null;
             else {
                 return citas.get(0);
             }

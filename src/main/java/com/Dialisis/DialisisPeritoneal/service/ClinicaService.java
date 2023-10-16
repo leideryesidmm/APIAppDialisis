@@ -33,15 +33,15 @@ public class ClinicaService {
         return this.repository.findAll();
     }
 
-    public Clinica findById(int id_clinica){
-        Optional<Clinica> optionalClinica = this.repository.findById(id_clinica);
+    public Clinica findById(int idClinica){
+        Optional<Clinica> optionalClinica = this.repository.findById(idClinica);
         if (optionalClinica.isEmpty()) {
             throw new ToDoExceptions("Clinica no encontrada", HttpStatus.NOT_FOUND);
         }
         return optionalClinica.get();
     }
     @Transactional
-    public void actualizarClinica(int id_clinica,String nombre, String direccion){
-        this.repository.actualizarClinica(id_clinica,nombre,direccion);
+    public void actualizarClinica(int idClinica,String nombre, String direccion){
+        this.repository.actualizarClinica(idClinica,nombre,direccion);
     }
 }

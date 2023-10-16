@@ -15,14 +15,14 @@ public interface CuidadorPacienteRepository extends JpaRepository<CuidadorPacien
 
     @Modifying
     @Query(value = "Update cuidador_paciente set activo=false, fecha_fin=:fecha_fin where id_cuidador_paciente=:id_cuidador_paciente", nativeQuery = true)
-    public void inactivarCuidador(@Param("id_cuidador_paciente") long id_cuidador_paciente,
+    public void inactivarCuidador(@Param("id_cuidador_paciente") long idCuidadorPaciente,
                                   @Param("fecha_fin") LocalDate fecha_fin);
 
     @Modifying
     @Query(value = "update cuidador_paciente set fecha_ini=:fecha_ini,fecha_fin=:fecha_fin, activo=:activo where id_cuidador_paciente=:id_cuidador_paciente", nativeQuery = true)
-    public void actualizarCuidadorPaciente(@Param("id_cuidador_paciente")int id_cuidador_paciente,
-                                           @Param("fecha_ini") Date fecha_ini,
-                                           @Param("fecha_fin")Date fecha_fin,
+    public void actualizarCuidadorPaciente(@Param("id_cuidador_paciente")int idCuidadorPaciente,
+                                           @Param("fecha_ini") Date fechaIni,
+                                           @Param("fecha_fin")Date fechaFin,
                                            @Param("activo")boolean activo);
     public List<CuidadorPaciente> findAllByPaciente(Paciente cedula);
     @Query(value = "SELECT * from cuidador c join cuidador_paciente cp on c.cedula_cuidador=cp.cuidador join parentesco p on c.parentesco=p.id_parentesco where cp.paciente=:cedula and cp.activo=true", nativeQuery = true)

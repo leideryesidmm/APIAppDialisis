@@ -33,29 +33,29 @@ public class FormulaMedicamentoService {
         return this.repository.findAll();
     }
 
-    public FormulaMedicamento findById(int id_formula_medicamento){
-        Optional<FormulaMedicamento> optionalFormulaMedicamento = this.repository.findById(id_formula_medicamento);
+    public FormulaMedicamento findById(int idFormulaMedicamento){
+        Optional<FormulaMedicamento> optionalFormulaMedicamento = this.repository.findById(idFormulaMedicamento);
         if (optionalFormulaMedicamento.isEmpty()) {
             throw new ToDoExceptions("Formula Medicamento no encontrada", HttpStatus.NOT_FOUND);
         }
         return optionalFormulaMedicamento.get();
     }
     @Transactional
-    public void actualizarFormula(int id_formula_medicamento,FormulaMedicamentoInDto formulaMedicamentoInDto){
+    public void actualizarFormula(int idFormulaMedicamento,FormulaMedicamentoInDto formulaMedicamentoInDto){
         FormulaMedicamento formulaMedicamento= mapper.map(formulaMedicamentoInDto);
-        formulaMedicamento.setIdFormulaMedicamento(id_formula_medicamento);
+        formulaMedicamento.setIdFormulaMedicamento(idFormulaMedicamento);
         this.repository.save(formulaMedicamento);
     }
     public  List<FormulaMedicamento> findAllByPaciente(String pacientein){
         Paciente paciente=new Paciente(pacientein);
         return this.repository.findAllByPaciente(paciente);
     }
-    public void deleteById(int id_medicamento){
-        Optional<FormulaMedicamento> optionalCita = this.repository.findById(id_medicamento);
+    public void deleteById(int idMedicamento){
+        Optional<FormulaMedicamento> optionalCita = this.repository.findById(idMedicamento);
         if (optionalCita.isEmpty()) {
             throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
         }else {
-            this.repository.deleteById(id_medicamento);
+            this.repository.deleteById(idMedicamento);
         }
     }
 }

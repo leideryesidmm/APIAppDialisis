@@ -33,16 +33,16 @@ public class PacienteAlergiaService {
         return this.repository.findAll();
     }
 
-    public PacienteAlergia findById(int id_paciente_alergia){
-        Optional<PacienteAlergia> optionalPacienteAlergia= this.repository.findById(id_paciente_alergia);
+    public PacienteAlergia findById(int idPacienteAlergia){
+        Optional<PacienteAlergia> optionalPacienteAlergia= this.repository.findById(idPacienteAlergia);
         if (optionalPacienteAlergia.isEmpty()) {
             throw new ToDoExceptions("Alergia de paciente no encontrada", HttpStatus.NOT_FOUND);
         }
         return optionalPacienteAlergia.get();
     }
     @Transactional
-    public void actualizarPacienteAlergia(int id_paciente_alergia, String paciente, int alergia, boolean activa){
-        this.repository.actualizarPacienteAlergia(id_paciente_alergia,paciente,alergia, activa);
+    public void actualizarPacienteAlergia(int idPacienteAlergia, String paciente, int alergia, boolean activa){
+        this.repository.actualizarPacienteAlergia(idPacienteAlergia,paciente,alergia, activa);
     }
     public List<PacienteAlergia> findAllByPaciente(String cedula){
         return this.repository.findAllByPaciente(cedula);
@@ -55,8 +55,8 @@ public class PacienteAlergiaService {
         this.repository.inactivarAlergia(cedula,idPacienteAlergia);
     }
     @Transactional
-    public void activarAlergia(long cedula,int id_aAlergia){
-        this.repository.activarAlergia(cedula,id_aAlergia);
+    public void activarAlergia(long cedula,int idAlergia){
+        this.repository.activarAlergia(cedula,idAlergia);
     }
 
     public List<PacienteAlergia> findAlergiasPasadas(long cedula){

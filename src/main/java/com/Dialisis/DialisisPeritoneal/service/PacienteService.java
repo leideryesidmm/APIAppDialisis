@@ -29,7 +29,6 @@ public class PacienteService {
         this.mapper = mapper;
     }
     public Paciente crearPaciente(PacienteInDto pacienteInDto) {
-        System.out.println(pacienteInDto);
         if (pacienteInDto.getPeso() < pacienteInDto.getPesoSeco()) {
 
             throw new ToDoExceptions("Peso seco debe ser menor a peso", HttpStatus.NOT_FOUND);
@@ -48,15 +47,7 @@ public class PacienteService {
         return this.repository.findByCedula(cedula);
     }
 
-   /* public void uploadPhoto(String cedula, MultipartFile foto) {
-        Paciente paciente =repository.findByCedula(cedula);
-        try {
-            paciente.setFoto(foto.getBytes());
-            repository.save(paciente);
-        } catch (IOException e) {
-            throw new RuntimeException("Error al cargar la imagen del paciente", e);
-        }
-    }*/
+
     @Transactional
     public void actualizarDatosPaciente(PacienteInDto pacienteInDto, Paciente paciente) {
         Paciente pac= mapper.map(pacienteInDto);

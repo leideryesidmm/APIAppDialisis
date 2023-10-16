@@ -37,13 +37,13 @@ public class ChequeoMensualService {
         if(chequeos.isEmpty())
             return null;
         else
-        return chequeos.get(0);
+            return chequeos.get(0);
     }
 
     @Transactional
-    public void actualizarChequeo(int id_chequeo_mensual, ChequeoMensualInDto chequeoMensualInDto){
+    public void actualizarChequeo(int idChequeoMensual, ChequeoMensualInDto chequeoMensualInDto){
         ChequeoMensual chequeoMensual= mapper.map(chequeoMensualInDto);
-        chequeoMensual.setIdChequeoMensual(id_chequeo_mensual);
+        chequeoMensual.setIdChequeoMensual(idChequeoMensual);
         this.repository.save(chequeoMensual);
     }
 

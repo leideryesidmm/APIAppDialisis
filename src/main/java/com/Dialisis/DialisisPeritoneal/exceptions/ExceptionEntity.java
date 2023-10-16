@@ -1,7 +1,9 @@
 package com.Dialisis.DialisisPeritoneal.exceptions;
 
 public class ExceptionEntity {
-
+    private ExceptionEntity() {
+        // Este constructor está vacío
+    }
     public static boolean contieneSoloLetras(String cadena) {
         for (int x = 0; x < cadena.length(); x++) {
             char c = cadena.charAt(x);

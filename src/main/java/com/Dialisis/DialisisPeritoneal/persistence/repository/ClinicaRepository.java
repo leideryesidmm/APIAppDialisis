@@ -15,7 +15,7 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Integer> {
 
     @Modifying
     @Query(value = "update clinica set nombre=:nombre, direccion=:direccion where id_clinica=:id_clinica", nativeQuery = true)
-    public void actualizarClinica(@Param("id_clinica") int id_clinica,
+    public void actualizarClinica(@Param("id_clinica") int idClinica,
                                   @Param("nombre") String nombre,
                                   @Param("direccion") String direccion);
 }

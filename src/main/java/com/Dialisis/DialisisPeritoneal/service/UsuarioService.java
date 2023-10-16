@@ -41,12 +41,12 @@ public class UsuarioService {
         return usuario.getFoto();
     }
     @Transactional
-    public void cambiarcontraseña(String cedula,String contrasenia){
+    public void cambiarContraseña(String cedula,String contrasenia){
         this.repository.cambiarcontraseña(cedula,contrasenia);
     }
 
     @Transactional
-    public void cambiocontraseñaPrimeraVez(String cedula,String contrasenia){
+    public void cambioContraseñaPrimeraVez(String cedula,String contrasenia){
         this.repository.cambiocontraseñaPrimeraVez(cedula,contrasenia);
     }
 
@@ -61,8 +61,7 @@ public class UsuarioService {
     }
 
     public Usuario findAdmin(){
-        Usuario usuario=this.repository.findBytipoUsuario("admin");
-        return usuario;
+        return this.repository.findBytipoUsuario("admin");
     }
 
     @Transactional

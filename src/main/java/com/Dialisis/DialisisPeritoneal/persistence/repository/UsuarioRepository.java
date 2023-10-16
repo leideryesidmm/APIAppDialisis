@@ -32,7 +32,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
                                @Param("celular") String celular);
 
 
-    public Usuario findBytipoUsuario(String tipo_usuario);
+    public Usuario findBytipoUsuario(String tipoUsuario);
 
 
     @Modifying
