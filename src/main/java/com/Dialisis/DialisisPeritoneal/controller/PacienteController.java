@@ -303,7 +303,7 @@ public class PacienteController {
     }
     @PostMapping("/medicamento/viaAdministración/actualizar/{id}")
     public void crearViaAdministracion(@PathVariable("id") int id,@RequestBody ViaAdministracionInDto viaAdministracionInDto){
-        this.viaAdministracionService.UpdateViaAdministracion(id,viaAdministracionInDto);
+        this.viaAdministracionService.updateViaAdministracion(id,viaAdministracionInDto);
     }
     @DeleteMapping("/medicamento/eliminar/{id_medicamento}")
     public ResponseEntity<Void> deleteMedicamento(@PathVariable("id_medicamento") int idMedicamento) {
