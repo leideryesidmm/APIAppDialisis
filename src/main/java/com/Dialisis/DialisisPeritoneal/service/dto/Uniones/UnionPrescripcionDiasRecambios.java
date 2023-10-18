@@ -1,7 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.service.dto.Uniones;
+package com.dialisis.dialisisperitoneal.service.dto.uniones;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.PrescripcionDia;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
+import com.dialisis.dialisisperitoneal.persistence.entity.PrescripcionDia;
+import com.dialisis.dialisisperitoneal.persistence.entity.Recambio;
 import lombok.Data;
 
 import java.util.List;

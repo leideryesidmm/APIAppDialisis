@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.exceptions;
+package com.dialisis.dialisisperitoneal.exceptions;
 
 public class BadRequestException extends RuntimeException{
     private static final String DESCRIPCION="Bad Request Exception (400)";

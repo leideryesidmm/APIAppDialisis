@@ -1,13 +1,9 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.mapper.RecambioHechoInDtoToRecambioHecho;
-import com.Dialisis.DialisisPeritoneal.mapper.VisitaEspecialistaInDtoToVisitaEspecialista;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.RecambioHechoRepository;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.VisitaEspecialistaRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.FormulaMedicamentoInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.RecambioHechoInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.VisitaEspecialistaInDto;
+import com.dialisis.dialisisperitoneal.mapper.VisitaEspecialistaInDtoToVisitaEspecialista;
+import com.dialisis.dialisisperitoneal.persistence.entity.*;
+import com.dialisis.dialisisperitoneal.persistence.repository.VisitaEspecialistaRepository;
+import com.dialisis.dialisisperitoneal.service.dto.VisitaEspecialistaInDto;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,10 +41,7 @@ public class VisitaEspecialistaService {
             if(visitaEspecialista!=null)
                 visitas.add(visitaEspecialista);
         }
-        if(visitas.isEmpty())
-            return null;
-        else{
-            return visitas;}
+            return visitas;
     }
 
     @Transactional

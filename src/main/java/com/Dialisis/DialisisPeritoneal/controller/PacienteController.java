@@ -1,10 +1,10 @@
-package com.Dialisis.DialisisPeritoneal.controller;
+package com.dialisis.dialisisperitoneal.controller;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.UsuarioRepository;
-import com.Dialisis.DialisisPeritoneal.service.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.Uniones.*;
+import com.dialisis.dialisisperitoneal.persistence.entity.*;
+import com.dialisis.dialisisperitoneal.persistence.repository.UsuarioRepository;
+import com.dialisis.dialisisperitoneal.service.*;
+import com.dialisis.dialisisperitoneal.service.dto.*;
+import com.dialisis.dialisisperitoneal.service.dto.uniones.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -102,7 +102,6 @@ public class PacienteController {
 
             return ResponseEntity.ok("{\"success\": true}");
         } catch (Exception ex) {
-            ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"success\": false}");
         }
     }
@@ -142,7 +141,7 @@ public class PacienteController {
         cuidadorPacienteInDto.setCuidador(unionCuidadorPacienteInDto.getCuidadorInDto().getCedulaCuidador());
         cuidadorPacienteInDto.setPaciente(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
         LocalDate fechaIni = LocalDate.now();
-        cuidadorPacienteInDto.setFecha_ini(fechaIni);
+        cuidadorPacienteInDto.setFechaIni(fechaIni);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
@@ -152,7 +151,7 @@ public class PacienteController {
         cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
         cuidadorPacienteInDto.setPaciente(cuidadorPacienteInDto.getCuidador());
         LocalDate fechaIni = LocalDate.now();
-        cuidadorPacienteInDto.setFecha_ini(fechaIni);
+        cuidadorPacienteInDto.setFechaIni(fechaIni);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
@@ -169,7 +168,7 @@ public class PacienteController {
         cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
         cuidadorPacienteInDto.setPaciente(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
         LocalDate fechaIni = LocalDate.now();
-        cuidadorPacienteInDto.setFecha_ini(fechaIni);
+        cuidadorPacienteInDto.setFechaIni(fechaIni);
         this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
 
@@ -240,13 +239,11 @@ public class PacienteController {
     }
     @GetMapping("/cita/listByPaciente/{cedula}")
     public List<Cita> findAllCitas(@PathVariable("cedula")String cedula){
-        Paciente paciente=new Paciente(cedula);
+        PacienteInDto paciente=new PacienteInDto();
+        paciente.setCedula(cedula);
         return this.citaService.findAllByPaciente(paciente);
     }
-    @PatchMapping("/cita/actualizar/{id_cita}")
-    public void actualizarCita(@PathVariable("id_cita")int idCita,@RequestBody CitaInDto citaInDto){
-        this.citaService.actualizarCita(idCita, citaInDto);
-    }
+
     @DeleteMapping("/cita/eliminar/{id_cita}")
     public void eliminarCita(@PathVariable("id_cita")int idCita){
         this.citaService.deleteById(idCita);
@@ -319,7 +316,7 @@ public class PacienteController {
             return ResponseEntity.ok(citas);
     }
     @PostMapping("/prescripcionesByPaciente")
-    public ResponseEntity<List<UnionCitaPrescripcionDias>> getPresciscionesByPaciente(@RequestBody Paciente paciente){
+    public ResponseEntity<List<UnionCitaPrescripcionDias>> getPresciscionesByPaciente(@RequestBody PacienteInDto paciente){
         List<Cita> citas=this.citaService.findAllByPaciente(paciente);
 
         List<UnionCitaPrescripcionDias> prescripciones=new ArrayList<>();
@@ -347,8 +344,9 @@ public class PacienteController {
         }
     }
     @PostMapping("/prescripcion/prescripcionActual")
-    public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody Paciente paciente){
-        Cita cita=this.citaService.findUltimaCita(paciente);
+    public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody PacienteInDto paciente){
+        Paciente paciente1=new Paciente(paciente.getCedula());
+        Cita cita=this.citaService.findUltimaCita(paciente1);
         if(cita==null)
             return ResponseEntity.noContent().build();
         else{
@@ -374,6 +372,7 @@ public class PacienteController {
     @PostMapping("/recambio/crearRecambioHecho")
     public ResponseEntity<RecambioHecho>  crearRecambioHecho(@RequestBody RecambioHechoInDto recambioHechoInDto){
         try{
+            System.out.println(recambioHechoInDto);
             RecambioHecho recambioHecho=this.recambioHechoService.crearRecambio(recambioHechoInDto);
             return ResponseEntity.ok(recambioHecho);
         }catch (Exception e){
@@ -392,15 +391,19 @@ public class PacienteController {
     }
 
     @PostMapping("/recambio/findRecambioHechoByPaciente")
-    public ResponseEntity<List<RecambioHecho>>  findRecambioHechoByPaciente(@RequestBody Paciente paciente){
+    public ResponseEntity<List<RecambioHecho>>  findRecambioHechoByPaciente(@RequestBody PacienteInDto paciente){
         try{
             List<RecambioHecho> recambioHechos=new ArrayList<>();
             ResponseEntity<UnionCitaPrescripcionDias> unionCitaPrescripcionDias=getPresciscionActual(paciente);
             UnionCitaPrescripcionDias presciscionActual=unionCitaPrescripcionDias.getBody();
-            for(UnionPrescripcionDiasRecambios prescripcionDia :presciscionActual.getUnionPrescripcionDiasRecambios()) {
-                for(Recambio recambio:prescripcionDia.getRecambios()){
-                    List<RecambioHecho> recambioHechoLista2=this.recambioHechoService.findByRecambio(recambio);
-                    recambioHechos.addAll(recambioHechoLista2);
+            if(presciscionActual==null)
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            else{
+                for(UnionPrescripcionDiasRecambios prescripcionDia :presciscionActual.getUnionPrescripcionDiasRecambios()) {
+                    for(Recambio recambio:prescripcionDia.getRecambios()){
+                        List<RecambioHecho> recambioHechoLista2=this.recambioHechoService.findByRecambio(recambio);
+                        recambioHechos.addAll(recambioHechoLista2);
+                    }
                 }
             }
             return ResponseEntity.ok(recambioHechos);
@@ -435,7 +438,7 @@ public class PacienteController {
         this.recambioService.crearRecambio(recambioInDto, recambio);
     }
 
-    @PostMapping("/prescripcion/findRecambioHechoById/{id_recambio_hecho}")
+    @PostMapping("/prescripcion/findRecambioHechoById/{idRecambioHecho}")
     public ResponseEntity<RecambioHecho> findRecambioHechoById(@PathVariable int idRecambioHecho){
         try{
             RecambioHecho recambio=this.recambioHechoService.findRecambioById(idRecambioHecho);
@@ -446,8 +449,9 @@ public class PacienteController {
     }
 
     @PostMapping("/ultimaCita")
-    public ResponseEntity<Cita> ultimaCita(@RequestBody Paciente paciente){
-        Cita cita=this.citaService.findUltimaCita(paciente);
+    public ResponseEntity<Cita> ultimaCita(@RequestBody PacienteInDto paciente){
+        Paciente paciente1=new Paciente(paciente.getCedula());
+        Cita cita=this.citaService.findUltimaCita(paciente1);
         if(cita!=null)
             return ResponseEntity.ok(cita);
         else{
@@ -525,23 +529,23 @@ public class PacienteController {
     @PostMapping("/prescripcion/visitas")
     public ResponseEntity<List<VisitaEspecialista>> findAllVisitas(@RequestBody PacienteInDto pacienteInDto) {
 
-        List<Cita> citas= citaService.findAllByPaciente(new Paciente(pacienteInDto.getCedula()));
+        List<Cita> citas= citaService.findAllByPaciente(pacienteInDto);
         List<VisitaEspecialista> visitas = visitaEspecialistaService.findAllVisitas(citas);
-            if(visitas!=null)
-                return ResponseEntity.ok(visitas);
-            else
+            if(visitas.isEmpty())
                 return ResponseEntity.noContent().build();
+            else
+                return ResponseEntity.ok(visitas);
     }
 
     @PostMapping("/prescripcion/chequeos")
     public ResponseEntity<List<ChequeoMensual>> findAllChequeos(@RequestBody PacienteInDto pacienteInDto) {
 
-        List<Cita> citas= citaService.findAllByPaciente(new Paciente(pacienteInDto.getCedula()));
+        List<Cita> citas= citaService.findAllByPaciente(pacienteInDto);
         List<ChequeoMensual> chequeos = chequeoMensualService.findAllChequeos(citas);
-        if(chequeos!=null)
-            return ResponseEntity.ok(chequeos);
-        else
+        if(chequeos.isEmpty())
             return ResponseEntity.noContent().build();
+        else
+            return ResponseEntity.ok(chequeos);
     }
     @GetMapping("/ListParentesco")
     public List<Parentesco> findAllParentesco() {
@@ -555,4 +559,6 @@ public class PacienteController {
     public Cita crearCita(@RequestBody CitaInDto citaInDto) {
         return this.citaService.crearCita(citaInDto);
     }
+
+
 }

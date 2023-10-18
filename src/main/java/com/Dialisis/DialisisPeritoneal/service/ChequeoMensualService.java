@@ -1,15 +1,10 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.mapper.ChequeoMensualInDtoToChequeoMensual;
-import com.Dialisis.DialisisPeritoneal.mapper.VisitaEspecialistaInDtoToVisitaEspecialista;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.ChequeoMensual;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.VisitaEspecialista;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.ChequeoMensualRepository;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.VisitaEspecialistaRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.ChequeoMensualInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.VisitaEspecialistaInDto;
+import com.dialisis.dialisisperitoneal.mapper.ChequeoMensualInDtoToChequeoMensual;
+import com.dialisis.dialisisperitoneal.persistence.entity.ChequeoMensual;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.persistence.repository.ChequeoMensualRepository;
+import com.dialisis.dialisisperitoneal.service.dto.ChequeoMensualInDto;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -54,9 +49,6 @@ public class ChequeoMensualService {
             if(chequeoM!=null)
                 chequeos.add(chequeoM);
         }
-        if(chequeos.isEmpty())
-            return null;
-        else{
-            return chequeos;}
+            return chequeos;
     }
 }

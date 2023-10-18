@@ -1,7 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.service.dto.Uniones;
+package com.dialisis.dialisisperitoneal.service.dto.uniones;
 
-import com.Dialisis.DialisisPeritoneal.service.dto.CuidadorInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
+import com.dialisis.dialisisperitoneal.service.dto.CuidadorInDto;
+import com.dialisis.dialisisperitoneal.service.dto.PacienteInDto;
 import lombok.Data;
 
 @Data

@@ -1,8 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.ChequeoMensual;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.service.dto.ChequeoMensualInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.ChequeoMensual;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.service.dto.ChequeoMensualInDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,7 +24,7 @@ public class ChequeoMensualInDtoToChequeoMensual implements IMapper<ChequeoMensu
         chequeoMensual.setFosforo(in.getFosforo());
         chequeoMensual.setNitrogenoUreico(in.getNitrogenoUreico());
         chequeoMensual.setPeso(in.getPeso());
-        chequeoMensual.setPeso_seco(in.getPeso_seco());
+        chequeoMensual.setPesoSeco(in.getPesoSeco());
         chequeoMensual.setKtv(in.getKtv());
         chequeoMensual.setGlucosa(in.getGlucosa());
         chequeoMensual.setCreatinina(in.getCreatinina());

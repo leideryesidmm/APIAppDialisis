@@ -1,7 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.FormulaMedicamentoInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.*;
+import com.dialisis.dialisisperitoneal.service.dto.FormulaMedicamentoInDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +13,7 @@ public class FormulaMedicamentoInDtoToFormulaMedicamento implements IMapper<Form
         formulaMedicamento.setTomas(in.getTomas());
         formulaMedicamento.setNombre(in.getNombre());
         formulaMedicamento.setConcentracion(in.getConcentracion());
-        formulaMedicamento.setViaAdministracion(new ViaAdministracion(in.getVia_Administracion()));
+        formulaMedicamento.setViaAdministracion(new ViaAdministracion(in.getViaAdministracion()));
         formulaMedicamento.setDescripcion(in.getDescripcion());
         formulaMedicamento.setFechaIni(in.getFechaIni());
         formulaMedicamento.setFechaFin(in.getFechaFin());

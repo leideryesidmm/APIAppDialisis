@@ -1,8 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.persistence.repository;
+package com.dialisis.dialisisperitoneal.persistence.repository;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.VisitaEspecialista;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.persistence.entity.VisitaEspecialista;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

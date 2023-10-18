@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+package com.dialisis.dialisisperitoneal.service.dto;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ public class FormulaMedicamentoInDto {
     private int tomas;
     private String nombre;
     private String descripcion;
-    private int via_Administracion;
+    private int viaAdministracion;
     private String concentracion;
     private LocalDateTime fechaIni;
     private LocalDateTime fechaFin;

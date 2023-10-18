@@ -1,16 +1,12 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.mapper.RecambioInDtoToRecambio;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.PrescripcionDia;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.RecambioHecho;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.RecambioRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.RecambioInDto;
-import net.bytebuddy.asm.Advice;
+import com.dialisis.dialisisperitoneal.mapper.RecambioInDtoToRecambio;
+import com.dialisis.dialisisperitoneal.persistence.entity.PrescripcionDia;
+import com.dialisis.dialisisperitoneal.persistence.entity.Recambio;
+import com.dialisis.dialisisperitoneal.persistence.repository.RecambioRepository;
+import com.dialisis.dialisisperitoneal.service.dto.RecambioInDto;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service

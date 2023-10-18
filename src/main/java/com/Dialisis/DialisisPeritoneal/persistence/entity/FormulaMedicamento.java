@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+package com.dialisis.dialisisperitoneal.persistence.entity;
 
 import lombok.Data;
 

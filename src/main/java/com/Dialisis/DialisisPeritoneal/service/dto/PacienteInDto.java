@@ -1,13 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+package com.dialisis.dialisisperitoneal.service.dto;
 
 import lombok.Data;
-
-import javax.persistence.Basic;
-import javax.persistence.FetchType;
-import javax.persistence.Lob;
 import java.time.LocalDateTime;
-import java.util.Date;
-
 @Data
 public class PacienteInDto extends UsuarioInDto {
     private String cedula;
@@ -19,10 +13,10 @@ public class PacienteInDto extends UsuarioInDto {
     private String direccion;
     private String ocupacion;
     private String tipoSangre;
-    private LocalDateTime fecha_registro;
+    private LocalDateTime fechaRegistro;
     private char rh;
     private boolean diabetes;
     private boolean hipertension;
-    private boolean cambio_contrasenia;
+    private boolean cambioContrasenia;
 }
 

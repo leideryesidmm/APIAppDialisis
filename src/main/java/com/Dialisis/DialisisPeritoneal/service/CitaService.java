@@ -1,15 +1,14 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
-import com.Dialisis.DialisisPeritoneal.mapper.CitaInDtoToCita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.FormulaMedicamento;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.CitaRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.CitaInDto;
+import com.dialisis.dialisisperitoneal.exceptions.ToDoExceptions;
+import com.dialisis.dialisisperitoneal.mapper.CitaInDtoToCita;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
+import com.dialisis.dialisisperitoneal.persistence.repository.CitaRepository;
+import com.dialisis.dialisisperitoneal.service.dto.CitaInDto;
+import com.dialisis.dialisisperitoneal.service.dto.PacienteInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import javax.transaction.Transactional;
 import java.time.*;
@@ -29,14 +28,14 @@ public class CitaService {
     }
 
     public Cita crearCita(CitaInDto citaInDto) {
-
-        LocalDateTime now = LocalDateTime.now();
             Cita cita = mapper.map(citaInDto);
 
             return this.repository.save(cita);
     }
 
-    public List<Cita> findAllByPaciente(Paciente cedula){
+    public List<Cita> findAllByPaciente(PacienteInDto paciente){
+        Paciente cedula=new Paciente();
+        cedula.setCedula(paciente.getCedula());
         return this.repository.findAllByPaciente(cedula);
     }
     public Cita findById(int idCita){
@@ -46,15 +45,13 @@ public class CitaService {
         }
         return optionalCita.get();
     }
-    @Transactional
-    public void actualizarCita(int id_cita,CitaInDto citaInDto){
-    }
-    public void deleteById(int id_cita){
-        Optional<Cita> optionalCita = this.repository.findById(id_cita);
+
+    public void deleteById(int idCita){
+        Optional<Cita> optionalCita = this.repository.findById(idCita);
         if (optionalCita.isEmpty()) {
             throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
         }else {
-            this.repository.deleteById(id_cita);
+            this.repository.deleteById(idCita);
         }
 
     }

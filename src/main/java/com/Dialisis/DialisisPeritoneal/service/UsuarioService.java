@@ -1,13 +1,11 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.mapper.UsuarioInDtoToUsuario;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Usuario;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.UsuarioRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.UsuarioInDto;
-import org.springframework.http.ResponseEntity;
+import com.dialisis.dialisisperitoneal.mapper.UsuarioInDtoToUsuario;
+import com.dialisis.dialisisperitoneal.persistence.entity.Usuario;
+import com.dialisis.dialisisperitoneal.persistence.repository.UsuarioRepository;
+import com.dialisis.dialisisperitoneal.service.dto.UsuarioInDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Base64;
 
 import java.util.List;
 
@@ -41,13 +39,13 @@ public class UsuarioService {
         return usuario.getFoto();
     }
     @Transactional
-    public void cambiarContraseña(String cedula,String contrasenia){
-        this.repository.cambiarcontraseña(cedula,contrasenia);
+    public void cambiarContrasenia(String cedula,String contrasenia){
+        this.repository.cambiarContrasenia(cedula,contrasenia);
     }
 
     @Transactional
-    public void cambioContraseñaPrimeraVez(String cedula,String contrasenia){
-        this.repository.cambiocontraseñaPrimeraVez(cedula,contrasenia);
+    public void cambioContraseniaPrimeraVez(String cedula,String contrasenia){
+        this.repository.cambioContraseniaPrimeraVez(cedula,contrasenia);
     }
 
     @Transactional
@@ -60,7 +58,7 @@ public class UsuarioService {
         this.repository.cambiarCelular(cedula,celular);
     }
 
-    public Usuario findAdmin(){
+    public List<Usuario> findAdmin(){
         return this.repository.findBytipoUsuario("admin");
     }
 

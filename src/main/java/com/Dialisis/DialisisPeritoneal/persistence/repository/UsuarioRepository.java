@@ -1,24 +1,24 @@
-package com.Dialisis.DialisisPeritoneal.persistence.repository;
+package com.dialisis.dialisisperitoneal.persistence.repository;
 
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Usuario;
+import com.dialisis.dialisisperitoneal.persistence.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     public Usuario findAllBycedula(String cedula);
     @Modifying
     @Query(value = "Update usuario set contrasenia=:contrasenia where cedula=:cedula", nativeQuery = true)
-    public void cambiarcontraseña(@Param("cedula") String cedula,
+    public void cambiarContrasenia(@Param("cedula") String cedula,
                                   @Param("contrasenia") String contrasenia);
 
     @Modifying
     @Query(value = "Update usuario set contrasenia=:contrasenia where cedula=:cedula", nativeQuery = true)
-    public void cambiocontraseñaPrimeraVez(@Param("cedula") String cedula,
+    public void cambioContraseniaPrimeraVez(@Param("cedula") String cedula,
                                   @Param("contrasenia") String contrasenia);
 
     @Modifying
@@ -32,7 +32,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
                                @Param("celular") String celular);
 
 
-    public Usuario findBytipoUsuario(String tipoUsuario);
+    public List<Usuario> findBytipoUsuario(String tipoUsuario);
 
 
     @Modifying

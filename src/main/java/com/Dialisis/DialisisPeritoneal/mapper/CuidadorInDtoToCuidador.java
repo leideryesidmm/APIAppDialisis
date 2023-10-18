@@ -1,8 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cuidador;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Parentesco;
-import com.Dialisis.DialisisPeritoneal.service.dto.CuidadorInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cuidador;
+import com.dialisis.dialisisperitoneal.persistence.entity.Parentesco;
+import com.dialisis.dialisisperitoneal.service.dto.CuidadorInDto;
 import org.springframework.stereotype.Component;
 
 @Component

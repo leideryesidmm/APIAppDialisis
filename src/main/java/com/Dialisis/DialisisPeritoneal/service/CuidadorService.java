@@ -1,8 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.service;
-import com.Dialisis.DialisisPeritoneal.mapper.CuidadorInDtoToCuidador;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cuidador;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.CuidadorRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.CuidadorInDto;
+package com.dialisis.dialisisperitoneal.service;
+import com.dialisis.dialisisperitoneal.mapper.CuidadorInDtoToCuidador;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cuidador;
+import com.dialisis.dialisisperitoneal.persistence.repository.CuidadorRepository;
+import com.dialisis.dialisisperitoneal.service.dto.CuidadorInDto;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

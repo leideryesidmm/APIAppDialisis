@@ -1,11 +1,9 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Eps;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
-import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.Eps;
+import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
+import com.dialisis.dialisisperitoneal.service.dto.PacienteInDto;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class   PacienteInDtoToPaciente implements IMapper<PacienteInDto, Paciente> {
@@ -28,10 +26,10 @@ public class   PacienteInDtoToPaciente implements IMapper<PacienteInDto, Pacient
         paciente.setContrasenia(in.getContrasenia());
         paciente.setDiabetes(in.isDiabetes());
         paciente.setHipertension(in.isHipertension());
-        paciente.setTipo_documento(in.getTipo_documento());
-        paciente.setFecha_registro(in.getFecha_registro());
+        paciente.setTipoDocumento(in.getTipoDocumento());
+        paciente.setFechaRegistro(in.getFechaRegistro());
         paciente.setActivo(in.isActivo());
-        paciente.setCambio_contrasenia(in.isCambio_contrasenia());
+        paciente.setCambioContrasenia(in.isCambioContrasenia());
         return paciente;
     }
 }

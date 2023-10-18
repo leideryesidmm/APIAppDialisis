@@ -1,7 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Medico;
-import com.Dialisis.DialisisPeritoneal.service.dto.MedicoInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.Medico;
+import com.dialisis.dialisisperitoneal.service.dto.MedicoInDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +19,7 @@ public class MedicoInDtoToMedico implements IMapper<MedicoInDto, Medico> {
         medico.setCorreo(in.getCorreo());
         medico.setFoto(in.getFoto());
         medico.setActivo(in.isActivo());
-        medico.setTipo_documento(in.getTipo_documento());
+        medico.setTipoDocumento(in.getTipoDocumento());
         return medico;
     }
 }

@@ -1,14 +1,12 @@
-package com.Dialisis.DialisisPeritoneal.persistence.repository;
+package com.dialisis.dialisisperitoneal.persistence.repository;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public interface CitaRepository extends JpaRepository<Cita, Integer> {

@@ -1,12 +1,6 @@
-package com.Dialisis.DialisisPeritoneal.exceptions;
-
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Alergia;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.AlergiaRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.AlergiaInDto;
-import org.springframework.http.HttpStatus;
+package com.dialisis.dialisisperitoneal.exceptions;
+import com.dialisis.dialisisperitoneal.persistence.repository.AlergiaRepository;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class ExceptionsEntitys {

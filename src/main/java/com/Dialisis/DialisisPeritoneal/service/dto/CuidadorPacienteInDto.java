@@ -1,15 +1,13 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+package com.dialisis.dialisisperitoneal.service.dto;
 
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 @Data
 public class CuidadorPacienteInDto {
     private String paciente;
     private String cuidador;
-    private LocalDate fecha_ini;
-    private LocalDate fecha_fin;
+    private LocalDate fechaIni;
+    private LocalDate fechaFin;
     private boolean activo;
 }

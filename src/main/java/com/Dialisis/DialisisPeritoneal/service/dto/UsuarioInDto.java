@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+package com.dialisis.dialisisperitoneal.service.dto;
 
 
 import lombok.Data;
@@ -15,5 +15,5 @@ public class UsuarioInDto {
     private boolean activo;
     @Lob
     private byte[] foto;
-    private String tipo_documento;
+    private String tipoDocumento;
 }

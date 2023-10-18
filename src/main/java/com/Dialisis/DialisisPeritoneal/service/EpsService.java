@@ -1,12 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.exceptions.ExceptionsEntitys;
-import com.Dialisis.DialisisPeritoneal.mapper.AlergiaInDtoToAlergia;
-import com.Dialisis.DialisisPeritoneal.mapper.EpsInDtoToEps;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Alergia;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Eps;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.AlergiaRepository;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.EpsRepository;
+import com.dialisis.dialisisperitoneal.mapper.EpsInDtoToEps;
+import com.dialisis.dialisisperitoneal.persistence.entity.Eps;
+import com.dialisis.dialisisperitoneal.persistence.repository.EpsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

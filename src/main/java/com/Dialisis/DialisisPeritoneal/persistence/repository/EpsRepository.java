@@ -1,7 +1,6 @@
-package com.Dialisis.DialisisPeritoneal.persistence.repository;
+package com.dialisis.dialisisperitoneal.persistence.repository;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Alergia;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Eps;
+import com.dialisis.dialisisperitoneal.persistence.entity.Eps;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal;
+package com.dialisis.dialisisperitoneal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

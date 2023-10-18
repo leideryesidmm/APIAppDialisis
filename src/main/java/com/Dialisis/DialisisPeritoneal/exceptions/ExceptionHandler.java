@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.exceptions;
+package com.dialisis.dialisisperitoneal.exceptions;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

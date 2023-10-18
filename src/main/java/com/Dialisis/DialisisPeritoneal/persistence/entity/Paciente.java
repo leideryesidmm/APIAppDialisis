@@ -1,12 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+package com.dialisis.dialisisperitoneal.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
-
 @Data
 @Entity
 @Table(name = "paciente")
@@ -15,7 +11,8 @@ public class Paciente extends Usuario{
 @Id
 private String cedula;
     private LocalDateTime fechaNacimiento;
-    private LocalDateTime fecha_registro;
+    @Column(name="fecha_registro")
+    private LocalDateTime fechaRegistro;
     @ManyToOne
     @JoinColumn(name="eps")
     private Eps eps;
@@ -29,7 +26,8 @@ private String cedula;
 
     private boolean diabetes;
     private boolean hipertension;
-    private boolean cambio_contrasenia;
+    @Column(name="cambio_contrasenia")
+    private boolean cambioContrasenia;
 
 
     public Paciente(){
@@ -44,7 +42,7 @@ private String cedula;
         this.fechaNacimiento = fechaNacimiento;
         this.altura = altura;
         this.peso = peso;
-        this.fecha_registro=fechaRegistro;
+        this.fechaRegistro=fechaRegistro;
         this.pesoSeco = pesoSeco;
         this.direccion = direccion;
         this.ocupacion = ocupacion;
@@ -53,6 +51,6 @@ private String cedula;
         this.diabetes=diabetes;
         this.hipertension=hipertension;
         this.eps=eps;
-        this.cambio_contrasenia=cambioContrasenia;
+        this.cambioContrasenia=cambioContrasenia;
     }
 }

@@ -1,12 +1,9 @@
-package com.Dialisis.DialisisPeritoneal.persistence.repository;
+package com.dialisis.dialisisperitoneal.persistence.repository;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.ChequeoMensual;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.PrescripcionDia;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.VisitaEspecialista;
+import com.dialisis.dialisisperitoneal.persistence.entity.ChequeoMensual;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
 
 public interface ChequeoMensualRepository extends JpaRepository<ChequeoMensual, Integer> {

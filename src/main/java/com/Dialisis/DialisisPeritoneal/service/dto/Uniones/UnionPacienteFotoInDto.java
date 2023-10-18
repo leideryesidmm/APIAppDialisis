@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.service.dto.Uniones;
+package com.dialisis.dialisisperitoneal.service.dto.uniones;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,10 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.VisitaEspecialista;
-import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.VisitaEspecialistaInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.persistence.entity.VisitaEspecialista;
+import com.dialisis.dialisisperitoneal.service.dto.VisitaEspecialistaInDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,7 +21,7 @@ public class   VisitaEspecialistaInDtoToVisitaEspecialista implements IMapper<Vi
         visita.setFarmacia(in.isFarmacia());
         visita.setEntrenamiento(in.isEntrenamiento());
         visita.setReentrenamiento(in.isReentrenamiento());
-        visita.setVisita_domiciliaria(in.isVisita_domiciliaria());
+        visita.setVisitaDomiciliaria(in.isVisitaDomiciliaria());
 
         return visita;
 }

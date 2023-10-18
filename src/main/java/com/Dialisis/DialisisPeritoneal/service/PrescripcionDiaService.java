@@ -1,20 +1,12 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
-import com.Dialisis.DialisisPeritoneal.mapper.PrescripcionDiaToPrescripcionDia;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.PrescripcionDia;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.PrescripcionDiaRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.PrescripcionDiaInDto;
-import org.springframework.http.HttpStatus;
+import com.dialisis.dialisisperitoneal.mapper.PrescripcionDiaToPrescripcionDia;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.persistence.entity.PrescripcionDia;
+import com.dialisis.dialisisperitoneal.persistence.repository.PrescripcionDiaRepository;
+import com.dialisis.dialisisperitoneal.service.dto.PrescripcionDiaInDto;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PrescripcionDiaService {
@@ -43,13 +35,6 @@ public class PrescripcionDiaService {
     public List<PrescripcionDia> findByCita(Cita cita) {
         return this.repository.findByCita(cita);
     }
-
-
-
-   /* @Transactional
-    public void actualizarPrescripcion(PrescripcionInDto prescripcionInDto, boolean nocheSeca, int idPrescripcion){
-        this.repository.actualizarPrescripcion(prescripcionInDto.getOrificioSalida(), nocheSeca, idPrescripcion);
-    }*/
 
     public void deleteById(int idPrescripcionDia){
             this.repository.deleteById(idPrescripcionDia);

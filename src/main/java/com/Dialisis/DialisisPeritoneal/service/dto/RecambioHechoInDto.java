@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+package com.dialisis.dialisisperitoneal.service.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 public class RecambioHechoInDto {
     private int recambio;
     private LocalDateTime fecha;
-    private LocalDateTime fecha_real;
-    private LocalDateTime hora_ini;
-    private LocalDateTime hora_fin;
+    private LocalDateTime fechaReal;
+    private LocalDateTime horaIni;
+    private LocalDateTime horaFin;
     private String drenajeDialisis;
     private String orificioSalida;
     private String caracteristicaLiquido;

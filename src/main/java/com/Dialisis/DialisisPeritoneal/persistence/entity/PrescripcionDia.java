@@ -1,10 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+package com.dialisis.dialisisperitoneal.persistence.entity;
 
 import lombok.Data;
-
 import javax.persistence.*;
-import java.util.List;
-
 @Data
 @Entity
 @Table(name = "prescripcionDia")

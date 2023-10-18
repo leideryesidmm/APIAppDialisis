@@ -1,7 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.controller;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
-import com.Dialisis.DialisisPeritoneal.service.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.*;
+package com.dialisis.dialisisperitoneal.controller;
+import com.dialisis.dialisisperitoneal.persistence.entity.*;
+import com.dialisis.dialisisperitoneal.service.*;
+import com.dialisis.dialisisperitoneal.service.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -128,5 +128,11 @@ public class MedicoController{
             return ResponseEntity.ok(especialidades);
         }
     }
+    @PostMapping("/Cita")
+    public Cita crearCita(@RequestBody CitaInDto citaInDto) {
+        return this.citaService.crearCita(citaInDto);
+    }
+
+
 
 }

@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+package com.dialisis.dialisisperitoneal.persistence.entity;
 
 import lombok.Data;
 
@@ -15,9 +15,12 @@ public class RecambioHecho {
     @JoinColumn(name = "recambio")
     private Recambio recambio;
     private LocalDateTime fecha;
-    private LocalDateTime fecha_real;
-    private LocalDateTime hora_ini;
-    private LocalDateTime hora_fin;
+    @Column(name = "fecha_real")
+    private LocalDateTime fechaReal;
+    @Column(name = "hora_ini")
+    private LocalDateTime horaIni;
+    @Column(name = "hora_fin")
+    private LocalDateTime horaFin;
     private String drenajeDialisis;
     private String orificioSalida;
     private String caracteristicaLiquido;

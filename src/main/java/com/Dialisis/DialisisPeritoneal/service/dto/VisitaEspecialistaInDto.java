@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+package com.dialisis.dialisisperitoneal.service.dto;
 
 import lombok.Data;
 
@@ -15,5 +15,5 @@ public class VisitaEspecialistaInDto {
     private boolean farmacia;
     private boolean entrenamiento;
     private boolean reentrenamiento;
-    private boolean visita_domiciliaria;
+    private boolean visitaDomiciliaria;
 }

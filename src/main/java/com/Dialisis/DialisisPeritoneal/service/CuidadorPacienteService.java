@@ -1,10 +1,10 @@
-package com.Dialisis.DialisisPeritoneal.service;
-import com.Dialisis.DialisisPeritoneal.exceptions.ToDoExceptions;
-import com.Dialisis.DialisisPeritoneal.mapper.CuidadorPacienteInDtoToCuidadorPaciente;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.CuidadorPaciente;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.CuidadorPacienteRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.CuidadorPacienteInDto;
+package com.dialisis.dialisisperitoneal.service;
+import com.dialisis.dialisisperitoneal.exceptions.ToDoExceptions;
+import com.dialisis.dialisisperitoneal.mapper.CuidadorPacienteInDtoToCuidadorPaciente;
+import com.dialisis.dialisisperitoneal.persistence.entity.CuidadorPaciente;
+import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
+import com.dialisis.dialisisperitoneal.persistence.repository.CuidadorPacienteRepository;
+import com.dialisis.dialisisperitoneal.service.dto.CuidadorPacienteInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

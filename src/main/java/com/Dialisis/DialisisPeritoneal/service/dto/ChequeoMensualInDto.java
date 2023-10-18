@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+package com.dialisis.dialisisperitoneal.service.dto;
 
 import lombok.Data;
 
@@ -17,7 +17,7 @@ public class ChequeoMensualInDto {
     private double fosforo;
     private double nitrogenoUreico;
     private double peso;
-    private double peso_seco;
+    private double pesoSeco;
     private double ktv;
     private double glucosa;
     private double creatinina;

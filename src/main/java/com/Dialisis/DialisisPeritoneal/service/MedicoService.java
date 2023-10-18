@@ -1,10 +1,9 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.mapper.MedicoInDtoToMedico;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Medico;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.MedicoRepository;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.PrescripcionDiaRepository;
-import com.Dialisis.DialisisPeritoneal.service.dto.MedicoInDto;
+import com.dialisis.dialisisperitoneal.mapper.MedicoInDtoToMedico;
+import com.dialisis.dialisisperitoneal.persistence.entity.Medico;
+import com.dialisis.dialisisperitoneal.persistence.repository.MedicoRepository;
+import com.dialisis.dialisisperitoneal.service.dto.MedicoInDto;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

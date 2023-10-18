@@ -1,9 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.PacienteAlergiaInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.PrescripcionDiaInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.RecambioInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.*;
+import com.dialisis.dialisisperitoneal.service.dto.RecambioInDto;
 import org.springframework.stereotype.Component;
 
 @Component

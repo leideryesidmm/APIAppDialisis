@@ -1,10 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.PrescripcionDia;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Recambio;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.RecambioHecho;
-import com.Dialisis.DialisisPeritoneal.service.dto.RecambioHechoInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.RecambioInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.Recambio;
+import com.dialisis.dialisisperitoneal.persistence.entity.RecambioHecho;
+import com.dialisis.dialisisperitoneal.service.dto.RecambioHechoInDto;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -17,9 +15,9 @@ public class RecambioHechoInDtoToRecambioHecho implements  IMapper<RecambioHecho
         RecambioHecho recambioHecho= new RecambioHecho();
         recambioHecho.setDrenajeDialisis(in.getDrenajeDialisis());
         recambioHecho.setRecambio(new Recambio(in.getRecambio()));
-        recambioHecho.setHora_ini(in.getHora_ini());
-        recambioHecho.setHora_fin(in.getHora_fin());
-        recambioHecho.setFecha_real(in.getFecha_real());
+        recambioHecho.setHoraIni(in.getHoraIni());
+        recambioHecho.setHoraFin(in.getHoraFin());
+        recambioHecho.setFechaReal(in.getFechaReal());
         recambioHecho.setFecha(LocalDateTime.now());
         recambioHecho.setOrificioSalida(in.getOrificioSalida());
         recambioHecho.setCaracteristicaLiquido(in.getCaracteristicaLiquido());

@@ -1,9 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.persistence.repository;
+package com.dialisis.dialisisperitoneal.persistence.repository;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Cita;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.FormulaMedicamento;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
-import jdk.dynalink.linker.LinkerServices;
+import com.dialisis.dialisisperitoneal.persistence.entity.FormulaMedicamento;
+import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

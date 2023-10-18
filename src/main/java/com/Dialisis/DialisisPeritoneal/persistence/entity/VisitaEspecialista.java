@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+package com.dialisis.dialisisperitoneal.persistence.entity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,7 +22,8 @@ public class VisitaEspecialista {
     private boolean farmacia;
     private boolean entrenamiento;
     private boolean reentrenamiento;
-    private boolean visita_domiciliaria;
+    @Column(name = "visita_domiciliaria")
+    private boolean visitaDomiciliaria;
 
 
 }

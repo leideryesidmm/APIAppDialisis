@@ -1,7 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.*;
-import com.Dialisis.DialisisPeritoneal.service.dto.CitaInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.*;
+import com.dialisis.dialisisperitoneal.service.dto.CitaInDto;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

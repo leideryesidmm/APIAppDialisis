@@ -1,8 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Usuario;
+import com.dialisis.dialisisperitoneal.persistence.entity.Usuario;
 import org.springframework.stereotype.Component;
-import com.Dialisis.DialisisPeritoneal.service.dto.UsuarioInDto;
+import com.dialisis.dialisisperitoneal.service.dto.UsuarioInDto;
 
 @Component
 public class UsuarioInDtoToUsuario implements IMapper<UsuarioInDto, Usuario>{
@@ -16,7 +16,7 @@ public class UsuarioInDtoToUsuario implements IMapper<UsuarioInDto, Usuario>{
         usuario.setFoto(in.getFoto());
         usuario.setCorreo(in.getCorreo());
         usuario.setActivo(in.isActivo());
-        usuario.setTipo_documento(in.getTipo_documento());
+        usuario.setTipoDocumento(in.getTipoDocumento());
         return usuario;
     }
 }

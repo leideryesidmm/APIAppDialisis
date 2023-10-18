@@ -1,12 +1,9 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+package com.dialisis.dialisisperitoneal.persistence.entity;
 
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 @Data
 @Entity
 @Table(name = "cuidadorPaciente")

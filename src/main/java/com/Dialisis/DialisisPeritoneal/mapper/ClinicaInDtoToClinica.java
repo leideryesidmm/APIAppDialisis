@@ -1,7 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Clinica;
-import com.Dialisis.DialisisPeritoneal.service.dto.ClinicaInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.Clinica;
+import com.dialisis.dialisisperitoneal.service.dto.ClinicaInDto;
 import org.springframework.stereotype.Component;
 
 @Component

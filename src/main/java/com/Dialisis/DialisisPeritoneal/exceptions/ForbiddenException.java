@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.exceptions;
+package com.dialisis.dialisisperitoneal.exceptions;
 
 public class ForbiddenException extends RuntimeException{
 

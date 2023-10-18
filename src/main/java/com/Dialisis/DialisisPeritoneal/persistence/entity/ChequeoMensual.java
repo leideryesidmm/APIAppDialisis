@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+package com.dialisis.dialisisperitoneal.persistence.entity;
 
 import lombok.Data;
 
@@ -24,7 +24,8 @@ public class ChequeoMensual {
     private double fosforo;
     private double nitrogenoUreico;
     private double peso;
-    private double peso_seco;
+    @Column(name="peso_seco")
+    private double pesoSeco;
     private double ktv;
     private double glucosa;
     private double creatinina;

@@ -1,4 +1,4 @@
-package com.Dialisis.DialisisPeritoneal.persistence.entity;
+package com.dialisis.dialisisperitoneal.persistence.entity;
 
 import lombok.Data;
 import javax.persistence.*;
@@ -18,7 +18,8 @@ public class Usuario {
     private String correo;
     private boolean activo;
     private String tipoUsuario="user";
-    private String tipo_documento;
+    @Column(name = "tipo_documento")
+    private String tipoDocumento;
 
     public Usuario() {
         //Fue necesario añadir un constructor vacio para crear un objeto usuario sin datos en otra seccion

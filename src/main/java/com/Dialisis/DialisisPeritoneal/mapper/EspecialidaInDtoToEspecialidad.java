@@ -1,7 +1,7 @@
-package com.Dialisis.DialisisPeritoneal.mapper;
+package com.dialisis.dialisisperitoneal.mapper;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Especialidad;
-import com.Dialisis.DialisisPeritoneal.service.dto.EspecialidadInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.Especialidad;
+import com.dialisis.dialisisperitoneal.service.dto.EspecialidadInDto;
 import org.springframework.stereotype.Component;
 
 @Component

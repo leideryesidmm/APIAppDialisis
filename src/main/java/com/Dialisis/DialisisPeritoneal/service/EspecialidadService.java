@@ -1,8 +1,8 @@
-package com.Dialisis.DialisisPeritoneal.service;
+package com.dialisis.dialisisperitoneal.service;
 
-import com.Dialisis.DialisisPeritoneal.mapper.EspecialidaInDtoToEspecialidad;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Especialidad;
-import com.Dialisis.DialisisPeritoneal.persistence.repository.EspecialidadRepository;
+import com.dialisis.dialisisperitoneal.mapper.EspecialidaInDtoToEspecialidad;
+import com.dialisis.dialisisperitoneal.persistence.entity.Especialidad;
+import com.dialisis.dialisisperitoneal.persistence.repository.EspecialidadRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,13 +1,11 @@
-package com.Dialisis.DialisisPeritoneal.controller;
+package com.dialisis.dialisisperitoneal.controller;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Medico;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Paciente;
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Usuario;
-import com.Dialisis.DialisisPeritoneal.service.MedicoService;
-import com.Dialisis.DialisisPeritoneal.service.UsuarioService;
-import com.Dialisis.DialisisPeritoneal.service.dto.MedicoInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.PacienteInDto;
-import com.Dialisis.DialisisPeritoneal.service.dto.UsuarioInDto;
+import com.dialisis.dialisisperitoneal.persistence.entity.Medico;
+import com.dialisis.dialisisperitoneal.persistence.entity.Usuario;
+import com.dialisis.dialisisperitoneal.service.MedicoService;
+import com.dialisis.dialisisperitoneal.service.UsuarioService;
+import com.dialisis.dialisisperitoneal.service.dto.MedicoInDto;
+import com.dialisis.dialisisperitoneal.service.dto.UsuarioInDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,14 +43,14 @@ public class UsuarioController {
     @PatchMapping("/cambiarContrasenia")
     public ResponseEntity<Void> cambiarcontrasenia(@RequestBody UsuarioInDto usuarioInDto){
 
-        this.usuarioService.cambiarContraseña(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
+        this.usuarioService.cambiarContrasenia(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/cambioContraseniaPrimeraVez")
     public ResponseEntity<Void> cambiarcontraseniaPrimeraVez(@RequestBody UsuarioInDto usuarioInDto){
         if(usuarioInDto.getContrasenia()!="") {
-            this.usuarioService.cambioContraseñaPrimeraVez(usuarioInDto.getCedula(), usuarioInDto.getContrasenia());
+            this.usuarioService.cambioContraseniaPrimeraVez(usuarioInDto.getCedula(), usuarioInDto.getContrasenia());
         }
         this.usuarioService.marcarCambiada(usuarioInDto.getCedula());
         return ResponseEntity.noContent().build();
@@ -111,10 +109,10 @@ public class UsuarioController {
     }
 
     @GetMapping("/findAdmin")
-    public ResponseEntity<Usuario> findAdmin(){
-        Usuario usuario= this.usuarioService.findAdmin();
-        if(usuario==null)
+    public ResponseEntity<List<Usuario>> findAdmin(){
+        List<Usuario> usuarios= this.usuarioService.findAdmin();
+        if(usuarios==null)
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(usuarios);
     }
 }

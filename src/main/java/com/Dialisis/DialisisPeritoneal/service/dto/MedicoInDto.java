@@ -1,6 +1,6 @@
-package com.Dialisis.DialisisPeritoneal.service.dto;
+package com.dialisis.dialisisperitoneal.service.dto;
 
-import com.Dialisis.DialisisPeritoneal.persistence.entity.Especialidad;
+import com.dialisis.dialisisperitoneal.persistence.entity.Especialidad;
 import lombok.Data;
 
 @Data
