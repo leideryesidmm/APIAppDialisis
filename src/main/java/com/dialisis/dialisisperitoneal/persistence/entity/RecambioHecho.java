@@ -22,6 +22,7 @@ public class RecambioHecho {
     @Column(name = "hora_fin")
     private LocalDateTime horaFin;
     private String drenajeDialisis;
+    private String liquidoEntrante;
     private String orificioSalida;
     private String caracteristicaLiquido;
 }

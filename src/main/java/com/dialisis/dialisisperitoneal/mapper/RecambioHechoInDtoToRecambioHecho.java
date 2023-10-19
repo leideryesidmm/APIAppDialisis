@@ -13,6 +13,7 @@ public class RecambioHechoInDtoToRecambioHecho implements  IMapper<RecambioHecho
     @Override
     public RecambioHecho map(RecambioHechoInDto in) {
         RecambioHecho recambioHecho= new RecambioHecho();
+        recambioHecho.setLiquidoEntrante(in.getLiquidoEntrante());
         recambioHecho.setDrenajeDialisis(in.getDrenajeDialisis());
         recambioHecho.setRecambio(new Recambio(in.getRecambio()));
         recambioHecho.setHoraIni(in.getHoraIni());
