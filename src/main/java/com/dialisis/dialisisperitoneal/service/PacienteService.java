@@ -22,11 +22,6 @@ public class PacienteService {
         this.mapper = mapper;
     }
     public Paciente crearPaciente(PacienteInDto pacienteInDto) {
-        if (pacienteInDto.getPeso() < pacienteInDto.getPesoSeco()) {
-
-            throw new ToDoExceptions("Peso seco debe ser menor a peso", HttpStatus.NOT_FOUND);
-        }
-
         Paciente paciente = mapper.map(pacienteInDto);
         return this.repository.save(paciente);
     }

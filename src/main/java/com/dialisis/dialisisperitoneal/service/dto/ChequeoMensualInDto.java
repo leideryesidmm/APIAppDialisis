@@ -6,7 +6,7 @@ import lombok.Data;
 public class ChequeoMensualInDto {
 
     private int cita;
-    private double tensionArterial;
+    private String tensionArterial;
     private double colesterolTotal;
     private double hemoglobina;
     private double trigliceridos;

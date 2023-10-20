@@ -13,7 +13,7 @@ public class ChequeoMensual {
     @ManyToOne
     @JoinColumn(name = "cita")
     private Cita cita;
-    private double tensionArterial;
+    private String tensionArterial;
     private double colesterolTotal;
     private double hemoglobina;
     private double trigliceridos;
