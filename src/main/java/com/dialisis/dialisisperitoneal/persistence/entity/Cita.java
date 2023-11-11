@@ -21,6 +21,7 @@ public class Cita {
     private LocalDateTime fechaFin;
     private LocalDateTime hora;
     private String orificioSalida;
+    private boolean finalizado;
     public Cita(){
         this.idCita=0;
     }

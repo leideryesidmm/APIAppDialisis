@@ -66,6 +66,7 @@ public class PacienteController {
 
     @PostMapping("/findPacienteByCedula")
     public Paciente findPacienteByCedula(@RequestBody PacienteInDto pacienteInDto){
+        System.out.println(this.pacienteService.findByCedula(pacienteInDto.getCedula()));
         return this.pacienteService.findByCedula(pacienteInDto.getCedula());
     }
 
