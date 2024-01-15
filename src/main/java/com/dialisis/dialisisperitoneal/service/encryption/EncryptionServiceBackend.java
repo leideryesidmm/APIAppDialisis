@@ -15,16 +15,13 @@ public class EncryptionServiceBackend {
     private EncryptionServiceCita cita;
     private EncryptionServiceCuidador cuidador;
     private EncryptionServiceCuidadorPaciente cuidadorPaciente;
-
     private EncryptionServiceFormulaMedicamento formulaMedicamento;
     private final EncryptionServiceMedico medico;
     private final EncryptionServicePaciente paciente;
     private final EncryptionServicePacienteAlergia pacienteAlergia;
     private final EncryptionServiceRecambio recambio;
     private final EncryptionServiceRecambioHecho recambioHecho;
-
-
-    public EncryptionServiceBackend(EncryptServiceAdmin admin) {
+    public EncryptionServiceBackend() {
         this.admin = new EncryptServiceAdmin(iv, clave);
         this.alergia = new EncryptionServiceAlergia(iv, clave);
         this.chequeo = new EncryptionServiceChequeo(iv, clave);
@@ -32,7 +29,6 @@ public class EncryptionServiceBackend {
         this.cuidador = new EncryptionServiceCuidador(iv,clave);
         this.cuidadorPaciente = new EncryptionServiceCuidadorPaciente(iv, clave);
         this.formulaMedicamento = new EncryptionServiceFormulaMedicamento(iv, clave);
-        this.paciente = new EncryptionServicePaciente(iv, clave);
         this.medico = new EncryptionServiceMedico(iv, clave);
         this.paciente = new EncryptionServicePaciente(iv, clave);
         this.pacienteAlergia = new EncryptionServicePacienteAlergia(iv, clave);

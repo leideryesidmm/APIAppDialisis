@@ -8,6 +8,7 @@ import com.dialisis.dialisisperitoneal.service.dto.UsuarioInDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -63,17 +64,23 @@ public class UsuarioService {
 
     public Usuario findAdmin(Usuario usuarioAdmin){
         List<Usuario> usuarios=this.repository.findBytipoUsuario("admin");
+        List<Usuario> usuariosAdmins= new ArrayList<>();
         if(!usuarios.isEmpty()) {
-            List<Usuario> usuariosAdmins = this.encryptionService.getEncBackend().getAdmin().desencriptarAdminsBackend(usuarios);
-            Usuario userFrontend= this.encryptionService.getEncFrontend().getAdmin().desencriptarAdminFrontend(usuarioAdmin);
+            for (Usuario usuario:
+                 usuarios) {
+                Usuario usAdmin=this.encryptionService.getEncBackend().getAdmin().desencriptar(usuario);
 
+                usuariosAdmins.add(usAdmin);
+            }
+
+            Usuario userFrontend= this.encryptionService.getEncFrontend().getAdmin().desencriptar(usuarioAdmin);
             if(usuariosAdmins!=null) {
 
                 for (Usuario usu :
                         usuariosAdmins) {
                     if (userFrontend.getCedula().equals(usu.getCedula()) && userFrontend.getContrasenia().equals(usu.getContrasenia())) {
 
-                        Usuario usuarioEncriptado = this.encryptionService.getEncFrontend().getAdmin().encriptarAdminFrontend(usu);
+                        Usuario usuarioEncriptado = this.encryptionService.getEncFrontend().getAdmin().encriptar(usu);
                         return usuarioEncriptado;
                     }
                 }

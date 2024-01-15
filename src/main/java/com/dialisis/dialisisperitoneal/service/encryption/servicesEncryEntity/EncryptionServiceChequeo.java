@@ -22,11 +22,9 @@ public class EncryptionServiceChequeo {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (iv)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(chequeo.getColesterolTotal()!=null) {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(chequeo.getColesterolTotal()));
@@ -102,7 +100,6 @@ public class EncryptionServiceChequeo {
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(chequeo.getColesterolTotal()!=null) {
                 byte[] colDesencriptadoBytes = cipher.doFinal(chequeo.getColesterolTotal().getBytes());

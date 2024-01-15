@@ -23,11 +23,9 @@ public class EncryptionServiceCuidador {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (iv)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(cuidador.getCedulaCuidador()!=null) {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(cuidador.getCedulaCuidador()));
@@ -58,7 +56,6 @@ public class EncryptionServiceCuidador {
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(cuidador.getCedulaCuidador()!=null) {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(cuidador.getCedulaCuidador().getBytes());

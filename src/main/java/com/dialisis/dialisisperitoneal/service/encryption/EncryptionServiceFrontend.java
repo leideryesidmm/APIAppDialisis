@@ -1,5 +1,7 @@
 package com.dialisis.dialisisperitoneal.service.encryption;
+
 import com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity.*;
+
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,6 @@ public class EncryptionServiceFrontend {
     private EncryptionServiceCita cita;
     private EncryptionServiceCuidador cuidador;
     private EncryptionServiceCuidadorPaciente cuidadorPaciente;
-
     private EncryptionServiceFormulaMedicamento formulaMedicamento;
     private final EncryptionServiceMedico medico;
     private final EncryptionServicePaciente paciente;
@@ -22,8 +23,7 @@ public class EncryptionServiceFrontend {
     private final EncryptionServiceRecambio recambio;
     private final EncryptionServiceRecambioHecho recambioHecho;
 
-
-    public EncryptionServiceBackend(EncryptServiceAdmin admin) {
+    public EncryptionServiceFrontend() {
         this.admin = new EncryptServiceAdmin(iv, clave);
         this.alergia = new EncryptionServiceAlergia(iv, clave);
         this.chequeo = new EncryptionServiceChequeo(iv, clave);
@@ -31,7 +31,6 @@ public class EncryptionServiceFrontend {
         this.cuidador = new EncryptionServiceCuidador(iv,clave);
         this.cuidadorPaciente = new EncryptionServiceCuidadorPaciente(iv, clave);
         this.formulaMedicamento = new EncryptionServiceFormulaMedicamento(iv, clave);
-        this.paciente = new EncryptionServicePaciente(iv, clave);
         this.medico = new EncryptionServiceMedico(iv, clave);
         this.paciente = new EncryptionServicePaciente(iv, clave);
         this.pacienteAlergia = new EncryptionServicePacienteAlergia(iv, clave);

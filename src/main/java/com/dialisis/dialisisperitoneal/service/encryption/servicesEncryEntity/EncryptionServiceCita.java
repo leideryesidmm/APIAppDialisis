@@ -14,29 +14,29 @@ public class EncryptionServiceCita {
     private String iv ;
     private String clave;
 
-    //private final EncryptionServiceMedico encryptionServiceMedico;
-    //private final EncryptionServicePaciente encryptionServicePaciente;
+    private EncryptionServiceMedico encryptionServiceMedico;
+    private EncryptionServicePaciente encryptionServicePaciente;
 
     public EncryptionServiceCita(String iv, String clave) {
         this.iv = iv;
         this.clave = clave;
+        this.encryptionServiceMedico=new EncryptionServiceMedico(iv,clave);
+        this.encryptionServicePaciente=new EncryptionServicePaciente(iv,clave);
     }
 
     public Cita desencriptar(Cita cita) {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (iv)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(cita.getMedico()!=null) {
-      //          cita.setMedico(encryptionServiceMedico.desencriptar(cita.getMedico()));
+               cita.setMedico(encryptionServiceMedico.desencriptar(cita.getMedico()));
             }
             if(cita.getPaciente()!=null) {
-      //          cita.setMedico(encryptionServicePaciente.desencriptar(cita.getMedico()));
+               cita.setPaciente(encryptionServicePaciente.desencriptar(cita.getPaciente()));
             }
             if(cita.getOrificioSalida()!=null){
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(cita.getOrificioSalida()));
@@ -56,13 +56,12 @@ public class EncryptionServiceCita {
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(cita.getMedico()!=null) {
-                //          cita.setMedico(encryptionServiceMedico.encriptar(cita.getMedico()));
+                cita.setMedico(encryptionServiceMedico.encriptar(cita.getMedico()));
             }
             if(cita.getPaciente()!=null) {
-                //          cita.setMedico(encryptionServicePaciente.encriptar(cita.getMedico()));
+                cita.setPaciente(encryptionServicePaciente.encriptar(cita.getPaciente()));
             }
             if(cita.getOrificioSalida()!=null) {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(cita.getOrificioSalida().getBytes());

@@ -23,11 +23,9 @@ public class EncryptionServiceAlergia {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (iv)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(alergia.getNombre()!=null) {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(alergia.getNombre()));
@@ -46,7 +44,6 @@ public class EncryptionServiceAlergia {
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(alergia.getNombre()!=null) {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(alergia.getNombre().getBytes());
