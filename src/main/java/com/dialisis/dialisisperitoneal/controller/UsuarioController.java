@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +26,6 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
         this.medicoService = medicoService;
     }
-
     @PostMapping
     public Usuario crearoUpdateUsuario(@RequestBody UsuarioInDto usuarioInDto){
         return this.usuarioService.createoUpdateUsuario(usuarioInDto);
@@ -39,14 +39,12 @@ public class UsuarioController {
 
         return this.usuarioService.findAllBycedula(usuarioInDto.getCedula());
     }
-
     @PatchMapping("/cambiarContrasenia")
     public ResponseEntity<Void> cambiarcontrasenia(@RequestBody UsuarioInDto usuarioInDto){
 
         this.usuarioService.cambiarContrasenia(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
         return ResponseEntity.noContent().build();
     }
-
     @PatchMapping("/cambioContraseniaPrimeraVez")
     public ResponseEntity<Void> cambiarcontraseniaPrimeraVez(@RequestBody UsuarioInDto usuarioInDto){
         if(usuarioInDto.getContrasenia()!="") {
@@ -60,27 +58,21 @@ public class UsuarioController {
         this.usuarioService.cambiarCelular(cedula, celular);
         return ResponseEntity.noContent().build();
     }
-
     @PostMapping("/imagen")
     public ResponseEntity<byte[]> getUsuarioFoto(@RequestBody UsuarioInDto usuarioInDto) {
         byte[] fotoBytes = usuarioService.getFotoByCedula(usuarioInDto.getCedula());
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG); // Cambia esto según el tipo de imagen
-
         return new ResponseEntity<>(fotoBytes, headers, HttpStatus.OK);
     }
-
     @PostMapping("/crearMedico")
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
         return this.medicoService.crearMedico(medicoInDto);
     }
-
     @PostMapping("/findMedicoByCedula")
     public Medico findMedicoByCedula(@RequestBody MedicoInDto medicoInDto){
         return this.medicoService.findByCedula(medicoInDto.getCedula());
     }
-
     @PatchMapping("/actualizarMedico")
     public ResponseEntity<Void> actualizarDatosMedico(@RequestBody MedicoInDto medicoInDto){
         try{
@@ -90,19 +82,15 @@ public class UsuarioController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
-
     @PatchMapping("/inhabilitarMedico")
     public void inhabilitarMedico(@RequestBody MedicoInDto medicoInDto) {
         this.usuarioService.inactivarUsuario(medicoInDto.getCedula());
     }
-
     @PatchMapping("/reactivarMedico")
     public void reactivarMedico(@RequestBody MedicoInDto medicoInDto) {
         this.usuarioService.activarUsuario(medicoInDto.getCedula());
     }
-
     @PatchMapping("/restaurarContrasenia")
     public void restaurarContrasenia(@RequestBody UsuarioInDto usuarioInDto){
         this.usuarioService.restaurarContrasenia(usuarioInDto.getCedula());
@@ -117,5 +105,20 @@ public class UsuarioController {
             return ResponseEntity.noContent().build();
         System.out.println("ENTRO DESPUÉS DEL IF");
         return ResponseEntity.ok(usu);
+    }
+
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> uploadImage(@RequestParam("cedula") String cedula,
+                                              @RequestParam("foto") MultipartFile imageFile) {
+        try {
+            Usuario usuario = usuarioService.findAllBycedula(cedula);
+            byte[] imageBytes = imageFile.getBytes();
+            usuario.setFoto(imageBytes);
+            // Actualiza otros campos del paciente si es necesario
+            this.usuarioService.saveUsuario(usuario);
+            return ResponseEntity.ok("{\"success\": true}");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"success\": false}");
+        }
     }
 }

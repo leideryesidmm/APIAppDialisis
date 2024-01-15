@@ -98,4 +98,7 @@ public class UsuarioService {
     public void restaurarContrasenia(String cedula){
         this.repository.restaurarContrasenia(cedula);
     }
+    public void saveUsuario(Usuario usuario){
+        this.repository.save(usuario);
+    }
 }
