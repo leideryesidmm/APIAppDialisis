@@ -9,7 +9,6 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                //Se pone el primer puerto que haya en el frontend en el docker-compose XD
                 .allowedOrigins("http://localhost:8103")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE")
                 .allowedHeaders("Content-Type", "Accept")
