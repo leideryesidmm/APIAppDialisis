@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 public class EncryptionService {
 
     private final EncryptionServiceBackend encBackend;
-    private  final  EncryptionServiceFrontend encFrontend;
+    private  final EncryptionServiceFrontend encFrontend;
 
     public EncryptionService(EncryptionServiceBackend encBackend, EncryptionServiceFrontend encFrontend) {
         this.encBackend = encBackend;
         this.encFrontend = encFrontend;
     }
-
 }

@@ -64,8 +64,8 @@ public class UsuarioService {
     public Usuario findAdmin(Usuario usuarioAdmin){
         List<Usuario> usuarios=this.repository.findBytipoUsuario("admin");
         if(!usuarios.isEmpty()) {
-            List<Usuario> usuariosAdmins = this.encryptionService.getEncBackend().desencriptarAdminsBackend(usuarios);
-            Usuario userFrontend= this.encryptionService.getEncFrontend().desencriptarAdminFrontend(usuarioAdmin);
+            List<Usuario> usuariosAdmins = this.encryptionService.getEncBackend().getAdmin().desencriptarAdminsBackend(usuarios);
+            Usuario userFrontend= this.encryptionService.getEncFrontend().getAdmin().desencriptarAdminFrontend(usuarioAdmin);
 
             if(usuariosAdmins!=null) {
 
@@ -73,7 +73,7 @@ public class UsuarioService {
                         usuariosAdmins) {
                     if (userFrontend.getCedula().equals(usu.getCedula()) && userFrontend.getContrasenia().equals(usu.getContrasenia())) {
 
-                        Usuario usuarioEncriptado = this.encryptionService.getEncFrontend().encriptarAdminFrontend(usu);
+                        Usuario usuarioEncriptado = this.encryptionService.getEncFrontend().getAdmin().encriptarAdminFrontend(usu);
                         return usuarioEncriptado;
                     }
                 }
