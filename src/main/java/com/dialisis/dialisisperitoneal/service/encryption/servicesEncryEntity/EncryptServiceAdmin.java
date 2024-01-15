@@ -1,4 +1,4 @@
-package com.dialisis.dialisisperitoneal.service.encryption;
+package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
 import com.dialisis.dialisisperitoneal.persistence.entity.Usuario;
 import org.springframework.stereotype.Service;
@@ -28,11 +28,9 @@ public class EncryptServiceAdmin {
         try{
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (iv)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo descifrado
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
 
                 if(usuario.getCedula()!=null) {
@@ -67,11 +65,9 @@ public class EncryptServiceAdmin {
             System.out.println(usuario);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (iv)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo cifrado
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(usuario.getCedula()!=null){
                 byte[] cedulaEncriptada = cipher.doFinal(usuario.getCedula().getBytes());
@@ -91,7 +87,6 @@ public class EncryptServiceAdmin {
             if(usuario.getTipoDocumento()!=null){
                 byte[] tipoDocumentoEncriptado = cipher.doFinal(usuario.getTipoDocumento().getBytes());
                 usuario.setTipoDocumento(new String(encodeBase64(tipoDocumentoEncriptado)));}
-
 
 
             System.out.println("encriptando para el frontend");

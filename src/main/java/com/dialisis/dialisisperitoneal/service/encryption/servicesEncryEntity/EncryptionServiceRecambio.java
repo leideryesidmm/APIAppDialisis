@@ -1,4 +1,4 @@
-package com.dialisis.dialisisperitoneal.service.encryption;
+package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
 import com.dialisis.dialisisperitoneal.persistence.entity.Recambio;
 import org.springframework.stereotype.Service;
@@ -29,11 +29,9 @@ public class EncryptionServiceRecambio {
             System.out.println("Recambio del form" + recambio);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (IV)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo cifrado
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (recambio.getConcentracion() != null) {
                 byte[] concentracionEncriptadoBytes = cipher.doFinal(recambio.getConcentracion().getBytes());
@@ -56,11 +54,9 @@ public class EncryptionServiceRecambio {
             System.out.println("usuario del form" + recambio);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (IV)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo cifrado
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (recambio.getConcentracion() != null) {
                 byte[] concentracionDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(recambio.getConcentracion()));

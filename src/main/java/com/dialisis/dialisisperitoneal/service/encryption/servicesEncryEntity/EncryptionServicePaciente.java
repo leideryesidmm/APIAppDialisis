@@ -1,4 +1,4 @@
-package com.dialisis.dialisisperitoneal.service.encryption;
+package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
 import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
 import org.springframework.stereotype.Service;
