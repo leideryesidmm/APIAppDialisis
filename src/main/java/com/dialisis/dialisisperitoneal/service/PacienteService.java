@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteService {
@@ -53,6 +54,11 @@ public class PacienteService {
 
     public List<Paciente> findPacientesInactivos(String cedula) {
         return this.repository.findPacientesInactivos(cedula);
+    }
+    public List<Object[]> findAllPacientesDatos(){
+        System.out.println(this.repository.findAllPacientesDatos());
+        return this.repository.findAllPacientesDatos();
+
     }
 
 }

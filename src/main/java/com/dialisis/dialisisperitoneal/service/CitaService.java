@@ -4,14 +4,19 @@ import com.dialisis.dialisisperitoneal.exceptions.ToDoExceptions;
 import com.dialisis.dialisisperitoneal.mapper.CitaInDtoToCita;
 import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
 import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
+import com.dialisis.dialisisperitoneal.persistence.entity.PrescripcionDia;
 import com.dialisis.dialisisperitoneal.persistence.repository.CitaRepository;
 import com.dialisis.dialisisperitoneal.service.dto.CitaInDto;
 import com.dialisis.dialisisperitoneal.service.dto.PacienteInDto;
+import com.dialisis.dialisisperitoneal.service.dto.uniones.UnionCitaPrescripcionDias;
+import com.dialisis.dialisisperitoneal.service.dto.uniones.UnionPrescripcionDiasRecambios;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +26,15 @@ public class CitaService {
     private final CitaRepository repository;
     private final CitaInDtoToCita mapper;
 
+    private final PrescripcionDiaService prescripcionDiaService;
+    private final RecambioService recambioService;
 
-    public CitaService(CitaRepository repository, CitaInDtoToCita mapper) {
+
+    public CitaService(CitaRepository repository, CitaInDtoToCita mapper, PrescripcionDiaService prescripcionDiaService, RecambioService recambioService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.prescripcionDiaService = prescripcionDiaService;
+        this.recambioService = recambioService;
     }
 
     public Cita crearCita(CitaInDto citaInDto) {
@@ -82,5 +92,27 @@ public class CitaService {
     public void  finalizarById(int cita){
         this.repository.finalizar(LocalDateTime.now(),cita);
     }
-
+    public UnionCitaPrescripcionDias getPrescripcionActual(Paciente paciente) {
+        Cita cita = findUltimaCita(paciente);
+        if (cita == null)
+            return null;
+        else {
+            Paciente p = cita.getPaciente();
+            p.setFoto(null);
+            cita.setPaciente(p);
+            UnionCitaPrescripcionDias citaPres = new UnionCitaPrescripcionDias();
+            citaPres.setCita(cita);
+            List<PrescripcionDia> prescripcionDias = this.prescripcionDiaService.findByCita(cita);
+            List<UnionPrescripcionDiasRecambios> listPrescripcionDiasRecambios = new ArrayList<>();
+            for (PrescripcionDia prescripcionDia : prescripcionDias) {
+                UnionPrescripcionDiasRecambios prescripcionDiasRecambios = new UnionPrescripcionDiasRecambios();
+                prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);
+                prescripcionDiasRecambios.setRecambios(this.recambioService.findByPrescripcionDia(prescripcionDia));
+                listPrescripcionDiasRecambios.add(prescripcionDiasRecambios);
+            }
+            citaPres.setUnionPrescripcionDiasRecambios(listPrescripcionDiasRecambios);
+            return citaPres;
+        }
     }
+
+}
