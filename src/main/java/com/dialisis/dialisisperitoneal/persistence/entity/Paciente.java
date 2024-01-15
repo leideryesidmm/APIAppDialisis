@@ -16,13 +16,13 @@ private String cedula;
     @ManyToOne
     @JoinColumn(name="eps")
     private Eps eps;
-    private int altura;
-    private float peso;
-    private float pesoSeco;
+    private String altura;
+    private String peso;
+    private String pesoSeco;
     private String direccion;
     private String ocupacion;
     private String tipoSangre;
-    private char rh;
+    private String rh;
 
     private boolean diabetes;
     private boolean hipertension;
@@ -37,7 +37,7 @@ private String cedula;
         this.cedula=id;
     }
 
-    public Paciente(String cedula,  boolean cambioContrasenia,LocalDateTime fechaRegistro, LocalDateTime fechaNacimiento, int altura, int peso, int pesoSeco, String direccion, String ocupacion, String tipoSangre, char rh, boolean diabetes, boolean hipertension, Eps eps) {
+    public Paciente(String cedula,  boolean cambioContrasenia,LocalDateTime fechaRegistro, LocalDateTime fechaNacimiento, String altura, String peso, String pesoSeco, String direccion, String ocupacion, String tipoSangre, String rh, boolean diabetes, boolean hipertension, Eps eps) {
         this.cedula = cedula;
         this.fechaNacimiento = fechaNacimiento;
         this.altura = altura;

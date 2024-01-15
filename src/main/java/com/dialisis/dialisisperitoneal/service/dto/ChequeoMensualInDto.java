@@ -7,20 +7,20 @@ public class ChequeoMensualInDto {
 
     private int cita;
     private String tensionArterial;
-    private double colesterolTotal;
-    private double hemoglobina;
-    private double trigliceridos;
-    private double glicemia;
-    private double ldh;
-    private double hdl;
-    private double potasio;
-    private double fosforo;
-    private double nitrogenoUreico;
-    private double peso;
-    private double pesoSeco;
-    private double ktv;
-    private double glucosa;
-    private double creatinina;
+    private String colesterolTotal;
+    private String hemoglobina;
+    private String trigliceridos;
+    private String glicemia;
+    private String ldh;
+    private String hdl;
+    private String potasio;
+    private String fosforo;
+    private String nitrogenoUreico;
+    private String peso;
+    private String pesoSeco;
+    private String ktv;
+    private String glucosa;
+    private String creatinina;
 
 
 }

@@ -3,6 +3,7 @@ package com.dialisis.dialisisperitoneal.service;
 import com.dialisis.dialisisperitoneal.mapper.UsuarioInDtoToUsuario;
 import com.dialisis.dialisisperitoneal.persistence.entity.Usuario;
 import com.dialisis.dialisisperitoneal.persistence.repository.UsuarioRepository;
+import com.dialisis.dialisisperitoneal.service.encryption.EncryptionService;
 import com.dialisis.dialisisperitoneal.service.dto.UsuarioInDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,8 +14,10 @@ import java.util.List;
 public class UsuarioService {
     private final UsuarioRepository repository;
     private final UsuarioInDtoToUsuario mapper;
+    private final EncryptionService encryptionService;
 
-    public UsuarioService(UsuarioRepository repository, UsuarioInDtoToUsuario mapper) {
+    public UsuarioService(EncryptionService encryptionService, UsuarioRepository repository, UsuarioInDtoToUsuario mapper) {
+        this.encryptionService = encryptionService;
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -58,9 +61,28 @@ public class UsuarioService {
         this.repository.cambiarCelular(cedula,celular);
     }
 
-    public List<Usuario> findAdmin(){
-        return this.repository.findBytipoUsuario("admin");
+    public Usuario findAdmin(Usuario usuarioAdmin){
+        List<Usuario> usuarios=this.repository.findBytipoUsuario("admin");
+        if(!usuarios.isEmpty()) {
+            List<Usuario> usuariosAdmins = this.encryptionService.getEncBackend().desencriptarAdminsBackend(usuarios);
+            Usuario userFrontend= this.encryptionService.getEncFrontend().desencriptarAdminFrontend(usuarioAdmin);
+
+            if(usuariosAdmins!=null) {
+
+                for (Usuario usu :
+                        usuariosAdmins) {
+                    if (userFrontend.getCedula().equals(usu.getCedula()) && userFrontend.getContrasenia().equals(usu.getContrasenia())) {
+
+                        Usuario usuarioEncriptado = this.encryptionService.getEncFrontend().encriptarAdminFrontend(usu);
+                        return usuarioEncriptado;
+                    }
+                }
+            }
+        }
+        return null;
     }
+
+
 
     @Transactional
     public void inactivarUsuario(String cedula) {

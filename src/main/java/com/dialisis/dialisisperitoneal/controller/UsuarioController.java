@@ -108,11 +108,14 @@ public class UsuarioController {
         this.usuarioService.restaurarContrasenia(usuarioInDto.getCedula());
     }
 
-    @GetMapping("/findAdmin")
-    public ResponseEntity<List<Usuario>> findAdmin(){
-        List<Usuario> usuarios= this.usuarioService.findAdmin();
-        if(usuarios==null)
+    @PostMapping("/findAdmin")
+    public ResponseEntity<Usuario> findAdmin(@RequestBody Usuario usuario){
+        System.out.println(usuario);
+        Usuario usu= this.usuarioService.findAdmin(usuario);
+        System.out.println("ENTRO ANTES DEL IF");
+        if(usu==null)
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(usuarios);
+        System.out.println("ENTRO DESPUÉS DEL IF");
+        return ResponseEntity.ok(usu);
     }
 }

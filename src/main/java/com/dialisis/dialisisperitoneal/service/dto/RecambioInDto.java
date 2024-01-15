@@ -4,8 +4,8 @@ import lombok.Data;
 @Data
 public class RecambioInDto {
     private int prescripcionDia;
-    private double concentracion;
-    private int intervaloTiempo;
+    private String concentracion;
+    private String intervaloTiempo;
 }
 
 

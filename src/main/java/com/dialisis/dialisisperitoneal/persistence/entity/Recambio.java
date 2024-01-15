@@ -12,8 +12,8 @@ public class Recambio {
     @ManyToOne
     @JoinColumn(name = "prescripcion_dia")
     private PrescripcionDia prescripcionDia;
-    private double concentracion;
-    private int intervaloTiempo;
+    private String concentracion;
+    private String intervaloTiempo;
 
     public Recambio() {
     }

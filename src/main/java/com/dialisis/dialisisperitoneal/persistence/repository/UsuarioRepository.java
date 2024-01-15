@@ -2,6 +2,7 @@ package com.dialisis.dialisisperitoneal.persistence.repository;
 
 
 import com.dialisis.dialisisperitoneal.persistence.entity.Usuario;
+import com.dialisis.dialisisperitoneal.service.dto.UsuarioInDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

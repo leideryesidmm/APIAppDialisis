@@ -14,20 +14,20 @@ public class ChequeoMensual {
     @JoinColumn(name = "cita")
     private Cita cita;
     private String tensionArterial;
-    private double colesterolTotal;
-    private double hemoglobina;
-    private double trigliceridos;
-    private double glicemia;
-    private double hdl;
-    private double ldh;
-    private double potasio;
-    private double fosforo;
-    private double nitrogenoUreico;
-    private double peso;
+    private String colesterolTotal;
+    private String hemoglobina;
+    private String trigliceridos;
+    private String glicemia;
+    private String hdl;
+    private String ldh;
+    private String potasio;
+    private String fosforo;
+    private String nitrogenoUreico;
+    private String peso;
     @Column(name="peso_seco")
-    private double pesoSeco;
-    private double ktv;
-    private double glucosa;
-    private double creatinina;
+    private String pesoSeco;
+    private String ktv;
+    private String glucosa;
+    private String creatinina;
 
 }
