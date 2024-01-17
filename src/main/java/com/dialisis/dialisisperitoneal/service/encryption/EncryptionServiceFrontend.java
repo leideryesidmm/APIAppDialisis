@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 @Data
 public class EncryptionServiceFrontend {
-    private final String clave = "y362_02j=27w/=42";
-    private final String iv="bs72/=a12dx=o=pl";
+    private final String clave = "vfjdnjefh37/ps=3";
+    private final String iv="vuens_soha=6jh36";
     private final EncryptServiceAdmin admin;
     private EncryptionServiceAlergia alergia;
     private EncryptionServiceChequeo chequeo;
@@ -22,8 +22,12 @@ public class EncryptionServiceFrontend {
     private final EncryptionServicePacienteAlergia pacienteAlergia;
     private final EncryptionServiceRecambio recambio;
     private final EncryptionServiceRecambioHecho recambioHecho;
+    private final EncryptionServicePrescripcionDia prescripcionDia;
+    private final EncryptionServiceVisitaEspecialistas visitaEspecialistas;
 
     public EncryptionServiceFrontend() {
+        this.prescripcionDia = new EncryptionServicePrescripcionDia(iv, clave);
+        this.visitaEspecialistas = new EncryptionServiceVisitaEspecialistas(iv, clave);
         this.admin = new EncryptServiceAdmin(iv, clave);
         this.alergia = new EncryptionServiceAlergia(iv, clave);
         this.chequeo = new EncryptionServiceChequeo(iv, clave);

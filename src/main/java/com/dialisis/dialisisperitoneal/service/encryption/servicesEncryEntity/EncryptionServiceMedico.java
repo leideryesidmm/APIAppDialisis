@@ -24,14 +24,13 @@ public class EncryptionServiceMedico {
 
     public Medico encriptar(Medico medico){
         try {
+            if(medico==null)return null;
             System.out.println("Recambio del form" + medico);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (IV)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo cifrado
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (medico.getCedula() != null) {
                 byte[] cedulaEncriptadoBytes = cipher.doFinal(medico.getCedula().getBytes());
@@ -66,38 +65,38 @@ public class EncryptionServiceMedico {
     }
     public Medico desencriptar(Medico medico){
         try {
+            if(medico==null)return null;
             System.out.println("usuario del form" + medico);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-            // Configura la clave y el vector de inicialización (IV)
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
-            // Inicializa el cifrado en modo cifrado
+
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (medico.getCedula() != null) {
                 byte[] cedulaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getCedula()));
-                medico.setCedula(new String(cedulaDesencriptadoBytes, StandardCharsets.UTF_8));
+                medico.setCedula(new String(cedulaDesencriptadoBytes));
             }
             if(medico.getProfesion()!=null) {
                 byte[] profesionDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getProfesion()));
-                medico.setProfesion(new String(profesionDesencriptadoBytes, StandardCharsets.UTF_8));
+                medico.setProfesion(new String(profesionDesencriptadoBytes));
             }
             if(medico.getContrasenia()!=null){
                 byte[] contraseniaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getContrasenia()));
-                medico.setContrasenia(new String (contraseniaDesencriptadoBytes, StandardCharsets.UTF_8));}
+                medico.setContrasenia(new String (contraseniaDesencriptadoBytes));}
             if(medico.getCelular()!=null){
                 byte[] celularDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getCelular()));
-                medico.setCelular(new String (celularDesencriptadoBytes, StandardCharsets.UTF_8));}
+                medico.setCelular(new String (celularDesencriptadoBytes));}
             if(medico.getCorreo()!=null){
                 byte[] correoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getCorreo()));
-                medico.setCorreo(new String (correoDesencriptadoBytes, StandardCharsets.UTF_8));}
+                medico.setCorreo(new String (correoDesencriptadoBytes));}
             if(medico.getTipoDocumento()!=null){
                 byte[] tipoDocumentoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getTipoDocumento()));
-                medico.setTipoDocumento(new String (tipoDocumentoDesencriptadoBytes,StandardCharsets.UTF_8));}
+                medico.setTipoDocumento(new String (tipoDocumentoDesencriptadoBytes));}
             if(medico.getNombre()!=null){
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getNombre()));
-                medico.setNombre(new String (nombreDesencriptadoBytes, StandardCharsets.UTF_8));}
+                medico.setNombre(new String (nombreDesencriptadoBytes));}
 
             System.out.println("nuevo usuario "+medico);
         }

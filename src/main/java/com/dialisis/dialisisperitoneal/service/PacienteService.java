@@ -1,64 +1,108 @@
 package com.dialisis.dialisisperitoneal.service;
 
-import com.dialisis.dialisisperitoneal.exceptions.ToDoExceptions;
 import com.dialisis.dialisisperitoneal.mapper.PacienteInDtoToPaciente;
 import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
+import com.dialisis.dialisisperitoneal.persistence.entity.PacienteAlergia;
 import com.dialisis.dialisisperitoneal.persistence.repository.PacienteRepository;
 import com.dialisis.dialisisperitoneal.service.dto.PacienteInDto;
-import org.springframework.http.HttpStatus;
+import com.dialisis.dialisisperitoneal.service.encryption.EncryptionService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PacienteService {
 
     private final PacienteRepository repository;
     private final PacienteInDtoToPaciente mapper;
+    private EncryptionService encryptionService;
 
-    public PacienteService(PacienteRepository repository, PacienteInDtoToPaciente mapper) {
+    public PacienteService(PacienteRepository repository, PacienteInDtoToPaciente mapper, EncryptionService encryptionService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.encryptionService = encryptionService;
     }
+
     public Paciente crearPaciente(PacienteInDto pacienteInDto) {
         Paciente paciente = mapper.map(pacienteInDto);
-        return this.repository.save(paciente);
+        paciente = encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
+        paciente = encryptionService.getEncBackend().getPaciente().encriptar(paciente);
+        paciente = this.repository.save(paciente);
+        paciente = encryptionService.getEncBackend().getPaciente().desencriptar(paciente);
+        return encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
     }
 
     public List<Paciente> findAll() {
-        return this.repository.findAll();
+
+        List<Paciente> pacientes = this.repository.findAll();
+            for (int i = 0; i < pacientes.size(); i++) {
+                Paciente paciente = encryptionService.getEncBackend().getPaciente().desencriptar(pacientes.get(i));
+                paciente = encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
+                pacientes.set(i, paciente);
+            }
+            return pacientes;
     }
 
     public Paciente findByCedula(String cedula) {
-
-        return this.repository.findByCedula(cedula);
+        Paciente paciente = this.repository.findByCedula(cedula);
+        paciente = encryptionService.getEncBackend().getPaciente().desencriptar(paciente);
+        return encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
     }
 
 
     @Transactional
     public void actualizarDatosPaciente(PacienteInDto pacienteInDto, Paciente paciente) {
-        Paciente pac= mapper.map(pacienteInDto);
+        Paciente pac = mapper.map(pacienteInDto);
         pac.setCedula(pacienteInDto.getCedula());
-        if(paciente.getFoto()!=null) {
+        if (paciente.getFoto() != null) {
             pac.setFoto(paciente.getFoto());
         }
-        this.repository.save(pac);
+        pac = encryptionService.getEncFrontend().getPaciente().desencriptar(pac);
+        pac = encryptionService.getEncBackend().getPaciente().encriptar(pac);
+        pac = this.repository.save(pac);
+        pac = encryptionService.getEncBackend().getPaciente().desencriptar(pac);
+        pac = encryptionService.getEncFrontend().getPaciente().encriptar(pac);
     }
 
 
     public List<Paciente> findPacientesActivos() {
-        return this.repository.findPacientesActivos();
+        List<Paciente> pacientes = this.repository.findPacientesActivos();
+            for (int i = 0; i < pacientes.size(); i++) {
+                Paciente paciente = encryptionService.getEncBackend().getPaciente().desencriptar(pacientes.get(i));
+                paciente = encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
+                pacientes.set(i, paciente);
+            }
+            return pacientes;
     }
 
     public List<Paciente> findPacientesInactivos(String cedula) {
-        return this.repository.findPacientesInactivos(cedula);
+        Paciente pac = new Paciente(cedula);
+        pac = encryptionService.getEncFrontend().getPaciente().desencriptar(pac);
+        pac = encryptionService.getEncBackend().getPaciente().encriptar(pac);
+        List<Paciente> pacientes = this.repository.findPacientesInactivos(pac.getCedula());
+            for (int i = 0; i < pacientes.size(); i++) {
+                Paciente paciente = encryptionService.getEncBackend().getPaciente().desencriptar(pacientes.get(i));
+                paciente = encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
+                pacientes.set(i, paciente);
+            }
+            return pacientes;
+
     }
-    public List<Object[]> findAllPacientesDatos(){
+
+    public List<Object[]> findAllPacientesDatos() {
         System.out.println(this.repository.findAllPacientesDatos());
-        return this.repository.findAllPacientesDatos();
-
+        List<Object[]> pacientes = this.repository.findAllPacientesDatos();
+            for (int i = 0; i < pacientes.size(); i++) {
+                Object[] pacienteArray = pacientes.get(i);
+                if (pacienteArray != null && pacienteArray.length > 0 && pacienteArray[0] instanceof Paciente) {
+                    Paciente paciente = (Paciente) pacienteArray[0];
+                    paciente = encryptionService.getEncBackend().getPaciente().desencriptar(paciente);
+                    paciente = encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
+                    pacienteArray[0] = paciente;
+                    pacientes.add(pacienteArray);
+                }
+            }
+            return pacientes;
     }
-
 }

@@ -10,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
 
-@Service
 public class EncryptionServicePaciente {
 
     private  String clave;
@@ -23,6 +22,7 @@ public class EncryptionServicePaciente {
 
     public Paciente desencriptar(Paciente paciente){
         try {
+            if(paciente==null)return null;
             System.out.println("Recambio del form" + paciente);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -30,51 +30,51 @@ public class EncryptionServicePaciente {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(paciente.getAltura()!=null) {
                 byte[] alturaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getAltura()));
-                paciente.setAltura(new String(alturaDesencriptadoBytes, StandardCharsets.UTF_8));
+                paciente.setAltura(new String(alturaDesencriptadoBytes));
             }
             if(paciente.getDireccion()!=null) {
                 byte[] direccionDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getDireccion()));
-                paciente.setDireccion(new String(direccionDesencriptadoBytes, StandardCharsets.UTF_8));
+                paciente.setDireccion(new String(direccionDesencriptadoBytes));
             }
             if(paciente.getOcupacion()!=null) {
                 byte[] ocupacionDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getOcupacion()));
-                paciente.setOcupacion(new String(ocupacionDesencriptadoBytes, StandardCharsets.UTF_8));
+                paciente.setOcupacion(new String(ocupacionDesencriptadoBytes));
             }
             if(paciente.getPeso()!=null) {
                 byte[] pesoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getPeso()));
-                paciente.setPeso(new String(pesoDesencriptadoBytes, StandardCharsets.UTF_8));
+                paciente.setPeso(new String(pesoDesencriptadoBytes));
             }
             if(paciente.getPesoSeco()!=null) {
                 byte[] pesoSecoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getPesoSeco()));
-                paciente.setPesoSeco(new String(pesoSecoDesencriptadoBytes, StandardCharsets.UTF_8));
+                paciente.setPesoSeco(new String(pesoSecoDesencriptadoBytes));
             }
             if(paciente.getCedula()!=null) {
                 byte[] cedulaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getCedula()));
-                paciente.setCedula(new String(cedulaDesencriptadoBytes, StandardCharsets.UTF_8));
+                paciente.setCedula(new String(cedulaDesencriptadoBytes));
             }
             if(paciente.getRh()!=null) {
                 byte[] rhDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getRh()));
-                paciente.setRh(new String(rhDesencriptadoBytes, StandardCharsets.UTF_8));
+                paciente.setRh(new String(rhDesencriptadoBytes));
             }
             if(paciente.getTipoSangre()!=null) {
                 byte[] tipoSangreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getTipoSangre()));
-                paciente.setTipoSangre(new String(tipoSangreDesencriptadoBytes, StandardCharsets.UTF_8));
+                paciente.setTipoSangre(new String(tipoSangreDesencriptadoBytes));
             }
             if(paciente.getContrasenia()!=null){
                 byte[] contraseniaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getContrasenia()));
-                paciente.setContrasenia(new String (contraseniaDesencriptadoBytes, StandardCharsets.UTF_8));}
+                paciente.setContrasenia(new String (contraseniaDesencriptadoBytes));}
             if(paciente.getCelular()!=null){
                 byte[] celularDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getCelular()));
-                paciente.setCelular(new String (celularDesencriptadoBytes, StandardCharsets.UTF_8));}
+                paciente.setCelular(new String (celularDesencriptadoBytes));}
             if(paciente.getCorreo()!=null){
                 byte[] correoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getCorreo()));
-                paciente.setCorreo(new String (correoDesencriptadoBytes, StandardCharsets.UTF_8));}
+                paciente.setCorreo(new String (correoDesencriptadoBytes));}
             if(paciente.getTipoDocumento()!=null){
                 byte[] tipoDocumentoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getTipoDocumento()));
-                paciente.setTipoDocumento(new String (tipoDocumentoDesencriptadoBytes,StandardCharsets.UTF_8));}
+                paciente.setTipoDocumento(new String (tipoDocumentoDesencriptadoBytes));}
             if(paciente.getNombre()!=null){
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getNombre()));
-                paciente.setNombre(new String (nombreDesencriptadoBytes, StandardCharsets.UTF_8));}
+                paciente.setNombre(new String (nombreDesencriptadoBytes));}
             System.out.println("nuevo usuario "+paciente);
         }
         catch(Exception e){
@@ -84,6 +84,7 @@ public class EncryptionServicePaciente {
     }
     public Paciente encriptar(Paciente paciente){
         try {
+            if(paciente==null)return null;
             System.out.println("usuario del form" + paciente);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 

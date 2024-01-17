@@ -58,15 +58,15 @@ public class DatosMedicos {
     public void inactivarAlergia(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto) {
         this.pacienteAlergiaService.inactivarAlergia(unionPacienteAlergiaInDto.getPacienteInDto().getCedula(),unionPacienteAlergiaInDto.getAlergiaInDto().getIdAlergia());
     }
-    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")Long cedula,@PathVariable("id_alergia")int idAlergia){
+    public PacienteAlergia findPacienteAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int idAlergia){
         return this.pacienteAlergiaService.findAlergiaPorPaciente(cedula,idAlergia);
     }
     @PatchMapping("/alergia/activar/{cedula}{id_alergia}")
-    public void activarAlergia(@PathVariable("cedula")long cedula,@PathVariable("id_alergia")int idAlergia) {
+    public void activarAlergia(@PathVariable("cedula")String cedula,@PathVariable("id_alergia")int idAlergia) {
         this.pacienteAlergiaService.activarAlergia(cedula,idAlergia);
     }
     @GetMapping("/alergia/ListPasadas/{cedula}")
-    public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")long cedula){
+    public List<PacienteAlergia> findAlergiasPasadas(@PathVariable("cedula")String cedula){
         return this.pacienteAlergiaService.findAlergiasPasadas(cedula);
     }
 

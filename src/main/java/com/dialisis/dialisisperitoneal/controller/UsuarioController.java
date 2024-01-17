@@ -67,6 +67,7 @@ public class UsuarioController {
     }
     @PostMapping("/crearMedico")
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
+        System.out.println(medicoInDto);
         return this.medicoService.crearMedico(medicoInDto);
     }
     @PostMapping("/findMedicoByCedula")

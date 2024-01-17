@@ -11,21 +11,20 @@ import java.util.Base64;
 
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
 
-@Service
 public class EncryptServiceAdmin {
 
 
     private String clave;
     private String iv;
 
-    public EncryptServiceAdmin(String clave, String iv) {
+    public EncryptServiceAdmin(String iv, String clave) {
         this.clave = clave;
         this.iv = iv;
     }
 
     public Usuario desencriptar(Usuario usuario) {
-
         try{
+            if(usuario==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -35,22 +34,22 @@ public class EncryptServiceAdmin {
 
                 if(usuario.getCedula()!=null) {
                     byte[] cedulaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(usuario.getCedula()));
-                    usuario.setCedula(new String(cedulaDesencriptadoBytes, StandardCharsets.UTF_8));}
+                    usuario.setCedula(new String(cedulaDesencriptadoBytes));}
                 if(usuario.getContrasenia()!=null){
                     byte[] contraseniaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(usuario.getContrasenia()));
-                    usuario.setContrasenia(new String (contraseniaDesencriptadoBytes, StandardCharsets.UTF_8));}
+                    usuario.setContrasenia(new String (contraseniaDesencriptadoBytes));}
                 if(usuario.getCelular()!=null){
                     byte[] celularDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(usuario.getCelular()));
-                    usuario.setCelular(new String (celularDesencriptadoBytes, StandardCharsets.UTF_8));}
+                    usuario.setCelular(new String (celularDesencriptadoBytes));}
                 if(usuario.getCorreo()!=null){
                     byte[] correoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(usuario.getCorreo()));
-                    usuario.setCorreo(new String (correoDesencriptadoBytes, StandardCharsets.UTF_8));}
+                    usuario.setCorreo(new String (correoDesencriptadoBytes));}
                 if(usuario.getTipoDocumento()!=null){
                     byte[] tipoDocumentoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(usuario.getTipoDocumento()));
-                    usuario.setTipoDocumento(new String (tipoDocumentoDesencriptadoBytes,StandardCharsets.UTF_8));}
+                    usuario.setTipoDocumento(new String (tipoDocumentoDesencriptadoBytes));}
                 if(usuario.getNombre()!=null){
                     byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(usuario.getNombre()));
-                    usuario.setNombre(new String (nombreDesencriptadoBytes, StandardCharsets.UTF_8));}
+                    usuario.setNombre(new String (nombreDesencriptadoBytes));}
             }
         catch(Exception e){
             e.printStackTrace();
@@ -61,6 +60,7 @@ public class EncryptServiceAdmin {
 
     public Usuario encriptar(Usuario usuario) {
         try {
+            if(usuario==null)return null;
             System.out.println("encriptado admin frontend hbwydbyuwedbhej");
             System.out.println(usuario);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");

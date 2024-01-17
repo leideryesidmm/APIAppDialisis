@@ -21,6 +21,7 @@ public class EncryptionServiceFormulaMedicamento {
     }
     public FormulaMedicamento desencriptar(FormulaMedicamento formulaMedicamento) {
         try {
+            if(formulaMedicamento==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -60,6 +61,7 @@ public class EncryptionServiceFormulaMedicamento {
 
     public FormulaMedicamento encriptar(FormulaMedicamento formulaMedicamento){
         try {
+            if(formulaMedicamento==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));

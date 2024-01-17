@@ -23,7 +23,7 @@ public interface PacienteAlergiaRepository extends JpaRepository<PacienteAlergia
                                           @Param("activo")boolean activo);
 
     @Query(value = "select * from alergia a join paciente_alergia pa on a.id_alergia=pa.alergia join paciente p on p.cedula=pa.paciente where pa.paciente=:cedula and pa.alergia=:id_alergia", nativeQuery = true)
-    public PacienteAlergia findAlergiaPaciente(@Param("cedula")Long cedula,
+    public PacienteAlergia findAlergiaPaciente(@Param("cedula")String cedula,
                                                @Param("id_alergia")int idAlergia);
     @Modifying
     @Query(value = "update paciente_alergia set activo=false where paciente=:cedula and alergia=:id_alergia", nativeQuery = true)
@@ -32,10 +32,10 @@ public interface PacienteAlergiaRepository extends JpaRepository<PacienteAlergia
 
     @Modifying
     @Query(value = "update paciente_alergia set activo=true where paciente=:cedula and alergia=:id_alergia", nativeQuery = true)
-    public void activarAlergia(@Param("cedula")long cedula,
+    public void activarAlergia(@Param("cedula")String cedula,
                                @Param("id_alergia")int idAlergia);
 
     @Query(value = "select * from alergia a join paciente_alergia pa on a.id_alergia=pa.alergia join paciente p on pa.paciente=p.cedula where pa.paciente=:cedula and activo=false", nativeQuery = true)
-    public List<PacienteAlergia> findAlergiasPasadas(@Param("cedula")long cedula);
+    public List<PacienteAlergia> findAlergiasPasadas(@Param("cedula")String cedula);
 
 }

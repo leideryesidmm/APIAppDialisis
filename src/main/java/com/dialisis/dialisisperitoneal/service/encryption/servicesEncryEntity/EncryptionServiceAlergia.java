@@ -21,6 +21,8 @@ public class EncryptionServiceAlergia {
 
     public Alergia desencriptar(Alergia alergia) {
         try {
+            if(alergia==null)return null;
+
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -40,6 +42,7 @@ public class EncryptionServiceAlergia {
 
     public Alergia encriptar(Alergia alergia){
         try {
+            if(alergia==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));

@@ -4,6 +4,7 @@ import com.dialisis.dialisisperitoneal.mapper.VisitaEspecialistaInDtoToVisitaEsp
 import com.dialisis.dialisisperitoneal.persistence.entity.*;
 import com.dialisis.dialisisperitoneal.persistence.repository.VisitaEspecialistaRepository;
 import com.dialisis.dialisisperitoneal.service.dto.VisitaEspecialistaInDto;
+import com.dialisis.dialisisperitoneal.service.encryption.EncryptionService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,40 +16,50 @@ public class VisitaEspecialistaService {
 
     private final VisitaEspecialistaRepository repository;
     private final VisitaEspecialistaInDtoToVisitaEspecialista mapper;
+    private EncryptionService encryptionService;
 
-    public VisitaEspecialistaService(VisitaEspecialistaRepository repository, VisitaEspecialistaInDtoToVisitaEspecialista mapper) {
+    public VisitaEspecialistaService(VisitaEspecialistaRepository repository, VisitaEspecialistaInDtoToVisitaEspecialista mapper, EncryptionService encryptionService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.encryptionService = encryptionService;
     }
 
     public VisitaEspecialista crearVisita(VisitaEspecialistaInDto visitaEspecialistaInDto) {
         VisitaEspecialista visitaEspecialista = mapper.map(visitaEspecialistaInDto);
-        return this.repository.save(visitaEspecialista);
+        visitaEspecialista= encryptionService.getEncFrontend().getVisitaEspecialistas().desencriptar(visitaEspecialista);
+        visitaEspecialista=encryptionService.getEncBackend().getVisitaEspecialistas().encriptar(visitaEspecialista);
+         this.repository.save(visitaEspecialista);
+        visitaEspecialista=encryptionService.getEncBackend().getVisitaEspecialistas().desencriptar(visitaEspecialista);
+        return encryptionService.getEncFrontend().getVisitaEspecialistas().desencriptar(visitaEspecialista);
     }
 
     public VisitaEspecialista findUltimaVisita(int idCita) {
-        List<VisitaEspecialista> visitas=this.repository.findUltimaVisita(idCita);
-        if(visitas.isEmpty())
-            return null;
-        else
-            return visitas.get(0);
+        List<VisitaEspecialista> visitas = this.repository.findUltimaVisita(idCita);
+            VisitaEspecialista ultimaVisita = visitas.get(0);
+            ultimaVisita=encryptionService.getEncBackend().getVisitaEspecialistas().desencriptar(ultimaVisita);
+            ultimaVisita=encryptionService.getEncFrontend().getVisitaEspecialistas().encriptar(ultimaVisita);
+            return ultimaVisita;
     }
 
-    public List<VisitaEspecialista> findAllVisitas(List<Cita> citas){
-        List<VisitaEspecialista> visitas=new ArrayList<>();
-        for (Cita cita:citas){
-            VisitaEspecialista visitaEspecialista=this.repository.findByCita(cita);
-            if(visitaEspecialista!=null)
-                visitas.add(visitaEspecialista);
+    public List<VisitaEspecialista> findAllVisitas(List<Cita> citas) {
+        List<VisitaEspecialista> visitas = new ArrayList<>();
+        for (Cita cita : citas) {
+            cita = encryptionService.getEncFrontend().getCita().desencriptar(cita);
+            cita = encryptionService.getEncBackend().getCita().encriptar(cita);
+            VisitaEspecialista visitaEspecialista = this.repository.findByCita(cita);
+            visitaEspecialista = encryptionService.getEncBackend().getVisitaEspecialistas().desencriptar(visitaEspecialista);
+            visitaEspecialista = encryptionService.getEncFrontend().getVisitaEspecialistas().encriptar(visitaEspecialista);
+            visitas.add(visitaEspecialista);
         }
-            return visitas;
+        return visitas;
     }
 
     @Transactional
     public void actualizarVisita(int idVisita, VisitaEspecialistaInDto visitaEspecialistaInDto){
         VisitaEspecialista visitaEspecialista= mapper.map(visitaEspecialistaInDto);
         visitaEspecialista.setIdVistaEspecialista(idVisita);
+        visitaEspecialista=encryptionService.getEncFrontend().getVisitaEspecialistas().desencriptar(visitaEspecialista);
+        visitaEspecialista=encryptionService.getEncBackend().getVisitaEspecialistas().encriptar(visitaEspecialista);
         this.repository.save(visitaEspecialista);
     }
 }
-

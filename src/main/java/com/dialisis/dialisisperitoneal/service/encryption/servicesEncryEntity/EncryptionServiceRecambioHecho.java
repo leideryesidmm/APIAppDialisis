@@ -13,7 +13,7 @@ import java.util.Base64;
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
 
 
-@Service
+
 public class EncryptionServiceRecambioHecho {
     private EncryptionServiceRecambio encryptionServiceRecambio;
     private String clave;
@@ -27,6 +27,7 @@ public class EncryptionServiceRecambioHecho {
 
     public RecambioHecho encriptar(RecambioHecho recambioHecho){
         try {
+            if(recambioHecho==null)return null;
             System.out.println("Recambio del form" + recambioHecho);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
@@ -63,6 +64,7 @@ public class EncryptionServiceRecambioHecho {
     }
     public RecambioHecho desencriptar(RecambioHecho recambioHecho){
         try {
+            if(recambioHecho==null)return null;
             System.out.println("usuario del form" + recambioHecho);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
@@ -72,19 +74,19 @@ public class EncryptionServiceRecambioHecho {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (recambioHecho.getDrenajeDialisis() != null) {
                 byte[] drenajeDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(recambioHecho.getDrenajeDialisis()));
-                recambioHecho.setDrenajeDialisis(new String(drenajeDesencriptadoBytes, StandardCharsets.UTF_8));
+                recambioHecho.setDrenajeDialisis(new String(drenajeDesencriptadoBytes));
             }
             if(recambioHecho.getOrificioSalida()!=null) {
                 byte[] orificioDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(recambioHecho.getOrificioSalida()));
-                recambioHecho.setOrificioSalida(new String(orificioDesencriptadoBytes, StandardCharsets.UTF_8));
+                recambioHecho.setOrificioSalida(new String(orificioDesencriptadoBytes));
             }
             if(recambioHecho.getCaracteristicaLiquido()!=null){
                 byte[] caracteristicaLiquidoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(recambioHecho.getCaracteristicaLiquido()));
-                recambioHecho.setCaracteristicaLiquido(new String(caracteristicaLiquidoDesencriptadoBytes, StandardCharsets.UTF_8));
+                recambioHecho.setCaracteristicaLiquido(new String(caracteristicaLiquidoDesencriptadoBytes));
             }
             if(recambioHecho.getLiquidoEntrante()!=null) {
                 byte[] liquidoDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(recambioHecho.getLiquidoEntrante()));
-                recambioHecho.setLiquidoEntrante(new String(liquidoDesencriptadoBytes, StandardCharsets.UTF_8));
+                recambioHecho.setLiquidoEntrante(new String(liquidoDesencriptadoBytes));
             }
             if(recambioHecho.getRecambio()!=null) {
                 recambioHecho.setRecambio(encryptionServiceRecambio.desencriptar(recambioHecho.getRecambio()));

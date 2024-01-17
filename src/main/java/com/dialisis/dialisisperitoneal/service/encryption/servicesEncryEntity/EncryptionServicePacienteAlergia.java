@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets;
 
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
 
-@Service
 public class EncryptionServicePacienteAlergia {
 
     private EncryptionServicePaciente encryptionServicePaciente;
@@ -24,8 +23,8 @@ public class EncryptionServicePacienteAlergia {
         this.iv = iv;
     }
     public PacienteAlergia encriptar(PacienteAlergia pacienteAlergia){
-
         try {
+            if(pacienteAlergia==null)return null;
             System.out.println("Recambio del form" + pacienteAlergia);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -47,6 +46,7 @@ public class EncryptionServicePacienteAlergia {
     }
     public PacienteAlergia desencriptar(PacienteAlergia pacienteAlergia){
         try {
+            if(pacienteAlergia==null)return null;
             System.out.println("usuario del form" + pacienteAlergia);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 

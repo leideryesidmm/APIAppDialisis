@@ -35,8 +35,18 @@ public class MedicoController{
         return ResponseEntity.ok(pacientes);
     }
     @GetMapping("/findAll")
-    public List<Medico> findAllMedicos(){
-        return this.medicoService.findAll();
+    public ResponseEntity<List<Medico>> findAllMedicos(){
+        List<Medico> medicos= this.medicoService.findAll();
+        if(medicos==null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(medicos);
+    }
+
+    @PostMapping("/exist/{documento}")
+    public boolean existeMedico(@PathVariable String documento){
+
+        return this.medicoService.existeMedico(documento);
     }
     @GetMapping("/findByCedula/{cedula}")
     public Usuario findMedico(@PathVariable("cedula") String cedula){

@@ -26,6 +26,7 @@ public class EncryptionServiceCita {
 
     public Cita desencriptar(Cita cita) {
         try {
+            if(cita==null) return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -52,6 +53,7 @@ public class EncryptionServiceCita {
 
     public Cita encriptar(Cita cita){
         try {
+            if(cita==null) return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));

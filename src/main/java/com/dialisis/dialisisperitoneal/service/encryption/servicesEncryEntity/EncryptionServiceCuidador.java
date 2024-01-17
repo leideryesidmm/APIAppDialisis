@@ -21,6 +21,7 @@ public class EncryptionServiceCuidador {
 
     public Cuidador desencriptar(Cuidador cuidador) {
         try {
+            if(cuidador==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -52,6 +53,7 @@ public class EncryptionServiceCuidador {
 
     public Cuidador encriptar(Cuidador cuidador){
         try {
+            if(cuidador==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));

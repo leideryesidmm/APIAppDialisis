@@ -10,15 +10,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
-@Service
+
 public class EncryptionServiceRecambio {
 
+    private EncryptionServicePrescripcionDia encryptionServicePrescripcionDia;
     private  String clave;
     private  String iv;
 
     public EncryptionServiceRecambio(String iv, String clave) {
         this.clave = clave;
         this.iv = iv;
+        this.encryptionServicePrescripcionDia=new EncryptionServicePrescripcionDia(iv, clave);
     }
 
     public EncryptionServiceRecambio() {
@@ -26,6 +28,7 @@ public class EncryptionServiceRecambio {
 
     public Recambio encriptar(Recambio recambio){
         try {
+            if(recambio==null)return null;
             System.out.println("Recambio del form" + recambio);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
@@ -41,6 +44,9 @@ public class EncryptionServiceRecambio {
                 byte[] intervaloTimepoEncriptadoBytes = cipher.doFinal(recambio.getIntervaloTiempo().getBytes());
                 recambio.setIntervaloTiempo(new String(encodeBase64(intervaloTimepoEncriptadoBytes)));
             }
+            if(recambio.getPrescripcionDia()!=null) {
+                recambio.setPrescripcionDia(encryptionServicePrescripcionDia.encriptar(recambio.getPrescripcionDia()));
+            }
             System.out.println("nuevo usuario "+recambio);
         }
         catch(Exception e){
@@ -51,6 +57,7 @@ public class EncryptionServiceRecambio {
 
     public Recambio desencriptar(Recambio recambio){
         try {
+            if(recambio==null)return null;
             System.out.println("usuario del form" + recambio);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
@@ -60,11 +67,14 @@ public class EncryptionServiceRecambio {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (recambio.getConcentracion() != null) {
                 byte[] concentracionDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(recambio.getConcentracion()));
-                recambio.setConcentracion(new String(concentracionDesencriptadoBytes, StandardCharsets.UTF_8));
+                recambio.setConcentracion(new String(concentracionDesencriptadoBytes));
             }
             if(recambio.getIntervaloTiempo()!=null) {
                 byte[] intervaloDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(recambio.getIntervaloTiempo()));
-                recambio.setIntervaloTiempo(new String(intervaloDesencriptadoBytes, StandardCharsets.UTF_8));
+                recambio.setIntervaloTiempo(new String(intervaloDesencriptadoBytes));
+            }
+            if(recambio.getPrescripcionDia()!=null) {
+                recambio.setPrescripcionDia(encryptionServicePrescripcionDia.desencriptar(recambio.getPrescripcionDia()));
             }
             System.out.println("nuevo usuario "+recambio);
         }
