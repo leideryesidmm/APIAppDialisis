@@ -5,6 +5,7 @@ import com.dialisis.dialisisperitoneal.persistence.entity.CuidadorPaciente;
 import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
 import com.dialisis.dialisisperitoneal.persistence.repository.CuidadorPacienteRepository;
 import com.dialisis.dialisisperitoneal.service.dto.CuidadorPacienteInDto;
+import com.dialisis.dialisisperitoneal.service.encryption.EncryptionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,22 +19,41 @@ import java.util.Optional;
 public class CuidadorPacienteService {
     private final CuidadorPacienteRepository repository;
     private final CuidadorPacienteInDtoToCuidadorPaciente mapper;
+    private final EncryptionService encryptionService;
 
-    public CuidadorPacienteService(CuidadorPacienteRepository repository, CuidadorPacienteInDtoToCuidadorPaciente mapper) {
+    public CuidadorPacienteService(CuidadorPacienteRepository repository, CuidadorPacienteInDtoToCuidadorPaciente mapper, EncryptionService encryptionService) {
         this.repository = repository;
         this.mapper = mapper;
+        this.encryptionService = encryptionService;
     }
 
     public CuidadorPaciente crearCuidadorPaciente(CuidadorPacienteInDto cuidadorpacienteInDto){
         CuidadorPaciente cuidadorpaciente=this.mapper.map(cuidadorpacienteInDto);
-        return this.repository.save(cuidadorpaciente);
+        cuidadorpaciente=encryptionService.getEncFrontend().getCuidadorPaciente().desencriptar(cuidadorpaciente);
+        cuidadorpaciente=encryptionService.getEncBackend().getCuidadorPaciente().encriptar(cuidadorpaciente);
+        cuidadorpaciente=this.repository.save(cuidadorpaciente);
+        return cuidadorpaciente;
     }
     public List<CuidadorPaciente> findAll(){
-        return this.repository.findAll();
+        List<CuidadorPaciente> cuidadorPacientes= this.repository.findAll();
+        for (int i = 0; i < cuidadorPacientes.size(); i++) {
+            CuidadorPaciente cuidadorPaciente=cuidadorPacientes.get(i);
+            cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
+            cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
+            cuidadorPacientes.set(i,cuidadorPaciente);
+        }
+        return cuidadorPacientes;
     }
 
     public List<CuidadorPaciente> findAllByPaciente(String paciente){
-        return this.repository.findAllByPaciente(new Paciente(paciente));
+        List<CuidadorPaciente> cuidadorPacientes= this.repository.findAllByPaciente(new Paciente(paciente));
+        for (int i = 0; i < cuidadorPacientes.size(); i++) {
+            CuidadorPaciente cuidadorPaciente=cuidadorPacientes.get(i);
+            cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
+            cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
+            cuidadorPacientes.set(i,cuidadorPaciente);
+        }
+        return cuidadorPacientes;
     }
 
     public CuidadorPaciente findById(int idCuidadorpaciente){
@@ -41,11 +61,17 @@ public class CuidadorPacienteService {
         if (optionalCuidadorPaciente.isEmpty()) {
             throw new ToDoExceptions("Cormobilidad no encontrada", HttpStatus.NOT_FOUND);
         }
-        return optionalCuidadorPaciente.get();
+        CuidadorPaciente cuidadorPaciente=optionalCuidadorPaciente.get();
+        cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
+        cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
+        return cuidadorPaciente;
     }
 
     public CuidadorPaciente findCuidadorActivo(String cedula){
-        return this.repository.findCuidadorActivo(cedula);
+        CuidadorPaciente cuidadorPaciente=this.repository.findCuidadorActivo(cedula);
+        cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
+        cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
+        return cuidadorPaciente;
     }
     public void actualizarCuidadorPaciente(int idCuidadorPaciente, Date fechaini,Date fechaFin, boolean activo){
         this.repository.actualizarCuidadorPaciente(idCuidadorPaciente,fechaini,fechaFin, activo);

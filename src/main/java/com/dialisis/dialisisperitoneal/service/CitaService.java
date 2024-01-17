@@ -10,8 +10,8 @@ import com.dialisis.dialisisperitoneal.service.dto.CitaInDto;
 import com.dialisis.dialisisperitoneal.service.dto.PacienteInDto;
 import com.dialisis.dialisisperitoneal.service.dto.uniones.UnionCitaPrescripcionDias;
 import com.dialisis.dialisisperitoneal.service.dto.uniones.UnionPrescripcionDiasRecambios;
+import com.dialisis.dialisisperitoneal.service.encryption.EncryptionService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,34 +28,52 @@ public class CitaService {
 
     private final PrescripcionDiaService prescripcionDiaService;
     private final RecambioService recambioService;
+    private final EncryptionService encryptionService;
 
 
-    public CitaService(CitaRepository repository, CitaInDtoToCita mapper, PrescripcionDiaService prescripcionDiaService, RecambioService recambioService) {
+    public CitaService(CitaRepository repository, CitaInDtoToCita mapper, PrescripcionDiaService prescripcionDiaService, RecambioService recambioService, EncryptionService encryptionService) {
         this.repository = repository;
         this.mapper = mapper;
         this.prescripcionDiaService = prescripcionDiaService;
         this.recambioService = recambioService;
+        this.encryptionService = encryptionService;
     }
 
     public Cita crearCita(CitaInDto citaInDto) {
             Cita cita = mapper.map(citaInDto);
-
-            return this.repository.save(cita);
+            cita=encryptionService.getEncFrontend().getCita().desencriptar(cita);
+            cita=encryptionService.getEncBackend().getCita().encriptar(cita);
+            cita=this.repository.save(cita);
+            cita=encryptionService.getEncBackend().getCita().desencriptar(cita);
+            cita=encryptionService.getEncFrontend().getCita().encriptar(cita);
+            return cita;
     }
 
     public List<Cita> findAllByPaciente(PacienteInDto paciente){
         Paciente cedula=new Paciente();
         cedula.setCedula(paciente.getCedula());
-        return this.repository.findAllByPaciente(cedula);
+        cedula=encryptionService.getEncFrontend().getPaciente().desencriptar(cedula);
+        cedula=encryptionService.getEncBackend().getPaciente().encriptar(cedula);
+        List<Cita> citasBack=this.repository.findAllByPaciente(cedula);
+        List<Cita> citas=new ArrayList<>();
+        for (Cita cita : citasBack) {
+            cita=encryptionService.getEncBackend().getCita().desencriptar(cita);
+            cita=encryptionService.getEncFrontend().getCita().encriptar(cita);
+            citas.add(cita);
+        }
+        return citas;
     }
     public Cita findById(int idCita){
         Optional<Cita> optionalCita = this.repository.findById(idCita);
         if (optionalCita.isEmpty()) {
             throw new ToDoExceptions("Cita no encontrada", HttpStatus.NOT_FOUND);
+        }else{
+        Cita cita=optionalCita.get();
+        cita=encryptionService.getEncBackend().getCita().desencriptar(cita);
+        cita=encryptionService.getEncFrontend().getCita().encriptar(cita);
+        return cita;
         }
-        return optionalCita.get();
     }
-
     public void deleteById(int idCita){
         Optional<Cita> optionalCita = this.repository.findById(idCita);
         if (optionalCita.isEmpty()) {
@@ -65,27 +83,56 @@ public class CitaService {
         }
 
     }
-
-
     public List<Cita> findAllCitasAntiguasByPaciente(Paciente cedula){
         LocalDateTime hoy=LocalDateTime.now();
-        return this.repository.findAllCitasAntiguasByPaciente(cedula,hoy);
+        cedula=encryptionService.getEncFrontend().getPaciente().desencriptar(cedula);
+        cedula=encryptionService.getEncBackend().getPaciente().encriptar(cedula);
+        List<Cita> citas =this.repository.findAllCitasAntiguasByPaciente(cedula,hoy);
+        for (int i = 0; i < citas.size(); i++) {
+            Cita cita = citas.get(i);
+            cita = encryptionService.getEncBackend().getCita().desencriptar(cita);
+            cita = encryptionService.getEncFrontend().getCita().encriptar(cita);
+            citas.set(i, cita);
+        }
+        return citas;
     }
-    public List<Cita> findAllCitas(){
-        return this.repository.findAll();
+    public List<Cita> findAllCitas() {
+        List<Cita> citasBack = this.repository.findAll();
+        for (int i = 0; i < citasBack.size(); i++) {
+            Cita cita = citasBack.get(i);
+            cita = encryptionService.getEncBackend().getCita().desencriptar(cita);
+            cita = encryptionService.getEncFrontend().getCita().encriptar(cita);
+            citasBack.set(i, cita);
+        }
+        return citasBack;
     }
     public List<Cita> findAllCitasFuturasByPaciente(Paciente cedula){
         LocalDateTime hoy=LocalDateTime.now();
-        return this.repository.findAllCitasFuturasByPaciente(cedula,hoy);
+        cedula=encryptionService.getEncFrontend().getPaciente().desencriptar(cedula);
+        cedula=encryptionService.getEncBackend().getPaciente().encriptar(cedula);
+        List<Cita> citas =this.repository.findAllCitasFuturasByPaciente(cedula,hoy);
+        for (int i = 0; i < citas.size(); i++) {
+            Cita cita = citas.get(i);
+            cita = encryptionService.getEncBackend().getCita().desencriptar(cita);
+            cita = encryptionService.getEncFrontend().getCita().encriptar(cita);
+            citas.set(i, cita);
+        }
+        return citas;
+
     }
 
 
     public Cita findUltimaCita(Paciente paciente) {
+        paciente=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
+        paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
         List<Cita> citas=this.repository.findUltimaCita(paciente);
             if(citas.isEmpty())
                 return null;
             else {
-                return citas.get(0);
+                Cita cita=citas.get(0);
+                cita=encryptionService.getEncBackend().getCita().desencriptar(cita);
+                cita=encryptionService.getEncFrontend().getCita().encriptar(cita);
+                return cita;
             }
     }
     @Transactional

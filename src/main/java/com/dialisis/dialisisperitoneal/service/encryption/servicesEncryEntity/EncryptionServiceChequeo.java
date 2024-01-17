@@ -13,13 +13,16 @@ import static org.apache.commons.codec.binary.Base64.encodeBase64;
 public class EncryptionServiceChequeo {
     private String iv ;
     private String clave;
+    EncryptionServiceCita encryptionServiceCita;
 
     public EncryptionServiceChequeo(String iv, String clave) {
         this.iv = iv;
         this.clave = clave;
+        this.encryptionServiceCita = new EncryptionServiceCita(iv,clave);
     }
     public ChequeoMensual desencriptar(ChequeoMensual chequeo) {
         try {
+            if(chequeo==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -86,6 +89,9 @@ public class EncryptionServiceChequeo {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(chequeo.getKtv()));
                 chequeo.setKtv(new String(nombreDesencriptadoBytes));
             }
+            if(chequeo.getCita()!=null) {
+                chequeo.setCita(encryptionServiceCita.desencriptar(chequeo.getCita()));
+            }
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -95,7 +101,7 @@ public class EncryptionServiceChequeo {
 
     public ChequeoMensual encriptar(ChequeoMensual chequeo){
         try {
-
+            if(chequeo==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
@@ -160,6 +166,9 @@ public class EncryptionServiceChequeo {
             if(chequeo.getKtv()!=null) {
                 byte[] ktvDesencriptadoBytes = cipher.doFinal(chequeo.getKtv().getBytes());
                 chequeo.setKtv(new String(encodeBase64(ktvDesencriptadoBytes)));
+            }
+            if(chequeo.getCita()!=null) {
+                chequeo.setCita(encryptionServiceCita.encriptar(chequeo.getCita()));
             }
         }catch(Exception e){
             e.printStackTrace();
