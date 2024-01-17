@@ -37,8 +37,6 @@ public class EncryptionServiceBackend {
     }
 
 
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 3b89f9d620644d67ff88a65241c5f7a4e43e84a0
+
