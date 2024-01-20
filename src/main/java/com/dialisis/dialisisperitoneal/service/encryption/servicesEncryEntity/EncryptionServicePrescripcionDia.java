@@ -21,7 +21,6 @@ public class EncryptionServicePrescripcionDia {
     public PrescripcionDia encriptar(PrescripcionDia prescripcionDia){
         try {
             if(prescripcionDia==null)return null;
-            System.out.println("Recambio del form" + prescripcionDia);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
@@ -30,7 +29,6 @@ public class EncryptionServicePrescripcionDia {
             if (prescripcionDia.getCita() != null) {
                 prescripcionDia.setCita(encryptionServiceCita.encriptar(prescripcionDia.getCita()));
             }
-            System.out.println("nuevo usuario "+prescripcionDia);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -40,7 +38,6 @@ public class EncryptionServicePrescripcionDia {
     public PrescripcionDia desencriptar(PrescripcionDia prescripcionDia){
         try {
             if(prescripcionDia==null)return null;
-            System.out.println("usuario del form" + prescripcionDia);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -50,7 +47,6 @@ public class EncryptionServicePrescripcionDia {
             if (prescripcionDia.getCita() != null) {
                 prescripcionDia.setCita(encryptionServiceCita.desencriptar(prescripcionDia.getCita()));
             }
-            System.out.println("nuevo usuario "+prescripcionDia);
         }
         catch(Exception e){
             e.printStackTrace();

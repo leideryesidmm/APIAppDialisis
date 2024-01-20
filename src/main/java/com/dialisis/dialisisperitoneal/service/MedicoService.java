@@ -33,20 +33,6 @@ public class MedicoService {
             }
             return medicosEncriptados;
     }
-    public boolean existeMedico(String medicoF){
-        Medico medico= new Medico(medicoF);
-        Medico medicoDesencriptado=encryptionService.getEncFrontend().getMedico().encriptar(medico);
-        if(findAll()!=null) {
-            List<Medico> medicosB=findAll();
-            for (Medico med :
-                    medicosB) {
-                Medico medicoBdDesencriptados = encryptionService.getEncBackend().getMedico().desencriptar(med);
-                if(medicoDesencriptado.getCedula().equals(medicoBdDesencriptados))
-                    return true;
-            }
-        }
-        return false;
-    }
     public Medico findByCedula(String cedula){
         Medico medico= new Medico(cedula);
         medico=encryptionService.getEncFrontend().getMedico().desencriptar(medico);
@@ -63,13 +49,9 @@ public class MedicoService {
     }
 
     @Transactional
-    public void actualizarDatosMedico(MedicoInDto medicoInDto, Medico medico) {
-        Medico med= mapper.map(medicoInDto);
-        med.setCedula(medico.getCedula());
-        med=encryptionService.getEncFrontend().getMedico().desencriptar(med);
-        med=encryptionService.getEncBackend().getMedico().encriptar(med);
-        this.medicoRepository.save(med);
+    public void actualizarDatosMedico(Medico medicoInDto) {
+        medicoInDto=encryptionService.getEncFrontend().getMedico().desencriptar(medicoInDto);
+        medicoInDto =encryptionService.getEncBackend().getMedico().encriptar(medicoInDto);
+        this.medicoRepository.save(medicoInDto);
     }
-
-
 }

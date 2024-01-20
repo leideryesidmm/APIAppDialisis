@@ -43,13 +43,9 @@ public class MedicoController{
         return ResponseEntity.ok(medicos);
     }
 
-    @PostMapping("/exist/{documento}")
-    public boolean existeMedico(@PathVariable String documento){
-
-        return this.medicoService.existeMedico(documento);
-    }
-    @GetMapping("/findByCedula/{cedula}")
+    @PostMapping("/findByCedula/{cedula}")
     public Usuario findMedico(@PathVariable("cedula") String cedula){
+        
         return this.medicoService.findByCedula(cedula);
     }
     @PostMapping("/clinica/crearClinica/{cedula}")

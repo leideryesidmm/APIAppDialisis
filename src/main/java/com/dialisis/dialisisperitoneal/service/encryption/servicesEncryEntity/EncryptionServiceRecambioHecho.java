@@ -28,7 +28,6 @@ public class EncryptionServiceRecambioHecho {
     public RecambioHecho encriptar(RecambioHecho recambioHecho){
         try {
             if(recambioHecho==null)return null;
-            System.out.println("Recambio del form" + recambioHecho);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -54,7 +53,6 @@ public class EncryptionServiceRecambioHecho {
             if(recambioHecho.getRecambio()!=null) {
                 recambioHecho.setRecambio(encryptionServiceRecambio.encriptar(recambioHecho.getRecambio()));
             }
-            System.out.println("nuevo usuario "+recambioHecho);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -65,7 +63,6 @@ public class EncryptionServiceRecambioHecho {
     public RecambioHecho desencriptar(RecambioHecho recambioHecho){
         try {
             if(recambioHecho==null)return null;
-            System.out.println("usuario del form" + recambioHecho);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -91,7 +88,6 @@ public class EncryptionServiceRecambioHecho {
             if(recambioHecho.getRecambio()!=null) {
                 recambioHecho.setRecambio(encryptionServiceRecambio.desencriptar(recambioHecho.getRecambio()));
             }
-            System.out.println("nuevo usuario "+recambioHecho);
         }
         catch(Exception e){
             e.printStackTrace();

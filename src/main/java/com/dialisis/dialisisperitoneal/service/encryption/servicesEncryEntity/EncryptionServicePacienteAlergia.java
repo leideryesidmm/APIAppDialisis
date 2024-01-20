@@ -46,7 +46,6 @@ public class EncryptionServicePacienteAlergia {
     public PacienteAlergia desencriptar(PacienteAlergia pacienteAlergia){
         try {
             if(pacienteAlergia==null)return null;
-            System.out.println("usuario del form" + pacienteAlergia);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -59,8 +58,6 @@ public class EncryptionServicePacienteAlergia {
             if (pacienteAlergia.getAlergia() != null) {
                 pacienteAlergia.setAlergia(encryptionServiceAlergia.desencriptar(pacienteAlergia.getAlergia()));
             }
-
-            System.out.println("nuevo usuario "+pacienteAlergia);
         }
         catch(Exception e){
             e.printStackTrace();
