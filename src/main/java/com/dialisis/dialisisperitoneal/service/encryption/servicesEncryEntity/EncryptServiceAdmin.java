@@ -61,8 +61,6 @@ public class EncryptServiceAdmin {
     public Usuario encriptar(Usuario usuario) {
         try {
             if(usuario==null)return null;
-            System.out.println("encriptado admin frontend hbwydbyuwedbhej");
-            System.out.println(usuario);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -88,9 +86,6 @@ public class EncryptServiceAdmin {
                 byte[] tipoDocumentoEncriptado = cipher.doFinal(usuario.getTipoDocumento().getBytes());
                 usuario.setTipoDocumento(new String(encodeBase64(tipoDocumentoEncriptado)));}
 
-
-            System.out.println("encriptando para el frontend");
-            System.out.println(usuario);
             return usuario;
         } catch (Exception e) {
             e.printStackTrace();

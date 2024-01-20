@@ -22,7 +22,6 @@ public class EncryptionServiceVisitaEspecialistas {
     public VisitaEspecialista encriptar(VisitaEspecialista visitaEspecialista){
         try {
             if(visitaEspecialista==null)return null;
-            System.out.println("Recambio del form" + visitaEspecialista);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
@@ -31,7 +30,6 @@ public class EncryptionServiceVisitaEspecialistas {
             if (visitaEspecialista.getCita() != null) {
                 visitaEspecialista.setCita(encryptionServiceCita.encriptar(visitaEspecialista.getCita()));
             }
-            System.out.println("nuevo usuario "+visitaEspecialista);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -41,7 +39,6 @@ public class EncryptionServiceVisitaEspecialistas {
     public VisitaEspecialista desencriptar(VisitaEspecialista visitaEspecialista){
         try {
             if(visitaEspecialista==null)return null;
-            System.out.println("usuario del form" + visitaEspecialista);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -51,7 +48,6 @@ public class EncryptionServiceVisitaEspecialistas {
             if (visitaEspecialista.getCita() != null) {
                 visitaEspecialista.setCita(encryptionServiceCita.desencriptar(visitaEspecialista.getCita()));
             }
-            System.out.println("nuevo usuario "+visitaEspecialista);
         }
         catch(Exception e){
             e.printStackTrace();

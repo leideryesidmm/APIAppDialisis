@@ -23,7 +23,6 @@ public class EncryptionServicePaciente {
     public Paciente desencriptar(Paciente paciente){
         try {
             if(paciente==null)return null;
-            System.out.println("Recambio del form" + paciente);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
@@ -75,7 +74,6 @@ public class EncryptionServicePaciente {
             if(paciente.getNombre()!=null){
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(paciente.getNombre()));
                 paciente.setNombre(new String (nombreDesencriptadoBytes));}
-            System.out.println("nuevo usuario "+paciente);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -85,7 +83,6 @@ public class EncryptionServicePaciente {
     public Paciente encriptar(Paciente paciente){
         try {
             if(paciente==null)return null;
-            System.out.println("usuario del form" + paciente);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -140,7 +137,6 @@ public class EncryptionServicePaciente {
             if(paciente.getTipoDocumento()!=null){
                 byte[] tipoDocumentoEncriptado = cipher.doFinal(paciente.getTipoDocumento().getBytes());
                 paciente.setTipoDocumento(new String(encodeBase64(tipoDocumentoEncriptado)));}
-            System.out.println("nuevo usuario "+paciente);
         }
         catch(Exception e){
             e.printStackTrace();

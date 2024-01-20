@@ -44,27 +44,22 @@ public class PacienteService {
             return pacientes;
     }
 
-    public Paciente findByCedula(String cedula) {
-        Paciente paciente = this.repository.findByCedula(cedula);
+    public Paciente findByCedula(Paciente paciente) {
+        paciente=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
+        paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
+        paciente = this.repository.findByCedula(paciente.getCedula());
+
         paciente = encryptionService.getEncBackend().getPaciente().desencriptar(paciente);
         return encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
     }
 
 
     @Transactional
-    public void actualizarDatosPaciente(PacienteInDto pacienteInDto, Paciente paciente) {
-        Paciente pac = mapper.map(pacienteInDto);
-        pac.setCedula(pacienteInDto.getCedula());
-        if (paciente.getFoto() != null) {
-            pac.setFoto(paciente.getFoto());
-        }
+    public void actualizarDatosPaciente(Paciente pac) {
         pac = encryptionService.getEncFrontend().getPaciente().desencriptar(pac);
         pac = encryptionService.getEncBackend().getPaciente().encriptar(pac);
-        pac = this.repository.save(pac);
-        pac = encryptionService.getEncBackend().getPaciente().desencriptar(pac);
-        pac = encryptionService.getEncFrontend().getPaciente().encriptar(pac);
+        this.repository.save(pac);
     }
-
 
     public List<Paciente> findPacientesActivos() {
         List<Paciente> pacientes = this.repository.findPacientesActivos();
@@ -91,7 +86,6 @@ public class PacienteService {
     }
 
     public List<Object[]> findAllPacientesDatos() {
-        System.out.println(this.repository.findAllPacientesDatos());
         List<Object[]> pacientes = this.repository.findAllPacientesDatos();
             for (int i = 0; i < pacientes.size(); i++) {
                 Object[] pacienteArray = pacientes.get(i);

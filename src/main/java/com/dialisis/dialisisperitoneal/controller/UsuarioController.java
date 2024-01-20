@@ -41,7 +41,6 @@ public class UsuarioController {
     }
     @PatchMapping("/cambiarContrasenia")
     public ResponseEntity<Void> cambiarcontrasenia(@RequestBody UsuarioInDto usuarioInDto){
-
         this.usuarioService.cambiarContrasenia(usuarioInDto.getCedula(),usuarioInDto.getContrasenia());
         return ResponseEntity.noContent().build();
     }
@@ -67,7 +66,6 @@ public class UsuarioController {
     }
     @PostMapping("/crearMedico")
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
-        System.out.println(medicoInDto);
         return this.medicoService.crearMedico(medicoInDto);
     }
     @PostMapping("/findMedicoByCedula")
@@ -75,13 +73,18 @@ public class UsuarioController {
         return this.medicoService.findByCedula(medicoInDto.getCedula());
     }
     @PatchMapping("/actualizarMedico")
-    public ResponseEntity<Void> actualizarDatosMedico(@RequestBody MedicoInDto medicoInDto){
-        try{
-            Medico medico= this.medicoService.findByCedula(medicoInDto.getCedula());
-            this.medicoService.actualizarDatosMedico(medicoInDto, medico);
-            return ResponseEntity.noContent().build();
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    public ResponseEntity<Void> actualizarDatosMedico(@RequestBody Medico medicoInDto){
+        try {
+
+                this.medicoService.actualizarDatosMedico(medicoInDto);
+                return ResponseEntity.noContent().build();
+
+
+
+        }catch (Exception e) {
+            e.printStackTrace();
+
+             return ResponseEntity.status(500).build();
         }
     }
     @PatchMapping("/inhabilitarMedico")
@@ -99,12 +102,9 @@ public class UsuarioController {
 
     @PostMapping("/findAdmin")
     public ResponseEntity<Usuario> findAdmin(@RequestBody Usuario usuario){
-        System.out.println(usuario);
         Usuario usu= this.usuarioService.findAdmin(usuario);
-        System.out.println("ENTRO ANTES DEL IF");
         if(usu==null)
             return ResponseEntity.noContent().build();
-        System.out.println("ENTRO DESPUÉS DEL IF");
         return ResponseEntity.ok(usu);
     }
 

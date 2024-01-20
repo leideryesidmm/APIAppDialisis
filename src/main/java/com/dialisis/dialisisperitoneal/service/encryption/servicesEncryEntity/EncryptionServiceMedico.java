@@ -25,7 +25,6 @@ public class EncryptionServiceMedico {
     public Medico encriptar(Medico medico){
         try {
             if(medico==null)return null;
-            System.out.println("Recambio del form" + medico);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -55,7 +54,6 @@ public class EncryptionServiceMedico {
             if(medico.getTipoDocumento()!=null){
                 byte[] tipoDocumentoEncriptado = cipher.doFinal(medico.getTipoDocumento().getBytes());
                 medico.setTipoDocumento(new String(encodeBase64(tipoDocumentoEncriptado)));}
-            System.out.println("nuevo usuario "+medico);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -65,8 +63,6 @@ public class EncryptionServiceMedico {
     }
     public Medico desencriptar(Medico medico){
         try {
-            if(medico==null)return null;
-            System.out.println("usuario del form" + medico);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
@@ -97,8 +93,6 @@ public class EncryptionServiceMedico {
             if(medico.getNombre()!=null){
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getNombre()));
                 medico.setNombre(new String (nombreDesencriptadoBytes));}
-
-            System.out.println("nuevo usuario "+medico);
         }
         catch(Exception e){
             e.printStackTrace();

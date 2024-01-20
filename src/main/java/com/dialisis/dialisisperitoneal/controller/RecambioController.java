@@ -94,7 +94,6 @@ public class RecambioController {
     @PostMapping("/recambio/crearRecambioHecho")
     public ResponseEntity<RecambioHecho>  crearRecambioHecho(@RequestBody RecambioHechoInDto recambioHechoInDto){
         try{
-            System.out.println(recambioHechoInDto);
             RecambioHecho recambioHecho=this.recambioHechoService.crearRecambio(recambioHechoInDto);
             return ResponseEntity.ok(recambioHecho);
         }catch (Exception e){
