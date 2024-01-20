@@ -17,15 +17,15 @@ public class EncryptionServicePacienteAlergia {
     private String iv;
 
     public EncryptionServicePacienteAlergia(String iv, String clave) {
-        this.encryptionServicePaciente = new EncryptionServicePaciente(clave, iv);
+        this.encryptionServicePaciente = new EncryptionServicePaciente(iv, clave);
         this.encryptionServiceAlergia = new EncryptionServiceAlergia(iv, clave);
         this.clave = clave;
         this.iv = iv;
     }
     public PacienteAlergia encriptar(PacienteAlergia pacienteAlergia){
         try {
+            System.out.println(pacienteAlergia);
             if(pacienteAlergia==null)return null;
-            System.out.println("Recambio del form" + pacienteAlergia);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
@@ -37,7 +37,6 @@ public class EncryptionServicePacienteAlergia {
             if (pacienteAlergia.getAlergia() != null) {
                 pacienteAlergia.setAlergia(encryptionServiceAlergia.encriptar(pacienteAlergia.getAlergia()));
             }
-            System.out.println("nuevo usuario "+pacienteAlergia);
         }
         catch(Exception e){
             e.printStackTrace();
