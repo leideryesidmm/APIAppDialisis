@@ -50,8 +50,13 @@ public class UsuarioService {
     }
     public byte[] getFotoByCedula(String cedula) {
         Usuario usuario = repository.findAllBycedula(cedula);
-        return usuario.getFoto();
-    }
+        if(usuario.getFoto()!=null) {
+        return usuario.getFoto();}
+        else{
+            return null;
+        }
+        }
+
     @Transactional
     public void cambiarContrasenia(String cedula,String contrasenia){
         Usuario u=new Usuario();

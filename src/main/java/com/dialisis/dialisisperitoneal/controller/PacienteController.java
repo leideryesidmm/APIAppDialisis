@@ -27,12 +27,23 @@ public class PacienteController {
         return this.pacienteService.crearPaciente(pacienteInDto);
     }
     @PostMapping("/findPacienteByCedula")
-    public Paciente findPacienteByCedula(@RequestBody Paciente paciente){
-
-        return this.pacienteService.findByCedula(paciente);
+    public ResponseEntity<Paciente> findPacienteByCedula(@RequestBody Paciente paciente){
+        try {
+            Paciente pac=this.pacienteService.findByCedula(paciente);
+            if(pac!=null){
+                return ResponseEntity.ok(pac);}
+            else{
+                return ResponseEntity.status(204).build();
+            }
+        }
+        catch (Exception e) {
+        e.getMessage();
+        return ResponseEntity.noContent().build();
+        }
     }
     @PatchMapping("/actualizar")
     public ResponseEntity<Void> actualizarDatosPaciente(@RequestBody Paciente paciente){
+
         try{
         this.pacienteService.actualizarDatosPaciente(paciente);
         return ResponseEntity.ok().build();}
