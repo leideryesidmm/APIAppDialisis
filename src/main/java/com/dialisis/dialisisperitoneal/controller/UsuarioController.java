@@ -59,18 +59,41 @@ public class UsuarioController {
     }
     @PostMapping("/imagen")
     public ResponseEntity<byte[]> getUsuarioFoto(@RequestBody UsuarioInDto usuarioInDto) {
-        byte[] fotoBytes = usuarioService.getFotoByCedula(usuarioInDto.getCedula());
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG); // Cambia esto según el tipo de imagen
-        return new ResponseEntity<>(fotoBytes, headers, HttpStatus.OK);
+        try {
+            byte[] fotoBytes = usuarioService.getFotoByCedula(usuarioInDto.getCedula());
+            System.out.println(fotoBytes);
+            if(fotoBytes!=null) {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_JPEG); // Cambia esto según el tipo de imagen
+                return new ResponseEntity<>(fotoBytes, headers, HttpStatus.OK);
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception e){
+            e.getMessage();
+            return ResponseEntity.noContent().build();
+        }
     }
     @PostMapping("/crearMedico")
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
         return this.medicoService.crearMedico(medicoInDto);
     }
     @PostMapping("/findMedicoByCedula")
-    public Medico findMedicoByCedula(@RequestBody MedicoInDto medicoInDto){
-        return this.medicoService.findByCedula(medicoInDto.getCedula());
+    public ResponseEntity<Medico> findMedicoByCedula(@RequestBody MedicoInDto medicoInDto) {
+        try {
+            Medico medico=this.medicoService.findByCedula(medicoInDto.getCedula());
+            if(medico!=null){
+            return ResponseEntity.ok(medico);}
+            else{
+                return ResponseEntity.status(204).build();
+            }
+        }
+        catch (Exception e) {
+            e.getMessage();
+            return ResponseEntity.noContent().build();
+        }
     }
     @PatchMapping("/actualizarMedico")
     public ResponseEntity<Void> actualizarDatosMedico(@RequestBody Medico medicoInDto){
@@ -111,10 +134,16 @@ public class UsuarioController {
     @PostMapping("/upload-image")
     public ResponseEntity<String> uploadImage(@RequestParam("cedula") String cedula,
                                               @RequestParam("foto") MultipartFile imageFile) {
+        String greenColor = "\u001B[32m";
+        String resetColor = "\u001B[0m";
         try {
+            System.out.println(cedula);
             Usuario usuario = usuarioService.findAllBycedula(cedula);
+            System.out.println(usuario);
             byte[] imageBytes = imageFile.getBytes();
+            System.out.println(imageBytes);
             usuario.setFoto(imageBytes);
+            System.out.println(greenColor+usuario+resetColor);
             // Actualiza otros campos del paciente si es necesario
             this.usuarioService.saveUsuario(usuario);
             return ResponseEntity.ok("{\"success\": true}");
