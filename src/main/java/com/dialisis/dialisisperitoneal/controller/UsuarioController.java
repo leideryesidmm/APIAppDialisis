@@ -35,9 +35,13 @@ public class UsuarioController {
         return this.usuarioService.findAll();
     }
     @PostMapping("/cedula")
-    public Usuario findAllUsuarios(@RequestBody UsuarioInDto usuarioInDto) throws IOException {
-
-        return this.usuarioService.findAllBycedula(usuarioInDto.getCedula());
+    public ResponseEntity<Usuario> findAllUsuarios(@RequestBody UsuarioInDto usuarioInDto) throws IOException {
+        Usuario usuario=this.usuarioService.findAllBycedula(usuarioInDto.getCedula());
+        if(usuario!=null)
+        return ResponseEntity.ok(usuario);
+        else {
+        return ResponseEntity.status(204).build();
+            }
     }
     @PatchMapping("/cambiarContrasenia")
     public ResponseEntity<Void> cambiarcontrasenia(@RequestBody UsuarioInDto usuarioInDto){
@@ -137,6 +141,7 @@ public class UsuarioController {
         String resetColor = "\u001B[0m";
         try {
             Usuario usuario = usuarioService.findAllBycedula(cedula);
+
             byte[] imageBytes = imageFile.getBytes();
             usuario.setFoto(imageBytes);
             // Actualiza otros campos del paciente si es necesario

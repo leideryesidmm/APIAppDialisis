@@ -51,6 +51,8 @@ public class PrescripcionDiaService {
     }
 
     public List<PrescripcionDia> findByCita(Cita cita) {
+        cita=encryptionService.getEncFrontend().getCita().desencriptar(cita);
+        cita=encryptionService.getEncBackend().getCita().encriptar(cita);
         List<PrescripcionDia> pd=this.repository.findByCita(cita);
             for(int i=0;i<pd.size();i++) {
                 PrescripcionDia presD=encryptionService.getEncBackend().getPrescripcionDia().desencriptar(pd.get(i));

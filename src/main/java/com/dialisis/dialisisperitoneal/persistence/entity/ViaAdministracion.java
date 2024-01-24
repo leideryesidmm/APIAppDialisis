@@ -24,4 +24,10 @@ public class ViaAdministracion {
 
     public ViaAdministracion() {
     }
+
+    public ViaAdministracion(ViaAdministracion va) {
+        this.idViaAdministracion = va.getIdViaAdministracion();
+        this.descripcion = va.getDescripcion();
+    }
+
 }

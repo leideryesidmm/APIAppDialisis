@@ -29,4 +29,27 @@ public class Cita {
     public Cita(int idCita) {
         this.idCita = idCita;
     }
+
+    public Cita(int idCita, Medico medico, Paciente paciente, LocalDateTime fecha, LocalDateTime fechaFin, LocalDateTime hora, String orificioSalida, boolean finalizado) {
+        this.idCita = idCita;
+        this.medico = medico;
+        this.paciente = paciente;
+        this.fecha = fecha;
+        this.fechaFin = fechaFin;
+        this.hora = hora;
+        this.orificioSalida = orificioSalida;
+        this.finalizado = finalizado;
+    }
+
+    public Cita(Cita c) {
+        this.idCita = c.getIdCita();
+        this.medico = c.getMedico();
+        this.paciente = c.getPaciente();
+        this.fecha = c.getFecha();
+        this.fechaFin = c.getFechaFin();
+        this.hora = c.getHora();
+        this.orificioSalida = c.getOrificioSalida();
+        this.finalizado = c.isFinalizado();
+    }
 }
+

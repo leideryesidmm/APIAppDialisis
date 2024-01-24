@@ -35,10 +35,15 @@ public class VisitaEspecialistaService {
 
     public VisitaEspecialista findUltimaVisita(int idCita) {
         List<VisitaEspecialista> visitas = this.repository.findUltimaVisita(idCita);
-            VisitaEspecialista ultimaVisita = visitas.get(0);
-            ultimaVisita=encryptionService.getEncBackend().getVisitaEspecialistas().desencriptar(ultimaVisita);
-            ultimaVisita=encryptionService.getEncFrontend().getVisitaEspecialistas().encriptar(ultimaVisita);
-            return ultimaVisita;
+        VisitaEspecialista visita;
+        if(visitas.isEmpty())
+            return null;
+        else {
+            visita = visitas.get(0);
+            visita = encryptionService.getEncBackend().getVisitaEspecialistas().desencriptar(visita);
+            visita = encryptionService.getEncFrontend().getVisitaEspecialistas().encriptar(visita);
+            return visita;
+        }
     }
 
     public List<VisitaEspecialista> findAllVisitas(List<Cita> citas) {

@@ -21,4 +21,10 @@ public class Medico extends Usuario {
     public Medico(String cedula) {
         this.cedula = cedula;
     }
+
+    public Medico(Medico m){
+        this.cedula=m.getCedula();
+        this.especialidad=m.getEspecialidad();
+        this.profesion=m.getProfesion();
+    }
 }

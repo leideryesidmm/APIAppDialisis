@@ -35,9 +35,12 @@ public class AlergiaService {
             alergia=encryptionService.getEncFrontend().getAlergia().desencriptar(alergia);
             alergia=encryptionService.getEncBackend().getAlergia().encriptar(alergia);
             alergia=this.repository.save(alergia);
-            alergia=encryptionService.getEncBackend().getAlergia().desencriptar(alergia);
-            alergia=encryptionService.getEncFrontend().getAlergia().encriptar(alergia);
-            return alergia;
+
+        Alergia alergiaPac=new Alergia(alergia.getIdAlergia());
+        alergiaPac.setNombre(alergia.getNombre());
+        alergiaPac=encryptionService.getEncBackend().getAlergia().desencriptar(alergiaPac);
+        alergiaPac=encryptionService.getEncFrontend().getAlergia().encriptar(alergiaPac);
+            return alergiaPac;
     }
 
     public List<Alergia> findAll(){
@@ -61,8 +64,10 @@ public class AlergiaService {
        alergia=encryptionService.getEncFrontend().getAlergia().desencriptar(alergia);
        alergia=encryptionService.getEncBackend().getAlergia().encriptar(alergia);
        alergia=this.repository.save(alergia);
-       alergia=encryptionService.getEncBackend().getAlergia().desencriptar(alergia);
-       alergia=encryptionService.getEncFrontend().getAlergia().encriptar(alergia);
-       return alergia;
+       Alergia alergiaPac= new Alergia(alergia.getIdAlergia());
+       alergiaPac.setNombre(alergia.getNombre());
+       alergiaPac=encryptionService.getEncBackend().getAlergia().desencriptar(alergiaPac);
+       alergiaPac=encryptionService.getEncFrontend().getAlergia().encriptar(alergiaPac);
+       return alergiaPac;
 }
 }

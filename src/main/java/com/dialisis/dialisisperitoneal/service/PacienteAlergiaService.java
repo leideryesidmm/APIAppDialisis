@@ -34,8 +34,8 @@ public class PacienteAlergiaService {
         pacienteAlergia=encryptionService.getEncFrontend().getPacienteAlergia().desencriptar(pacienteAlergia);
         pacienteAlergia=encryptionService.getEncBackend().getPacienteAlergia().encriptar(pacienteAlergia);
         pacienteAlergia= this.repository.save(pacienteAlergia);
-        pacienteAlergia=encryptionService.getEncBackend().getPacienteAlergia().desencriptar(pacienteAlergia);
-        return encryptionService.getEncFrontend().getPacienteAlergia().encriptar(pacienteAlergia);
+        PacienteAlergia pacAlergia=encryptionService.getEncBackend().getPacienteAlergia().desencriptar(pacienteAlergia);
+        return encryptionService.getEncFrontend().getPacienteAlergia().encriptar(pacAlergia);
     }
 
     public List<PacienteAlergia> findAll(){
@@ -93,7 +93,8 @@ public class PacienteAlergiaService {
     public void inactivarAlergia(String cedula,int idPacienteAlergia){
         Paciente paciente= new Paciente(cedula);
         paciente=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
-        paciente=encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
+        paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
+
         this.repository.inactivarAlergia(paciente.getCedula(),idPacienteAlergia);
     }
     @Transactional

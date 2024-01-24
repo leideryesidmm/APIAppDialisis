@@ -50,6 +50,7 @@ public class RecambioController {
             else{
                 for(UnionPrescripcionDiasRecambios prescripcionDia :presciscionActual.getUnionPrescripcionDiasRecambios()) {
                     for(Recambio recambio:prescripcionDia.getRecambios()){
+
                         List<RecambioHecho> recambioHechoLista2=this.recambioHechoService.findByRecambio(recambio);
                         recambioHechos.addAll(recambioHechoLista2);
                     }
@@ -67,8 +68,14 @@ public class RecambioController {
         this.recambioService.crearRecambio(recambioInDto, recambio);
     }
     @PostMapping("/recambio/findRecambioByPrescripcion/{prescripcionDia}")
-    public List<Recambio> findRecambiosByPrescripcion(@PathVariable int prescripcionDia){
-        return  this.recambioService.findByPrescripcionDia(new PrescripcionDia(prescripcionDia));
+    public ResponseEntity<List<Recambio>> findRecambiosByPrescripcion(@PathVariable int prescripcionDia){
+        try {
+            return ResponseEntity.ok(this.recambioService.findByPrescripcionDia(new PrescripcionDia(prescripcionDia)));
+        }
+        catch (Exception e){
+            e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
     @GetMapping("/findAllRecambiosHechos/{idCita}")
     public ResponseEntity<List<RecambioHecho>> findAllReacambioHechoByCita(@PathVariable("idCita") int idCita) {
@@ -77,6 +84,7 @@ public class RecambioController {
             List<Recambio> recambioPrescri;
             Cita cita = new Cita(idCita);
             List<PrescripcionDia> prescripcionDias = this.prescripcionDiaService.findByCita(cita);
+            System.out.println(prescripcionDias);
             for (PrescripcionDia prescripcionDia : prescripcionDias) {
                 UnionPrescripcionDiasRecambios prescripcionDiasRecambios = new UnionPrescripcionDiasRecambios();
                 prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);

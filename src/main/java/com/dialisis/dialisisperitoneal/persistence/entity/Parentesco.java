@@ -20,4 +20,9 @@ public class Parentesco {
     public Parentesco(int idParentesco) {
         this.idParentesco = idParentesco;
     }
+
+    public Parentesco(Parentesco p){
+        this.idParentesco=p.getIdParentesco();
+        this.descripcion=p.getDescripcion();
+    }
 }

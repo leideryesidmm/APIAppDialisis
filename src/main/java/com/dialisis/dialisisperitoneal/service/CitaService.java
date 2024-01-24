@@ -44,6 +44,8 @@ public class CitaService {
             cita=encryptionService.getEncFrontend().getCita().desencriptar(cita);
             cita=encryptionService.getEncBackend().getCita().encriptar(cita);
             cita=this.repository.save(cita);
+            Cita citaMedica=new Cita(cita.getIdCita());
+            //pasarle de cita a citaMedica
             cita=encryptionService.getEncBackend().getCita().desencriptar(cita);
             cita=encryptionService.getEncFrontend().getCita().encriptar(cita);
             return cita;

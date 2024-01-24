@@ -43,12 +43,10 @@ public class PacienteController {
     }
     @PatchMapping("/actualizar")
     public ResponseEntity<Void> actualizarDatosPaciente(@RequestBody Paciente paciente){
-
         try{
         this.pacienteService.actualizarDatosPaciente(paciente);
         return ResponseEntity.ok().build();}
         catch (Exception e){
-            System.out.println(e.getMessage());
             return ResponseEntity.status(404).build();
         }
     }

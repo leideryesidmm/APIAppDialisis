@@ -71,9 +71,10 @@ public class EncryptionServiceMedico {
 
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (medico.getCedula() != null) {
+                System.out.println("\u001B[35m"+medico.getCedula()+"\u001B[0m");
                 byte[] cedulaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getCedula()));
                 medico.setCedula(new String(cedulaDesencriptadoBytes));
-            }
+                 }
             if(medico.getProfesion()!=null) {
                 byte[] profesionDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getProfesion()));
                 medico.setProfesion(new String(profesionDesencriptadoBytes));
@@ -97,7 +98,6 @@ public class EncryptionServiceMedico {
         catch(Exception e){
             e.printStackTrace();
         }
-
         return medico;
     }
 }

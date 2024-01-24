@@ -1,5 +1,6 @@
 package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
 import com.dialisis.dialisisperitoneal.persistence.entity.PrescripcionDia;
 import com.dialisis.dialisisperitoneal.persistence.entity.VisitaEspecialista;
 
@@ -28,7 +29,8 @@ public class EncryptionServiceVisitaEspecialistas {
 
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (visitaEspecialista.getCita() != null) {
-                visitaEspecialista.setCita(encryptionServiceCita.encriptar(visitaEspecialista.getCita()));
+                Cita cita= new Cita(visitaEspecialista.getCita());
+                visitaEspecialista.setCita(encryptionServiceCita.encriptar(cita));
             }
         }
         catch(Exception e){
@@ -46,7 +48,8 @@ public class EncryptionServiceVisitaEspecialistas {
 
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (visitaEspecialista.getCita() != null) {
-                visitaEspecialista.setCita(encryptionServiceCita.desencriptar(visitaEspecialista.getCita()));
+                Cita cita= new Cita(visitaEspecialista.getCita());
+                visitaEspecialista.setCita(encryptionServiceCita.desencriptar(cita));
             }
         }
         catch(Exception e){

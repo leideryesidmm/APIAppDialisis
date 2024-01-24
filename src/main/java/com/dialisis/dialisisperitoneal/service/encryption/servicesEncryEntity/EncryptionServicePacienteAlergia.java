@@ -1,4 +1,6 @@
 package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
+import com.dialisis.dialisisperitoneal.persistence.entity.Alergia;
+import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
 import com.dialisis.dialisisperitoneal.persistence.entity.PacienteAlergia;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +33,12 @@ public class EncryptionServicePacienteAlergia {
 
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (pacienteAlergia.getPaciente() != null) {
-                pacienteAlergia.setPaciente(encryptionServicePaciente.encriptar(pacienteAlergia.getPaciente()));
+                Paciente paciente=new Paciente(pacienteAlergia.getPaciente());
+                pacienteAlergia.setPaciente(encryptionServicePaciente.encriptar(paciente));
             }
             if (pacienteAlergia.getAlergia() != null) {
-                pacienteAlergia.setAlergia(encryptionServiceAlergia.encriptar(pacienteAlergia.getAlergia()));
+                Alergia alergia= new Alergia(pacienteAlergia.getAlergia());
+                pacienteAlergia.setAlergia(encryptionServiceAlergia.encriptar(alergia));
             }
         }
         catch(Exception e){
@@ -52,7 +56,8 @@ public class EncryptionServicePacienteAlergia {
 
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (pacienteAlergia.getPaciente() != null) {
-                pacienteAlergia.setPaciente(encryptionServicePaciente.desencriptar(pacienteAlergia.getPaciente()));
+                Paciente paciente=new Paciente(pacienteAlergia.getPaciente());
+                pacienteAlergia.setPaciente(encryptionServicePaciente.desencriptar(paciente));
             }
             if (pacienteAlergia.getAlergia() != null) {
                 pacienteAlergia.setAlergia(encryptionServiceAlergia.desencriptar(pacienteAlergia.getAlergia()));

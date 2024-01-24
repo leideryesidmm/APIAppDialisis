@@ -29,8 +29,14 @@ public class RecambioHechoService {
         recambioHecho=encryptionService.getEncFrontend().getRecambioHecho().desencriptar(recambioHecho);
         recambioHecho=encryptionService.getEncBackend().getRecambioHecho().encriptar(recambioHecho);
         this.repository.save(recambioHecho);
-        recambioHecho=encryptionService.getEncBackend().getRecambioHecho().desencriptar(recambioHecho);
-        return encryptionService.getEncFrontend().getRecambioHecho().encriptar(recambioHecho);
+        RecambioHecho recambio= new RecambioHecho();
+        recambio=recambioHecho;
+        recambio.setIdRecambioHecho(recambioHecho.getIdRecambioHecho());
+        recambio.setRecambio(recambioHecho.getRecambio());
+        recambio.setFecha(recambioHecho.getFecha());
+
+        recambio=encryptionService.getEncBackend().getRecambioHecho().desencriptar(recambio);
+        return encryptionService.getEncFrontend().getRecambioHecho().encriptar(recambio);
 
     }
     public RecambioHecho editarRecambio(RecambioHechoInDto recambioHechoInDto, int idRecambioHecho){
@@ -41,8 +47,11 @@ public class RecambioHechoService {
         recambioHecho=encryptionService.getEncFrontend().getRecambioHecho().desencriptar(recambioHecho);
         recambioHecho=encryptionService.getEncBackend().getRecambioHecho().encriptar(recambioHecho);
         this.repository.save(recambioHecho);
-        recambioHecho=encryptionService.getEncBackend().getRecambioHecho().desencriptar(recambioHecho);
-        return encryptionService.getEncFrontend().getRecambioHecho().encriptar(recambioHecho);
+        RecambioHecho recambio=new RecambioHecho();
+        recambio.setIdRecambioHecho(recambioHecho.getIdRecambioHecho());
+        //pasarle lo de recambioHecho
+        recambio=encryptionService.getEncBackend().getRecambioHecho().desencriptar(recambio);
+        return encryptionService.getEncFrontend().getRecambioHecho().encriptar(recambio);
 
     }
     public List<RecambioHecho> findByRecambio(Recambio recambio){
