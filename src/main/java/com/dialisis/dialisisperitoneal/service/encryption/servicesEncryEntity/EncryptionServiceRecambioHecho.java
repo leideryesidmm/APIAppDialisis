@@ -1,5 +1,6 @@
 package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
+import com.dialisis.dialisisperitoneal.persistence.entity.Recambio;
 import com.dialisis.dialisisperitoneal.persistence.entity.RecambioHecho;
 import com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity.EncryptionServiceRecambio;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,8 @@ public class EncryptionServiceRecambioHecho {
                 recambioHecho.setLiquidoEntrante(new String(encodeBase64(liquidoDesencriptadoBytes)));
             }
             if(recambioHecho.getRecambio()!=null) {
-                recambioHecho.setRecambio(encryptionServiceRecambio.encriptar(recambioHecho.getRecambio()));
+                Recambio recambio= new Recambio(recambioHecho.getRecambio());
+                recambioHecho.setRecambio(encryptionServiceRecambio.encriptar(recambio));
             }
         }
         catch(Exception e){
@@ -86,7 +88,8 @@ public class EncryptionServiceRecambioHecho {
                 recambioHecho.setLiquidoEntrante(new String(liquidoDesencriptadoBytes));
             }
             if(recambioHecho.getRecambio()!=null) {
-                recambioHecho.setRecambio(encryptionServiceRecambio.desencriptar(recambioHecho.getRecambio()));
+                Recambio recambio= new Recambio(recambioHecho.getRecambio());
+                recambioHecho.setRecambio(encryptionServiceRecambio.desencriptar(recambio));
             }
         }
         catch(Exception e){

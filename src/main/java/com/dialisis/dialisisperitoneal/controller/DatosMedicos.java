@@ -36,11 +36,11 @@ public class DatosMedicos {
         agregarAlergiaByPaciente(unionPacienteAlergiaInDto, alergia.getIdAlergia());
     }
     @PostMapping("/alergia/agregar/")
-    public void agregarAlergiaByPaciente(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto, int id){
+    public PacienteAlergia agregarAlergiaByPaciente(@RequestBody UnionPacienteAlergiaInDto unionPacienteAlergiaInDto, int id){
         PacienteAlergiaInDto pacienteAlergiaInDto = new PacienteAlergiaInDto();
         pacienteAlergiaInDto.setAlergia(id);
         pacienteAlergiaInDto.setPaciente(unionPacienteAlergiaInDto.getPacienteInDto().getCedula());
-        this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
+        return this.pacienteAlergiaService.crearPacienteAlergia(pacienteAlergiaInDto);
     }
     @PostMapping("/alergia/listByPaciente")
     public ResponseEntity<List<PacienteAlergia>> listarAlergiasPorPaciente(@RequestBody PacienteInDto pacienteInDto){
@@ -75,8 +75,14 @@ public class DatosMedicos {
         return this.formulaMedicamentoService.findAllByPaciente(pacienteInDto.getCedula());
     }
     @PostMapping("/Medicamento/crear")
-    public FormulaMedicamento crearFormulaMedicamento(@RequestBody FormulaMedicamentoInDto formulaMedicamentoInDto) {
-        return this.formulaMedicamentoService.crearFormulaMedicamento(formulaMedicamentoInDto);
+    public FormulaMedicamento crearFormulaMedicamento(@RequestBody FormulaMedicamento formulaMedicamentoInDto) {
+        try {
+            return this.formulaMedicamentoService.crearFormulaMedicamento(formulaMedicamentoInDto);
+        }
+        catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
     @GetMapping("/medicamento/findById/{id}")
     public FormulaMedicamento findMedicamento(@PathVariable int id) {

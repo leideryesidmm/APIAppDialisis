@@ -1,5 +1,6 @@
 package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
+import com.dialisis.dialisisperitoneal.persistence.entity.PrescripcionDia;
 import com.dialisis.dialisisperitoneal.persistence.entity.Recambio;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,8 @@ public class EncryptionServiceRecambio {
                 recambio.setIntervaloTiempo(new String(encodeBase64(intervaloTimepoEncriptadoBytes)));
             }
             if(recambio.getPrescripcionDia()!=null) {
-                recambio.setPrescripcionDia(encryptionServicePrescripcionDia.encriptar(recambio.getPrescripcionDia()));
+                PrescripcionDia prescripcionDia= new PrescripcionDia(recambio.getPrescripcionDia());
+                recambio.setPrescripcionDia(encryptionServicePrescripcionDia.encriptar(prescripcionDia));
             }
         }
         catch(Exception e){
@@ -71,7 +73,8 @@ public class EncryptionServiceRecambio {
                 recambio.setIntervaloTiempo(new String(intervaloDesencriptadoBytes));
             }
             if(recambio.getPrescripcionDia()!=null) {
-                recambio.setPrescripcionDia(encryptionServicePrescripcionDia.desencriptar(recambio.getPrescripcionDia()));
+                PrescripcionDia prescripcionDia= new PrescripcionDia(recambio.getPrescripcionDia());
+                recambio.setPrescripcionDia(encryptionServicePrescripcionDia.desencriptar(prescripcionDia));
             }
         }
         catch(Exception e){

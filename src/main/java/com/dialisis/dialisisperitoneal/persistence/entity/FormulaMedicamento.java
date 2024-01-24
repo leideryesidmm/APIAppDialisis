@@ -36,4 +36,30 @@ public class FormulaMedicamento {
 
         this.idFormulaMedicamento=id;
     }
+
+    public FormulaMedicamento(int idFormulaMedicamento, Paciente paciente, String tomas, String nombre, String descripcion, ViaAdministracion viaAdministracion, String concentracion, LocalDateTime fechaIni, LocalDateTime fechaFin, boolean recetado) {
+        this.idFormulaMedicamento = idFormulaMedicamento;
+        this.paciente = paciente;
+        this.tomas = tomas;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.viaAdministracion = viaAdministracion;
+        this.concentracion = concentracion;
+        this.fechaIni = fechaIni;
+        this.fechaFin = fechaFin;
+        this.recetado = recetado;
+    }
+
+    public FormulaMedicamento(FormulaMedicamento f) {
+        this.idFormulaMedicamento = f.idFormulaMedicamento;
+        this.paciente = f.getPaciente();
+        this.tomas = f.getTomas();
+        this.nombre = f.getNombre();
+        this.descripcion = f.getDescripcion();
+        this.viaAdministracion = f.viaAdministracion;
+        this.concentracion = f.getConcentracion();
+        this.fechaIni = f.getFechaIni();
+        this.fechaFin = f.getFechaFin();
+        this.recetado = f.isRecetado();
+    }
 }

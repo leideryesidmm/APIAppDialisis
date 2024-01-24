@@ -28,14 +28,13 @@ public class FormulaMedicamentoService {
         this.encryptionService = encryptionService;
     }
 
-    public FormulaMedicamento crearFormulaMedicamento(FormulaMedicamentoInDto formulaMedicamentoInDto){
-        FormulaMedicamento formulaMedicamento= mapper.map(formulaMedicamentoInDto);
+    public FormulaMedicamento crearFormulaMedicamento(FormulaMedicamento formulaMedicamento){
         formulaMedicamento=encryptionService.getEncFrontend().getFormulaMedicamento().desencriptar(formulaMedicamento);
-        formulaMedicamento=encryptionService.getEncBackend().getFormulaMedicamento().encriptar(formulaMedicamento);
-        formulaMedicamento=this.repository.save(formulaMedicamento);
-        formulaMedicamento=encryptionService.getEncBackend().getFormulaMedicamento().desencriptar(formulaMedicamento);
-        formulaMedicamento=encryptionService.getEncFrontend().getFormulaMedicamento().desencriptar(formulaMedicamento);
-        return formulaMedicamento;
+        FormulaMedicamento formulaF=encryptionService.getEncBackend().getFormulaMedicamento().encriptar(formulaMedicamento);
+        FormulaMedicamento formulaMedB=this.repository.save(formulaF);
+        FormulaMedicamento formulaMedBack=encryptionService.getEncBackend().getFormulaMedicamento().desencriptar(formulaMedB);
+        FormulaMedicamento formulaMedFront=encryptionService.getEncFrontend().getFormulaMedicamento().desencriptar(formulaMedBack);
+        return formulaMedFront;
     }
 
     public List<FormulaMedicamento> findAll(){

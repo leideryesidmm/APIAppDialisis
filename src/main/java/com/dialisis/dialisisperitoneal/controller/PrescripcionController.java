@@ -30,8 +30,14 @@ public class PrescripcionController {
         this.chequeoMensualService = chequeoMensualService;
     }
     @PostMapping("/Cita")
-    public Cita crearCita(@RequestBody CitaInDto citaInDto) {
-        return this.citaService.crearCita(citaInDto);
+    public ResponseEntity<Cita> crearCita(@RequestBody CitaInDto citaInDto) {
+        try {
+            return ResponseEntity.ok(this.citaService.crearCita(citaInDto));
+        }
+        catch (Exception e){
+            e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
     @DeleteMapping("/EliminarCita/{id_cita}")
     public ResponseEntity<Void> deleteCita(@PathVariable("id_cita") int idCita) {
@@ -117,11 +123,17 @@ public class PrescripcionController {
     }
     @PostMapping("/ultimaCita")
     public ResponseEntity<Cita> ultimaCita(@RequestBody PacienteInDto paciente){
-        Paciente paciente1=new Paciente(paciente.getCedula());
-        Cita cita=this.citaService.findUltimaCita(paciente1);
-        if(cita!=null)
-            return ResponseEntity.ok(cita);
-        else{
+        try {
+            Paciente paciente1 = new Paciente(paciente.getCedula());
+            Cita cita = this.citaService.findUltimaCita(paciente1);
+            if (cita != null)
+                return ResponseEntity.ok(cita);
+            else {
+                return ResponseEntity.noContent().build();
+            }
+        }
+        catch (Exception e){
+            e.getMessage();
             return ResponseEntity.noContent().build();
         }
     }
@@ -143,8 +155,14 @@ public class PrescripcionController {
         return this.prescripcionDiaService.crearPrescripcionDia(prescripcionDiaInDto);
     }
     @PostMapping("/prescripcionDia/findByCita/{cita}")
-    public List<PrescripcionDia> findprescripcionByCita(@PathVariable int cita){
-        return this.prescripcionDiaService.findByCita(new Cita(cita));
+    public ResponseEntity<List<PrescripcionDia>> findprescripcionByCita(@PathVariable int cita){
+        try {
+            return ResponseEntity.ok(this.prescripcionDiaService.findByCita(new Cita(cita)));
+        }
+        catch (Exception e){
+            e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
     @PostMapping("/prescripcion/visitas")
     public ResponseEntity<List<VisitaEspecialista>> findAllVisitas(@RequestBody PacienteInDto pacienteInDto) {

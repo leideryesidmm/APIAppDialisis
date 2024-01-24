@@ -25,6 +25,19 @@ public class PrescripcionDia {
     }
 
     public PrescripcionDia(int idPrescripcionDia) {
+
         this.idPrescripcionDia = idPrescripcionDia;
+    }
+
+    public PrescripcionDia(PrescripcionDia p) {
+        this.cita=p.getCita();
+        this.lunes=p.isLunes();
+        this.martes=p.isMartes();
+        this.miercoles=p.isMiercoles();
+        this.jueves=p.isJueves();
+        this.viernes=p.isViernes();
+        this.sabado=p.isSabado();
+        this.domingo=p.isDomingo();
+        this.nocheSeca=p.isNocheSeca();
     }
 }

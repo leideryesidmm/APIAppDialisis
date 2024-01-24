@@ -41,6 +41,17 @@ public class MedicoService {
         medico=encryptionService.getEncBackend().getMedico().desencriptar(medico);
         return encryptionService.getEncFrontend().getMedico().encriptar(medico);
     }
+
+    public void desencriptarPaciente(){
+        try{String p="0IhUnWrDugsqNa8BWzWR/A==";
+            Medico medico =new Medico();
+            medico.setCedula(p);
+            medico=encryptionService.getEncBackend().getMedico().desencriptar(medico);
+            //paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public Medico crearMedico(MedicoInDto medicoInDto) {
         Medico medico = mapper.map(medicoInDto);
         Medico medicoDesencriptado= this.encryptionService.getEncFrontend().getMedico().desencriptar(medico);

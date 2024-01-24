@@ -44,10 +44,6 @@ public class EncryptionServiceFormulaMedicamento {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(formulaMedicamento.getNombre()));
                 formulaMedicamento.setNombre(new String(nombreDesencriptadoBytes));
             }
-            if(formulaMedicamento.getTomas()!=null) {
-                byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(formulaMedicamento.getTomas()));
-                formulaMedicamento.setTomas(new String(nombreDesencriptadoBytes));
-            }
             if(formulaMedicamento.getPaciente()!=null) {
                 formulaMedicamento.setPaciente(encryptionServicePaciente.desencriptar(formulaMedicamento.getPaciente()));
             }

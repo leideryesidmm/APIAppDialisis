@@ -25,4 +25,34 @@ public class RecambioHecho {
     private String liquidoEntrante;
     private String orificioSalida;
     private String caracteristicaLiquido;
+
+    public RecambioHecho() {
+    }
+
+    public RecambioHecho(int idRecambioHecho, Recambio recambio, LocalDateTime fecha, LocalDateTime fechaReal, LocalDateTime horaIni, LocalDateTime horaFin, String drenajeDialisis, String liquidoEntrante, String orificioSalida, String caracteristicaLiquido) {
+        this.idRecambioHecho = idRecambioHecho;
+        this.recambio = recambio;
+        this.fecha = fecha;
+        this.fechaReal = fechaReal;
+        this.horaIni = horaIni;
+        this.horaFin = horaFin;
+        this.drenajeDialisis = drenajeDialisis;
+        this.liquidoEntrante = liquidoEntrante;
+        this.orificioSalida = orificioSalida;
+        this.caracteristicaLiquido = caracteristicaLiquido;
+    }
+
+    public RecambioHecho(RecambioHecho rh) {
+        this.idRecambioHecho = rh.getIdRecambioHecho();
+        this.recambio = rh.getRecambio();
+        this.fecha = fecha;
+        this.fechaReal = fechaReal;
+        this.horaIni = horaIni;
+        this.horaFin = horaFin;
+        this.drenajeDialisis = drenajeDialisis;
+        this.liquidoEntrante = liquidoEntrante;
+        this.orificioSalida = orificioSalida;
+        this.caracteristicaLiquido = caracteristicaLiquido;
+    }
+
 }

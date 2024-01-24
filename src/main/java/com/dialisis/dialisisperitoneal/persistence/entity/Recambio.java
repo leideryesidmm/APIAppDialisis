@@ -21,4 +21,18 @@ public class Recambio {
     public Recambio(int idRecambio) {
         this.idRecambio = idRecambio;
     }
+
+    public Recambio(int idRecambio, PrescripcionDia prescripcionDia, String concentracion, String intervaloTiempo) {
+        this.idRecambio = idRecambio;
+        this.prescripcionDia = prescripcionDia;
+        this.concentracion = concentracion;
+        this.intervaloTiempo = intervaloTiempo;
+    }
+
+    public Recambio(Recambio r) {
+        this.idRecambio = r.getIdRecambio();
+        this.prescripcionDia = r.getPrescripcionDia();
+        this.concentracion = r.getConcentracion();
+        this.intervaloTiempo = r.getIntervaloTiempo();
+    }
 }

@@ -68,6 +68,8 @@ public class MedicoController{
         }
         return ResponseEntity.ok(pacientes);
     }
+
+
     @PostMapping("/visitaEspecialista")
     public ResponseEntity<VisitaEspecialista>  crearVisitaEspecialista(@RequestBody VisitaEspecialistaInDto visitaEspecialistaDto){
         VisitaEspecialista visitaEspecialista=this.visitaService.crearVisita(visitaEspecialistaDto);
@@ -93,6 +95,11 @@ public class MedicoController{
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(visita);
+    }
+
+    @GetMapping("DescEnc")
+    public void descEnc(){
+        this.medicoService.desencriptarPaciente();
     }
     @GetMapping("/findAllEspecialidad")
     public ResponseEntity<List<Especialidad>> findAllEspecialidad(){

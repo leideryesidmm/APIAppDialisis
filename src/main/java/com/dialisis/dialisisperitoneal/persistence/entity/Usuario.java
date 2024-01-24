@@ -22,8 +22,30 @@ public class Usuario {
     private String tipoDocumento;
 
     public Usuario() {
-        //Fue necesario añadir un constructor vacio para crear un objeto usuario sin datos en otra seccion
     }
 
+    public Usuario(String cedula, String nombre, String contrasenia, String celular, byte[] foto, String correo, boolean activo, String tipoUsuario, String tipoDocumento) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.contrasenia = contrasenia;
+        this.celular = celular;
+        this.foto = foto;
+        this.correo = correo;
+        this.activo = activo;
+        this.tipoUsuario = tipoUsuario;
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public Usuario(Usuario u) {
+        this.cedula = u.getCedula();
+        this.nombre = u.getNombre();
+        this.contrasenia = u.getContrasenia();
+        this.celular = u.getCelular();
+        this.foto = u.getFoto();
+        this.correo = u.getCorreo();
+        this.activo = u.isActivo();
+        this.tipoUsuario = u.tipoUsuario;
+        this.tipoDocumento = u.getTipoDocumento();
+    }
 }
 

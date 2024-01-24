@@ -1,6 +1,8 @@
 package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
 import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.persistence.entity.Medico;
+import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -34,10 +36,12 @@ public class EncryptionServiceCita {
 
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(cita.getMedico()!=null) {
-               cita.setMedico(encryptionServiceMedico.desencriptar(cita.getMedico()));
+                Medico medico= new Medico(cita.getMedico());
+               cita.setMedico(encryptionServiceMedico.desencriptar(medico));
             }
             if(cita.getPaciente()!=null) {
-               cita.setPaciente(encryptionServicePaciente.desencriptar(cita.getPaciente()));
+                Paciente paciente= new Paciente(cita.getPaciente());
+               cita.setPaciente(encryptionServicePaciente.desencriptar(paciente));
             }
             if(cita.getOrificioSalida()!=null){
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(cita.getOrificioSalida()));
@@ -60,10 +64,12 @@ public class EncryptionServiceCita {
 
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(cita.getMedico()!=null) {
-                cita.setMedico(encryptionServiceMedico.encriptar(cita.getMedico()));
+                Medico medico= new Medico(cita.getMedico());
+                cita.setMedico(encryptionServiceMedico.encriptar(medico));
             }
             if(cita.getPaciente()!=null) {
-                cita.setPaciente(encryptionServicePaciente.encriptar(cita.getPaciente()));
+                Paciente paciente= new Paciente(cita.getPaciente());
+                cita.setPaciente(encryptionServicePaciente.encriptar(paciente));
             }
             if(cita.getOrificioSalida()!=null) {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(cita.getOrificioSalida().getBytes());

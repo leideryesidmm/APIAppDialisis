@@ -21,4 +21,20 @@ public class PacienteAlergia {
     Alergia alergia;
     boolean activo;
 
+    public PacienteAlergia() {
+    }
+
+    public PacienteAlergia(int idPacienteAlergia, Paciente paciente, Alergia alergia, boolean activo) {
+        this.idPacienteAlergia = idPacienteAlergia;
+        this.paciente = paciente;
+        this.alergia = alergia;
+        this.activo = activo;
+    }
+
+    public PacienteAlergia(PacienteAlergia pa) {
+        this.idPacienteAlergia = pa.getIdPacienteAlergia();
+        this.paciente = pa.getPaciente();
+        this.alergia = pa.getAlergia();
+        this.activo = pa.isActivo();
+    }
 }
