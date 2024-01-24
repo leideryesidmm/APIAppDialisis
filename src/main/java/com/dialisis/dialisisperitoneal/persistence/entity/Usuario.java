@@ -44,7 +44,7 @@ public class Usuario {
         this.foto = u.getFoto();
         this.correo = u.getCorreo();
         this.activo = u.isActivo();
-        this.tipoUsuario = u.tipoUsuario;
+        this.tipoUsuario = u.getTipoUsuario();
         this.tipoDocumento = u.getTipoDocumento();
     }
 }

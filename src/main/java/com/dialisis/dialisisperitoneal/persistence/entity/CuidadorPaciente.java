@@ -38,4 +38,6 @@ public class CuidadorPaciente {
         this.fechaFin = c.getFechaFin();
         this.activo = c.isActivo();
     }
+    public CuidadorPaciente(){
+    }
 }

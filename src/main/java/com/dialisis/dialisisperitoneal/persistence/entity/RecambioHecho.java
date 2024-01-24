@@ -45,14 +45,14 @@ public class RecambioHecho {
     public RecambioHecho(RecambioHecho rh) {
         this.idRecambioHecho = rh.getIdRecambioHecho();
         this.recambio = rh.getRecambio();
-        this.fecha = fecha;
-        this.fechaReal = fechaReal;
-        this.horaIni = horaIni;
-        this.horaFin = horaFin;
-        this.drenajeDialisis = drenajeDialisis;
-        this.liquidoEntrante = liquidoEntrante;
-        this.orificioSalida = orificioSalida;
-        this.caracteristicaLiquido = caracteristicaLiquido;
+        this.fecha = rh.getFecha();
+        this.fechaReal = rh.getFechaReal();
+        this.horaIni = rh.getHoraIni();
+        this.horaFin = rh.getHoraFin();
+        this.drenajeDialisis = rh.getDrenajeDialisis();
+        this.liquidoEntrante = rh.getLiquidoEntrante();
+        this.orificioSalida = rh.getOrificioSalida();
+        this.caracteristicaLiquido = rh.getCaracteristicaLiquido();
     }
 
 }

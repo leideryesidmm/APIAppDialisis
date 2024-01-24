@@ -68,4 +68,6 @@ public class ChequeoMensual {
         this.glucosa = c.getGlucosa();
         this.creatinina = c.getCreatinina();
     }
+    public ChequeoMensual(){
+    }
 }
