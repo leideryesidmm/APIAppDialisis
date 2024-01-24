@@ -53,4 +53,20 @@ private String cedula;
         this.eps=eps;
         this.cambioContrasenia=cambioContrasenia;
     }
+    public Paciente(Paciente p){
+        this.cedula = p.getCedula();
+        this.fechaNacimiento = p.getFechaNacimiento();
+        this.altura = p.getAltura();
+        this.peso = p.getPeso();
+        this.fechaRegistro=p.getFechaRegistro();
+        this.pesoSeco = p.getPesoSeco();
+        this.direccion = p.getDireccion();
+        this.ocupacion = p.getOcupacion();
+        this.tipoSangre = p.getTipoSangre();
+        this.rh = p.getRh();
+        this.diabetes=p.isDiabetes();
+        this.hipertension=p.isHipertension();
+        this.eps=p.getEps();
+        this.cambioContrasenia=p.isCambioContrasenia();
+    }
 }

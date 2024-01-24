@@ -20,4 +20,13 @@ public class Eps {
     public Eps(int idEps) {
         this.idEps = idEps;
     }
+
+    public Eps(int idEps, String nombre) {
+        this.idEps = idEps;
+        this.nombre = nombre;
+    }
+    public Eps(Eps e) {
+        this.idEps = e.getIdEps();
+        this.nombre = e.getNombre();
+    }
 }

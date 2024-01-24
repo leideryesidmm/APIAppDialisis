@@ -25,5 +25,9 @@ public class Alergia {
         this.idAlergia = idAlergia;
         this.nombre = nombre;
     }
+    public Alergia(Alergia a){
+        this.idAlergia = a.getIdAlergia();
+        this.nombre = a.getNombre();
+    }
 
 }

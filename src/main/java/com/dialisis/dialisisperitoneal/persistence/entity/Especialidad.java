@@ -18,7 +18,15 @@ public class Especialidad {
     }
 
     public Especialidad(int idEspecialidad) {
-
         this.idEspecialidad = idEspecialidad;
+    }
+
+    public Especialidad(int idEspecialidad, String descripcion) {
+        this.idEspecialidad = idEspecialidad;
+        this.descripcion = descripcion;
+    }
+    public Especialidad(Especialidad e) {
+        this.idEspecialidad = e.getIdEspecialidad();
+        this.descripcion = e.getDescripcion();
     }
 }

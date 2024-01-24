@@ -22,5 +22,20 @@ public class CuidadorPaciente {
     private LocalDate fechaFin;
     private boolean activo;
 
-
+    public CuidadorPaciente(int idCuidadorPaciente, Paciente paciente, Cuidador cuidador, LocalDate fechaInicio, LocalDate fechaFin, boolean activo) {
+        this.idCuidadorPaciente = idCuidadorPaciente;
+        this.paciente = paciente;
+        this.cuidador = cuidador;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.activo = activo;
+    }
+    public CuidadorPaciente(CuidadorPaciente c) {
+        this.idCuidadorPaciente = c.getIdCuidadorPaciente();
+        this.paciente = c.getPaciente();
+        this.cuidador = c.getCuidador();
+        this.fechaInicio = c.getFechaInicio();
+        this.fechaFin = c.getFechaFin();
+        this.activo = c.isActivo();
+    }
 }

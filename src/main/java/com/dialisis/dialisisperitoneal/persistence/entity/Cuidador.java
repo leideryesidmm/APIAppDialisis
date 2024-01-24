@@ -9,10 +9,10 @@ import javax.persistence.*;
 @Table(name = "cuidador")
 public class Cuidador {
     @Id
-    String cedulaCuidador;
-    String nombre;
-    String telefono;
-    String direccion;
+    private String cedulaCuidador;
+    private String nombre;
+    private String telefono;
+    private String direccion;
     @ManyToOne
     @JoinColumn(name = "parentesco")
     Parentesco parentesco;
@@ -31,5 +31,13 @@ public class Cuidador {
         this.telefono = telefono;
         this.direccion = direccion;
         this.parentesco = parentesco;
+    }
+
+    public Cuidador(Cuidador c){
+        this.cedulaCuidador = c.getCedulaCuidador();
+        this.nombre = c.getNombre();
+        this.telefono = c.getTelefono();
+        this.direccion = c.getDireccion();
+        this.parentesco = c.getParentesco();
     }
 }

@@ -1,6 +1,7 @@
 package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
 import com.dialisis.dialisisperitoneal.persistence.entity.ChequeoMensual;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -90,7 +91,8 @@ public class EncryptionServiceChequeo {
                 chequeo.setKtv(new String(nombreDesencriptadoBytes));
             }
             if(chequeo.getCita()!=null) {
-                chequeo.setCita(encryptionServiceCita.desencriptar(chequeo.getCita()));
+                Cita cita=new Cita(chequeo.getCita());
+                chequeo.setCita(encryptionServiceCita.desencriptar(cita));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -168,7 +170,8 @@ public class EncryptionServiceChequeo {
                 chequeo.setKtv(new String(encodeBase64(ktvDesencriptadoBytes)));
             }
             if(chequeo.getCita()!=null) {
-                chequeo.setCita(encryptionServiceCita.encriptar(chequeo.getCita()));
+                Cita cita=new Cita(chequeo.getCita());
+                chequeo.setCita(encryptionServiceCita.encriptar(cita));
             }
         }catch(Exception e){
             e.printStackTrace();

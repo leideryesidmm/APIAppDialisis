@@ -1,6 +1,7 @@
 package com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity;
 
 import com.dialisis.dialisisperitoneal.persistence.entity.FormulaMedicamento;
+import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -44,12 +45,9 @@ public class EncryptionServiceFormulaMedicamento {
                 byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(formulaMedicamento.getNombre()));
                 formulaMedicamento.setNombre(new String(nombreDesencriptadoBytes));
             }
-            if(formulaMedicamento.getTomas()!=null) {
-                byte[] nombreDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(formulaMedicamento.getTomas()));
-                formulaMedicamento.setTomas(new String(nombreDesencriptadoBytes));
-            }
             if(formulaMedicamento.getPaciente()!=null) {
-                formulaMedicamento.setPaciente(encryptionServicePaciente.desencriptar(formulaMedicamento.getPaciente()));
+                Paciente paciente=new Paciente(formulaMedicamento.getPaciente());
+                formulaMedicamento.setPaciente(encryptionServicePaciente.desencriptar(paciente));
             }
 
         }catch(Exception e){
@@ -84,7 +82,8 @@ public class EncryptionServiceFormulaMedicamento {
                 formulaMedicamento.setNombre(new String(encodeBase64(nombreDesencriptadoBytes)));
             }
             if(formulaMedicamento.getPaciente()!=null) {
-                formulaMedicamento.setPaciente(encryptionServicePaciente.encriptar(formulaMedicamento.getPaciente()));
+                Paciente paciente=new Paciente(formulaMedicamento.getPaciente());
+                formulaMedicamento.setPaciente(encryptionServicePaciente.encriptar(paciente));
             }
         }catch(Exception e){
             e.printStackTrace();

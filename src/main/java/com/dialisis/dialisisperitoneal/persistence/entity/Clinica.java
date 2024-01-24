@@ -20,4 +20,15 @@ public class Clinica {
     public Clinica(int idClinica) {
         this.idClinica = idClinica;
     }
+
+    public Clinica(int idClinica, String nombre, String direccion) {
+        this.idClinica = idClinica;
+        this.nombre = nombre;
+        this.direccion = direccion;
+    }
+    public Clinica(Clinica c) {
+        this.idClinica = c.getIdClinica();
+        this.nombre = c.getNombre();
+        this.direccion = c.getDireccion();
+    }
 }

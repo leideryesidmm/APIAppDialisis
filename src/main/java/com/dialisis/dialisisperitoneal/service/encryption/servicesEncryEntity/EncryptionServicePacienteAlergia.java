@@ -24,7 +24,6 @@ public class EncryptionServicePacienteAlergia {
     }
     public PacienteAlergia encriptar(PacienteAlergia pacienteAlergia){
         try {
-            System.out.println(pacienteAlergia);
             if(pacienteAlergia==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");

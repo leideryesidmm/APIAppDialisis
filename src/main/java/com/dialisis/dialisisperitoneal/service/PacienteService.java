@@ -36,12 +36,17 @@ public class PacienteService {
     public List<Paciente> findAll() {
 
         List<Paciente> pacientes = this.repository.findAll();
+        try{
             for (int i = 0; i < pacientes.size(); i++) {
                 Paciente paciente = encryptionService.getEncBackend().getPaciente().desencriptar(pacientes.get(i));
                 paciente = encryptionService.getEncFrontend().getPaciente().encriptar(paciente);
                 pacientes.set(i, paciente);
             }
-            return pacientes;
+            return pacientes;}
+        catch (Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
     public Paciente findByCedula(Paciente paciente) {

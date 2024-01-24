@@ -63,6 +63,7 @@ public class EncryptionServiceBD {
     }
     public void encriptarAlergias(List<Alergia> alergias){
         for (Alergia alergia : alergias) {
+            alergia=encryptionService.getEncFrontend().getAlergia().desencriptar(alergia);
             alergia=encryptionService.getEncBackend().getAlergia().encriptar(alergia);
             this.alergiaRepository.save(alergia);
         }
@@ -80,6 +81,7 @@ public class EncryptionServiceBD {
     public void encriptarPacientes(List<Paciente> pacientes){
         try {
             for (Paciente paciente : pacientes) {
+                paciente = encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
                 paciente = encryptionService.getEncBackend().getPaciente().encriptar(paciente);
                 this.pacienteRepository.save(paciente);
             }
@@ -94,6 +96,7 @@ public class EncryptionServiceBD {
     }
     public void encriptarMedicos(List<Medico> medicos){
         for (Medico medico : medicos) {
+            medico=encryptionService.getEncFrontend().getMedico().desencriptar(medico);
             medico=encryptionService.getEncBackend().getMedico().encriptar(medico);
             this.medicoRepository.save(medico);
         }
@@ -105,6 +108,7 @@ public class EncryptionServiceBD {
     }
     public void encriptarCitas(List<Cita> citas){
         for (Cita cita : citas) {
+            cita=encryptionService.getEncFrontend().getCita().desencriptar(cita);
             cita=encryptionService.getEncBackend().getCita().encriptar(cita);
             this.citaRepository.save(cita);
         }
@@ -116,11 +120,8 @@ public class EncryptionServiceBD {
     }
     public void encriptarCuidador(List<Cuidador> cuidadores){
         for (Cuidador cuidador: cuidadores) {
-            System.out.println(azul+"Cuidador sin encriptar");
-            System.out.println(cuidador);
+            cuidador=encryptionService.getEncFrontend().getCuidador().desencriptar(cuidador);
             cuidador=encryptionService.getEncBackend().getCuidador().encriptar(cuidador);
-            System.out.println(verde+"Cuidador encriptado backend");
-            System.out.println(cuidador);
             this.cuidadorRepository.save(cuidador);
         }
     }
@@ -131,6 +132,7 @@ public class EncryptionServiceBD {
     }
     public void encriptarCuidadorPacientes(List<CuidadorPaciente> cuidadorPacientes){
         for (CuidadorPaciente cuidadorPaciente: cuidadorPacientes) {
+            cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
             cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().encriptar(cuidadorPaciente);
             this.cuidadorPacienteRepository.save(cuidadorPaciente);
         }
@@ -143,6 +145,7 @@ public class EncryptionServiceBD {
     }
     public void encriptarRecambios(List<Recambio> recambios){
         for (Recambio recambio: recambios) {
+            recambio=encryptionService.getEncFrontend().getRecambio().desencriptar(recambio);
             recambio=encryptionService.getEncBackend().getRecambio().encriptar(recambio);
             this.recambioRepository.save(recambio);
         }
@@ -154,6 +157,7 @@ public class EncryptionServiceBD {
     }
     public void encriptarRecambiosHechos(List<RecambioHecho> recambiosHechos){
         for (RecambioHecho recambioHecho: recambiosHechos) {
+            recambioHecho=encryptionService.getEncFrontend().getRecambioHecho().desencriptar(recambioHecho);
             recambioHecho=encryptionService.getEncBackend().getRecambioHecho().encriptar(recambioHecho);
             this.recambioHechoRepository.save(recambioHecho);
         }
@@ -164,17 +168,18 @@ public class EncryptionServiceBD {
     }
     public void encriptarChequeosMensuales(List<ChequeoMensual> chequeosMensuales){
         for (ChequeoMensual chequeoMensual: chequeosMensuales) {
+            chequeoMensual=encryptionService.getEncFrontend().getChequeo().desencriptar(chequeoMensual);
             chequeoMensual=encryptionService.getEncBackend().getChequeo().encriptar(chequeoMensual);
             this.chequeoMensualRepository.save(chequeoMensual);
         }
     }
     public List<FormulaMedicamento> getFormulasMedicamentos(){
         List<FormulaMedicamento> formulasMedicamentos=this.formulaMedicamentoRepository.findAll();
-        //this.alergiaRepository.deleteAll();
         return formulasMedicamentos;
     }
     public void encriptarFormulasMedicamentos(List<FormulaMedicamento> formulasMedicamentos){
         for (FormulaMedicamento formulaMedicamento: formulasMedicamentos) {
+            formulaMedicamento=encryptionService.getEncFrontend().getFormulaMedicamento().desencriptar(formulaMedicamento);
             formulaMedicamento=encryptionService.getEncBackend().getFormulaMedicamento().encriptar(formulaMedicamento);
             this.formulaMedicamentoRepository.save(formulaMedicamento);
         }
@@ -187,6 +192,7 @@ public class EncryptionServiceBD {
     public void encriptarPacientesAlergias(List<PacienteAlergia> pacienteAlergias){
         try{
         for (PacienteAlergia pacienteAlergia: pacienteAlergias) {
+            pacienteAlergia=encryptionService.getEncFrontend().getPacienteAlergia().desencriptar(pacienteAlergia);
             pacienteAlergia=encryptionService.getEncBackend().getPacienteAlergia().encriptar(pacienteAlergia);
             this.pacienteAlergiaRepository.save(pacienteAlergia);
         }}catch (Exception e){
@@ -194,15 +200,35 @@ public class EncryptionServiceBD {
         }
     }
     public void desencriptarPacientew(String p){
-        try{p="nOTLpi5mOEW0bcKFc8/yyg==";
-            String cedula="37476922";
-            Paciente pac=new Paciente(cedula);
-            pac=encryptionService.getEncBackend().getPaciente().encriptar(pac);
+        try{p="F+1bdtc9/MlQKijDUtcf8A==";
             Paciente paciente =new Paciente(p);
-            paciente=encryptionService.getEncBackend().getPaciente().desencriptar(paciente);
+            paciente=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
+            paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
+            List<CuidadorPaciente> cuidadorPacientes=this.cuidadorPacienteRepository.findAllByPaciente(paciente);
+            System.out.println(verde+cuidadorPacientes+b);
+
+            for(int i=0; i<cuidadorPacientes.size();i++){
+                CuidadorPaciente cuidadorPaciente=cuidadorPacientes.get(i);
+                System.out.println(magenta+cuidadorPaciente+b);
+                //Paciente paciente1=new Paciente(cuidadorPaciente.getPaciente());
+                //paciente1=encryptionService.getEncBackend().getPaciente().desencriptar(paciente1);
+                //paciente1=encryptionService.getEncFrontend().getPaciente().encriptar(paciente1);
+                //Cuidador cuidador=new Cuidador(cuidadorPaciente.getCuidador());
+                //cuidador=encryptionService.getEncBackend().getCuidador().desencriptar(cuidador);
+                //cuidador=encryptionService.getEncFrontend().getCuidador().encriptar(cuidador);
+                //cuidadorPaciente.setPaciente(paciente1);
+                //cuidadorPaciente.setCuidador(cuidador);
+                cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
+                System.out.println(amarillo+cuidadorPaciente+b);
+                cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
+                System.out.println(rojo+cuidadorPacientes+b);
+                cuidadorPacientes.set(i,cuidadorPaciente);
+            }
+            System.out.println(azul+cuidadorPacientes+b);
             }catch (Exception e){
             e.printStackTrace();
         }
+
     }
     public List<Usuario> getAdmins(){
         List<Usuario> admins=this.usuarioRepository.findBytipoUsuario("admin");
@@ -212,6 +238,7 @@ public class EncryptionServiceBD {
     public void encriptarAdmins(List<Usuario> admins){
         try{
             for (Usuario usuario: admins) {
+                usuario=encryptionService.getEncFrontend().getAdmin().desencriptar(usuario);
                 usuario=encryptionService.getEncBackend().getAdmin().encriptar(usuario);
                 this.usuarioRepository.save(usuario);
             }}catch (Exception e){

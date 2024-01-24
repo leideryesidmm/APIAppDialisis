@@ -61,7 +61,6 @@ public class UsuarioController {
     public ResponseEntity<byte[]> getUsuarioFoto(@RequestBody UsuarioInDto usuarioInDto) {
         try {
             byte[] fotoBytes = usuarioService.getFotoByCedula(usuarioInDto.getCedula());
-            System.out.println(fotoBytes);
             if(fotoBytes!=null) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.IMAGE_JPEG); // Cambia esto según el tipo de imagen
@@ -137,13 +136,9 @@ public class UsuarioController {
         String greenColor = "\u001B[32m";
         String resetColor = "\u001B[0m";
         try {
-            System.out.println(cedula);
             Usuario usuario = usuarioService.findAllBycedula(cedula);
-            System.out.println(usuario);
             byte[] imageBytes = imageFile.getBytes();
-            System.out.println(imageBytes);
             usuario.setFoto(imageBytes);
-            System.out.println(greenColor+usuario+resetColor);
             // Actualiza otros campos del paciente si es necesario
             this.usuarioService.saveUsuario(usuario);
             return ResponseEntity.ok("{\"success\": true}");
