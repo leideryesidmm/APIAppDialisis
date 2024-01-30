@@ -70,7 +70,7 @@ public class PacienteController {
     public void reactivarCuidadorAntiguo(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
         CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
         if (cuidadorPaciente != null) {
-            this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
+            this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente);
         }
         CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
         cuidadorPacienteInDto.setCuidador(unionCuidadorPacienteInDto.getCuidadorInDto().getCedulaCuidador());
@@ -90,29 +90,41 @@ public class PacienteController {
     }
     @PostMapping("/cuidador/crear")
     public void crearCuidador(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
-        CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
-        if (cuidadorPaciente != null) {
-            this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
+        try {
+            CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
+            System.out.println("Cuidador activo");
+            System.out.println(cuidadorPaciente);
+            System.out.println(unionCuidadorPacienteInDto);
+            if (cuidadorPaciente != null) {
+                System.out.println("hay un activo");
+                this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente);
+            }
+            Cuidador cuidador = this.cuidadorService.crearoActualizarCuidador(unionCuidadorPacienteInDto.getCuidadorInDto());
+            CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
+            cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
+            cuidadorPacienteInDto.setPaciente(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
+            LocalDate fechaIni = LocalDate.now();
+            cuidadorPacienteInDto.setFechaIni(fechaIni);
+            this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        Cuidador cuidador = this.cuidadorService.crearoActualizarCuidador(unionCuidadorPacienteInDto.getCuidadorInDto());
-        CuidadorPacienteInDto cuidadorPacienteInDto = new CuidadorPacienteInDto();
-        cuidadorPacienteInDto.setCuidador(cuidador.getCedulaCuidador());
-        cuidadorPacienteInDto.setPaciente(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
-        LocalDate fechaIni = LocalDate.now();
-        cuidadorPacienteInDto.setFechaIni(fechaIni);
-        this.cuidadorPacienteService.crearCuidadorPaciente(cuidadorPacienteInDto);
     }
     @PatchMapping("/cuidador/inhabilitarCuidadorActivo")
     public void inhabilitarCuidadorActivo(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
         CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
         if (cuidadorPaciente != null) {
-            this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente.getIdCuidadorPaciente());
+            this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente);
             cuidadorPaciente.setActivo(false);
         }
     }
     @PatchMapping("/cuidador/actualizar")
     public void actualizarCuidador(@RequestBody CuidadorInDto cuidadorInDto) {
-        this.cuidadorService.actualizarCuidador(cuidadorInDto.getCedulaCuidador(), cuidadorInDto);
+        try {
+            this.cuidadorService.actualizarCuidador(cuidadorInDto.getCedulaCuidador(), cuidadorInDto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     @GetMapping("/ListParentesco")
     public List<Parentesco> findAllParentesco() {

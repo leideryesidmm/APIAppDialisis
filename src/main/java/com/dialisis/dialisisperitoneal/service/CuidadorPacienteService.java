@@ -1,6 +1,7 @@
 package com.dialisis.dialisisperitoneal.service;
 import com.dialisis.dialisisperitoneal.exceptions.ToDoExceptions;
 import com.dialisis.dialisisperitoneal.mapper.CuidadorPacienteInDtoToCuidadorPaciente;
+import com.dialisis.dialisisperitoneal.persistence.entity.Cuidador;
 import com.dialisis.dialisisperitoneal.persistence.entity.CuidadorPaciente;
 import com.dialisis.dialisisperitoneal.persistence.entity.Paciente;
 import com.dialisis.dialisisperitoneal.persistence.repository.CuidadorPacienteRepository;
@@ -30,11 +31,25 @@ public class CuidadorPacienteService {
     }
 
     public CuidadorPaciente crearCuidadorPaciente(CuidadorPacienteInDto cuidadorpacienteInDto){
-        CuidadorPaciente cuidadorpaciente=this.mapper.map(cuidadorpacienteInDto);
-        cuidadorpaciente=encryptionService.getEncFrontend().getCuidadorPaciente().desencriptar(cuidadorpaciente);
-        cuidadorpaciente=encryptionService.getEncBackend().getCuidadorPaciente().encriptar(cuidadorpaciente);
-        cuidadorpaciente=this.repository.save(cuidadorpaciente);
-        return cuidadorpaciente;
+        try{
+            CuidadorPaciente cuidadorpaciente=this.mapper.map(cuidadorpacienteInDto);
+            System.out.println("\033[32m"+cuidadorpaciente+"\u001B[0m");
+            cuidadorpaciente=encryptionService.getEncFrontend().getCuidadorPaciente().desencriptar(cuidadorpaciente);
+            System.out.println("\033[34m"+cuidadorpaciente+"\u001B[0m");
+            cuidadorpaciente=encryptionService.getEncBackend().getCuidadorPaciente().encriptar(cuidadorpaciente);
+            System.out.println("\033[35m"+cuidadorpaciente+"\u001B[0m");
+            //CuidadorPaciente cuidadorPaciente2=new CuidadorPaciente();
+            //cuidadorPaciente2.setPaciente(new Paciente("YivYZY93Q6+CRlHRIZksmQ=="));
+            //cuidadorPaciente2.setCuidador(new Cuidador("zkIyr6xBgrtf5MwG8fGYNg=="));
+            cuidadorpaciente.setActivo(true);
+            this.repository.save(cuidadorpaciente);
+            cuidadorpaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(new CuidadorPaciente(cuidadorpaciente));
+            cuidadorpaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(new CuidadorPaciente(cuidadorpaciente));
+            return cuidadorpaciente;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
     public List<CuidadorPaciente> findAll(){
         List<CuidadorPaciente> cuidadorPacientes= this.repository.findAll();
@@ -49,26 +64,26 @@ public class CuidadorPacienteService {
 
     public List<CuidadorPaciente> findAllByPaciente(String paciente){
         Paciente paciente1=new Paciente(paciente);
-        System.out.println("\033[32m"+paciente1+"\u001B[0m");
+        //System.out.println("\033[32m"+paciente1+"\u001B[0m");
         paciente1=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente1);
-        System.out.println("\033[34m"+paciente1+"\u001B[0m");
+        //System.out.println("\033[34m"+paciente1+"\u001B[0m");
         paciente1=encryptionService.getEncBackend().getPaciente().encriptar(paciente1);
-        System.out.println("\033[33m"+paciente1+"\u001B[0m");
+        //System.out.println("\033[33m"+paciente1+"\u001B[0m");
         List<CuidadorPaciente> cuidadorPacientes= this.repository.findAllByPaciente(paciente1);
-        System.out.println("\033[31m"+cuidadorPacientes+"\u001B[0m");
+        //System.out.println("\033[31m"+cuidadorPacientes+"\u001B[0m");
         List<CuidadorPaciente> cuidadorPacientes1= new ArrayList<>();
         CuidadorPaciente cuidadorPaciente=new CuidadorPaciente();
         for (int i = 0; i < cuidadorPacientes.size(); i++) {
-            System.out.println(i);
-            System.out.println("\033[36m"+cuidadorPacientes.get(i)+"\u001B[0m");
+            //System.out.println(i);
+            //System.out.println("\033[36m"+cuidadorPacientes.get(i)+"\u001B[0m");
             cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPacientes.get(i));
-            System.out.println("\033[37m"+cuidadorPaciente+"\u001B[0m");
-            //cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
+            //System.out.println("\033[37m"+cuidadorPaciente+"\u001B[0m");
+            cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
             cuidadorPacientes1.add(cuidadorPaciente);
-            System.out.println(cuidadorPacientes1);
-            System.out.println(i);
+            //System.out.println(cuidadorPaciente);
+            //System.out.println(i);
         }
-        return cuidadorPacientes;
+        return cuidadorPacientes1;
     }
     public CuidadorPaciente findById(int idCuidadorpaciente){
         Optional<CuidadorPaciente> optionalCuidadorPaciente = this.repository.findById(idCuidadorpaciente);
@@ -94,9 +109,18 @@ public class CuidadorPacienteService {
         this.repository.actualizarCuidadorPaciente(idCuidadorPaciente,fechaini,fechaFin, activo);
     }
     @Transactional
-    public void inactivarCuidador(int idCuidadorPaciente){
+    public void inactivarCuidador(CuidadorPaciente cuidadorPaciente){
+        cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
+        cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().encriptar(cuidadorPaciente);
+        System.out.println("id del cuidador activo= "+cuidadorPaciente);
         LocalDate fechaFinal= LocalDate.now();
-        this.repository.inactivarCuidador(idCuidadorPaciente,fechaFinal);
+        try {
+            cuidadorPaciente.setActivo(false);
+            cuidadorPaciente.setFechaFin(fechaFinal);
+            this.repository.save(cuidadorPaciente);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

@@ -26,9 +26,9 @@ public class CuidadorService {
         cuidador=encryptionService.getEncFrontend().getCuidador().desencriptar(cuidador);
         cuidador=encryptionService.getEncBackend().getCuidador().encriptar(cuidador);
         cuidador=this.cuidadorRepository.save(cuidador);
-        cuidador=encryptionService.getEncBackend().getCuidador().desencriptar(cuidador);
-        cuidador=encryptionService.getEncFrontend().getCuidador().encriptar(cuidador);
-        return cuidador;
+        Cuidador cuidador2=encryptionService.getEncBackend().getCuidador().desencriptar(new Cuidador(cuidador));
+        Cuidador cuidador3=new Cuidador(encryptionService.getEncFrontend().getCuidador().encriptar(cuidador2));
+        return cuidador3;
     }
 
     public List<Cuidador> findAll(){
@@ -53,14 +53,25 @@ public class CuidadorService {
     }
     @Transactional
     public Cuidador actualizarCuidador(String cedula,CuidadorInDto cuidadorInDto) {
+        try{
         Cuidador cuidador = cuidadorInDTOtoCuidador.map(cuidadorInDto);
         cuidador.setCedulaCuidador(cedula);
-        cuidador=encryptionService.getEncFrontend().getCuidador().desencriptar(cuidador);
-        cuidador=encryptionService.getEncBackend().getCuidador().encriptar(cuidador);
+            System.out.println(cuidador);
+        cuidador=encryptionService.getEncFrontend().getCuidador().desencriptar(new Cuidador(cuidador));
+            System.out.println(cuidador);
+        cuidador=encryptionService.getEncBackend().getCuidador().encriptar(new Cuidador(cuidador));
+            System.out.println(cuidador);
         cuidador=this.cuidadorRepository.save(cuidador);
-        cuidador=encryptionService.getEncBackend().getCuidador().desencriptar(cuidador);
-        cuidador=encryptionService.getEncFrontend().getCuidador().desencriptar(cuidador);
-        return cuidador;
+            System.out.println(cuidador);
+        cuidador=encryptionService.getEncBackend().getCuidador().desencriptar(new Cuidador(cuidador));
+            System.out.println(cuidador);
+        cuidador=encryptionService.getEncFrontend().getCuidador().encriptar(new Cuidador(cuidador));
+            System.out.println(cuidador);
+        return cuidador;}
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

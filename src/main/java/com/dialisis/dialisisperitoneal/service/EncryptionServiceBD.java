@@ -144,9 +144,12 @@ public class EncryptionServiceBD {
         return recambios;
     }
     public void encriptarRecambios(List<Recambio> recambios){
+        System.out.println(recambios);
         for (Recambio recambio: recambios) {
             recambio=encryptionService.getEncFrontend().getRecambio().desencriptar(recambio);
+            System.out.println(recambio);
             recambio=encryptionService.getEncBackend().getRecambio().encriptar(recambio);
+
             this.recambioRepository.save(recambio);
         }
     }
@@ -200,31 +203,11 @@ public class EncryptionServiceBD {
         }
     }
     public void desencriptarPacientew(String p){
-        try{p="F+1bdtc9/MlQKijDUtcf8A==";
-            Paciente paciente =new Paciente(p);
-            paciente=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
-            paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
-            List<CuidadorPaciente> cuidadorPacientes=this.cuidadorPacienteRepository.findAllByPaciente(paciente);
-            System.out.println(verde+cuidadorPacientes+b);
+        try{p="yY71y94RdYyIa3l50BrXtA==";
+            Paciente paciente =new Paciente("stghZ3dtHCy8WyefwX2grw==");
+            paciente=encryptionService.getEncBackend().getPaciente().desencriptar(paciente);
+            System.out.println(paciente);
 
-            for(int i=0; i<cuidadorPacientes.size();i++){
-                CuidadorPaciente cuidadorPaciente=cuidadorPacientes.get(i);
-                System.out.println(magenta+cuidadorPaciente+b);
-                //Paciente paciente1=new Paciente(cuidadorPaciente.getPaciente());
-                //paciente1=encryptionService.getEncBackend().getPaciente().desencriptar(paciente1);
-                //paciente1=encryptionService.getEncFrontend().getPaciente().encriptar(paciente1);
-                //Cuidador cuidador=new Cuidador(cuidadorPaciente.getCuidador());
-                //cuidador=encryptionService.getEncBackend().getCuidador().desencriptar(cuidador);
-                //cuidador=encryptionService.getEncFrontend().getCuidador().encriptar(cuidador);
-                //cuidadorPaciente.setPaciente(paciente1);
-                //cuidadorPaciente.setCuidador(cuidador);
-                cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
-                System.out.println(amarillo+cuidadorPaciente+b);
-                cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
-                System.out.println(rojo+cuidadorPacientes+b);
-                cuidadorPacientes.set(i,cuidadorPaciente);
-            }
-            System.out.println(azul+cuidadorPacientes+b);
             }catch (Exception e){
             e.printStackTrace();
         }
