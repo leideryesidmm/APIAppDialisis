@@ -207,7 +207,6 @@ public class EncryptionServiceBD {
             Paciente paciente =new Paciente("stghZ3dtHCy8WyefwX2grw==");
             paciente=encryptionService.getEncBackend().getPaciente().desencriptar(paciente);
             System.out.println(paciente);
-
             }catch (Exception e){
             e.printStackTrace();
         }

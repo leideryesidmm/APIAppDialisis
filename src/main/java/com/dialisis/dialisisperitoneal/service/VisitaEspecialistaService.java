@@ -34,29 +34,40 @@ public class VisitaEspecialistaService {
     }
 
     public VisitaEspecialista findUltimaVisita(int idCita) {
-        List<VisitaEspecialista> visitas = this.repository.findUltimaVisita(idCita);
-        VisitaEspecialista visita;
-        if(visitas.isEmpty())
+        VisitaEspecialista visita = this.repository.findUltimaVisita(idCita);
+        if(visita==null)
             return null;
         else {
-            visita = visitas.get(0);
-            visita = encryptionService.getEncBackend().getVisitaEspecialistas().desencriptar(visita);
-            visita = encryptionService.getEncFrontend().getVisitaEspecialistas().encriptar(visita);
+            Cita cita2=new Cita(visita.getCita());
+            cita2=encryptionService.getEncBackend().getCita().desencriptar(cita2);
+            cita2=encryptionService.getEncFrontend().getCita().encriptar(cita2);
+            visita.setCita(cita2);
             return visita;
         }
     }
 
+
+
     public List<VisitaEspecialista> findAllVisitas(List<Cita> citas) {
-        List<VisitaEspecialista> visitas = new ArrayList<>();
-        for (Cita cita : citas) {
-            cita = encryptionService.getEncFrontend().getCita().desencriptar(cita);
-            cita = encryptionService.getEncBackend().getCita().encriptar(cita);
-            VisitaEspecialista visitaEspecialista = this.repository.findByCita(cita);
-            visitaEspecialista = encryptionService.getEncBackend().getVisitaEspecialistas().desencriptar(visitaEspecialista);
-            visitaEspecialista = encryptionService.getEncFrontend().getVisitaEspecialistas().encriptar(visitaEspecialista);
-            visitas.add(visitaEspecialista);
+        try {
+            List<VisitaEspecialista> visitas = new ArrayList<>();
+            for (Cita cita : citas) {
+                cita = encryptionService.getEncFrontend().getCita().desencriptar(cita);
+                cita = encryptionService.getEncBackend().getCita().encriptar(cita);
+                VisitaEspecialista visitaEspecialista = this.repository.findByCita(cita);
+                if (visitaEspecialista != null) {
+                    Cita cita2=new Cita(visitaEspecialista.getCita());
+                    cita2=encryptionService.getEncBackend().getCita().desencriptar(cita2);
+                    cita2=encryptionService.getEncFrontend().getCita().encriptar(cita2);
+                    visitaEspecialista.setCita(cita2);
+                   visitas.add(visitaEspecialista);
+                }
+            }
+            return visitas;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
         }
-        return visitas;
     }
 
     @Transactional

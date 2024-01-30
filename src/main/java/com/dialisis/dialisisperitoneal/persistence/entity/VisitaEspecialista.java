@@ -45,7 +45,7 @@ public class VisitaEspecialista {
     }
 
     public VisitaEspecialista(VisitaEspecialista v) {
-        this.idVistaEspecialista = v.idVistaEspecialista;
+        this.idVistaEspecialista = v.getIdVistaEspecialista();
         this.cita = v.getCita();
         this.nefrologia = v.isNefrologia();
         this.enfermeria = v.isEnfermeria();

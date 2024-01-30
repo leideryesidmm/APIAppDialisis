@@ -12,9 +12,7 @@ public class Usuario {
     private String nombre;
     private String contrasenia;
     private String celular;
-    @Lob
-    @Column(name = "foto")
-    private byte[] foto;
+
     private String correo;
     private boolean activo;
     private String tipoUsuario="user";
@@ -24,12 +22,11 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String cedula, String nombre, String contrasenia, String celular, byte[] foto, String correo, boolean activo, String tipoUsuario, String tipoDocumento) {
+    public Usuario(String cedula, String nombre, String contrasenia, String celular, String correo, boolean activo, String tipoUsuario, String tipoDocumento) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.contrasenia = contrasenia;
         this.celular = celular;
-        this.foto = foto;
         this.correo = correo;
         this.activo = activo;
         this.tipoUsuario = tipoUsuario;
@@ -41,7 +38,6 @@ public class Usuario {
         this.nombre = u.getNombre();
         this.contrasenia = u.getContrasenia();
         this.celular = u.getCelular();
-        this.foto = u.getFoto();
         this.correo = u.getCorreo();
         this.activo = u.isActivo();
         this.tipoUsuario = u.getTipoUsuario();

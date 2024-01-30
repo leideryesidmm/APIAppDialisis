@@ -47,8 +47,8 @@ public class EncryptionServiceVisitaEspecialistas {
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
 
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
-            if (visitaEspecialista.getCita() != null) {
-                Cita cita= new Cita(visitaEspecialista.getCita());
+            if(visitaEspecialista.getCita()!=null) {
+                Cita cita=new Cita(visitaEspecialista.getCita());
                 visitaEspecialista.setCita(encryptionServiceCita.desencriptar(cita));
             }
         }

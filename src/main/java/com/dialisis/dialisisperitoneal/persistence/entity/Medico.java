@@ -16,7 +16,6 @@ public class Medico extends Usuario {
     private String profesion;
 
     public Medico(){
-        this.cedula=null;
     }
     public Medico(String cedula) {
         this.cedula = cedula;
@@ -26,5 +25,17 @@ public class Medico extends Usuario {
         this.cedula=m.getCedula();
         this.especialidad=m.getEspecialidad();
         this.profesion=m.getProfesion();
+        this.setCelular(m.getCelular());
+        this.setContrasenia(m.getContrasenia());
+        this.setCorreo(m.getCorreo());
+        this.setNombre(m.getNombre());
+        this.setTipoDocumento(m.getTipoDocumento());
+    }
+
+    public Medico(String cedula, String nombre, String contrasenia, String celular,  String correo, boolean activo, String tipoUsuario, String tipoDocumento, String cedula1, Especialidad especialidad, String profesion) {
+        super(cedula, nombre, contrasenia, celular,  correo, activo, tipoUsuario, tipoDocumento);
+        this.cedula = cedula1;
+        this.especialidad = especialidad;
+        this.profesion = profesion;
     }
 }

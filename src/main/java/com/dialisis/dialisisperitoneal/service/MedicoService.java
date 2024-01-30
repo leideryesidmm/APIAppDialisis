@@ -2,6 +2,7 @@ package com.dialisis.dialisisperitoneal.service;
 
 import com.dialisis.dialisisperitoneal.mapper.MedicoInDtoToMedico;
 import com.dialisis.dialisisperitoneal.persistence.entity.Medico;
+import com.dialisis.dialisisperitoneal.persistence.entity.VisitaEspecialista;
 import com.dialisis.dialisisperitoneal.persistence.repository.MedicoRepository;
 import com.dialisis.dialisisperitoneal.service.dto.MedicoInDto;
 import com.dialisis.dialisisperitoneal.service.encryption.EncryptionService;
@@ -17,10 +18,13 @@ public class MedicoService {
     private final MedicoInDtoToMedico mapper;
     private final EncryptionService encryptionService;
 
-    public MedicoService(MedicoRepository medicoRepository, MedicoInDtoToMedico mapper, EncryptionService encryptionService) {
+    private final VisitaEspecialistaService visitaEspecialistaService;
+
+    public MedicoService(MedicoRepository medicoRepository, MedicoInDtoToMedico mapper, EncryptionService encryptionService, VisitaEspecialistaService visitaEspecialistaService) {
         this.medicoRepository = medicoRepository;
         this.mapper = mapper;
         this.encryptionService = encryptionService;
+        this.visitaEspecialistaService = visitaEspecialistaService;
     }
 
     public List<Medico> findAll(){
@@ -43,12 +47,11 @@ public class MedicoService {
     }
 
     public void desencriptarPaciente(){
-        try{String p="0IhUnWrDugsqNa8BWzWR/A==";
-            Medico medico =new Medico();
-            medico.setCedula(p);
-            medico=encryptionService.getEncBackend().getMedico().desencriptar(medico);
+        try{;
+            VisitaEspecialista visita =visitaEspecialistaService.findUltimaVisita(315);
+            visita=encryptionService.getEncBackend().getVisitaEspecialistas().desencriptar(visita);
             //paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
-        }catch (Exception e){
+            }catch (Exception e){
             e.printStackTrace();
         }
     }

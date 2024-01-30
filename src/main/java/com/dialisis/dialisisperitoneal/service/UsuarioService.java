@@ -48,14 +48,6 @@ public class UsuarioService {
             return encryptionService.getEncFrontend().getAdmin().encriptar(usuarioBack);
 
     }
-    public byte[] getFotoByCedula(String cedula) {
-        Usuario usuario = repository.findAllBycedula(cedula);
-        if(usuario.getFoto()!=null) {
-        return usuario.getFoto();}
-        else{
-            return null;
-        }
-        }
 
     @Transactional
     public void cambiarContrasenia(String cedula,String contrasenia){

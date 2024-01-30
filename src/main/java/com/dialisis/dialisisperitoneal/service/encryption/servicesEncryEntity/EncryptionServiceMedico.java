@@ -63,18 +63,18 @@ public class EncryptionServiceMedico {
     }
     public Medico desencriptar(Medico medico){
         try {
+
+            if(medico==null)return null;
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(clave.getBytes(StandardCharsets.UTF_8), "AES");
             IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
-
-
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if (medico.getCedula() != null) {
-                System.out.println("\u001B[35m"+medico.getCedula()+"\u001B[0m");
                 byte[] cedulaDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getCedula()));
                 medico.setCedula(new String(cedulaDesencriptadoBytes));
-                 }
+            }
+
             if(medico.getProfesion()!=null) {
                 byte[] profesionDesencriptadoBytes = cipher.doFinal(Base64.getDecoder().decode(medico.getProfesion()));
                 medico.setProfesion(new String(profesionDesencriptadoBytes));

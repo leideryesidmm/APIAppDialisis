@@ -61,24 +61,6 @@ public class UsuarioController {
         this.usuarioService.cambiarCelular(cedula, celular);
         return ResponseEntity.noContent().build();
     }
-    @PostMapping("/imagen")
-    public ResponseEntity<byte[]> getUsuarioFoto(@RequestBody UsuarioInDto usuarioInDto) {
-        try {
-            byte[] fotoBytes = usuarioService.getFotoByCedula(usuarioInDto.getCedula());
-            if(fotoBytes!=null) {
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.IMAGE_JPEG); // Cambia esto según el tipo de imagen
-                return new ResponseEntity<>(fotoBytes, headers, HttpStatus.OK);
-            }
-            else{
-                return null;
-            }
-        }
-        catch(Exception e){
-            e.getMessage();
-            return ResponseEntity.noContent().build();
-        }
-    }
     @PostMapping("/crearMedico")
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
         return this.medicoService.crearMedico(medicoInDto);
@@ -128,27 +110,9 @@ public class UsuarioController {
 
     @PostMapping("/findAdmin")
     public ResponseEntity<Usuario> findAdmin(@RequestBody Usuario usuario){
-        Usuario usu= this.usuarioService.findAdmin(usuario);
+       Usuario usu= this.usuarioService.findAdmin(usuario);
         if(usu==null)
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(usu);
-    }
-
-    @PostMapping("/upload-image")
-    public ResponseEntity<String> uploadImage(@RequestParam("cedula") String cedula,
-                                              @RequestParam("foto") MultipartFile imageFile) {
-        String greenColor = "\u001B[32m";
-        String resetColor = "\u001B[0m";
-        try {
-            Usuario usuario = usuarioService.findAllBycedula(cedula);
-
-            byte[] imageBytes = imageFile.getBytes();
-            usuario.setFoto(imageBytes);
-            // Actualiza otros campos del paciente si es necesario
-            this.usuarioService.saveUsuario(usuario);
-            return ResponseEntity.ok("{\"success\": true}");
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"success\": false}");
-        }
     }
 }
