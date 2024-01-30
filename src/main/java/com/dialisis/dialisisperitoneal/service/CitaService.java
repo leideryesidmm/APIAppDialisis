@@ -127,11 +127,10 @@ public class CitaService {
     public Cita findUltimaCita(Paciente paciente) {
         paciente=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
         paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
-        List<Cita> citas=this.repository.findUltimaCita(paciente);
-            if(citas.isEmpty())
+        Cita cita=this.repository.findUltimaCita(paciente);
+            if(cita==null)
                 return null;
             else {
-                Cita cita=citas.get(0);
                 cita=encryptionService.getEncBackend().getCita().desencriptar(cita);
                 cita=encryptionService.getEncFrontend().getCita().encriptar(cita);
                 return cita;
@@ -141,18 +140,20 @@ public class CitaService {
     public void  finalizarById(int cita){
         this.repository.finalizar(LocalDateTime.now(),cita);
     }
+
+
     public UnionCitaPrescripcionDias getPrescripcionActual(Paciente paciente) {
+
         Cita cita = findUltimaCita(paciente);
-        if (cita == null)
+       if (cita == null)
             return null;
         else {
             Paciente p = cita.getPaciente();
-            p.setFoto(null);
             cita.setPaciente(p);
             UnionCitaPrescripcionDias citaPres = new UnionCitaPrescripcionDias();
             citaPres.setCita(cita);
             List<PrescripcionDia> prescripcionDias = this.prescripcionDiaService.findByCita(cita);
-            List<UnionPrescripcionDiasRecambios> listPrescripcionDiasRecambios = new ArrayList<>();
+           List<UnionPrescripcionDiasRecambios> listPrescripcionDiasRecambios = new ArrayList<>();
             for (PrescripcionDia prescripcionDia : prescripcionDias) {
                 UnionPrescripcionDiasRecambios prescripcionDiasRecambios = new UnionPrescripcionDiasRecambios();
                 prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);
@@ -160,7 +161,7 @@ public class CitaService {
                 listPrescripcionDiasRecambios.add(prescripcionDiasRecambios);
             }
             citaPres.setUnionPrescripcionDiasRecambios(listPrescripcionDiasRecambios);
-            return citaPres;
+           return citaPres;
         }
     }
 

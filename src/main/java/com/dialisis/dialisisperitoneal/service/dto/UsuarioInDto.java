@@ -13,7 +13,5 @@ public class UsuarioInDto {
     private String celular;
     private String correo;
     private boolean activo;
-    @Lob
-    private byte[] foto;
     private String tipoDocumento;
 }

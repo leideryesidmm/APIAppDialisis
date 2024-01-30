@@ -205,11 +205,9 @@ public class EncryptionServiceBD {
             paciente=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente);
             paciente=encryptionService.getEncBackend().getPaciente().encriptar(paciente);
             List<CuidadorPaciente> cuidadorPacientes=this.cuidadorPacienteRepository.findAllByPaciente(paciente);
-            System.out.println(verde+cuidadorPacientes+b);
 
             for(int i=0; i<cuidadorPacientes.size();i++){
                 CuidadorPaciente cuidadorPaciente=cuidadorPacientes.get(i);
-                System.out.println(magenta+cuidadorPaciente+b);
                 //Paciente paciente1=new Paciente(cuidadorPaciente.getPaciente());
                 //paciente1=encryptionService.getEncBackend().getPaciente().desencriptar(paciente1);
                 //paciente1=encryptionService.getEncFrontend().getPaciente().encriptar(paciente1);
@@ -219,12 +217,9 @@ public class EncryptionServiceBD {
                 //cuidadorPaciente.setPaciente(paciente1);
                 //cuidadorPaciente.setCuidador(cuidador);
                 cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
-                System.out.println(amarillo+cuidadorPaciente+b);
-                cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
-                System.out.println(rojo+cuidadorPacientes+b);
+               cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
                 cuidadorPacientes.set(i,cuidadorPaciente);
             }
-            System.out.println(azul+cuidadorPacientes+b);
             }catch (Exception e){
             e.printStackTrace();
         }

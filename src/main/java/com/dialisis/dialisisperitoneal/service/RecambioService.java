@@ -40,20 +40,14 @@ public class RecambioService {
     }
 
     public List<Recambio> findByPrescripcionDia(PrescripcionDia prescripcionDia){
-        Recambio recamb=new Recambio();
-        recamb.setPrescripcionDia(prescripcionDia);
-        recamb=encryptionService.getEncFrontend().getRecambio().desencriptar(recamb);
-        recamb=encryptionService.getEncBackend().getRecambio().encriptar(recamb);
-        List<Recambio> rec=this.repository.findByPrescripcionDia(recamb.getPrescripcionDia());
-        System.out.println("\u001B[31m"+rec+"\u001B[0m");
+        PrescripcionDia prescripcionDia1=encryptionService.getEncFrontend().getPrescripcionDia().desencriptar(prescripcionDia);
+        prescripcionDia1=encryptionService.getEncBackend().getPrescripcionDia().encriptar(prescripcionDia1);
+        List<Recambio> rec=this.repository.findByPrescripcionDia(prescripcionDia1);
             for (int i = 0; i < rec.size();i++) {
-                Recambio recambio=rec.get(i);
                 Recambio recambioDesencriptado = encryptionService.getEncBackend().getRecambio().desencriptar(rec.get(i));
                Recambio recambioEncriptado= encryptionService.getEncFrontend().getRecambio().encriptar(recambioDesencriptado);
 
                rec.set(i, recambioEncriptado);
-                //Recambio recambio=recambioEncriptado;
-                recambioDesencriptado=encriptandoRecambio(recambio);
             }
         return rec;
     }

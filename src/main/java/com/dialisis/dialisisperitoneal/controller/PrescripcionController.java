@@ -93,7 +93,6 @@ public class PrescripcionController {
         else {
             for (Cita cita:citas) {
                 Paciente p=cita.getPaciente();
-                p.setFoto(null);
                 cita.setPaciente(p);
                 UnionCitaPrescripcionDias prescripcion=new UnionCitaPrescripcionDias();
                 prescripcion.setCita(cita);
@@ -112,12 +111,12 @@ public class PrescripcionController {
         }
     }
     @PostMapping("/prescripcion/prescripcionActual")
-    public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody PacienteInDto paciente){
-        Paciente paciente1=new Paciente(paciente.getCedula());
-        UnionCitaPrescripcionDias cita=this.citaService.getPrescripcionActual(paciente1);
-        if(cita==null)
+    public ResponseEntity<UnionCitaPrescripcionDias> getPresciscionActual(@RequestBody PacienteInDto paciente) {
+        Paciente paciente1 = new Paciente(paciente.getCedula());
+        UnionCitaPrescripcionDias cita = this.citaService.getPrescripcionActual(paciente1);
+        if (cita == null)
             return ResponseEntity.noContent().build();
-        else{
+        else {
             return ResponseEntity.ok(cita);
         }
     }
@@ -126,7 +125,7 @@ public class PrescripcionController {
         try {
             Paciente paciente1 = new Paciente(paciente.getCedula());
             Cita cita = this.citaService.findUltimaCita(paciente1);
-            if (cita != null)
+           if (cita != null)
                 return ResponseEntity.ok(cita);
             else {
                 return ResponseEntity.noContent().build();

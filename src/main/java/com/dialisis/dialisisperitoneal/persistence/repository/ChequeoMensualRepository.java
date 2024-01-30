@@ -9,7 +9,7 @@ import java.util.List;
 public interface ChequeoMensualRepository extends JpaRepository<ChequeoMensual, Integer> {
 
     @Query(value = "SELECT * FROM chequeomensual where cita=:idCita",nativeQuery = true)
-    public List<ChequeoMensual> findUltimoChequeoMensual(int idCita);
+    public ChequeoMensual findUltimoChequeoMensual(int idCita);
 
     public ChequeoMensual findByCita(Cita cita);
 

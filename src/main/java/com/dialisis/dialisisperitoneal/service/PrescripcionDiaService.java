@@ -59,6 +59,7 @@ public class PrescripcionDiaService {
                 presD=encryptionService.getEncFrontend().getPrescripcionDia().encriptar(presD);
                 pd.set(i, presD);
             }
+
             return pd;
     }
 

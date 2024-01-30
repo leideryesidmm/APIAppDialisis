@@ -37,6 +37,7 @@ public class EncryptionServiceCita {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             if(cita.getMedico()!=null) {
                 Medico medico= new Medico(cita.getMedico());
+
                cita.setMedico(encryptionServiceMedico.desencriptar(medico));
             }
             if(cita.getPaciente()!=null) {

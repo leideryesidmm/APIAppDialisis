@@ -91,6 +91,7 @@ public class MedicoController{
     @PostMapping("/encontrarVisita/{id_cita}")
     public ResponseEntity<VisitaEspecialista> encontrarVisita(@PathVariable("id_cita") int idCita) {
         VisitaEspecialista visita=this.visitaService.findUltimaVisita(idCita);
+
         if(visita==null){
             return ResponseEntity.noContent().build();
         }
@@ -104,7 +105,7 @@ public class MedicoController{
     @GetMapping("/findAllEspecialidad")
     public ResponseEntity<List<Especialidad>> findAllEspecialidad(){
         List<Especialidad> especialidades=this.especialidadService.findAllEspecialidad();
-        if(especialidades==null||especialidades.isEmpty()){
+        if(especialidades.isEmpty()){
             return ResponseEntity.noContent().build();
         }else{
             return ResponseEntity.ok(especialidades);

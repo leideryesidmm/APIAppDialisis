@@ -17,7 +17,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
     @Query(value = "SELECT * FROM cita where paciente=:paciente and fecha >:hoy",nativeQuery = true)
     public List<Cita> findAllCitasFuturasByPaciente(Paciente paciente, LocalDateTime hoy);
     @Query(value = "SELECT * FROM cita where paciente=:paciente order by fecha DESC LIMIT 1 ",nativeQuery = true)
-    public List<Cita> findUltimaCita(Paciente paciente);
+    public Cita findUltimaCita(Paciente paciente);
     @Modifying
     @Query(value = "update cita set fecha_fin=:fecha, finalizado=true where id_cita=:cita",nativeQuery = true)
     public void finalizar(@Param("fecha") LocalDateTime fecha,

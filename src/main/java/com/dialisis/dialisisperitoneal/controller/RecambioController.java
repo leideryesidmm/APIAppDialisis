@@ -45,6 +45,7 @@ public class RecambioController {
             List<RecambioHecho> recambioHechos=new ArrayList<>();
             Paciente p=new Paciente(paciente.getCedula());
             UnionCitaPrescripcionDias presciscionActual=this.citaService.getPrescripcionActual(p);
+
             if(presciscionActual==null)
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             else{
@@ -84,10 +85,11 @@ public class RecambioController {
             List<Recambio> recambioPrescri;
             Cita cita = new Cita(idCita);
             List<PrescripcionDia> prescripcionDias = this.prescripcionDiaService.findByCita(cita);
-            System.out.println(prescripcionDias);
+
             for (PrescripcionDia prescripcionDia : prescripcionDias) {
                 UnionPrescripcionDiasRecambios prescripcionDiasRecambios = new UnionPrescripcionDiasRecambios();
                 prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);
+
                 prescripcionDiasRecambios.setRecambios(this.recambioService.findByPrescripcionDia(prescripcionDia));
                 recambioPrescri=prescripcionDiasRecambios.getRecambios();
                 for (Recambio recambio:recambioPrescri) {

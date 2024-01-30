@@ -30,6 +30,7 @@ public class PrescripcionDia {
     }
 
     public PrescripcionDia(PrescripcionDia p) {
+        this.idPrescripcionDia=p.getIdPrescripcionDia();
         this.cita=p.getCita();
         this.lunes=p.isLunes();
         this.martes=p.isMartes();

@@ -3,6 +3,7 @@ package com.dialisis.dialisisperitoneal.service;
 import com.dialisis.dialisisperitoneal.mapper.ChequeoMensualInDtoToChequeoMensual;
 import com.dialisis.dialisisperitoneal.persistence.entity.ChequeoMensual;
 import com.dialisis.dialisisperitoneal.persistence.entity.Cita;
+import com.dialisis.dialisisperitoneal.persistence.entity.VisitaEspecialista;
 import com.dialisis.dialisisperitoneal.persistence.repository.ChequeoMensualRepository;
 import com.dialisis.dialisisperitoneal.service.dto.ChequeoMensualInDto;
 import com.dialisis.dialisisperitoneal.service.encryption.EncryptionService;
@@ -37,12 +38,10 @@ public class ChequeoMensualService {
     }
 
     public ChequeoMensual findUltimoChequeo(int idCita) {
-        List<ChequeoMensual> chequeos=this.repository.findUltimoChequeoMensual(idCita);
-        ChequeoMensual chequeo;
-        if(chequeos.isEmpty())
+        ChequeoMensual chequeo=this.repository.findUltimoChequeoMensual(idCita);
+        if(chequeo==null)
             return null;
         else{
-            chequeo=chequeos.get(0);
             chequeo=encryptionService.getEncBackend().getChequeo().desencriptar(chequeo);
             chequeo=encryptionService.getEncFrontend().getChequeo().encriptar(chequeo);
             return chequeo;
