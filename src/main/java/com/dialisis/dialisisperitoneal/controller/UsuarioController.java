@@ -2,18 +2,16 @@ package com.dialisis.dialisisperitoneal.controller;
 
 import com.dialisis.dialisisperitoneal.persistence.entity.Medico;
 import com.dialisis.dialisisperitoneal.persistence.entity.Usuario;
+import com.dialisis.dialisisperitoneal.security.JWTAuthtenticationConfig;
 import com.dialisis.dialisisperitoneal.service.MedicoService;
 import com.dialisis.dialisisperitoneal.service.UsuarioService;
 import com.dialisis.dialisisperitoneal.service.dto.MedicoInDto;
 import com.dialisis.dialisisperitoneal.service.dto.UsuarioInDto;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,10 +19,13 @@ import java.util.List;
 public class UsuarioController {
     private final UsuarioService usuarioService;
     private final MedicoService medicoService;
+    private final JWTAuthtenticationConfig jwtAuthtenticationConfig;
 
-    public UsuarioController(UsuarioService usuarioService, MedicoService medicoService) {
+
+    public UsuarioController(UsuarioService usuarioService, MedicoService medicoService, JWTAuthtenticationConfig jwtAuthtenticationConfig) {
         this.usuarioService = usuarioService;
         this.medicoService = medicoService;
+        this.jwtAuthtenticationConfig = jwtAuthtenticationConfig;
     }
     @PostMapping
     public Usuario crearoUpdateUsuario(@RequestBody UsuarioInDto usuarioInDto){
@@ -65,13 +66,20 @@ public class UsuarioController {
     public Medico crearMedico(@RequestBody MedicoInDto medicoInDto){
         return this.medicoService.crearMedico(medicoInDto);
     }
-    @PostMapping("/findMedicoByCedula")
-    public ResponseEntity<Medico> findMedicoByCedula(@RequestBody MedicoInDto medicoInDto) {
+    @PostMapping("/findMedicoByCedula/{tipo}")
+    public ResponseEntity<Object> findMedicoByCedula(@RequestBody MedicoInDto medicoInDto, @PathVariable("tipo") boolean tipo) {
         try {
             Medico medico=this.medicoService.findByCedula(medicoInDto.getCedula());
-            if(medico!=null){
-            return ResponseEntity.ok(medico);}
-            else{
+            if(medico!=null) {
+                List<Object> ret = new ArrayList<>();
+                ret.add(medico);
+                if(tipo){
+                String token = jwtAuthtenticationConfig.getJWTToken(medico.getCedula());
+                ret.add(token);
+                System.out.println(ret);
+                }
+                return ResponseEntity.ok(ret);
+            }else{
                 return ResponseEntity.status(204).build();
             }
         }
@@ -109,10 +117,19 @@ public class UsuarioController {
     }
 
     @PostMapping("/findAdmin")
-    public ResponseEntity<Usuario> findAdmin(@RequestBody Usuario usuario){
+    public ResponseEntity<Object> findAdmin(@RequestBody Usuario usuario){
        Usuario usu= this.usuarioService.findAdmin(usuario);
         if(usu==null)
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(usu);
+        String token= jwtAuthtenticationConfig.getJWTToken(usu.getCedula());
+        List<Object> ret=new ArrayList<>();
+        ret.add(usu);
+        ret.add(token);
+        System.out.println(ret);
+        return ResponseEntity.ok(ret);
+    }
+    @GetMapping("/tokenValido")
+    public boolean findAdmin(){
+        return true;
     }
 }

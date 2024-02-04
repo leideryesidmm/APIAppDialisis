@@ -1,12 +1,14 @@
 package com.dialisis.dialisisperitoneal.controller;
 
 import com.dialisis.dialisisperitoneal.persistence.entity.*;
+import com.dialisis.dialisisperitoneal.security.JWTAuthtenticationConfig;
 import com.dialisis.dialisisperitoneal.service.*;
 import com.dialisis.dialisisperitoneal.service.dto.*;
 import com.dialisis.dialisisperitoneal.service.dto.uniones.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,22 +18,32 @@ public class PacienteController {
     private final ParentescoService parentescoService;
     private final CuidadorPacienteService cuidadorPacienteService;
     private final CuidadorService cuidadorService;
-    public PacienteController(PacienteService pacienteService, ParentescoService parentescoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService) {
+    private final JWTAuthtenticationConfig jwtAuthtenticationConfig;
+    public PacienteController(PacienteService pacienteService, ParentescoService parentescoService, CuidadorPacienteService cuidadorPacienteService, CuidadorService cuidadorService, JWTAuthtenticationConfig jwtAuthtenticationConfig) {
         this.pacienteService = pacienteService;
         this.parentescoService = parentescoService;
         this.cuidadorPacienteService = cuidadorPacienteService;
         this.cuidadorService = cuidadorService;
+        this.jwtAuthtenticationConfig = jwtAuthtenticationConfig;
     }
     @PostMapping("/crearPaciente")
     public Paciente crearPaciente(@RequestBody PacienteInDto pacienteInDto){
         return this.pacienteService.crearPaciente(pacienteInDto);
     }
-    @PostMapping("/findPacienteByCedula")
-    public ResponseEntity<Paciente> findPacienteByCedula(@RequestBody Paciente paciente){
+    @PostMapping("/findPacienteByCedula/{tipo}")
+    public ResponseEntity<List<Object>> findPacienteByCedula(@RequestBody Paciente paciente, @PathVariable("tipo") boolean tipo){
         try {
+            System.out.println(paciente);
             Paciente pac=this.pacienteService.findByCedula(paciente);
+            List<Object> ret=new ArrayList<>();
             if(pac!=null){
-                return ResponseEntity.ok(pac);}
+                ret.add(pac);
+                if(tipo==true){
+                String token= jwtAuthtenticationConfig.getJWTToken(pac.getCedula());
+                ret.add(token);
+                System.out.println(ret);
+               } return ResponseEntity.ok(ret);
+            }
             else{
                 return ResponseEntity.status(204).build();
             }
