@@ -42,13 +42,12 @@ public class CitaService {
     public Cita crearCita(CitaInDto citaInDto) {
             Cita cita = mapper.map(citaInDto);
             cita=encryptionService.getEncFrontend().getCita().desencriptar(cita);
-            cita=encryptionService.getEncBackend().getCita().encriptar(cita);
+           cita=encryptionService.getEncBackend().getCita().encriptar(cita);
             cita=this.repository.save(cita);
-            Cita citaMedica=new Cita(cita.getIdCita());
             //pasarle de cita a citaMedica
-            cita=encryptionService.getEncBackend().getCita().desencriptar(cita);
-            cita=encryptionService.getEncFrontend().getCita().encriptar(cita);
-            return cita;
+            Cita citaMedica=encryptionService.getEncBackend().getCita().desencriptar(new Cita(cita));
+        citaMedica=encryptionService.getEncFrontend().getCita().encriptar(citaMedica);
+            return citaMedica;
     }
 
     public List<Cita> findAllByPaciente(PacienteInDto paciente){
@@ -136,6 +135,7 @@ public class CitaService {
                 return cita;
             }
     }
+
     @Transactional
     public void  finalizarById(int cita){
         this.repository.finalizar(LocalDateTime.now(),cita);
@@ -164,5 +164,7 @@ public class CitaService {
            return citaPres;
         }
     }
+
+
 
 }

@@ -14,7 +14,6 @@ public class CitaInDtoToCita implements IMapper<CitaInDto, Cita>{
         cita.setMedico(new Medico(in.getMedico()));
         cita.setPaciente(new Paciente(in.getPaciente()));
         cita.setFecha(LocalDateTime.now());
-        cita.setHora(LocalDateTime.now());
         cita.setFechaFin(in.getFechaFin());
         cita.setOrificioSalida(in.getOrificioSalida());
         return cita;

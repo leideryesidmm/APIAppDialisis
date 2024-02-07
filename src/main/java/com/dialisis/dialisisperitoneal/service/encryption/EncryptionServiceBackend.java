@@ -2,6 +2,7 @@ package com.dialisis.dialisisperitoneal.service.encryption;
 
 import com.dialisis.dialisisperitoneal.service.encryption.servicesEncryEntity.*;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +25,7 @@ public class EncryptionServiceBackend {
     private final EncryptionServicePrescripcionDia prescripcionDia;
     private final EncryptionServiceVisitaEspecialistas visitaEspecialistas;
     public EncryptionServiceBackend() {
+
         this.prescripcionDia = new EncryptionServicePrescripcionDia(iv, clave);
         this.visitaEspecialistas = new EncryptionServiceVisitaEspecialistas(iv, clave);
         this.admin = new EncryptServiceAdmin(iv, clave);

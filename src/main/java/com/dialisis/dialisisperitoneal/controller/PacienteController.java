@@ -33,16 +33,14 @@ public class PacienteController {
     @PostMapping("/findPacienteByCedula/{tipo}")
     public ResponseEntity<List<Object>> findPacienteByCedula(@RequestBody Paciente paciente, @PathVariable("tipo") boolean tipo){
         try {
-            System.out.println(paciente);
-            Paciente pac=this.pacienteService.findByCedula(paciente);
+           Paciente pac=this.pacienteService.findByCedula(paciente);
             List<Object> ret=new ArrayList<>();
             if(pac!=null){
                 ret.add(pac);
                 if(tipo==true){
                 String token= jwtAuthtenticationConfig.getJWTToken(pac.getCedula());
                 ret.add(token);
-                System.out.println(ret);
-               } return ResponseEntity.ok(ret);
+                } return ResponseEntity.ok(ret);
             }
             else{
                 return ResponseEntity.status(204).build();
@@ -104,11 +102,7 @@ public class PacienteController {
     public void crearCuidador(@RequestBody UnionCuidadorPacienteInDto unionCuidadorPacienteInDto) {
         try {
             CuidadorPaciente cuidadorPaciente = this.cuidadorPacienteService.findCuidadorActivo(unionCuidadorPacienteInDto.getPacienteInDto().getCedula());
-            System.out.println("Cuidador activo");
-            System.out.println(cuidadorPaciente);
-            System.out.println(unionCuidadorPacienteInDto);
             if (cuidadorPaciente != null) {
-                System.out.println("hay un activo");
                 this.cuidadorPacienteService.inactivarCuidador(cuidadorPaciente);
             }
             Cuidador cuidador = this.cuidadorService.crearoActualizarCuidador(unionCuidadorPacienteInDto.getCuidadorInDto());

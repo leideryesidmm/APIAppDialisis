@@ -56,18 +56,12 @@ public class CuidadorService {
         try{
         Cuidador cuidador = cuidadorInDTOtoCuidador.map(cuidadorInDto);
         cuidador.setCedulaCuidador(cedula);
-            System.out.println(cuidador);
-        cuidador=encryptionService.getEncFrontend().getCuidador().desencriptar(new Cuidador(cuidador));
-            System.out.println(cuidador);
-        cuidador=encryptionService.getEncBackend().getCuidador().encriptar(new Cuidador(cuidador));
-            System.out.println(cuidador);
-        cuidador=this.cuidadorRepository.save(cuidador);
-            System.out.println(cuidador);
-        cuidador=encryptionService.getEncBackend().getCuidador().desencriptar(new Cuidador(cuidador));
-            System.out.println(cuidador);
-        cuidador=encryptionService.getEncFrontend().getCuidador().encriptar(new Cuidador(cuidador));
-            System.out.println(cuidador);
-        return cuidador;}
+            cuidador=encryptionService.getEncFrontend().getCuidador().desencriptar(new Cuidador(cuidador));
+            cuidador=encryptionService.getEncBackend().getCuidador().encriptar(new Cuidador(cuidador));
+            cuidador=this.cuidadorRepository.save(cuidador);
+            cuidador=encryptionService.getEncBackend().getCuidador().desencriptar(new Cuidador(cuidador));
+            cuidador=encryptionService.getEncFrontend().getCuidador().encriptar(new Cuidador(cuidador));
+            return cuidador;}
         catch (Exception e){
             e.printStackTrace();
             return null;

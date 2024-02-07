@@ -144,10 +144,8 @@ public class EncryptionServiceBD {
         return recambios;
     }
     public void encriptarRecambios(List<Recambio> recambios){
-        System.out.println(recambios);
         for (Recambio recambio: recambios) {
             recambio=encryptionService.getEncFrontend().getRecambio().desencriptar(recambio);
-            System.out.println(recambio);
             recambio=encryptionService.getEncBackend().getRecambio().encriptar(recambio);
 
             this.recambioRepository.save(recambio);
@@ -206,7 +204,6 @@ public class EncryptionServiceBD {
         try{p="yY71y94RdYyIa3l50BrXtA==";
             Paciente paciente =new Paciente("stghZ3dtHCy8WyefwX2grw==");
             paciente=encryptionService.getEncBackend().getPaciente().desencriptar(paciente);
-            System.out.println(paciente);
             }catch (Exception e){
             e.printStackTrace();
         }
