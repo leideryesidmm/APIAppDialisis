@@ -58,24 +58,15 @@ public class CuidadorPacienteService {
 
     public List<CuidadorPaciente> findAllByPaciente(String paciente){
         Paciente paciente1=new Paciente(paciente);
-        //System.out.println("\033[32m"+paciente1+"\u001B[0m");
         paciente1=encryptionService.getEncFrontend().getPaciente().desencriptar(paciente1);
-        //System.out.println("\033[34m"+paciente1+"\u001B[0m");
         paciente1=encryptionService.getEncBackend().getPaciente().encriptar(paciente1);
-        //System.out.println("\033[33m"+paciente1+"\u001B[0m");
         List<CuidadorPaciente> cuidadorPacientes= this.repository.findAllByPaciente(paciente1);
-        //System.out.println("\033[31m"+cuidadorPacientes+"\u001B[0m");
         List<CuidadorPaciente> cuidadorPacientes1= new ArrayList<>();
         CuidadorPaciente cuidadorPaciente=new CuidadorPaciente();
         for (int i = 0; i < cuidadorPacientes.size(); i++) {
-            //System.out.println(i);
-            //System.out.println("\033[36m"+cuidadorPacientes.get(i)+"\u001B[0m");
             cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(cuidadorPacientes.get(i));
-            //System.out.println("\033[37m"+cuidadorPaciente+"\u001B[0m");
             cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(cuidadorPaciente);
             cuidadorPacientes1.add(cuidadorPaciente);
-            //System.out.println(cuidadorPaciente);
-            //System.out.println(i);
         }
         return cuidadorPacientes1;
     }

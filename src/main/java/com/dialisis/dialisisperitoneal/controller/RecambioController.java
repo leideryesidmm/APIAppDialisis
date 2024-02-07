@@ -93,7 +93,7 @@ public class RecambioController {
                 prescripcionDiasRecambios.setRecambios(this.recambioService.findByPrescripcionDia(prescripcionDia));
                 recambioPrescri=prescripcionDiasRecambios.getRecambios();
                 for (Recambio recambio:recambioPrescri) {
-                    recambioHechos.addAll(this.recambioHechoService.findByRecambio(recambio));
+                    recambioHechos.addAll(this.recambioHechoService.findByRecambio(new Recambio(recambio)));
                 }
             }
             return ResponseEntity.ok(recambioHechos);

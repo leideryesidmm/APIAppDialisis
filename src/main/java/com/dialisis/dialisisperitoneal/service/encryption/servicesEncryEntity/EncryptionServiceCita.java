@@ -38,7 +38,7 @@ public class EncryptionServiceCita {
             if(cita.getMedico()!=null) {
                 Medico medico= new Medico(cita.getMedico());
 
-               cita.setMedico(encryptionServiceMedico.desencriptar(medico));
+               cita.setMedico(encryptionServiceMedico.desencriptar(new Medico(medico)));
             }
             if(cita.getPaciente()!=null) {
                 Paciente paciente= new Paciente(cita.getPaciente());

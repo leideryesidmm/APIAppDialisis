@@ -157,7 +157,7 @@ public class CitaService {
             for (PrescripcionDia prescripcionDia : prescripcionDias) {
                 UnionPrescripcionDiasRecambios prescripcionDiasRecambios = new UnionPrescripcionDiasRecambios();
                 prescripcionDiasRecambios.setPrescripcionDia(prescripcionDia);
-                prescripcionDiasRecambios.setRecambios(this.recambioService.findByPrescripcionDia(prescripcionDia));
+                prescripcionDiasRecambios.setRecambios(this.recambioService.findByPrescripcionDia(new PrescripcionDia(prescripcionDia)));
                 listPrescripcionDiasRecambios.add(prescripcionDiasRecambios);
             }
             citaPres.setUnionPrescripcionDiasRecambios(listPrescripcionDiasRecambios);

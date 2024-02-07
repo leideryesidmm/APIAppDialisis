@@ -59,10 +59,15 @@ public class RecambioHechoService {
         recambio=encryptionService.getEncBackend().getRecambio().encriptar(recambio);
         List<RecambioHecho> rec=this.repository.findByRecambio(recambio);
             for (int i = 0; i < rec.size(); i++) {
-                RecambioHecho rh=encryptionService.getEncBackend().getRecambioHecho().desencriptar(rec.get(i));
+                RecambioHecho rh=rec.get(i);
+                rh.setRecambio(null);
+                rh=encryptionService.getEncBackend().getRecambioHecho().desencriptar(rh);
                 rh=encryptionService.getEncFrontend().getRecambioHecho().encriptar(rh);
+                rh.setRecambio(recambio);
                 rec.set(i,rh);
             }
+        recambio=encryptionService.getEncBackend().getRecambio().desencriptar(recambio);
+        recambio=encryptionService.getEncFrontend().getRecambio().encriptar(recambio);
             return rec;
     }
 

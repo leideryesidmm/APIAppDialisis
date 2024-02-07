@@ -104,14 +104,11 @@ public class PrescripcionController {
                     UnionPrescripcionDiasRecambios precrip=new UnionPrescripcionDiasRecambios();
                     precrip.setPrescripcionDia(prescripcionDia);
                     precrip.setRecambios(this.recambioService.findRecambiosByPrescripcionDia(prescripcionDia));
-                    System.out.println("\u001B[35m"+precrip+"\u001B[0m");
                     recambios.add(precrip);
                 }
                 prescripcion.setUnionPrescripcionDiasRecambios(recambios);
-                System.out.println("\u001B[34m"+prescripcion+"\u001B[0m");
                 prescripciones.add(prescripcion);
             }
-            System.out.println("\u001B[31m"+prescripciones+"\u001B[0m");
 
             return ResponseEntity.ok(prescripciones);
         }
