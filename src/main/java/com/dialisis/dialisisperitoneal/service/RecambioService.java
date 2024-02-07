@@ -40,18 +40,27 @@ public class RecambioService {
     }
 
     public List<Recambio> findByPrescripcionDia(PrescripcionDia prescripcionDia){
-        PrescripcionDia prescripcionDia1=encryptionService.getEncFrontend().getPrescripcionDia().desencriptar(prescripcionDia);
+        PrescripcionDia prescripcionDia1=new PrescripcionDia(prescripcionDia);
+        prescripcionDia1=encryptionService.getEncFrontend().getPrescripcionDia().desencriptar(prescripcionDia1);
         prescripcionDia1=encryptionService.getEncBackend().getPrescripcionDia().encriptar(prescripcionDia1);
         List<Recambio> rec=this.repository.findByPrescripcionDia(prescripcionDia1);
-            for (int i = 0; i < rec.size();i++) {
+        for (int i = 0; i < rec.size();i++) {
                 Recambio recambioDesencriptado = encryptionService.getEncBackend().getRecambio().desencriptar(rec.get(i));
-               Recambio recambioEncriptado= encryptionService.getEncFrontend().getRecambio().encriptar(recambioDesencriptado);
-
-               rec.set(i, recambioEncriptado);
+                Recambio recambioEncriptado= encryptionService.getEncFrontend().getRecambio().encriptar(recambioDesencriptado);
+                rec.set(i, recambioEncriptado);
             }
         return rec;
     }
 
+
+    public List<Recambio> findRecambiosByPrescripcionDia(PrescripcionDia prescripcionDia){
+        PrescripcionDia prescripcionDia1=new PrescripcionDia(prescripcionDia);
+        prescripcionDia1=encryptionService.getEncFrontend().getPrescripcionDia().desencriptar(prescripcionDia1);
+        prescripcionDia1=encryptionService.getEncBackend().getPrescripcionDia().encriptar(prescripcionDia1);
+        List<Recambio> rec=this.repository.findByPrescripcionDia(prescripcionDia1);
+        System.out.println("\u001B[33m"+rec+"\u001B[0m");
+        return rec;
+    }
     public Recambio encriptandoRecambio(Recambio recambio){
         Recambio recambioEncriptado=encryptionService.getEncFrontend().getRecambio().desencriptar(recambio);
         recambioEncriptado=encryptionService.getEncBackend().getRecambio().encriptar(recambioEncriptado);

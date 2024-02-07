@@ -62,9 +62,7 @@ public class PacienteService {
     @Transactional
     public void actualizarDatosPaciente(Paciente pac) {
         pac = encryptionService.getEncFrontend().getPaciente().desencriptar(pac);
-        System.out.println(pac);
         pac = encryptionService.getEncBackend().getPaciente().encriptar(pac);
-        System.out.println(pac);
         this.repository.save(pac);
     }
 

@@ -9,7 +9,6 @@ public class CitaInDto {
     private String paciente;
     private LocalDateTime fecha;
     private LocalDateTime fechaFin;
-    private LocalDateTime hora;
     private String orificioSalida;
 
 }

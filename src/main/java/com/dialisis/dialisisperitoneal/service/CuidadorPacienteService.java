@@ -33,15 +33,9 @@ public class CuidadorPacienteService {
     public CuidadorPaciente crearCuidadorPaciente(CuidadorPacienteInDto cuidadorpacienteInDto){
         try{
             CuidadorPaciente cuidadorpaciente=this.mapper.map(cuidadorpacienteInDto);
-            System.out.println("\033[32m"+cuidadorpaciente+"\u001B[0m");
             cuidadorpaciente=encryptionService.getEncFrontend().getCuidadorPaciente().desencriptar(cuidadorpaciente);
-            System.out.println("\033[34m"+cuidadorpaciente+"\u001B[0m");
             cuidadorpaciente=encryptionService.getEncBackend().getCuidadorPaciente().encriptar(cuidadorpaciente);
-            System.out.println("\033[35m"+cuidadorpaciente+"\u001B[0m");
-            //CuidadorPaciente cuidadorPaciente2=new CuidadorPaciente();
-            //cuidadorPaciente2.setPaciente(new Paciente("YivYZY93Q6+CRlHRIZksmQ=="));
-            //cuidadorPaciente2.setCuidador(new Cuidador("zkIyr6xBgrtf5MwG8fGYNg=="));
-            cuidadorpaciente.setActivo(true);
+             cuidadorpaciente.setActivo(true);
             this.repository.save(cuidadorpaciente);
             cuidadorpaciente=encryptionService.getEncBackend().getCuidadorPaciente().desencriptar(new CuidadorPaciente(cuidadorpaciente));
             cuidadorpaciente=encryptionService.getEncFrontend().getCuidadorPaciente().encriptar(new CuidadorPaciente(cuidadorpaciente));
@@ -112,7 +106,6 @@ public class CuidadorPacienteService {
     public void inactivarCuidador(CuidadorPaciente cuidadorPaciente){
         cuidadorPaciente=encryptionService.getEncFrontend().getCuidadorPaciente().desencriptar(cuidadorPaciente);
         cuidadorPaciente=encryptionService.getEncBackend().getCuidadorPaciente().encriptar(cuidadorPaciente);
-        System.out.println("id del cuidador activo= "+cuidadorPaciente);
         LocalDate fechaFinal= LocalDate.now();
         try {
             cuidadorPaciente.setActivo(false);

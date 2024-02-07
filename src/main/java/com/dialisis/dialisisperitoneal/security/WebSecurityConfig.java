@@ -10,6 +10,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.Arrays;
+
 @EnableWebSecurity
 @Configuration
 class WebSecurityConfig{
@@ -22,10 +24,18 @@ class WebSecurityConfig{
 
         http
                 .csrf((csrf) -> csrf.disable())
-                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+                .cors().configurationSource(request -> {
+                    CorsConfiguration corsConfiguration = new CorsConfiguration();
+                    corsConfiguration.applyPermitDefaultValues();
+
+                    // Permitir métodos específicos
+                    corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE"));
+
+                    return corsConfiguration;
+                })
                 .and()
                 .authorizeRequests()
-                        .antMatchers(HttpMethod.POST, "/paciente/findPacienteByCedula/{tipo}","/Usuario/findMedicoByCedula/{tipo}","/Usuario/findAdmin").permitAll()
+                        .antMatchers("/paciente/findPacienteByCedula/{tipo}","/Usuario/findMedicoByCedula/{tipo}","/Usuario/findAdmin", "/Usuario/claveFrontend", "/Usuario/ivFrontend").permitAll()
                         .anyRequest().authenticated()
                 .and()
                 .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

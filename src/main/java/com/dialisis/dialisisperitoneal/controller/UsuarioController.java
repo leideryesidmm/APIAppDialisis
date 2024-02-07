@@ -7,6 +7,7 @@ import com.dialisis.dialisisperitoneal.service.MedicoService;
 import com.dialisis.dialisisperitoneal.service.UsuarioService;
 import com.dialisis.dialisisperitoneal.service.dto.MedicoInDto;
 import com.dialisis.dialisisperitoneal.service.dto.UsuarioInDto;
+import com.dialisis.dialisisperitoneal.service.encryption.EncryptionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +21,14 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final MedicoService medicoService;
     private final JWTAuthtenticationConfig jwtAuthtenticationConfig;
+    private final EncryptionService encryptionService;
 
 
-    public UsuarioController(UsuarioService usuarioService, MedicoService medicoService, JWTAuthtenticationConfig jwtAuthtenticationConfig) {
+    public UsuarioController(UsuarioService usuarioService, MedicoService medicoService, JWTAuthtenticationConfig jwtAuthtenticationConfig, EncryptionService encryptionService) {
         this.usuarioService = usuarioService;
         this.medicoService = medicoService;
         this.jwtAuthtenticationConfig = jwtAuthtenticationConfig;
+        this.encryptionService = encryptionService;
     }
     @PostMapping
     public Usuario crearoUpdateUsuario(@RequestBody UsuarioInDto usuarioInDto){
@@ -76,7 +79,6 @@ public class UsuarioController {
                 if(tipo){
                 String token = jwtAuthtenticationConfig.getJWTToken(medico.getCedula());
                 ret.add(token);
-                System.out.println(ret);
                 }
                 return ResponseEntity.ok(ret);
             }else{
@@ -116,6 +118,7 @@ public class UsuarioController {
         this.usuarioService.restaurarContrasenia(usuarioInDto.getCedula());
     }
 
+
     @PostMapping("/findAdmin")
     public ResponseEntity<Object> findAdmin(@RequestBody Usuario usuario){
        Usuario usu= this.usuarioService.findAdmin(usuario);
@@ -125,11 +128,21 @@ public class UsuarioController {
         List<Object> ret=new ArrayList<>();
         ret.add(usu);
         ret.add(token);
-        System.out.println(ret);
         return ResponseEntity.ok(ret);
     }
     @GetMapping("/tokenValido")
     public boolean findAdmin(){
         return true;
     }
+
+    @GetMapping("/claveFrontend")
+    public String claveFrontend(){
+        return encryptionService.getEncFrontend().getClave();
+    }
+
+    @GetMapping("/ivFrontend")
+        public String ivFrontend(){
+            return encryptionService.getEncFrontend().getIv();
+        }
+
 }

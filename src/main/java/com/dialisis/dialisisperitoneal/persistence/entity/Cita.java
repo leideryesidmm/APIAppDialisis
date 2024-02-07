@@ -19,7 +19,6 @@ public class Cita {
     private Paciente paciente;
     private LocalDateTime fecha;
     private LocalDateTime fechaFin;
-    private LocalDateTime hora;
     private String orificioSalida;
     private boolean finalizado;
     public Cita(){
@@ -30,13 +29,12 @@ public class Cita {
         this.idCita = idCita;
     }
 
-    public Cita(int idCita, Medico medico, Paciente paciente, LocalDateTime fecha, LocalDateTime fechaFin, LocalDateTime hora, String orificioSalida, boolean finalizado) {
+    public Cita(int idCita, Medico medico, Paciente paciente, LocalDateTime fecha, LocalDateTime fechaFin, String orificioSalida, boolean finalizado) {
         this.idCita = idCita;
         this.medico = medico;
         this.paciente = paciente;
         this.fecha = fecha;
         this.fechaFin = fechaFin;
-        this.hora = hora;
         this.orificioSalida = orificioSalida;
         this.finalizado = finalizado;
     }
@@ -47,7 +45,6 @@ public class Cita {
         this.paciente = c.getPaciente();
         this.fecha = c.getFecha();
         this.fechaFin = c.getFechaFin();
-        this.hora = c.getHora();
         this.orificioSalida = c.getOrificioSalida();
         this.finalizado = c.isFinalizado();
     }
